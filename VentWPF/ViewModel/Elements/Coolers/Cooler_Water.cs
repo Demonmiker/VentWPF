@@ -14,7 +14,7 @@ namespace VentWPF.ViewModel
         public Cooler_Water()
         {
             Name = "Охладитель жидкостный";
-            image = "Cooler_Water";
+            image = "Cooler_Water.png";
         }
 
         [DisplayName("Производительность"), Category(c1), PropertyOrder(1)]
