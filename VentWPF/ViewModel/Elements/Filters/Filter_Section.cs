@@ -10,11 +10,12 @@ using VentWPF.Model;
 namespace VentWPF.ViewModel
 {
     
-    class Filter : HasDownPressure
+    class Filter_Section : HasDownPressure
     {
-        public Filter()
+        public Filter_Section()
         {
             Name = "Фильтр секционный";
+            image = "Filter_Section.png";
         }
 
         [DisplayName("Класс очистки"), Category(c1), PropertyOrder(7)]

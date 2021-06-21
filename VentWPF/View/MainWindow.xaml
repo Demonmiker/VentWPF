@@ -15,7 +15,12 @@
         FontFamily="{md:MaterialDesignFont}"
         Title="MainWindow" Height="720" Width="1280">
   <Window.Resources>
-    
+    <Style TargetType="{x:Type Image}">
+      <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+    </Style>
+    <vm:Heater_Water x:Key="hw"/>
+    <vm:Heater_Gas x:Key="hg"/>
+    <vm:Heater_Electric x:Key="he"/>
   </Window.Resources>
   <Window.DataContext>
     <vm:MainViewModel/>
@@ -49,23 +54,13 @@
                 <Setter Property="Margin" Value="-16" />
               </Style>
             </StackPanel.Resources>
-           
-            <Button>
-              <Button.DataContext>
-                <vm:Heater_Water/>
-              </Button.DataContext>
+
+            <Button DataContext="{StaticResource hw}">
               <Image Source="{Binding Image}" />
             </Button>
-            <Button>
-              <Button.DataContext>
-                <vm:Heater_Water/>
-              </Button.DataContext>
-              <Button.ContextMenu>
-                <ContextMenu>
-                  <Image Source="{Binding Image}" Margin="-3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                </ContextMenu>
-              </Button.ContextMenu>
-            </Button>
+            <Button/>
+
+
             <Button/>
             <Button/>
             <Button/>

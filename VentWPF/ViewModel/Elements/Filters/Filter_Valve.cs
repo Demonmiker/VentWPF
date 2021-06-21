@@ -9,11 +9,12 @@ using VentWPF.Model;
 namespace VentWPF.ViewModel
 {
     
-    class Filter_clap : HasDownPressure
+    class Filter_Valve : HasDownPressure
     {
-        public Filter_clap()
+        public Filter_Valve()
         {
             Name = "Фильтр клапанный";
+            image = "Filter_Valve.png";
         }
 
        
