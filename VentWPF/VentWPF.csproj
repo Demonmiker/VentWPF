@@ -18,6 +18,9 @@
     <None Update="Assets\Images\Empty.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\Images\Heater_Electric.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\Images\Heater_Gas.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
