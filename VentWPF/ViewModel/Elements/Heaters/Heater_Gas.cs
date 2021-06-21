@@ -13,6 +13,7 @@ namespace VentWPF.ViewModel
         public Heater_Gas()
         {
             Name = "Нагреватель газовый";
+            image = "Heater_Gas.png";
         }
         
         [DisplayName("Производительность"), Category(c1), PropertyOrder(1)]

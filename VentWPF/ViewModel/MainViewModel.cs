@@ -16,7 +16,7 @@ namespace VentWPF.ViewModel
         {
             Table = new ObservableCollection<Element>()
             {
-                new (),new Heater_Water(),new (),new(),new (),new(),new (),new(),new (),new(),
+                new Heater_Gas(),new Heater_Water(),new (),new(),new (),new(),new (),new(),new (),new(),
                 new (),new(),new (),new(),new (),new(),new (),new(),new (),new(),
             };
         }
