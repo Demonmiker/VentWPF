@@ -20,19 +20,27 @@ namespace VentWPF.ViewModel
                 new Heater_Gas(),new Heater_Water(),new Heater_Electric(),new Cooler_Fr(),new Cooler_Water(),new(),new (),new(),new (),new(),
                 new Filter_Section(),new Filter_Short(),new Filter_Valve(),new(),new (),new(),new (),new(),new (),new(),
             };
-
-            AddElement = new()
+            AddElementCommand = new()
             {
-                action = (x) => SelectedElement = (Element)x
+                action = (x) =>
+                {
+                    if (SelectedIndex >= 0 && SelectedIndex < Table.Count)
+                        Table[SelectedIndex] = (Element)x;
+                }
             };
+
+           
         }
 
         public ObservableCollection<Element> Table { get; set; }
 
-        
+        public int SelectedIndex { get; set; } = 0;
+
         public Element SelectedElement { get; set; }
 
-        public Command AddElement { get; init; }
+        public Command AddElementCommand { get; init; }
+
+       
       
 
         

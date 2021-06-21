@@ -15,6 +15,7 @@ namespace VentWPF.ViewModel
         public Cooler_Fr()
         {
             Name = "Охладитель Фреонный";
+            image = "Cooler_Fr";
         }
 
         [DisplayName("Производительность"), Category(c1), PropertyOrder(1)]

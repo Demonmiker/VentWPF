@@ -55,13 +55,16 @@
               </Style>
             </StackPanel.Resources>
 
-            <Button DataContext="{StaticResource hw}">
-              <Image Source="{Binding Image}" />
+            <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource hw}">
+              <Image DataContext="{StaticResource hw}" Source="{Binding Image}" />
             </Button>
-            <Button/>
-
-
-            <Button/>
+             <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource hg}">
+              <Image DataContext="{StaticResource hg}" Source="{Binding Image}" />
+            </Button>
+             <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource he}">
+              <Image DataContext="{StaticResource he}" Source="{Binding Image}" />
+            </Button>
+          
             <Button/>
             <Button/>
             <Button/>
@@ -76,9 +79,9 @@
         <md:Card DockPanel.Dock="Bottom">
           <Viewbox Stretch="Uniform">
             <ListBox Width="750" Height="150" Background="LightGray" 
-                     SelectedIndex="0"
                      ItemsSource="{Binding Table}"  
-                     SelectedItem="{Binding SelectedElement}">
+                     SelectedItem="{Binding SelectedElement}"
+                     SelectedIndex="{Binding SelectedIndex}">
               <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                   <UniformGrid Rows="2" Columns="10"/>

@@ -22,7 +22,7 @@ namespace VentWPF.Tools
             CommandManager.InvalidateRequerySuggested();
         }
 
-        public bool CanExecute(object parameter) => predicate(parameter);
+        public bool CanExecute(object parameter) => predicate==null ? true : predicate(parameter);
 
         public virtual void Execute(object parameter) => action(parameter);
 
