@@ -105,26 +105,36 @@
                    ItemsSource="{Binding Table}"  
                    SelectedItem="{Binding SelectedElement}"
                    SelectedIndex="{Binding SelectedIndex}">
-            <ListBox.ItemsPanel>
-              <ItemsPanelTemplate>
-                <UniformGrid Rows="2" Columns="10"/>
-              </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <ListBox.ItemTemplate>
-              <DataTemplate DataType="ElementVM">
-                <Image Source="{Binding Image}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="-6"/>
-              </DataTemplate>
-            </ListBox.ItemTemplate>
-          </ListBox>
+              <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <UniformGrid Rows="2" Columns="10">
+                    <UniformGrid.Style >
+                      <Style TargetType="{x:Type UniformGrid}">
+                        <Style.Triggers>
+                          <DataTrigger Binding="{Binding CurrentProject.Rows}" Value="1">
+                            <Setter Property="Rows" Value="1" />
+                          </DataTrigger>
+                        </Style.Triggers>
+                      </Style>
+                    </UniformGrid.Style>
+                  </UniformGrid>
+                </ItemsPanelTemplate>
+              </ListBox.ItemsPanel>
+              <ListBox.ItemTemplate>
+                <DataTemplate DataType="ElementVM">
+                  <Image Source="{Binding Image}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="-6"/>
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+            </ListBox>
           </ScrollViewer>
-          
-
         </md:Card>
         <Rectangle DockPanel.Dock="Bottom" Height="5" HorizontalAlignment="Stretch" Fill="{DynamicResource MaterialDesignDarkBackground}"/>
         <Rectangle DockPanel.Dock="Top" Height="5" HorizontalAlignment="Stretch" Fill="{DynamicResource MaterialDesignDarkBackground}"/>
         <!--Основная панель-->
         <TabControl Margin="0,2,0,0">
-          <TabItem Header="Проект"/>
+          <TabItem Header="Проект">
+            <ex:PropertyGrid SelectedObject="{Binding CurrentProject}"  Width="400" TabVisibility="Collapsed"/>
+          </TabItem>
           <TabItem Header="Подбор"/>
           <TabItem Header="Графики"/>
           <TabItem Header="Схема"/>

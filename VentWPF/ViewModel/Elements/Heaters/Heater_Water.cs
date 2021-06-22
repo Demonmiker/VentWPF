@@ -36,7 +36,7 @@ namespace VentWPF.ViewModel
         public float humidityOutSide { get; set; } = project.Humid;
 
         [DisplayName("Теплоноситель"), Category(c1), PropertyOrder(7)]
-        public coolantType coolant { get; set; }
+        public CoolantType coolant { get; set; }
 
 
         private float AB = (((float)project.With / 1000) * ((float)project.Height / 1000));

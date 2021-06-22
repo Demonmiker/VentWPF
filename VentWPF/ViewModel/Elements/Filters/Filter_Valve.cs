@@ -21,16 +21,16 @@ namespace VentWPF.ViewModel
 
        
         [DisplayName("Класс очистки"), Category(c1), PropertyOrder(7)]
-        public FClassType FC { get; set; }
+        public FilterClassType FC { get; set; }
 
         [DisplayName("Падение давления при загряз. 50%"), Category(c2), PropertyOrder(1)]
         public override float pressureDrop
         {
             get
             {
-                if (FC == FClassType.G4)
+                if (FC == FilterClassType.G4)
                     return (float)175;
-                if (FC == FClassType.F5)
+                if (FC == FilterClassType.F5)
                     return (float)225;
                 else
                     return (float)275;

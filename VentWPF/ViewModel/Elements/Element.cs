@@ -10,7 +10,7 @@ using VentWPF.Model;
 namespace VentWPF.ViewModel
 {
     
-    public  class Element
+    public class Element
     {
         public const string c1 = "Данные";
         public const string c2 = "Информация";
@@ -24,7 +24,7 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         public string Image => Path.GetFullPath("Assets/Images/"+image);
 
-        public static Project project { get; set; } = new();
+        public static ProjectVM project { get; set; } = new();
 
         
 

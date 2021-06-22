@@ -30,7 +30,7 @@ namespace VentWPF.ViewModel
         public float humidityOutSide { get; set; } = project.Humid;
 
         [DisplayName("Горелка"), Category(c1), PropertyOrder(7)]
-        public torchType torch { get; set; }
+        public TorchType torch { get; set; }
 
 
         private float AB = (((float)project.With / 1000) * ((float)project.Height / 1000));
