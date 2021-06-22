@@ -22,7 +22,7 @@
   <Window.DataContext>
     <vm:MainViewModel />
   </Window.DataContext>
-  <Window.Resources> 
+  <Window.Resources>
     <!--  Ресурсы окна  -->
     <Style TargetType="{x:Type Image}">
       <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
@@ -239,9 +239,24 @@
             SelectedObject="{Binding SelectedElement}"
             TabVisibility="Collapsed" />
           <DataGrid
+            x:Name="dg"
             Grid.Row="2"
             Height="500"
-            ItemsSource="{Binding Table}" />
+            AutoGenerateColumns="True"
+            Background="LightBlue"
+            ItemsSource="{Binding SelectedElement.Query}">
+            <DataGrid.Style>
+              <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="{x:Type DataGrid}">
+                <Setter Property="Visibility" Value="Visible" />
+                <Style.Triggers>
+                  <DataTrigger Binding="{Binding Items.Count, ElementName=dg}" Value="0">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                  </DataTrigger>
+                </Style.Triggers>
+              </Style>
+            </DataGrid.Style>
+          </DataGrid>
+
         </Grid>
       </ScrollViewer>
 

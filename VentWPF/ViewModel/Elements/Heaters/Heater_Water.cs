@@ -1,5 +1,6 @@
 ﻿using PropertyTools.DataAnnotations;
 using System;
+using System.Collections.Generic;
 using VentWPF.Model;
 
 namespace VentWPF.ViewModel
@@ -10,6 +11,8 @@ namespace VentWPF.ViewModel
         {
             Name = "Нагреватель жидкосный";
             image = "Heaters/Heater_Water.png";
+
+            Query = new List<Element>() { new Heater_Electric(), new Heater_Gas() };
         }
 
         #region Данные
@@ -73,6 +76,8 @@ namespace VentWPF.ViewModel
 
         [Browsable(false)]
         public float pD2 => (float)(Math.Exp((1500.3 + 23.5 * tOut) / (234 + tOut)));
+
+
 
 
     }
