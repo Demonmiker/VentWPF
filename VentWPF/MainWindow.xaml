@@ -35,7 +35,7 @@
     </StatusBar>
     <Grid>
       <Grid.ColumnDefinitions >
-        <ColumnDefinition Width="5*" MinWidth="840"/>
+        <ColumnDefinition Width="5*" MinWidth="600"/>
         <ColumnDefinition Width="2*" MinWidth="400"/>
       </Grid.ColumnDefinitions>
       <GridSplitter HorizontalAlignment="Right" Width="6" Margin="0,0,0,0" Background="Transparent" Panel.ZIndex="2"/>
@@ -43,15 +43,13 @@
         <Rectangle DockPanel.Dock="Right" Width="5" VerticalAlignment="Stretch" Fill="{DynamicResource MaterialDesignDarkBackground}"/>
         <!--Верхняя панель для содания элементов-->
         <md:Card  DockPanel.Dock="Top" Background="LightGray">
-          <ScrollViewer HorizontalScrollBarVisibility="Auto">
-             <UniformGrid Width="auto" Height="100" Columns="10"
-                   Margin="0,5">
+          <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+             <UniformGrid Width="830" Height="90" Columns="10" HorizontalAlignment="Left">
                <UniformGrid.Resources>
                   <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}" >
                     <Setter Property="Width" Value="75" />
-                    <Setter Property="Height" Value="75" />
-                    <Setter Property="Margin" Value="4,2" />
-                  </Style>
+                  <Setter Property="Height" Value="75" />
+                </Style>
                   <Style TargetType="{x:Type Image}">
                     <Setter Property="Margin" Value="-16" />
                   </Style>
