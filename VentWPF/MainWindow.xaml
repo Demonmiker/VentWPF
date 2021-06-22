@@ -21,7 +21,6 @@
     <vm:Heater_Water x:Key="hw"/>
     <vm:Heater_Gas x:Key="hg"/>
     <vm:Heater_Electric x:Key="he"/>
-    <Image Source="Assets/Images/Cooler.png" x:Key="cooler"/>
   </Window.Resources>
   <Window.DataContext>
     <vm:MainViewModel/>

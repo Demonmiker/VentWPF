@@ -19,7 +19,7 @@ namespace VentWPF.ViewModel
         //
         //FanData fd;
 
-        //[DisplayName("Элемент:"), Category(c2), PropertyOrder(3)]
+        //[DisplayName("Элемент:")][Category(c2), PropertyOrder(3)]
         //public string Id => fd?.ARTICLE_NO;
     }
 }

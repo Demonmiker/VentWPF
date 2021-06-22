@@ -9,7 +9,7 @@ using VentWPF.Model;
 namespace VentWPF.ViewModel
 {
     
-    class Valve_Ver_Heat : HasDownPressure
+    class Valve_Ver_Heat : HasPerformance
     {
         public Valve_Ver_Heat()
         {
@@ -17,14 +17,11 @@ namespace VentWPF.ViewModel
             image = "Valves/Valve_Ver_Heat.png";
 
         }
-        [DisplayName("Производительность"), Category(c1), PropertyOrder(1)]
-        public float performance => project.VFlow;
 
-        [DisplayName("Падение давления"), Category(c2), PropertyOrder(1)]
-        public override float pressureDrop => 15;
-
-        [DisplayName("Количество ТЭНов"), Category(c1), PropertyOrder(2)]
+        [DisplayName("Количество ТЭНов")][Category(c1), PropertyOrder(2)]
         public float TEN_count { get; set; } = 3;
 
+
+        public override float Performance => 15;
     }
 }

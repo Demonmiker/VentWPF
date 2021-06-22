@@ -7,22 +7,16 @@ using PropertyTools.DataAnnotations;
 using VentWPF.Model;
 
 namespace VentWPF.ViewModel
-{    
-    
-    class Valve_Hor : HasDownPressure
+{
+
+    class Valve_Hor : HasPerformance
     {
         public Valve_Hor()
         {
             Name = "Воздушный клапан горизонтальный";
             image = "Valves/Valve_Hor.png";
         }
-        [DisplayName("Производительность"), Category(c1), PropertyOrder(1)]
-        public float performance => project.VFlow;
 
-
-
-        [DisplayName("Падение давления"), Category(c2), PropertyOrder(1)]
-        public override float pressureDrop => 15;
-
+        public override float Performance => 15;
     }
 }

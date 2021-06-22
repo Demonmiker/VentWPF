@@ -1,29 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PropertyTools.DataAnnotations;
+﻿using PropertyTools.DataAnnotations;
 using VentWPF.Model;
 
 namespace VentWPF.ViewModel
 {
-    
-    class Muffler_Corrector : HasDownPressure
+    internal class Muffler_Corrector : HasPerformance
     {
         public Muffler_Corrector()
         {
             Name = "Шумоглушитель с выравниванием";
             image = "Mufflers/Muffler_Corrector.png";
         }
-        [DisplayName("Производительность"), Category(c1), PropertyOrder(1)]
-        public float performance => project.VFlow;
 
-        [DisplayName("Длинна секции"), Category(c1), PropertyOrder(7)]
+        [DisplayName("Длинна секции")]
+        [Category(c1), PropertyOrder(7)]
         public Section FC { get; set; }
 
-        [DisplayName("Падение давления"), Category(c2), PropertyOrder(1)]
-        public override float pressureDrop
+        [DisplayName("Падение давления")]
+        [Category(c2), PropertyOrder(1)]
+        public override float PressureDrop
         {
             get
             {
@@ -33,7 +27,6 @@ namespace VentWPF.ViewModel
                     return (float)55;
                 else
                     return (float)60;
-
             }
         }
     }
