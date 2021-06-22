@@ -99,24 +99,26 @@
          
         </md:Card>
         <!--Нижняя панель для констурирования системы-->
-        <md:Card DockPanel.Dock="Bottom">
-          <Viewbox Stretch="Uniform">
-            <ListBox Width="750" Height="150" Background="LightGray" 
-                     ItemsSource="{Binding Table}"  
-                     SelectedItem="{Binding SelectedElement}"
-                     SelectedIndex="{Binding SelectedIndex}">
-              <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                  <UniformGrid Rows="2" Columns="10"/>
-                </ItemsPanelTemplate>
-              </ListBox.ItemsPanel>
-              <ListBox.ItemTemplate>
-                <DataTemplate DataType="ElementVM">
-                  <Image Source="{Binding Image}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="-6"/>
-                </DataTemplate>
-              </ListBox.ItemTemplate>
-            </ListBox>
-          </Viewbox>
+        <md:Card DockPanel.Dock="Bottom" Background="LightGray">
+          <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
+            <ListBox Width="750" Height="150" HorizontalAlignment="Left"
+                   ItemsSource="{Binding Table}"  
+                   SelectedItem="{Binding SelectedElement}"
+                   SelectedIndex="{Binding SelectedIndex}">
+            <ListBox.ItemsPanel>
+              <ItemsPanelTemplate>
+                <UniformGrid Rows="2" Columns="10"/>
+              </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+              <DataTemplate DataType="ElementVM">
+                <Image Source="{Binding Image}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="-6"/>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+          </ScrollViewer>
+          
+
         </md:Card>
         <Rectangle DockPanel.Dock="Bottom" Height="5" HorizontalAlignment="Stretch" Fill="{DynamicResource MaterialDesignDarkBackground}"/>
         <Rectangle DockPanel.Dock="Top" Height="5" HorizontalAlignment="Stretch" Fill="{DynamicResource MaterialDesignDarkBackground}"/>
