@@ -94,11 +94,7 @@
               </ListBox.ItemsPanel>
               <ListBox.ItemTemplate>
                 <DataTemplate DataType="ElementVM">
-                  <!--<Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  BorderBrush="DarkBlue" BorderThickness="2" >
-                     
-                  </Border>-->
                   <Image Source="{Binding Image}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="-6"/>
-                 
                 </DataTemplate>
               </ListBox.ItemTemplate>
             </ListBox>
@@ -106,7 +102,6 @@
         </md:Card>
         <Rectangle DockPanel.Dock="Bottom" Height="5" HorizontalAlignment="Stretch" Fill="{DynamicResource MaterialDesignDarkBackground}"/>
         <Rectangle DockPanel.Dock="Top" Height="5" HorizontalAlignment="Stretch" Fill="{DynamicResource MaterialDesignDarkBackground}"/>
-        
         <!--Основная панель-->
         <TabControl Margin="0,2,0,0">
           <TabItem Header="Проект"/>
@@ -118,13 +113,30 @@
           <TabItem Header="3D"/>
         </TabControl>
       </DockPanel>
-      <StackPanel Grid.Column="1" Margin="7,2,0,0" CanVerticallyScroll="True">
-        <StackPanel Orientation="Horizontal">
+      <ScrollViewer Grid.Column="1">
+        <Grid  Margin="7,2,0,0" >
+        <Grid.RowDefinitions>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+          <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+          </Grid.ColumnDefinitions>
           <Image Source="{Binding SelectedElement.Image}" Width="50" Height="50"/>
-          <TextBlock Text="{Binding SelectedElement.Name}" VerticalAlignment="Bottom" FontSize="18" FontWeight="SemiBold"/>
-        </StackPanel>
-        <ex:PropertyGrid SelectedObject="{Binding SelectedElement}" TabVisibility="Collapsed"/>
-      </StackPanel>
+          <TextBlock Grid.Column="1" Text="{Binding SelectedElement.Name}" 
+                     Style="{DynamicResource MaterialDesignHeadline6TextBlock}" 
+                     VerticalAlignment="Bottom" 
+                     TextWrapping="WrapWithOverflow"
+                     Margin="4,0"/>
+        </Grid>
+        <ex:PropertyGrid Grid.Row="1" SelectedObject="{Binding SelectedElement}" TabVisibility="Collapsed"/>
+        <DataGrid Grid.Row="2" ItemsSource="{Binding Table}" Height="500"/>
+      </Grid>
+      </ScrollViewer>
+      
     </Grid>
   </DockPanel>
 </Window>

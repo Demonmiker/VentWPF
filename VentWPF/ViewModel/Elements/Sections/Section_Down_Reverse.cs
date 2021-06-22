@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 using PropertyTools.DataAnnotations;
 using VentWPF.Model;
 
-
 namespace VentWPF.ViewModel
 {
     
-    class section_2 : Element
+    class Section_Down_Reverse : Element
     {
-        public section_2()
+        public Section_Down_Reverse()
         {
             Name = "Секция";
+            image = "Sections/Section_Down_Reverse.png";
         }
 
     }

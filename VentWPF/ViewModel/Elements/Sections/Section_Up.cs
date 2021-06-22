@@ -9,16 +9,13 @@ using VentWPF.Model;
 namespace VentWPF.ViewModel
 {
     
-    class VentP_3 : Element
+    class Section_Up : Element
     {
-        public VentP_3()
+        public Section_Up()
         {
-            Name = "Вентилятор";
+            Name = "Секция";
+            image = "Sections/Section_Up.png";
         }
 
-        //FanData fd;
-
-        //[DisplayName("Элемент:"), Category(c2), PropertyOrder(3)]
-        //public string Id => fd?.ARTICLE_NO;
     }
 }

@@ -9,9 +9,9 @@ using VentWPF.Model;
 namespace VentWPF.ViewModel
 {
     
-    class VentP_4 : Element
+    class Fan_2 : Element
     {
-        public VentP_4()
+        public Fan_2()
         {
             Name = "Вентилятор";
         }
@@ -20,6 +20,5 @@ namespace VentWPF.ViewModel
 
         //[DisplayName("Элемент:"), Category(c2), PropertyOrder(3)]
         //public string Id => fd?.ARTICLE_NO;
-
     }
 }

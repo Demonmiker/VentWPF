@@ -8,11 +8,12 @@ using VentWPF.Model;
 namespace VentWPF.ViewModel
 {
     
-    class clap_vert : HasDownPressure
+    class Valve_Ver : HasDownPressure
     {
-        public clap_vert()
+        public Valve_Ver()
         {
-            Name = "Воздушный клапан Вертикальный";
+            Name = "Воздушный клапан вертикальный";
+            image = "Valves/Valve_Ver.png";
         }
         [DisplayName("Производительность"), Category(c1), PropertyOrder(1)]
         public float performance => project.VFlow;

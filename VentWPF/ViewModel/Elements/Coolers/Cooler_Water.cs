@@ -8,13 +8,15 @@ using VentWPF.Model;
 
 namespace VentWPF.ViewModel
 {
-    
+    /// <summary>
+    /// Представление Охладитель жидкостный
+    /// </summary>
     class Cooler_Water : HasDownPressure
     {
         public Cooler_Water()
         {
             Name = "Охладитель жидкостный";
-            image = "Cooler_Water.png";
+            image = "Coolers/Cooler_Water.png";
         }
 
         [DisplayName("Производительность"), Category(c1), PropertyOrder(1)]

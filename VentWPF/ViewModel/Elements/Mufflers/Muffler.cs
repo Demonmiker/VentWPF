@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PropertyTools.DataAnnotations;
+using System.ComponentModel;
 using VentWPF.Model;
 
 namespace VentWPF.ViewModel
 {
     
-    class noise_corrector : HasDownPressure
+    class Muffler : HasDownPressure
     {
-        public noise_corrector()
+        public Muffler()
         {
-            Name = "Шумоглушитель с выравниванием";
+            Name = "Шумоглушитель";
+            image = "Mufflers/Muffler.png";
+            
         }
         [DisplayName("Производительность"), Category(c1), PropertyOrder(1)]
         public float performance => project.VFlow;
@@ -35,5 +37,7 @@ namespace VentWPF.ViewModel
 
             }
         }
+
     }
 }
+

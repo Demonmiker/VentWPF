@@ -9,12 +9,13 @@ using VentWPF.Model;
 namespace VentWPF.ViewModel
 {
     
-    class section_4 : Element
+    class Section_Straight : Element
     {
-        public section_4()
+        public Section_Straight()
         {
             Name = "Секция";
-        }
-
+            image = "Sections/Section_Straight.png";
+        }        
+        
     }
 }

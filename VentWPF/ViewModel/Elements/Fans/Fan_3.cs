@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel;
 using PropertyTools.DataAnnotations;
 using VentWPF.Model;
 
 namespace VentWPF.ViewModel
 {
     
-    class VentP_1 : Element
+    class Fan_3 : Element
     {
-        public VentP_1()
+        public Fan_3()
         {
             Name = "Вентилятор";
         }
-        //
+
         //FanData fd;
 
         //[DisplayName("Элемент:"), Category(c2), PropertyOrder(3)]

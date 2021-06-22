@@ -7,22 +7,22 @@ using PropertyTools.DataAnnotations;
 using VentWPF.Model;
 
 namespace VentWPF.ViewModel
-{
+{    
     
-    class clap_vert_heat : HasDownPressure
+    class Valve_Hor : HasDownPressure
     {
-        public clap_vert_heat()
+        public Valve_Hor()
         {
-            Name = "Воздушный клапан вертикальный с нагревателем";
+            Name = "Воздушный клапан горизонтальный";
+            image = "Valves/Valve_Hor.png";
         }
         [DisplayName("Производительность"), Category(c1), PropertyOrder(1)]
         public float performance => project.VFlow;
 
+
+
         [DisplayName("Падение давления"), Category(c2), PropertyOrder(1)]
         public override float pressureDrop => 15;
-
-        [DisplayName("Количество ТЭНов"), Category(c1), PropertyOrder(2)]
-        public float TEN_count { get; set; } = 3;
 
     }
 }

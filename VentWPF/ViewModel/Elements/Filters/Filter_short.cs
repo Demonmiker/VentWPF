@@ -8,13 +8,15 @@ using VentWPF.Model;
 
 namespace VentWPF.ViewModel
 {
-    
+    /// <summary>
+    /// Представление Фильтр Короткий
+    /// </summary>
     class Filter_Short : HasDownPressure
     {
         public Filter_Short()
         {
             Name = "Фильтр клапанный укороченый";
-            image = "Filter_Short.png";
+            image = "Filters/Filter_Short.png";
         }
                 
 

@@ -9,11 +9,11 @@ using VentWPF.Model;
 namespace VentWPF.ViewModel
 {
     
-    class softer_steam : Element
+    class Humid_Spray : Element
     {
-        public softer_steam()
+        public Humid_Spray()
         {
-            Name = "Увлажнитель паровой";
+            Name = "Увлажнитель форсуночный";
         }
         [DisplayName("Производительность"), Category(c1), PropertyOrder(1)]
         public float performance => project.VFlow;

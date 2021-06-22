@@ -9,13 +9,15 @@ using VentWPF.Model;
 
 namespace VentWPF.ViewModel
 {
-    
+    /// <summary>
+    /// Представление Охладитель фреоновый
+    /// </summary>
     class Cooler_Fr : HasDownPressure
     {        
         public Cooler_Fr()
         {
-            Name = "Охладитель Фреонный";
-            image = "Cooler_Fr.png";
+            Name = "Охладитель фреоновый";
+            image = "Coolers/Cooler_Fr.png";
         }
 
         [DisplayName("Производительность"), Category(c1), PropertyOrder(1)]

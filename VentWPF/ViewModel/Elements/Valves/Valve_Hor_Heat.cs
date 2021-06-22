@@ -9,11 +9,12 @@ using VentWPF.Model;
 namespace VentWPF.ViewModel
 {
     
-    class clap_gor_heat : HasDownPressure
+    class Valve_Hor_Heat : HasDownPressure
     {
-        public clap_gor_heat()
+        public Valve_Hor_Heat()
         {
             Name = "Воздушный клапан горизонтальный с нагревателем";
+            image = "Valves/Valve_Hor_Heat.png";
         }
         [DisplayName("Производительность"), Category(c1), PropertyOrder(1)]
         public float performance => project.VFlow;

@@ -6,15 +6,17 @@ using System.Threading.Tasks;
 using PropertyTools.DataAnnotations;
 using VentWPF.Model;
 
+
 namespace VentWPF.ViewModel
 {
     
-    class section_1 : Element
+    class Section_Down : Element
     {
-        public section_1()
+        public Section_Down()
         {
             Name = "Секция";
-        }        
-        
+            image = "Sections/Section_Down.png";
+        }
+
     }
 }

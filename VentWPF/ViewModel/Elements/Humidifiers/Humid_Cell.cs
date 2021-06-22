@@ -9,9 +9,9 @@ using VentWPF.Model;
 namespace VentWPF.ViewModel
 {
     
-    class softer_sot : Element
+    class Humid_Cell : Element
     {
-        public softer_sot()
+        public Humid_Cell()
         {
             Name = "Увлажнитель сотовый";
         }

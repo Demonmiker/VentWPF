@@ -8,13 +8,15 @@ using VentWPF.Model;
 
 namespace VentWPF.ViewModel
 {
-    
+    /// <summary>
+    /// Представление Фильтр клапанный
+    /// </summary>
     class Filter_Valve : HasDownPressure
     {
         public Filter_Valve()
         {
             Name = "Фильтр клапанный";
-            image = "Filter_Valve.png";
+            image = "Filters/Filter_Valve.png";
         }
 
        

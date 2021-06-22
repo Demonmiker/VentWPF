@@ -13,7 +13,7 @@ namespace VentWPF.ViewModel
         public Heater_Water()
         {
             Name = "Нагреватель жидкосный";
-            image = "Heater_Water.png";
+            image = "Heaters/Heater_Water.png";
         }
 
 

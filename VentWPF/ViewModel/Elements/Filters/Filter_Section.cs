@@ -9,13 +9,15 @@ using VentWPF.Model;
 
 namespace VentWPF.ViewModel
 {
-    
+    /// <summary>
+    /// Представление Фильтр секционный
+    /// </summary>
     class Filter_Section : HasDownPressure
     {
         public Filter_Section()
         {
             Name = "Фильтр секционный";
-            image = "Filter_Section.png";
+            image = "Filters/Filter_Section.png";
         }
 
         [DisplayName("Класс очистки"), Category(c1), PropertyOrder(7)]

@@ -13,8 +13,8 @@ namespace VentWPF.ViewModel
     {
         public Heater_Electric()
         {
-            image = "Heater_Electric.png";
             Name = "Нагреватель электрический";
+            image = "Heaters/Heater_Electric.png";
         }        
         
         [DisplayName("Производительность"), Category(c1), PropertyOrder(1)]
