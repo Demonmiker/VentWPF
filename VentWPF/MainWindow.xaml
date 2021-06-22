@@ -7,6 +7,8 @@
         xmlns:ex="http://propertytools.org/wpf"
         xmlns:vm="clr-namespace:VentWPF.ViewModel"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:t="clr-namespace:VentWPF.Tools"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
@@ -14,17 +16,27 @@
         TextElement.FontSize="14"
         FontFamily="{md:MaterialDesignFont}"
         Title="MainWindow" Height="720" Width="1280">
-  <Window.Resources>
-    <Style TargetType="{x:Type Image}">
-      <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
-    </Style>
-    <vm:Heater_Water x:Key="hw"/>
-    <vm:Heater_Gas x:Key="hg"/>
-    <vm:Heater_Electric x:Key="he"/>
-  </Window.Resources>
   <Window.DataContext>
     <vm:MainViewModel/>
   </Window.DataContext>
+  <Window.Resources> <!--Ресурсы окна-->
+    <Style TargetType="{x:Type Image}">
+      <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+    </Style>
+    <Style TargetType="Popup" x:Key="PopupMenu">
+      <Setter Property="Placement" Value="Relative" />
+      <EventSetter Event="MouseLeave" Handler="MouseLeave"/>
+    </Style>
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}" >
+      <Setter Property="Width" Value="75" />
+      <Setter Property="Height" Value="75" />
+    </Style>
+    
+    <vm:Heater_Water x:Key="hw"/>
+    <vm:Heater_Gas x:Key="hg"/>
+    <vm:Heater_Electric x:Key="he"/>
+
+  </Window.Resources>
   <DockPanel>
     <Menu DockPanel.Dock="Top" Height="25">
       <MenuItem Header="Файл" Height="25"/>
@@ -33,7 +45,7 @@
       <TextBlock Text="Статус"/>
     </StatusBar>
     <Grid>
-      <Grid.ColumnDefinitions >
+      <Grid.ColumnDefinitions>
         <ColumnDefinition Width="5*" MinWidth="600"/>
         <ColumnDefinition Width="2*" MinWidth="400"/>
       </Grid.ColumnDefinitions>
@@ -43,23 +55,32 @@
         <!--Верхняя панель для содания элементов-->
         <md:Card  DockPanel.Dock="Top" Background="LightGray">
           <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-             <UniformGrid Width="830" Height="90" Columns="10" HorizontalAlignment="Left">
-               <UniformGrid.Resources>
-                  <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}" >
-                    <Setter Property="Width" Value="75" />
+            <UniformGrid Width="830" Height="90" Columns="10" HorizontalAlignment="Left">
+              <UniformGrid.Resources>
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}" >
+                  <Setter Property="Width" Value="75" />
                   <Setter Property="Height" Value="75" />
                 </Style>
-                  <Style TargetType="{x:Type Image}">
-                    <Setter Property="Margin" Value="-16" />
-                  </Style>
-                </UniformGrid.Resources>
+                <Style TargetType="{x:Type Image}" BasedOn="{x:Null}">
+                  <Setter Property="Margin" Value="-16" />
+                </Style>
+                <!--popups-->
+                <Popup x:Key="Heaters" Style="{StaticResource PopupMenu}" >
+                  <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}">
+                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource hw}" Background="LightPink">
+                      <Image DataContext="{StaticResource hw}" Source="{Binding Image}" />
+                    </Button>
+                  </UniformGrid>
+                </Popup>
+                <!--popups/-->
+              </UniformGrid.Resources>
               <Button>
                 <Image Source="{Binding HeaderImages.Valves}"/>
               </Button>
               <Button>
                 <Image Source="{Binding HeaderImages.Filters}"/>
               </Button>
-              <Button>
+              <Button Command="{Binding CmdOpenPopup}" CommandParameter="{DynamicResource Heaters}">
                 <Image Source="{Binding HeaderImages.Heaters}"/>
               </Button>
               <Button>
@@ -68,12 +89,12 @@
               <Button>
                 <Image Source="{Binding HeaderImages.Empty}"/>
               </Button>            
-              <Button>
-                <Image Source="{Binding HeaderImages.Empty}"/>
-              </Button>  
-              <Button>
-                <Image Source="{Binding HeaderImages.Empty}"/>
-              </Button> 
+              <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource hw}" Background="LightPink">
+                <Image DataContext="{StaticResource hw}" Source="{Binding Image}" />
+              </Button>
+              <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource hw}" Background="LightPink">
+                <Image DataContext="{StaticResource hw}" Source="{Binding Image}" />
+              </Button>
               <Button>
                 <Image Source="{Binding HeaderImages.Sections}"/>
               </Button>  

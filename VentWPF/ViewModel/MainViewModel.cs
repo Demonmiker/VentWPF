@@ -5,6 +5,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using System.Windows.Markup;
 using VentWPF.Model;
 using VentWPF.Tools;
@@ -26,8 +29,27 @@ namespace VentWPF.ViewModel
                         Table[SelectedIndex] = (Element)x;
                 }
             };
+            //Not Used
+            CmdClosePopup = new()
+            {
+                action = (x) =>
+                {
+                    (x as Popup).IsOpen = false;
+                }
+            };
+            CmdOpenPopup = new()
+            {
+                action = (o) =>
+                {
+                    
+                    Popup p = o as Popup;
+                    p.HorizontalOffset = 200;
+                    p.VerticalOffset = 200;
+                    p.IsOpen = true;
+                }
+            };
 
-           
+
         }
 
         public ObservableCollection<Element> Table { get; set; }
@@ -37,6 +59,10 @@ namespace VentWPF.ViewModel
         public Element SelectedElement { get; set; }
 
         public Command AddElementCommand { get; init; }
+
+        public Command CmdOpenPopup { get; init; }
+
+        public Command CmdClosePopup { get; init; }
 
         public ImageCollection HeaderImages { get; init; } = new ImageCollection();
 
