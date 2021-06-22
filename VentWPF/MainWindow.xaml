@@ -43,42 +43,62 @@
         <Rectangle DockPanel.Dock="Right" Width="5" VerticalAlignment="Stretch" Fill="{DynamicResource MaterialDesignDarkBackground}"/>
         <!--Верхняя панель для содания элементов-->
         <md:Card  DockPanel.Dock="Top" Background="LightGray">
-          <StackPanel Orientation="Horizontal"
+          <ScrollViewer HorizontalScrollBarVisibility="Auto">
+             <UniformGrid Width="auto" Height="100" Columns="10"
                    Margin="0,5">
-            <StackPanel.Resources>
-              <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}" >
-                <Setter Property="Width" Value="75" />
-                <Setter Property="Height" Value="75" />
-                <Setter Property="Margin" Value="4,2" />
-              </Style>
-              <Style TargetType="{x:Type Image}">
-                <Setter Property="Margin" Value="-16" />
-              </Style>
-            </StackPanel.Resources>
+               <UniformGrid.Resources>
+                  <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}" >
+                    <Setter Property="Width" Value="75" />
+                    <Setter Property="Height" Value="75" />
+                    <Setter Property="Margin" Value="4,2" />
+                  </Style>
+                  <Style TargetType="{x:Type Image}">
+                    <Setter Property="Margin" Value="-16" />
+                  </Style>
+                </UniformGrid.Resources>
+              <Button>
+                <Image Source="{Binding HeaderImages.Valves}"/>
+              </Button>
+              <Button>
+                <Image Source="{Binding HeaderImages.Filters}"/>
+              </Button>
+              <Button>
+                <Image Source="{Binding HeaderImages.Heaters}"/>
+              </Button>
+              <Button>
+                <Image Source="{Binding HeaderImages.Coolers}"/>
+              </Button>
+              <Button>
+                <Image Source="{Binding HeaderImages.Empty}"/>
+              </Button>            
+              <Button>
+                <Image Source="{Binding HeaderImages.Empty}"/>
+              </Button>  
+              <Button>
+                <Image Source="{Binding HeaderImages.Empty}"/>
+              </Button> 
+              <Button>
+                <Image Source="{Binding HeaderImages.Sections}"/>
+              </Button>  
+              <Button>
+                <Image Source="{Binding HeaderImages.Filters}"/>
+              </Button>  
+              <!--Заменить на увлажнитель-->
+              <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource hw}" Background="LightPink">
+                <Image DataContext="{StaticResource hw}" Source="{Binding Image}" />
+              </Button>
+                <!--Для рекуператора-->
+              <Button Visibility="Collapsed">
+                <Image Source="{Binding HeaderImages.Empty}"/>
+              </Button> 
 
-            <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource hw}">
-              <Image DataContext="{StaticResource hw}" Source="{Binding Image}" />
-            </Button>
-             <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource hg}">
-              <Image DataContext="{StaticResource hg}" Source="{Binding Image}" />
-            </Button>
-             <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource he}">
-              <Image DataContext="{StaticResource he}" Source="{Binding Image}" />
-            </Button>
-
-            <Button>
-              <Image Source="/Assets/Images/Filter.png"/>
-            </Button>
-            <Button Content="{DynamicResource cooler}"/>
 
 
-            <Button/>
-            <Button/>
-            <Button/>
-            <Button/>
-            <Button/>
-            <Button/>
-          </StackPanel>
+
+              
+          </UniformGrid>
+          </ScrollViewer>
+         
         </md:Card>
         <!--Нижняя панель для констурирования системы-->
         <md:Card DockPanel.Dock="Bottom">

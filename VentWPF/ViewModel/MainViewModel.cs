@@ -42,6 +42,8 @@ namespace VentWPF.ViewModel
 
         public Command AddElementCommand { get; init; }
 
+        public ImageCollection HeaderImages { get; init; } = new ImageCollection();
+
        
       
 
