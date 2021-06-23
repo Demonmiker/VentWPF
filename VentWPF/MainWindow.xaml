@@ -36,12 +36,148 @@
       <Setter Property="Height" Value="75" />
     </Style>
 
-    <vm:Heater_Water x:Key="hw" />
-    <vm:Heater_Gas x:Key="hg" />
-    <vm:Heater_Electric x:Key="he" />
+
+
+
 
   </Window.Resources>
   <DockPanel>
+
+    <ListBox Visibility="Collapsed">
+      <!--  Подменю  -->
+      <ListBox.Resources>
+        <vm:Heater_Water x:Key="Heater_Water" />
+        <vm:Heater_Gas x:Key="Heater_Gas" />
+        <vm:Heater_Electric x:Key="Heater_Elec" />
+
+        <vm:Cooler_Fr x:Key="Cooler_Fr" />
+        <vm:Cooler_Water x:Key="Cooler_Water" />
+
+        <vm:Filter_Section x:Key="Filter_Section" />
+        <vm:Filter_Short x:Key="Filter_Short" />
+        <vm:Filter_Valve x:Key="Filter_Valve" />
+
+        <vm:Muffler x:Key="Muffler" />
+        <vm:Muffler_Corrector x:Key="Muffler_Corrector" />
+
+        <vm:Humid_Cell x:Key="Humid_Cell" />
+        <vm:Humid_Spray x:Key="Humid_Spray" />
+        <vm:Humid_Steam x:Key="Humid_Steam" />
+
+        <vm:Section_Straight x:Key="Section_Straight" />
+        <vm:Section_Down x:Key="Section_Down" />
+        <vm:Section_Down_Reverse x:Key="Section_Down_Reverse" />
+        <vm:Section_Up x:Key="Section_Up" />
+
+        <vm:Valve_Hor x:Key="Valve_Hor" />
+        <vm:Valve_Hor_Heat x:Key="Valve_Hor_Heat" />
+        <vm:Valve_Ver x:Key="Valve_Ver" />
+        <vm:Valve_Ver_Heat x:Key="Valve_Ver_Heat" />
+
+        <Style BasedOn="{x:Null}" TargetType="{x:Type Image}">
+          <Setter Property="Margin" Value="-16" />
+        </Style>
+      </ListBox.Resources>
+      <!--  Клапаны  -->
+      <Popup x:Name="Valves" Style="{StaticResource PopupMenu}">
+        <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="4">
+          <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Valve_Hor}">
+            <Image DataContext="{StaticResource Valve_Hor}" Source="{Binding Image}" />
+          </Button>
+          <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Valve_Hor_Heat}">
+            <Image DataContext="{StaticResource Valve_Hor_Heat}" Source="{Binding Image}" />
+          </Button>
+          <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Valve_Ver}">
+            <Image DataContext="{StaticResource Valve_Ver}" Source="{Binding Image}" />
+          </Button>
+          <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Valve_Ver_Heat}">
+            <Image DataContext="{StaticResource Valve_Ver_Heat}" Source="{Binding Image}" />
+          </Button>
+        </UniformGrid>
+      </Popup>
+      <!--  Нагреватели  -->
+      <Popup x:Name="Heaters" Style="{StaticResource PopupMenu}">
+        <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="3">
+          <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Heater_Water}">
+            <Image DataContext="{StaticResource Heater_Water}" Source="{Binding Image}" />
+          </Button>
+          <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Heater_Gas}">
+            <Image DataContext="{StaticResource Heater_Gas}" Source="{Binding Image}" />
+          </Button>
+          <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Heater_Elec}">
+            <Image DataContext="{StaticResource Heater_Elec}" Source="{Binding Image}" />
+          </Button>
+        </UniformGrid>
+      </Popup>
+      <!--  Охладители  -->
+      <Popup x:Name="Coolers" Style="{StaticResource PopupMenu}">
+        <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="2">
+          <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Cooler_Water}">
+            <Image DataContext="{StaticResource Cooler_Water}" Source="{Binding Image}" />
+          </Button>
+          <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Cooler_Fr}">
+            <Image DataContext="{StaticResource Cooler_Fr}" Source="{Binding Image}" />
+          </Button>
+        </UniformGrid>
+      </Popup>
+      <!--  Фильтры  -->
+      <Popup x:Name="Filters" Style="{StaticResource PopupMenu}">
+        <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="3">
+          <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Filter_Section}">
+            <Image DataContext="{StaticResource Filter_Section}" Source="{Binding Image}" />
+          </Button>
+          <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Filter_Short}">
+            <Image DataContext="{StaticResource Filter_Short}" Source="{Binding Image}" />
+          </Button>
+          <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Filter_Valve}">
+            <Image DataContext="{StaticResource Filter_Valve}" Source="{Binding Image}" />
+          </Button>
+        </UniformGrid>
+      </Popup>
+      <!--  Шумоподавители  -->
+      <Popup x:Name="Mufflers" Style="{StaticResource PopupMenu}">
+        <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="2">
+          <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Muffler}">
+            <Image DataContext="{StaticResource Muffler}" Source="{Binding Image}" />
+          </Button>
+          <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Muffler_Corrector}">
+            <Image DataContext="{StaticResource Muffler_Corrector}" Source="{Binding Image}" />
+          </Button>
+        </UniformGrid>
+      </Popup>
+      <!--  Секции  -->
+      <Popup x:Name="Sections" Style="{StaticResource PopupMenu}">
+        <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="4">
+          <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Section_Straight}">
+            <Image DataContext="{StaticResource Section_Straight}" Source="{Binding Image}" />
+          </Button>
+          <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Section_Down}">
+            <Image DataContext="{StaticResource Section_Down}" Source="{Binding Image}" />
+          </Button>
+          <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Section_Up}">
+            <Image DataContext="{StaticResource Section_Up}" Source="{Binding Image}" />
+          </Button>
+          <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Section_Down_Reverse}">
+            <Image DataContext="{StaticResource Section_Down_Reverse}" Source="{Binding Image}" />
+          </Button>
+        </UniformGrid>
+      </Popup>
+      <!--  Увлажнители  -->
+      <Popup x:Name="Humids" Style="{StaticResource PopupMenu}">
+        <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="3">
+          <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Humid_Cell}">
+            <Image DataContext="{StaticResource Humid_Cell}" Source="{Binding Image}" />
+          </Button>
+          <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Humid_Spray}">
+            <Image DataContext="{StaticResource Humid_Spray}" Source="{Binding Image}" />
+          </Button>
+          <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Humid_Steam}">
+            <Image DataContext="{StaticResource Humid_Steam}" Source="{Binding Image}" />
+          </Button>
+        </UniformGrid>
+      </Popup>
+    </ListBox>
+
     <Menu Height="25" DockPanel.Dock="Top">
       <MenuItem Height="25" Header="Файл" />
     </Menu>
@@ -81,60 +217,47 @@
                 <Style BasedOn="{x:Null}" TargetType="{x:Type Image}">
                   <Setter Property="Margin" Value="-16" />
                 </Style>
-                <!--  popups  -->
-                <Popup x:Key="Heaters" Style="{StaticResource PopupMenu}">
-                  <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}">
-                    <Button
-                      Background="LightPink"
-                      Command="{Binding AddElementCommand}"
-                      CommandParameter="{StaticResource hw}">
-                      <Image DataContext="{StaticResource hw}" Source="{Binding Image}" />
-                    </Button>
-                  </UniformGrid>
-                </Popup>
-                <!--  popups/  -->
               </UniformGrid.Resources>
-              <Button>
+              <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Valves}">
                 <Image Source="{Binding HeaderImages.Valves}" />
               </Button>
-              <Button>
+              <!--  Фильтры  -->
+              <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Filters}">
                 <Image Source="{Binding HeaderImages.Filters}" />
               </Button>
-              <Button Command="{Binding CmdOpenPopup}" CommandParameter="{DynamicResource Heaters}">
+              <!--  Нагреватели  -->
+              <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Heaters}">
                 <Image Source="{Binding HeaderImages.Heaters}" />
               </Button>
-              <Button>
+              <!--  Кулеры  -->
+              <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Coolers}">
                 <Image Source="{Binding HeaderImages.Coolers}" />
               </Button>
+              <!--  Вентилятор1  -->
               <Button>
                 <Image Source="{Binding HeaderImages.Empty}" />
               </Button>
-              <Button
-                Background="LightPink"
-                Command="{Binding AddElementCommand}"
-                CommandParameter="{StaticResource hw}">
-                <Image DataContext="{StaticResource hw}" Source="{Binding Image}" />
-              </Button>
-              <Button
-                Background="LightPink"
-                Command="{Binding AddElementCommand}"
-                CommandParameter="{StaticResource hw}">
-                <Image DataContext="{StaticResource hw}" Source="{Binding Image}" />
-              </Button>
+              <!--  Вентилятор2  -->
               <Button>
+                <Image Source="{Binding HeaderImages.Empty}" />
+              </Button>
+              <!--  Вентилятор3  -->
+              <Button>
+                <Image Source="{Binding HeaderImages.Empty}" />
+              </Button>
+              <!--  Секции  -->
+              <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Sections}">
                 <Image Source="{Binding HeaderImages.Sections}" />
               </Button>
-              <Button>
-                <Image Source="{Binding HeaderImages.Filters}" />
+              <!--  Шумоподавители  -->
+              <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Mufflers}">
+                <Image Source="{Binding HeaderImages.Muffers}" />
               </Button>
-              <!--  Заменить на увлажнитель  -->
-              <Button
-                Background="LightPink"
-                Command="{Binding AddElementCommand}"
-                CommandParameter="{StaticResource hw}">
-                <Image DataContext="{StaticResource hw}" Source="{Binding Image}" />
+              <!--  Увлажнитель  -->
+              <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Humids}">
+                <Image Source="{Binding HeaderImages.Empty}" />
               </Button>
-              <!--  Для рекуператора  -->
+              <!--  Рекуператор  -->
               <Button Visibility="Collapsed">
                 <Image Source="{Binding HeaderImages.Empty}" />
               </Button>
