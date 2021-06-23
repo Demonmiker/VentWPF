@@ -43,8 +43,7 @@ namespace VentWPF.ViewModel
                 {
                     
                     Popup p = o as Popup;
-                    p.HorizontalOffset = 200;
-                    p.VerticalOffset = 200;
+                    p.HorizontalOffset = 1;
                     p.IsOpen = true;
                 }
             };
