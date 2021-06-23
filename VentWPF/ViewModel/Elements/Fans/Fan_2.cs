@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PropertyTools.DataAnnotations;
-using VentWPF.Model;
-
-namespace VentWPF.ViewModel
+﻿namespace VentWPF.ViewModel
 {
-    
-    class Fan_2 : Element
+    internal class Fan_2 : Element
     {
         public Fan_2()
         {

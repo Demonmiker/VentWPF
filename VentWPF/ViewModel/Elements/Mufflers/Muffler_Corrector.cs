@@ -11,9 +11,15 @@ namespace VentWPF.ViewModel
             image = "Mufflers/Muffler_Corrector.png";
         }
 
+        #region Данные
+
         [DisplayName("Длинна секции")]
         [Category(c1), PropertyOrder(7)]
         public Section FC { get; set; }
+
+        #endregion Данные
+
+        #region Информация
 
         [DisplayName("Падение давления")]
         [Category(c2), PropertyOrder(1)]
@@ -29,5 +35,7 @@ namespace VentWPF.ViewModel
                     return (float)60;
             }
         }
+
+        #endregion Информация
     }
 }

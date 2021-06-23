@@ -9,6 +9,8 @@ namespace VentWPF.ViewModel
             Name = "Увлажнитель паровой";
         }
 
+        #region Данные
+
         [DisplayName("Влажность на входе")]
         [Category(c1), PropertyOrder(2)]
         public float AirSoftIn { get; set; } = (float)0.000;
@@ -17,8 +19,14 @@ namespace VentWPF.ViewModel
         [Category(c1), PropertyOrder(3)]
         public float AirSoftOut { get; set; } = (float)0.0015;
 
+        #endregion Данные
+
+        #region Информация
+
         [DisplayName("Расход воды")]
         [Category(c2), PropertyOrder(1)]
         public float Qv => (float)(Performance * 1.17 * (((float)AirSoftOut - (float)AirSoftIn)));
+
+        #endregion Информация
     }
 }

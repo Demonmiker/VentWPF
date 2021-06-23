@@ -1,27 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PropertyTools.DataAnnotations;
-using VentWPF.Model;
+﻿using PropertyTools.DataAnnotations;
 
 namespace VentWPF.ViewModel
 {
-    
-    class Valve_Ver_Heat : HasPerformance
+    internal class Valve_Ver_Heat : HasPerformance
     {
         public Valve_Ver_Heat()
         {
             Name = "Воздушный клапан вертикальный с нагревателем";
             image = "Valves/Valve_Ver_Heat.png";
-
         }
 
-        [DisplayName("Количество ТЭНов")][Category(c1), PropertyOrder(2)]
-        public float TEN_count { get; set; } = 3;
-
-
         public override float Performance => 15;
+
+        [DisplayName("Количество ТЭНов")]
+        [Category(c1), PropertyOrder(2)]
+        public float TEN_count { get; set; } = 3;
     }
 }
