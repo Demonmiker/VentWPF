@@ -128,13 +128,10 @@
                 <Image Source="{Binding HeaderImages.Filters}" />
               </Button>
               <!--  Заменить на увлажнитель  -->
-              <Button
-                Background="LightPink"
-                Command="{Binding AddElementCommand}"
-                CommandParameter="{StaticResource hw}">
-                <Image DataContext="{StaticResource hw}" Source="{Binding Image}" />
+              <Button>
+                <Image Source="{Binding HeaderImages.Humidifiers}" />
               </Button>
-              <!--  Для рекуператора  -->
+                            <!--  Для рекуператора  -->
               <Button Visibility="Collapsed">
                 <Image Source="{Binding HeaderImages.Empty}" />
               </Button>
