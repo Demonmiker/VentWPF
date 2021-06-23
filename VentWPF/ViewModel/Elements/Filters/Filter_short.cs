@@ -14,23 +14,26 @@ namespace VentWPF.ViewModel
             image = "Filters/Filter_Short.png";
         }
 
+        #region Данные
+
         [DisplayName("Класс очистки")]
         [Category(c1), PropertyOrder(7)]
         public FilterClassType FC { get; set; }
 
+        #endregion Данные
+
+        #region Информация
+
         [DisplayName("Падение давления при загряз. 50%")]
         [Category(c2), PropertyOrder(1)]
-        public override float PressureDrop
+        public override float PressureDrop => FC switch
         {
-            get
-            {
-                if (FC == FilterClassType.G4)
-                    return (float)175;
-                if (FC == FilterClassType.F5)
-                    return (float)225;
-                else
-                    return (float)275;
-            }
-        }
+            FilterClassType.G4 => 175,
+            FilterClassType.F5 => 225,
+            FilterClassType.F9 => 275,
+            _ => 0
+        };
+
+        #endregion Информация
     }
 }

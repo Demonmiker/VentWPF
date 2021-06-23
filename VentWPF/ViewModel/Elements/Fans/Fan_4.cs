@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PropertyTools.DataAnnotations;
-using VentWPF.Model;
-
-namespace VentWPF.ViewModel
+﻿namespace VentWPF.ViewModel
 {
-    
-    class Fan_4 : Element
+    internal class Fan_4 : Element
     {
         public Fan_4()
         {
@@ -20,6 +11,5 @@ namespace VentWPF.ViewModel
 
         //[DisplayName("Элемент:")][Category(c2), PropertyOrder(3)]
         //public string Id => fd?.ARTICLE_NO;
-
     }
 }
