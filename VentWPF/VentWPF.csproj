@@ -16,6 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Assets\Images\Fans\Fan_4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\Images\Valves\Valves.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -76,9 +79,6 @@
     <None Update="Assets\Images\Sections\Section_Up.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Sections\Section_Down_Reverse.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Assets\Images\Valves\Valve_Hor.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -98,9 +98,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Fans\Fan_3.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Assets\Images\Fans\Fan_4.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
