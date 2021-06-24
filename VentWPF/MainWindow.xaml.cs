@@ -25,10 +25,6 @@ namespace VentWPF
         {
             InitializeComponent();
         }
-
-        private void MouseLeave(object sender, MouseEventArgs e)
-        {
-            (sender as Popup).IsOpen = false;
-        }
+        
     }
 }
