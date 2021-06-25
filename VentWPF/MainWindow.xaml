@@ -411,8 +411,8 @@
             Grid.Row="2"
             Height="500"
             AutoGenerateColumns="True"
-            Background="LightBlue"
-            ItemsSource="{Binding SelectedElement.Query}">
+            HorizontalScrollBarVisibility="Auto"
+            ItemsSource="{Binding SelectedElement.QueryCollection}">
             <DataGrid.Style>
               <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="{x:Type DataGrid}">
                 <Setter Property="Visibility" Value="Visible" />

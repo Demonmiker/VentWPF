@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 #nullable disable
 
@@ -6,12 +7,30 @@ namespace VentWPF
 {
     public partial class VentContext : DbContext
     {
-        public VentContext()
+        public static VentContext Instance { get; private set; } = null;
+
+        public static VentContext GetInstance()
         {
+            if (Instance != null)
+                return Instance;
+            else
+            {
+                Instance = new VentContext();
+                return Instance;
+            }
         }
 
-        public VentContext(DbContextOptions<VentContext> options)
-            : base(options)
+        ~VentContext()
+        {
+            Instance.Dispose();
+        }
+
+        private VentContext()
+        {
+            
+        }
+
+        private VentContext(DbContextOptions<VentContext> options) : base(options)
         {
         }
 
@@ -129,7 +148,6 @@ namespace VentWPF
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=Vent;Trusted_Connection=True;");
             }
         }

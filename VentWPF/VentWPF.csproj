@@ -125,7 +125,6 @@
 
   <ItemGroup>
     <Folder Include="Assets\Images\Новая папка\" />
-    <Folder Include="Database\Используется\" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.ComponentModel;
 using System.IO;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using VentWPF.Model;
 
 namespace VentWPF.ViewModel
@@ -27,6 +30,9 @@ namespace VentWPF.ViewModel
         public virtual float PressureDrop => 0;
 
         [Browsable(false)]
-        public ICollection Query { get; init; }
+        public ICollection QueryCollection => Query != null ? Query.ToList() : null;
+
+        [Browsable(false)]
+        protected IQueryable<object> Query { get; init; }
     }
 }

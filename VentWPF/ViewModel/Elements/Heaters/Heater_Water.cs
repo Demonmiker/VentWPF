@@ -1,6 +1,7 @@
 ﻿using PropertyTools.DataAnnotations;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using VentWPF.Model;
 
 namespace VentWPF.ViewModel
@@ -13,8 +14,12 @@ namespace VentWPF.ViewModel
         {
             Name = "Нагреватель жидкосный";
             image = "Heaters/Heater_Water.png";
-
-            Query = new List<Element>() { new Heater_Electric(), new Heater_Gas() };
+            // ("SELECT Типоряд, [L возд], [Ширина габарит], [Высота габарит], [Ширина ЖС], [Высота ЖС], Цена  FROM dbo.Вода_тепло",
+            var db = VentContext.GetInstance();
+            var table = db.ВодаТеплоs;
+            var q = from h in table select new { h.LВозд, h.ШиринаГабарит };
+            Query = q;       
+                    
         }
 
         #region Данные

@@ -47,7 +47,6 @@ namespace VentWPF.ViewModel
         public ProjectVM CurrentProject { get; set; } = Element.project;
         public ImageCollection HeaderImages { get; init; } = new ImageCollection();
 
-
         #region Комманды
         public Command AddElementCommand { get; init; }
         public Command CmdOpenPopup { get; init; }
