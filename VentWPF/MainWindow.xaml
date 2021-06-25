@@ -337,17 +337,7 @@
               SelectedItem="{Binding SelectedElement}">
               <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                  <UniformGrid Columns="10" Rows="2">
-                    <UniformGrid.Style>
-                      <Style TargetType="{x:Type UniformGrid}">
-                        <Style.Triggers>
-                          <DataTrigger Binding="{Binding CurrentProject.Rows}" Value="1">
-                            <Setter Property="Rows" Value="1" />
-                          </DataTrigger>
-                        </Style.Triggers>
-                      </Style>
-                    </UniformGrid.Style>
-                  </UniformGrid>
+                  <UniformGrid Columns="10" Rows="2" />
                 </ItemsPanelTemplate>
               </ListBox.ItemsPanel>
               <ListBox.ItemTemplate>
@@ -359,11 +349,6 @@
                     Source="{Binding Image}" />
                 </DataTemplate>
               </ListBox.ItemTemplate>
-              <b:Interaction.Triggers>
-                <b:DataTrigger Binding="{Binding Path=CurrentProject.Rows}" Value="Rows1">
-                  <b:InvokeCommandAction Command="{Binding ChangeSize}" />
-                </b:DataTrigger>
-              </b:Interaction.Triggers>
             </ListBox>
           </ScrollViewer>
         </md:Card>
