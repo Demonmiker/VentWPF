@@ -71,10 +71,10 @@
         <md:Card Background="LightGray" DockPanel.Dock="Top">
           <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
             <UniformGrid
-              Width="830"
-              Height="90"
+              Width="auto"
+              Height="auto"
               HorizontalAlignment="Left"
-              Columns="10">
+              Columns="11">
               <UniformGrid.Resources>
                 <vm:Valve_Hor x:Key="Valve_Hor" />
                 <vm:Valve_Hor_Heat x:Key="Valve_Hor_Heat" />
@@ -110,12 +110,12 @@
                 <vm:Fan_C x:Key="FanC_UL" Direction="UpLeft" />
 
                 <Style TargetType="Grid">
-                  <Setter Property="Margin" Value="0,5,0,0" />
+                  <Setter Property="Margin" Value="3,5,2,5" />
                 </Style>
                 <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="{x:Type Button}">
                   <Setter Property="Width" Value="80" />
                   <Setter Property="Height" Value="80" />
-                  <Setter Property="Margin" Value="0,0,0,5" />
+                  <Setter Property="Margin" Value="1" />
                   <Setter Property="VerticalAlignment" Value="Top" />
                 </Style>
                 <Style BasedOn="{x:Null}" TargetType="{x:Type Image}">
@@ -304,7 +304,17 @@
                 </Button>
               </Grid>
               <!--  Рекуператоры  -->
-              <Grid Visibility="Collapsed">
+              <Grid>
+                <Grid.Style>
+                  <Style BasedOn="{StaticResource {x:Type Grid}}" TargetType="{x:Type Grid}">
+                    <Setter Property="Visibility" Value="Hidden" />
+                    <Style.Triggers>
+                      <DataTrigger Binding="{Binding Path=CurrentProject.Rows}" Value="Row2">
+                        <Setter Property="Visibility" Value="Visible" />
+                      </DataTrigger>
+                    </Style.Triggers>
+                  </Style>
+                </Grid.Style>
                 <Button>
                   <Image Source="{Binding HeaderImages.Empty}" />
                 </Button>
@@ -349,6 +359,11 @@
                     Source="{Binding Image}" />
                 </DataTemplate>
               </ListBox.ItemTemplate>
+              <b:Interaction.Triggers>
+                <b:DataTrigger Binding="{Binding Path=CurrentProject.Rows}" Value="Rows1">
+                  <b:InvokeCommandAction Command="{Binding ChangeSize}" />
+                </b:DataTrigger>
+              </b:Interaction.Triggers>
             </ListBox>
           </ScrollViewer>
         </md:Card>
