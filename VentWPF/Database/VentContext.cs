@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
@@ -17,10 +15,12 @@ namespace VentWPF
         {
         }
 
+        public virtual DbSet<_1с0> _1с0s { get; set; }
+        public virtual DbSet<_1с> _1сs { get; set; }
+        public virtual DbSet<_1сШу> _1сШуs { get; set; }
         public virtual DbSet<AвтоматикаДатчики> AвтоматикаДатчикиs { get; set; }
         public virtual DbSet<CтепеньЗащитыШу> CтепеньЗащитыШуs { get; set; }
         public virtual DbSet<Hаценка> Hаценкаs { get; set; }
-        public virtual DbSet<K3g> K3gs { get; set; }
         public virtual DbSet<K3g250At3972> K3g250At3972s { get; set; }
         public virtual DbSet<K3g250Av29B2> K3g250Av29B2s { get; set; }
         public virtual DbSet<K3g280At0472> K3g280At0472s { get; set; }
@@ -43,14 +43,12 @@ namespace VentWPF
         public virtual DbSet<K3g500Aq3368> K3g500Aq3368s { get; set; }
         public virtual DbSet<K3g560Aq0868> K3g560Aq0868s { get; set; }
         public virtual DbSet<K3g560Aр2168> K3g560Aр2168s { get; set; }
+        public virtual DbSet<K3g> K3gs { get; set; }
         public virtual DbSet<K3gЗаготовка> K3gЗаготовкаs { get; set; }
         public virtual DbSet<K3gЭконом> K3gЭкономs { get; set; }
         public virtual DbSet<Tэнры> Tэнрыs { get; set; }
         public virtual DbSet<Tэны> Tэныs { get; set; }
         public virtual DbSet<ZiehlAbegg> ZiehlAbeggs { get; set; }
-        public virtual DbSet<_1с> _1сs { get; set; }
-        public virtual DbSet<_1с0> _1с0s { get; set; }
-        public virtual DbSet<_1сШу> _1сШуs { get; set; }
         public virtual DbSet<Вентиляторы> Вентиляторыs { get; set; }
         public virtual DbSet<ВентиляторыУлитка> ВентиляторыУлиткаs { get; set; }
         public virtual DbSet<ВентиляторыШу> ВентиляторыШуs { get; set; }
@@ -66,9 +64,9 @@ namespace VentWPF
         public virtual DbSet<Двигатели> Двигателиs { get; set; }
         public virtual DbSet<Зип> Зипs { get; set; }
         public virtual DbSet<КомплектующиеСу> КомплектующиеСуs { get; set; }
-        public virtual DbSet<Контроллеры> Контроллерыs { get; set; }
         public virtual DbSet<КонтроллерыDanfoss> КонтроллерыDanfosses { get; set; }
         public virtual DbSet<КонтроллерыDanfossЭконом> КонтроллерыDanfossЭкономs { get; set; }
+        public virtual DbSet<Контроллеры> Контроллерыs { get; set; }
         public virtual DbSet<КонтроллерыЩитыКод1С> КонтроллерыЩитыКод1Сs { get; set; }
         public virtual DbSet<КонтроллерыЭконом> КонтроллерыЭкономs { get; set; }
         public virtual DbSet<Коэффициент> Коэффициентs { get; set; }
@@ -97,9 +95,9 @@ namespace VentWPF
         public virtual DbSet<ПриводаШуЭконом> ПриводаШуЭкономs { get; set; }
         public virtual DbSet<Примечание> Примечаниеs { get; set; }
         public virtual DbSet<РазмерКлапанаРекуператора> РазмерКлапанаРекуператораs { get; set; }
-        public virtual DbSet<Размеры> Размерыs { get; set; }
         public virtual DbSet<РазмерыAdh> РазмерыAdhs { get; set; }
         public virtual DbSet<РазмерыRdh> РазмерыRdhs { get; set; }
+        public virtual DbSet<Размеры> Размерыs { get; set; }
         public virtual DbSet<РазмерыЭксперт> РазмерыЭкспертs { get; set; }
         public virtual DbSet<Рекуператоры> Рекуператорыs { get; set; }
         public virtual DbSet<РекуператорыЭконом> РекуператорыЭкономs { get; set; }
@@ -107,9 +105,9 @@ namespace VentWPF
         public virtual DbSet<Служебная> Служебнаяs { get; set; }
         public virtual DbSet<СмесительныеУзлы> СмесительныеУзлыs { get; set; }
         public virtual DbSet<СмесительныеУзлыТренд> СмесительныеУзлыТрендs { get; set; }
-        public virtual DbSet<Список> Списокs { get; set; }
         public virtual DbSet<Список0> Список0s { get; set; }
         public virtual DbSet<СписокK3g> СписокK3gs { get; set; }
+        public virtual DbSet<Список> Списокs { get; set; }
         public virtual DbSet<СписокШу> СписокШуs { get; set; }
         public virtual DbSet<СуВсбореЦена> СуВсбореЦенаs { get; set; }
         public virtual DbSet<СуГабариты> СуГабаритыs { get; set; }
