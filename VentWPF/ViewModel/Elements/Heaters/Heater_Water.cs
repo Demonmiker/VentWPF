@@ -17,7 +17,7 @@ namespace VentWPF.ViewModel
             // ("SELECT Типоряд, [L возд], [Ширина габарит], [Высота габарит], [Ширина ЖС], [Высота ЖС], Цена  FROM dbo.Вода_тепло",
             var db = VentContext.GetInstance();
             var table = db.ВодаТеплоs;
-            var q = from h in table select new { h.LВозд, h.ШиринаГабарит };
+            var q = from h in table select new { h.LВозд, h.ШиринаГабарит,Скорость=278*Performance/(h.ШиринаГабарит*h.ВысотаГабарит) };
             Query = q;       
                     
         }
