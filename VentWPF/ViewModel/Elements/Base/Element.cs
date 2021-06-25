@@ -20,7 +20,10 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         public string Name { get; protected set; } = "";
 
+        [Browsable(false)]
         public virtual float Performance { get; set; }
+
+        [Browsable(false)]
         public virtual float PressureDrop => 0;
 
         [Browsable(false)]

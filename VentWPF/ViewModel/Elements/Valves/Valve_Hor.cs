@@ -8,6 +8,6 @@
             image = "Valves/Valve_Hor.png";
         }
 
-        public override float Performance => 15;
+        //public override float Performance => 15;
     }
 }
