@@ -103,6 +103,12 @@
                 <vm:Section_Down x:Key="Section_Down" />
                 <vm:Section_Down_Reverse x:Key="Section_Down_Reverse" />
                 <vm:Section_Up x:Key="Section_Up" />
+
+                <vm:Fan_C x:Key="FanC_LR" Direction="LeftRight" />
+                <vm:Fan_C x:Key="FanC_RL" Direction="RightLeft" />
+                <vm:Fan_C x:Key="FanC_LU" Direction="LeftUp" />
+                <vm:Fan_C x:Key="FanC_UL" Direction="UpLeft" />
+
                 <Style TargetType="Grid">
                   <Setter Property="Margin" Value="0,5,0,0" />
                 </Style>
@@ -194,20 +200,33 @@
               </Grid>
               <!--  Вентилятор1  -->
               <Grid>
-                <Button>
-                  <Image Source="{Binding HeaderImages.Empty}" />
+                <Popup x:Name="Fans_C" Style="{StaticResource PopupMenu}">
+                  <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="4">
+                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Humid_Cell}">
+                      <Image DataContext="{StaticResource Humid_Cell}" Source="{Binding Image}" />
+                    </Button>
+                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Humid_Spray}">
+                      <Image DataContext="{StaticResource Humid_Spray}" Source="{Binding Image}" />
+                    </Button>
+                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Humid_Steam}">
+                      <Image DataContext="{StaticResource Humid_Steam}" Source="{Binding Image}" />
+                    </Button>
+                  </UniformGrid>
+                </Popup>
+                <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Coolers}">
+                  <Image Source="{Binding HeaderImages.Fans_C}" />
                 </Button>
               </Grid>
               <!--  Вентилятор2  -->
               <Grid>
-                <Button>
-                  <Image Source="{Binding HeaderImages.Empty}" />
+                <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Coolers}">
+                  <Image Source="{Binding HeaderImages.Fans_P}" />
                 </Button>
               </Grid>
               <!--  Вентилятор3  -->
               <Grid>
-                <Button>
-                  <Image Source="{Binding HeaderImages.Empty}" />
+                <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Coolers}">
+                  <Image Source="{Binding HeaderImages.Fans_K3G}" />
                 </Button>
               </Grid>
               <!--  Секции  -->
