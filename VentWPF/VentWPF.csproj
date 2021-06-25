@@ -16,16 +16,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Assets\Images\Fans\Fan1.png">
+    <None Update="Assets\Images\Fans\Fan_C.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Fans\Fan2.png">
+    <None Update="Assets\Images\Fans\Fan_P.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Fans\Fan3.png">
+    <None Update="Assets\Images\Fans\Fan_K3G.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Fans\Fan_4.png">
+    <None Update="Assets\Images\Fans\Directions\UpLeft.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Humidifiers\Humidifiers.png">
@@ -106,15 +106,19 @@
     <None Update="Assets\Images\Valves\Valve_Ver_Heat.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Fans\Fan_1.png">
+    <None Update="Assets\Images\Fans\Directions\LeftRight.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Fans\Fan_2.png">
+    <None Update="Assets\Images\Fans\Directions\LeftUp.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Fans\Fan_3.png">
+    <None Update="Assets\Images\Fans\Directions\RightLeft.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Assets\Images\Новая папка\" />
   </ItemGroup>
 
 </Project>

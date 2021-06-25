@@ -48,6 +48,14 @@ namespace VentWPF.ViewModel
                 }
             };
 
+            ChangeSize = new()
+            {
+                action = (x) =>
+                {
+                    InitTable(CurrentProject.Rows);
+                }
+            };
+
 
         }
 
@@ -63,9 +71,21 @@ namespace VentWPF.ViewModel
 
         public Command CmdClosePopup { get; init; }
 
+        public Command ChangeSize { get; init; }
+
         public ImageCollection HeaderImages { get; init; } = new ImageCollection();
 
         public ProjectVM CurrentProject { get; set; } = Element.project;
+
+        public Rows RowCount
+        {
+            get { return CurrentProject.Rows; }
+            set 
+            { 
+                CurrentProject.Rows = value;
+                InitTable(CurrentProject.Rows);
+            }
+        }
 
         public void InitTable(Rows rows)
         {

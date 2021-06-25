@@ -15,7 +15,7 @@ namespace VentWPF.ViewModel
         public static ProjectVM project { get; set; } = new();
 
         [Browsable(false)]
-        public string Image => Path.GetFullPath("Assets/Images/" + image);
+        public virtual string Image => Path.GetFullPath("Assets/Images/" + image);
 
         [Browsable(false)]
         public string Name { get; protected set; } = "";

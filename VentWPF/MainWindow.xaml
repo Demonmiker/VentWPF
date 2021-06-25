@@ -71,10 +71,10 @@
         <md:Card Background="LightGray" DockPanel.Dock="Top">
           <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
             <UniformGrid
-              Width="830"
-              Height="90"
+              Width="auto"
+              Height="auto"
               HorizontalAlignment="Left"
-              Columns="10">
+              Columns="11">
               <UniformGrid.Resources>
                 <vm:Valve_Hor x:Key="Valve_Hor" />
                 <vm:Valve_Hor_Heat x:Key="Valve_Hor_Heat" />
@@ -103,13 +103,19 @@
                 <vm:Section_Down x:Key="Section_Down" />
                 <vm:Section_Down_Reverse x:Key="Section_Down_Reverse" />
                 <vm:Section_Up x:Key="Section_Up" />
+
+                <vm:Fan_C x:Key="FanC_LR" Direction="LeftRight" />
+                <vm:Fan_C x:Key="FanC_RL" Direction="RightLeft" />
+                <vm:Fan_C x:Key="FanC_LU" Direction="LeftUp" />
+                <vm:Fan_C x:Key="FanC_UL" Direction="UpLeft" />
+
                 <Style TargetType="Grid">
-                  <Setter Property="Margin" Value="0,5,0,0" />
+                  <Setter Property="Margin" Value="3,5,2,5" />
                 </Style>
                 <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="{x:Type Button}">
                   <Setter Property="Width" Value="80" />
                   <Setter Property="Height" Value="80" />
-                  <Setter Property="Margin" Value="0,0,0,5" />
+                  <Setter Property="Margin" Value="1" />
                   <Setter Property="VerticalAlignment" Value="Top" />
                 </Style>
                 <Style BasedOn="{x:Null}" TargetType="{x:Type Image}">
@@ -194,20 +200,50 @@
               </Grid>
               <!--  Вентилятор1  -->
               <Grid>
-                <Button>
-                  <Image Source="{Binding HeaderImages.Empty}" />
+                <Popup x:Name="Fans_C" Style="{StaticResource PopupMenu}">
+                  <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="4">
+                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource FanC_LR}">
+                      <Image DataContext="{StaticResource FanC_LR}" Source="{Binding Image}" />
+                    </Button>
+                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource FanC_LU}">
+                      <Image DataContext="{StaticResource FanC_LU}" Source="{Binding Image}" />
+                    </Button>
+                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource FanC_RL}">
+                      <Image DataContext="{StaticResource FanC_RL}" Source="{Binding Image}" />
+                    </Button>
+                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource FanC_UL}">
+                      <Image DataContext="{StaticResource FanC_UL}" Source="{Binding Image}" />
+                    </Button>
+                  </UniformGrid>
+                </Popup>
+                <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Fans_C}">
+                  <Image Source="{Binding HeaderImages.Fans_C}" />
                 </Button>
               </Grid>
               <!--  Вентилятор2  -->
               <Grid>
-                <Button>
-                  <Image Source="{Binding HeaderImages.Empty}" />
+                <Popup x:Name="Fans_P" Style="{StaticResource PopupMenu}">
+                  <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="1">
+                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource FanC_LR}">
+                      <Image DataContext="{StaticResource FanC_LR}" Source="{Binding Image}" />
+                    </Button>
+                  </UniformGrid>
+                </Popup>
+                <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Fans_P}">
+                  <Image Source="{Binding HeaderImages.Fans_P}" />
                 </Button>
               </Grid>
               <!--  Вентилятор3  -->
               <Grid>
-                <Button>
-                  <Image Source="{Binding HeaderImages.Empty}" />
+                <Popup x:Name="Fans_K3G" Style="{StaticResource PopupMenu}">
+                  <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="1">
+                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource FanC_LR}">
+                      <Image DataContext="{StaticResource FanC_LR}" Source="{Binding Image}" />
+                    </Button>
+                  </UniformGrid>
+                </Popup>
+                <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Fans_K3G}">
+                  <Image Source="{Binding HeaderImages.Fans_K3G}" />
                 </Button>
               </Grid>
               <!--  Секции  -->
@@ -264,11 +300,21 @@
                   </UniformGrid>
                 </Popup>
                 <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Humids}">
-                  <Image Source="{Binding HeaderImages.Empty}" />
+                  <Image Source="{Binding HeaderImages.Humidifiers}" />
                 </Button>
               </Grid>
               <!--  Рекуператоры  -->
-              <Grid Visibility="Collapsed">
+              <Grid>
+                <Grid.Style>
+                  <Style BasedOn="{StaticResource {x:Type Grid}}" TargetType="{x:Type Grid}">
+                    <Setter Property="Visibility" Value="Hidden" />
+                    <Style.Triggers>
+                      <DataTrigger Binding="{Binding Path=CurrentProject.Rows}" Value="Row2">
+                        <Setter Property="Visibility" Value="Visible" />
+                      </DataTrigger>
+                    </Style.Triggers>
+                  </Style>
+                </Grid.Style>
                 <Button>
                   <Image Source="{Binding HeaderImages.Empty}" />
                 </Button>
@@ -313,6 +359,11 @@
                     Source="{Binding Image}" />
                 </DataTemplate>
               </ListBox.ItemTemplate>
+              <b:Interaction.Triggers>
+                <b:DataTrigger Binding="{Binding Path=CurrentProject.Rows}" Value="Rows1">
+                  <b:InvokeCommandAction Command="{Binding ChangeSize}" />
+                </b:DataTrigger>
+              </b:Interaction.Triggers>
             </ListBox>
           </ScrollViewer>
         </md:Card>
