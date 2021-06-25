@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.ComponentModel;
+using System.IO;
 
 namespace VentWPF.ViewModel
 {
@@ -9,6 +10,7 @@ namespace VentWPF.ViewModel
             Name = "Вентилятор";
         }
 
+        [Browsable(false)]
         public Fan_Direction Direction { get; init; } = Fan_Direction.LeftRight;
 
         public override string Image => Path.GetFullPath($"Assets/Images/Fans/Directions/{Direction}.png");

@@ -202,30 +202,47 @@
               <Grid>
                 <Popup x:Name="Fans_C" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="4">
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Humid_Cell}">
-                      <Image DataContext="{StaticResource Humid_Cell}" Source="{Binding Image}" />
+                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource FanC_LR}">
+                      <Image DataContext="{StaticResource FanC_LR}" Source="{Binding Image}" />
                     </Button>
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Humid_Spray}">
-                      <Image DataContext="{StaticResource Humid_Spray}" Source="{Binding Image}" />
+                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource FanC_LU}">
+                      <Image DataContext="{StaticResource FanC_LU}" Source="{Binding Image}" />
                     </Button>
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Humid_Steam}">
-                      <Image DataContext="{StaticResource Humid_Steam}" Source="{Binding Image}" />
+                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource FanC_RL}">
+                      <Image DataContext="{StaticResource FanC_RL}" Source="{Binding Image}" />
+                    </Button>
+                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource FanC_UL}">
+                      <Image DataContext="{StaticResource FanC_UL}" Source="{Binding Image}" />
                     </Button>
                   </UniformGrid>
                 </Popup>
-                <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Coolers}">
+                <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Fans_C}">
                   <Image Source="{Binding HeaderImages.Fans_C}" />
                 </Button>
               </Grid>
               <!--  Вентилятор2  -->
               <Grid>
-                <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Coolers}">
+                <Popup x:Name="Fans_P" Style="{StaticResource PopupMenu}">
+                  <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="1">
+                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource FanC_LR}">
+                      <Image DataContext="{StaticResource FanC_LR}" Source="{Binding Image}" />
+                    </Button>
+                  </UniformGrid>
+                </Popup>
+                <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Fans_P}">
                   <Image Source="{Binding HeaderImages.Fans_P}" />
                 </Button>
               </Grid>
               <!--  Вентилятор3  -->
               <Grid>
-                <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Coolers}">
+                <Popup x:Name="Fans_K3G" Style="{StaticResource PopupMenu}">
+                  <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="1">
+                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource FanC_LR}">
+                      <Image DataContext="{StaticResource FanC_LR}" Source="{Binding Image}" />
+                    </Button>
+                  </UniformGrid>
+                </Popup>
+                <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Fans_K3G}">
                   <Image Source="{Binding HeaderImages.Fans_K3G}" />
                 </Button>
               </Grid>
@@ -283,7 +300,7 @@
                   </UniformGrid>
                 </Popup>
                 <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Humids}">
-                  <Image Source="{Binding HeaderImages.Empty}" />
+                  <Image Source="{Binding HeaderImages.Humidifiers}" />
                 </Button>
               </Grid>
               <!--  Рекуператоры  -->
