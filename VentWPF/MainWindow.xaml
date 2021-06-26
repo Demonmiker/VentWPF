@@ -386,6 +386,7 @@
             <RowDefinition Height="auto" />
           </Grid.RowDefinitions>
           <Grid>
+
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="auto" />
               <ColumnDefinition />
@@ -407,24 +408,26 @@
             SelectedObject="{Binding SelectedElement}"
             TabVisibility="Collapsed" />
           <DataGrid
-            x:Name="dg"
             Grid.Row="2"
-            Height="500"
             AutoGenerateColumns="True"
-            HorizontalScrollBarVisibility="Auto"
-            ItemsSource="{Binding SelectedElement.QueryCollection}">
-            <DataGrid.Style>
-              <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="{x:Type DataGrid}">
-                <Setter Property="Visibility" Value="Visible" />
-                <Style.Triggers>
-                  <DataTrigger Binding="{Binding Items.Count, ElementName=dg}" Value="0">
-                    <Setter Property="Visibility" Value="Collapsed" />
-                  </DataTrigger>
-                </Style.Triggers>
-              </Style>
-            </DataGrid.Style>
-          </DataGrid>
+            ItemsSource="{Binding SelectedElement.QueryCollection}"
+            Style="{StaticResource dg}" />
 
+          <Grid.Resources>
+            <Style
+              x:Key="dg"
+              BasedOn="{StaticResource {x:Type DataGrid}}"
+              TargetType="{x:Type DataGrid}">
+              <Setter Property="Visibility" Value="Visible" />
+              <Setter Property="Height" Value="500" />
+              <Style.Triggers>
+                <DataTrigger Binding="{Binding Items.Count, ElementName=dg}" Value="0">
+                  <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+
+          </Grid.Resources>
         </Grid>
       </ScrollViewer>
 

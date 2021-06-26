@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using VentWPF.Model;
+using System.Collections.ObjectModel;
+using System.Windows.Controls;
 
 namespace VentWPF.ViewModel
 {
@@ -34,5 +36,6 @@ namespace VentWPF.ViewModel
 
         [Browsable(false)]
         protected IQueryable<object> Query { get; init; }
+
     }
 }
