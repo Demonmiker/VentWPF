@@ -410,24 +410,21 @@
           <DataGrid
             Grid.Row="2"
             AutoGenerateColumns="True"
-            ItemsSource="{Binding SelectedElement.QueryCollection}"
-            Style="{StaticResource dg}" />
-
-          <Grid.Resources>
-            <Style
-              x:Key="dg"
-              BasedOn="{StaticResource {x:Type DataGrid}}"
-              TargetType="{x:Type DataGrid}">
-              <Setter Property="Visibility" Value="Visible" />
-              <Setter Property="Height" Value="500" />
-              <Style.Triggers>
-                <DataTrigger Binding="{Binding Items.Count, ElementName=dg}" Value="0">
-                  <Setter Property="Visibility" Value="Collapsed" />
-                </DataTrigger>
-              </Style.Triggers>
-            </Style>
-
-          </Grid.Resources>
+            IsReadOnly="True";
+            ItemsSource="{Binding SelectedElement.QueryCollection}">
+            <DataGrid.Style>
+              <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="{x:Type DataGrid}">
+                <Setter Property="Visibility" Value="Visible" />
+                <Setter Property="Height" Value="500" />
+                <Style.Triggers>
+                  <DataTrigger Binding="{Binding Items.Count, ElementName=dg}" Value="0">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                  </DataTrigger>
+                </Style.Triggers>
+              </Style>
+            </DataGrid.Style>
+           
+          </DataGrid>
         </Grid>
       </ScrollViewer>
 

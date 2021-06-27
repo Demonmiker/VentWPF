@@ -17,14 +17,16 @@ namespace VentWPF.ViewModel
             // ("SELECT Типоряд, [L возд], [Ширина габарит], [Высота габарит], [Ширина ЖС], [Высота ЖС], Цена  FROM dbo.Вода_тепло",
             var db = VentContext.GetInstance();
             var table = db.ВодаТеплоs;
-            var q = from h in table select new 
-            { 
-                h.LВозд, 
+            var q = from h in table select new
+            {
+                Возд = h.LВозд,
+                Скорость = 278 * Performance / (h.ШиринаГабарит * h.ВысотаГабарит),
                 h.ШиринаГабарит,
-                Скорость = 278 * Performance / (h.ШиринаГабарит * h.ВысотаГабарит)
+                h.ВысотаГабарит,
+                ЖС = $"{h.ШиринаЖс};{h.ВысотаЖс}",
             };
-            Query = q;       
-                    
+            Query = q;
+
         }
 
         #region Данные
@@ -89,4 +91,12 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         public float pD2 => (float)(Math.Exp((1500.3 + 23.5 * tOut) / (234 + tOut)));
     }
+
+    public class Test
+    {
+        public double? C1 { get; set; }
+        public double? C2 { get; set; }
+        public double? C3 { get; set; }
+    }
+
 }
