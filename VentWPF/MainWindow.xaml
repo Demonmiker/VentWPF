@@ -410,8 +410,10 @@
           <DataGrid
             Grid.Row="2"
             AutoGenerateColumns="True"
-            IsReadOnly="True";
-            ItemsSource="{Binding SelectedElement.QueryCollection}">
+            IsReadOnly="True"
+            ItemsSource="{Binding SelectedElement.QueryCollection}"
+            SelectionMode="Single"
+            SelectionUnit="FullRow">
             <DataGrid.Style>
               <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="{x:Type DataGrid}">
                 <Setter Property="Visibility" Value="Visible" />
@@ -423,7 +425,7 @@
                 </Style.Triggers>
               </Style>
             </DataGrid.Style>
-           
+
           </DataGrid>
         </Grid>
       </ScrollViewer>
