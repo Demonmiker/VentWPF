@@ -1,6 +1,7 @@
 ﻿using PropertyTools.DataAnnotations;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using VentWPF.Model;
 
 namespace VentWPF.ViewModel
@@ -13,8 +14,20 @@ namespace VentWPF.ViewModel
         {
             Name = "Нагреватель жидкосный";
             image = "Heaters/Heater_Water.png";
+            // ("SELECT Типоряд, [L возд], [Ширина габарит], [Высота габарит], [Ширина ЖС], [Высота ЖС], Цена  FROM dbo.Вода_тепло",
+            var db = VentContext.GetInstance();
+            var table = db.ВодаТеплоs;
+            var q = from h in table select new
+            {
+                //нужно не оставлять double? f менять а double если нужна сортировка по колонке
+                Возд = (double)h.LВозд,
+                Скорость = (double)(278 * Performance / (h.ШиринаГабарит * h.ВысотаГабарит)),
+                Ширина_Габарит = (double)h.ШиринаГабарит,
+                Высота_Габарит = (double)h.ВысотаГабарит,
+                ЖС = $"{h.ШиринаЖс};{h.ВысотаЖс}",
+            };
+            Query = q;
 
-            Query = new List<Element>() { new Heater_Electric(), new Heater_Gas() };
         }
 
         #region Данные
@@ -79,4 +92,12 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         public float pD2 => (float)(Math.Exp((1500.3 + 23.5 * tOut) / (234 + tOut)));
     }
+
+    public class Test
+    {
+        public double? C1 { get; set; }
+        public double? C2 { get; set; }
+        public double? C3 { get; set; }
+    }
+
 }

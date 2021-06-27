@@ -21,6 +21,6 @@ namespace VentWPF.Model
         public int temp { get; set; }       = -30;
         public float PressOut { get; set; } = 100;
 
-        public Rows Rows { get; set; } = Rows.Row1;
+        public Rows Rows { get; set; } = Rows.Row2;
     }
 }

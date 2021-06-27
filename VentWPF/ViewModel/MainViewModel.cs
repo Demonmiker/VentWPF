@@ -29,14 +29,6 @@ namespace VentWPF.ViewModel
                         Table[SelectedIndex] = (Element)x;
                 }
             };
-            //Not Used
-            CmdClosePopup = new()
-            {
-                action = (x) =>
-                {
-                    (x as Popup).IsOpen = false;
-                }
-            };
             CmdOpenPopup = new()
             {
                 action = (o) =>
@@ -48,44 +40,21 @@ namespace VentWPF.ViewModel
                 }
             };
 
-            ChangeSize = new()
-            {
-                action = (x) =>
-                {
-                    InitTable(CurrentProject.Rows);
-                }
-            };
-
 
         }
 
-        public ObservableCollection<Element> Table { get; set; }
-
-        public int SelectedIndex { get; set; } = 0;
-
-        public Element SelectedElement { get; set; }
-
-        public Command AddElementCommand { get; init; }
-
-        public Command CmdOpenPopup { get; init; }
-
-        public Command CmdClosePopup { get; init; }
-
-        public Command ChangeSize { get; init; }
-
+        
+        public ProjectVM CurrentProject { get; set; } = Element.project;
         public ImageCollection HeaderImages { get; init; } = new ImageCollection();
 
-        public ProjectVM CurrentProject { get; set; } = Element.project;
-
-        public Rows RowCount
-        {
-            get { return CurrentProject.Rows; }
-            set 
-            { 
-                CurrentProject.Rows = value;
-                InitTable(CurrentProject.Rows);
-            }
-        }
+        #region Комманды
+        public Command AddElementCommand { get; init; }
+        public Command CmdOpenPopup { get; init; }
+        #endregion
+        #region Таблица со схемой
+        public Element SelectedElement { get; set; }
+        public int SelectedIndex { get; set; } = 0;
+        public ObservableCollection<Element> Table { get; set; }
 
         public void InitTable(Rows rows)
         {
@@ -108,8 +77,9 @@ namespace VentWPF.ViewModel
                 };
             }
         }
-      
+        #endregion
 
-        
+
+
     }
 }

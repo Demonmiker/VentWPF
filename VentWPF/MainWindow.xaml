@@ -337,17 +337,7 @@
               SelectedItem="{Binding SelectedElement}">
               <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                  <UniformGrid Columns="10" Rows="2">
-                    <UniformGrid.Style>
-                      <Style TargetType="{x:Type UniformGrid}">
-                        <Style.Triggers>
-                          <DataTrigger Binding="{Binding CurrentProject.Rows}" Value="1">
-                            <Setter Property="Rows" Value="1" />
-                          </DataTrigger>
-                        </Style.Triggers>
-                      </Style>
-                    </UniformGrid.Style>
-                  </UniformGrid>
+                  <UniformGrid Columns="10" Rows="2" />
                 </ItemsPanelTemplate>
               </ListBox.ItemsPanel>
               <ListBox.ItemTemplate>
@@ -359,11 +349,6 @@
                     Source="{Binding Image}" />
                 </DataTemplate>
               </ListBox.ItemTemplate>
-              <b:Interaction.Triggers>
-                <b:DataTrigger Binding="{Binding Path=CurrentProject.Rows}" Value="Rows1">
-                  <b:InvokeCommandAction Command="{Binding ChangeSize}" />
-                </b:DataTrigger>
-              </b:Interaction.Triggers>
             </ListBox>
           </ScrollViewer>
         </md:Card>
@@ -401,6 +386,7 @@
             <RowDefinition Height="auto" />
           </Grid.RowDefinitions>
           <Grid>
+
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="auto" />
               <ColumnDefinition />
@@ -422,15 +408,16 @@
             SelectedObject="{Binding SelectedElement}"
             TabVisibility="Collapsed" />
           <DataGrid
-            x:Name="dg"
             Grid.Row="2"
-            Height="500"
             AutoGenerateColumns="True"
-            Background="LightBlue"
-            ItemsSource="{Binding SelectedElement.Query}">
+            IsReadOnly="True"
+            ItemsSource="{Binding SelectedElement.QueryCollection}"
+            SelectionMode="Single"
+            SelectionUnit="FullRow">
             <DataGrid.Style>
               <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="{x:Type DataGrid}">
                 <Setter Property="Visibility" Value="Visible" />
+                <Setter Property="Height" Value="500" />
                 <Style.Triggers>
                   <DataTrigger Binding="{Binding Items.Count, ElementName=dg}" Value="0">
                     <Setter Property="Visibility" Value="Collapsed" />
@@ -438,8 +425,8 @@
                 </Style.Triggers>
               </Style>
             </DataGrid.Style>
-          </DataGrid>
 
+          </DataGrid>
         </Grid>
       </ScrollViewer>
 
