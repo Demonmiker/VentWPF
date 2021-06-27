@@ -5,9 +5,14 @@ using System.Windows.Input;
 
 namespace VentWPF.Tools
 {
-    public class Command : ICommand
+    public class Command<T> : ICommand
     {
-        public Action<object> action { get; init; }
+        public Action<T> action { get; init; }
+
+        public Command(Action<T> action)
+        {
+            this.action = action;
+        }
 
         public Predicate<object> predicate { get; init; }
 
@@ -24,13 +29,15 @@ namespace VentWPF.Tools
 
         public bool CanExecute(object parameter) => predicate==null ? true : predicate(parameter);
 
-        public virtual void Execute(object parameter) => action(parameter);
+        public virtual void Execute(object parameter) => action((T)parameter);
 
     }
 
 
-    public class CommandAsync : Command
+    public class CommandAsync<T> : Command<T>
     {
-        public override void Execute(object parameter) => Task.Run(() => action(parameter));
+        public CommandAsync(Action<T> action) : base(action) { }
+
+        public override void Execute(object parameter) => Task.Run(() => this.action((T)parameter));
     }
 }

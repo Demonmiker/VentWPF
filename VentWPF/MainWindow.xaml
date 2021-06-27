@@ -37,6 +37,9 @@
       <Setter Property="Width" Value="75" />
       <Setter Property="Height" Value="75" />
     </Style>
+    <Style BasedOn="{StaticResource MaterialDesignGroupBox}" TargetType="GroupBox">
+      <Setter Property="FontSize" Value="13" />
+    </Style>
 
 
 
@@ -378,57 +381,64 @@
           <TabItem Header="3D" />
         </TabControl>
       </DockPanel>
-      <ScrollViewer Grid.Column="1">
-        <Grid Margin="7,2,0,0">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-          </Grid.RowDefinitions>
-          <Grid>
-
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="auto" />
-              <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Image
-              Width="50"
-              Height="50"
-              Source="{Binding SelectedElement.Image}" />
-            <TextBlock
-              Grid.Column="1"
-              Margin="4,0"
-              VerticalAlignment="Bottom"
-              Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
-              Text="{Binding SelectedElement.Name}"
-              TextWrapping="WrapWithOverflow" />
-          </Grid>
+      <Grid Grid.Column="1" Margin="7,2,0,0">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="2*" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition />
+          </Grid.ColumnDefinitions>
+          <Image
+            Width="50"
+            Height="50"
+            Source="{Binding SelectedElement.Image}" />
+          <TextBlock
+            Grid.Column="1"
+            Margin="4,0"
+            VerticalAlignment="Bottom"
+            Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
+            Text="{Binding SelectedElement.Name}"
+            TextWrapping="WrapWithOverflow" />
+        </Grid>
+        <ScrollViewer Grid.Row="1">
           <ex:PropertyGrid
-            Grid.Row="1"
+            EnableLabelWidthResizing="True"
+            EnumAsRadioButtonsLimit="1"
             SelectedObject="{Binding SelectedElement}"
             TabVisibility="Collapsed" />
-          <DataGrid
-            Grid.Row="2"
-            AutoGenerateColumns="True"
-            IsReadOnly="True"
-            ItemsSource="{Binding SelectedElement.QueryCollection}"
-            SelectionMode="Single"
-            SelectionUnit="FullRow">
-            <DataGrid.Style>
-              <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="{x:Type DataGrid}">
-                <Setter Property="Visibility" Value="Visible" />
-                <Setter Property="Height" Value="500" />
-                <Style.Triggers>
-                  <DataTrigger Binding="{Binding Items.Count, ElementName=dg}" Value="0">
-                    <Setter Property="Visibility" Value="Collapsed" />
-                  </DataTrigger>
-                </Style.Triggers>
-              </Style>
-            </DataGrid.Style>
+        </ScrollViewer>
+        <DataGrid
+          Name="dg"
+          Grid.Row="2"
+          Height="auto"
+          AutoGenerateColumns="True"
+          IsReadOnly="True"
+          ItemsSource="{Binding SelectedElement.QueryCollection}"
+          SelectionMode="Single"
+          SelectionUnit="FullRow">
+          <b:Interaction.Triggers>
+            <b:EventTrigger EventName="AutoGeneratingColumn">
+              <b:InvokeCommandAction Command="{Binding AutoColumns}" PassEventArgsToCommand="True" />
+            </b:EventTrigger>
+          </b:Interaction.Triggers>
+          <DataGrid.Style>
+            <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="{x:Type DataGrid}">
+              <Setter Property="Visibility" Value="Visible" />
+              <Style.Triggers>
+                <DataTrigger Binding="{Binding Items.Count, ElementName=dg}" Value="0">
+                  <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </DataGrid.Style>
 
-          </DataGrid>
-        </Grid>
-      </ScrollViewer>
+        </DataGrid>
+      </Grid>
+
 
     </Grid>
   </DockPanel>

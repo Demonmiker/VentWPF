@@ -24,7 +24,10 @@ namespace VentWPF
         public MainWindow()
         {
             InitializeComponent();
+            
         }
+
+        public DataGrid datagrid => this.dg;
         
     }
 }

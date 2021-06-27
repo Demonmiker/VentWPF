@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Markup;
@@ -23,24 +24,28 @@ namespace VentWPF.ViewModel
 
             AddElementCommand = new()
             {
-                action = (x) =>
+                action = (Element x) =>
                 {
                     if (SelectedIndex >= 0 && SelectedIndex < Table.Count)
-                        Table[SelectedIndex] = (Element)x;
+                        Table[SelectedIndex] = x;
                 }
             };
             CmdOpenPopup = new()
             {
-                action = (o) =>
+                action = (Popup p) =>
                 {
-                    
-                    Popup p = o as Popup;
                     p.HorizontalOffset = 1;
                     p.IsOpen = true;
                 }
             };
 
-
+            AutoColumns = new()
+            {
+                action = (DataGridAutoGeneratingColumnEventArgs x) =>
+                {
+                    
+                }
+            };
         }
 
         
@@ -48,13 +53,15 @@ namespace VentWPF.ViewModel
         public ImageCollection HeaderImages { get; init; } = new ImageCollection();
 
         #region Комманды
-        public Command AddElementCommand { get; init; }
-        public Command CmdOpenPopup { get; init; }
+        public Command<Element> AddElementCommand { get; init; }
+        public Command<Popup> CmdOpenPopup { get; init; }
+        public Command<DataGridAutoGeneratingColumnEventArgs> AutoColumns { get; init; }
         #endregion
         #region Таблица со схемой
         public Element SelectedElement { get; set; }
         public int SelectedIndex { get; set; } = 0;
         public ObservableCollection<Element> Table { get; set; }
+
 
         public void InitTable(Rows rows)
         {

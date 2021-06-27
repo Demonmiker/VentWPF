@@ -19,7 +19,7 @@ namespace VentWPF.ViewModel
             var table = db.ВодаТеплоs;
             var q = from h in table select new
             {
-                //нужно не оставлять double? f менять а double если нужна сортировка по колонке
+                //нужно не оставлять double? менять а double если нужна сортировка по колонке
                 Возд = (double)h.LВозд,
                 Скорость = (double)(278 * Performance / (h.ШиринаГабарит * h.ВысотаГабарит)),
                 Ширина_Габарит = (double)h.ШиринаГабарит,
