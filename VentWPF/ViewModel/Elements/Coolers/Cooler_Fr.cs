@@ -55,7 +55,7 @@ namespace VentWPF.ViewModel
 
         #endregion Информация
 
-        private float AB = (((float)project.With / 1000) * ((float)project.Height / 1000));
+        private float AB = (((float)project.Width / 1000) * ((float)project.Height / 1000));
 
         [Browsable(false)]
         public float pD => (float)(Math.Exp((1500.3 + 23.5 * tOutside) / (234 + tOutside)));

@@ -3,32 +3,50 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using VentWPF.Model;
+using VentWPF.Tools;
 
 namespace VentWPF.ViewModel
 {
     public class Heater_Water : HasPerformance
     {
-        private float AB = (((float)project.With / 1000) * ((float)project.Height / 1000));
+        private float AB = (((float)project.Width / 1000) * ((float)project.Height / 1000));
 
         public Heater_Water()
         {
             Name = "Нагреватель жидкосный";
             image = "Heaters/Heater_Water.png";
             // ("SELECT Типоряд, [L возд], [Ширина габарит], [Высота габарит], [Ширина ЖС], [Высота ЖС], Цена  FROM dbo.Вода_тепло",
-            var db = VentContext.GetInstance();
-            var table = db.ВодаТеплоs;
-            var q = from h in table select new
+            Query = from h in VentContext.GetInstance().ВодаТеплоs select new
             {
                 //нужно не оставлять double? менять а double если нужна сортировка по колонке
-                Возд = (double)h.LВозд,
+                Типоряд = h.Типоряд,
+                LВозд = (double)h.LВозд,
                 Скорость = (double)(278 * Performance / (h.ШиринаГабарит * h.ВысотаГабарит)),
-                Ширина_Габарит = (double)h.ШиринаГабарит,
-                Высота_Габарит = (double)h.ВысотаГабарит,
-                ЖС = $"{h.ШиринаЖс};{h.ВысотаЖс}",
+                ШиринаГабарит = (double)h.ШиринаГабарит,
+                ВысотаГабарит = (double)h.ВысотаГабарит,
+                ШиринаЖс = (double)h.ШиринаЖс,
+                ВысотаЖС = (double)h.ВысотаЖс,
+                Цена = (double)h.Цена
             };
-            Query = q;
+            // ColorColumn<double>("L возд", x => x>ProjectInfo.VFlow);
+            //ColorColumn<double>("Ширина габарит", x => x <= ProjectInfo.With);
+            //ColorColumn<double>("Высота габарит", x => x <= ProjectInfo.Height);
+            //ColorColumn<double>("Скорость воздуха", x => x > 2.5 && x < 4.5 );
+
+
+            
+            Format = format;
+            
 
         }
+
+        private static Dictionary<string, (string name, System.Windows.Data.IValueConverter conv)> format = new()
+        {
+            { "LВозд", ("L возд", new Condition<double>(x => x >= project.VFlow)) },
+            { "ШиринаГабарит", ("Ширина габарит", new Condition<double>(x => x <= project.Width)) },
+            { "ВысотаГабарит", ("Высота габарит", new Condition<double>(x => x <= project.Height)) },
+            { "Скорость", ("Скорость воздуха", new Condition<double>(x => x > 2.5 && x < 4.5)) },
+        };
 
         #region Данные
 
@@ -93,11 +111,6 @@ namespace VentWPF.ViewModel
         public float pD2 => (float)(Math.Exp((1500.3 + 23.5 * tOut) / (234 + tOut)));
     }
 
-    public class Test
-    {
-        public double? C1 { get; set; }
-        public double? C2 { get; set; }
-        public double? C3 { get; set; }
-    }
+  
 
 }

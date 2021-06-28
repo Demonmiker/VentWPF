@@ -61,7 +61,7 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         public float pD => (float)(Math.Exp((1500.3 + 23.5 * tOutside) / (234 + tOutside)));
 
-        private float AB = (((float)project.With / 1000) * ((float)project.Height / 1000));
+        private float AB = (((float)project.Width / 1000) * ((float)project.Height / 1000));
 
         [Browsable(false)]
         public float pD2 => (float)(Math.Exp((1500.3 + 23.5 * tOut) / (234 + tOut)));

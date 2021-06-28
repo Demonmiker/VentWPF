@@ -7,6 +7,8 @@ using System.Linq;
 using VentWPF.Model;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
+using VentWPF.Tools;
+using System.Windows.Data;
 
 namespace VentWPF.ViewModel
 {
@@ -36,6 +38,9 @@ namespace VentWPF.ViewModel
 
         [Browsable(false)]
         protected IQueryable<object> Query { get; init; }
+
+        [Browsable(false)]
+        public Dictionary<string, (string name, IValueConverter conv)> Format { get; init; }
 
     }
 }

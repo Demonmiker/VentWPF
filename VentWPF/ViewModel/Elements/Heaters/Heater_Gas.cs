@@ -6,7 +6,7 @@ namespace VentWPF.ViewModel
 {
     internal class Heater_Gas : HasPerformance
     {
-        private float AB = (((float)project.With / 1000) * ((float)project.Height / 1000));
+        private float AB = (((float)project.Width / 1000) * ((float)project.Height / 1000));
 
         public Heater_Gas()
         {

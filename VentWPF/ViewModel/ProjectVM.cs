@@ -16,7 +16,7 @@ namespace VentWPF.Model
         public int Humid { get; set; }      = 85;
         public float PD { get; set; }       = 500;
         public float PDd { get; set; }      = 0;
-        public int With { get; set; }       = 500;
+        public int Width { get; set; }       = 500;
         public int Height { get; set; }     = 500;
         public int temp { get; set; }       = -30;
         public float PressOut { get; set; } = 100;

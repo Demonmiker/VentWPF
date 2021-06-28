@@ -129,16 +129,16 @@
               <Grid>
                 <Popup x:Name="Valves" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="4">
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Valve_Hor}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Valve_Hor}">
                       <Image DataContext="{StaticResource Valve_Hor}" Source="{Binding Image}" />
                     </Button>
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Valve_Hor_Heat}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Valve_Hor_Heat}">
                       <Image DataContext="{StaticResource Valve_Hor_Heat}" Source="{Binding Image}" />
                     </Button>
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Valve_Ver}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Valve_Ver}">
                       <Image DataContext="{StaticResource Valve_Ver}" Source="{Binding Image}" />
                     </Button>
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Valve_Ver_Heat}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Valve_Ver_Heat}">
                       <Image DataContext="{StaticResource Valve_Ver_Heat}" Source="{Binding Image}" />
                     </Button>
                   </UniformGrid>
@@ -151,13 +151,13 @@
               <Grid>
                 <Popup x:Name="Filters" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="3">
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Filter_Section}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Filter_Section}">
                       <Image DataContext="{StaticResource Filter_Section}" Source="{Binding Image}" />
                     </Button>
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Filter_Short}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Filter_Short}">
                       <Image DataContext="{StaticResource Filter_Short}" Source="{Binding Image}" />
                     </Button>
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Filter_Valve}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Filter_Valve}">
                       <Image DataContext="{StaticResource Filter_Valve}" Source="{Binding Image}" />
                     </Button>
                   </UniformGrid>
@@ -170,13 +170,13 @@
               <Grid>
                 <Popup x:Name="Heaters" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="3">
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Heater_Water}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Heater_Water}">
                       <Image DataContext="{StaticResource Heater_Water}" Source="{Binding Image}" />
                     </Button>
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Heater_Gas}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Heater_Gas}">
                       <Image DataContext="{StaticResource Heater_Gas}" Source="{Binding Image}" />
                     </Button>
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Heater_Elec}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Heater_Elec}">
                       <Image DataContext="{StaticResource Heater_Elec}" Source="{Binding Image}" />
                     </Button>
                   </UniformGrid>
@@ -189,10 +189,10 @@
               <Grid>
                 <Popup x:Name="Coolers" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="2">
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Cooler_Water}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Cooler_Water}">
                       <Image DataContext="{StaticResource Cooler_Water}" Source="{Binding Image}" />
                     </Button>
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Cooler_Fr}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Cooler_Fr}">
                       <Image DataContext="{StaticResource Cooler_Fr}" Source="{Binding Image}" />
                     </Button>
                   </UniformGrid>
@@ -205,16 +205,16 @@
               <Grid>
                 <Popup x:Name="Fans_C" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="4">
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource FanC_LR}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource FanC_LR}">
                       <Image DataContext="{StaticResource FanC_LR}" Source="{Binding Image}" />
                     </Button>
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource FanC_LU}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource FanC_LU}">
                       <Image DataContext="{StaticResource FanC_LU}" Source="{Binding Image}" />
                     </Button>
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource FanC_RL}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource FanC_RL}">
                       <Image DataContext="{StaticResource FanC_RL}" Source="{Binding Image}" />
                     </Button>
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource FanC_UL}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource FanC_UL}">
                       <Image DataContext="{StaticResource FanC_UL}" Source="{Binding Image}" />
                     </Button>
                   </UniformGrid>
@@ -227,7 +227,7 @@
               <Grid>
                 <Popup x:Name="Fans_P" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="1">
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource FanC_LR}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource FanC_LR}">
                       <Image DataContext="{StaticResource FanC_LR}" Source="{Binding Image}" />
                     </Button>
                   </UniformGrid>
@@ -240,7 +240,7 @@
               <Grid>
                 <Popup x:Name="Fans_K3G" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="1">
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource FanC_LR}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource FanC_LR}">
                       <Image DataContext="{StaticResource FanC_LR}" Source="{Binding Image}" />
                     </Button>
                   </UniformGrid>
@@ -253,16 +253,16 @@
               <Grid>
                 <Popup x:Name="Sections" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="4">
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Section_Straight}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Section_Straight}">
                       <Image DataContext="{StaticResource Section_Straight}" Source="{Binding Image}" />
                     </Button>
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Section_Down}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Section_Down}">
                       <Image DataContext="{StaticResource Section_Down}" Source="{Binding Image}" />
                     </Button>
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Section_Up}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Section_Up}">
                       <Image DataContext="{StaticResource Section_Up}" Source="{Binding Image}" />
                     </Button>
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Section_Down_Reverse}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Section_Down_Reverse}">
                       <Image DataContext="{StaticResource Section_Down_Reverse}" Source="{Binding Image}" />
                     </Button>
                   </UniformGrid>
@@ -275,10 +275,10 @@
               <Grid>
                 <Popup x:Name="Mufflers" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="2">
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Muffler}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Muffler}">
                       <Image DataContext="{StaticResource Muffler}" Source="{Binding Image}" />
                     </Button>
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Muffler_Corrector}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Muffler_Corrector}">
                       <Image DataContext="{StaticResource Muffler_Corrector}" Source="{Binding Image}" />
                     </Button>
                   </UniformGrid>
@@ -291,13 +291,13 @@
               <Grid>
                 <Popup x:Name="Humids" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="3">
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Humid_Cell}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Humid_Cell}">
                       <Image DataContext="{StaticResource Humid_Cell}" Source="{Binding Image}" />
                     </Button>
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Humid_Spray}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Humid_Spray}">
                       <Image DataContext="{StaticResource Humid_Spray}" Source="{Binding Image}" />
                     </Button>
-                    <Button Command="{Binding AddElementCommand}" CommandParameter="{StaticResource Humid_Steam}">
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Humid_Steam}">
                       <Image DataContext="{StaticResource Humid_Steam}" Source="{Binding Image}" />
                     </Button>
                   </UniformGrid>
@@ -422,7 +422,7 @@
           SelectionUnit="FullRow">
           <b:Interaction.Triggers>
             <b:EventTrigger EventName="AutoGeneratingColumn">
-              <b:InvokeCommandAction Command="{Binding AutoColumns}" PassEventArgsToCommand="True" />
+              <b:InvokeCommandAction Command="{Binding CmdAutoColumns}" PassEventArgsToCommand="True" />
             </b:EventTrigger>
           </b:Interaction.Triggers>
           <DataGrid.Style>
@@ -435,7 +435,6 @@
               </Style.Triggers>
             </Style>
           </DataGrid.Style>
-
         </DataGrid>
       </Grid>
 
