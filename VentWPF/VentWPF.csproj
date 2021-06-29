@@ -121,6 +121,9 @@
     <None Update="Assets\Images\Fans\Directions\RightLeft.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="FanDLL\FANselect.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

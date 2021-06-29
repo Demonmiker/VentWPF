@@ -19,7 +19,7 @@ namespace VentWPF.ViewModel
 
         protected string image = "Empty.png";
 
-        public static ProjectVM project { get; set; } = new();
+        public static ProjectVM Project { get; set; } = ProjectVM.Instance;
 
         [Browsable(false)]
         public virtual string Image => Path.GetFullPath("Assets/Images/" + image);

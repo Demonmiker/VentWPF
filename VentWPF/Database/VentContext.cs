@@ -7,32 +7,16 @@ namespace VentWPF
 {
     public partial class VentContext : DbContext
     {
-        public static VentContext Instance { get; private set; } = null;
-
-        public static VentContext GetInstance()
-        {
-            if (Instance != null)
-                return Instance;
-            else
-            {
-                Instance = new VentContext();
-                return Instance;
-            }
-        }
+        public static VentContext Instance { get; private set; } = new VentContext();
 
         ~VentContext()
         {
             Instance.Dispose();
         }
 
-        private VentContext()
-        {
-            
-        }
+        private VentContext() {  } 
 
-        private VentContext(DbContextOptions<VentContext> options) : base(options)
-        {
-        }
+        private VentContext(DbContextOptions<VentContext> options) : base(options) { }
 
         public virtual DbSet<_1с0> _1с0s { get; set; }
         public virtual DbSet<_1с> _1сs { get; set; }

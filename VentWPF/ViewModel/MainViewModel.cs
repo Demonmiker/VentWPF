@@ -23,8 +23,9 @@ namespace VentWPF.ViewModel
             CmdAutoColumns = new(AutoColumns);
         }
 
-        public ProjectVM CurrentProject { get; set; } = Element.project;
+        public ProjectVM CurrentProject { get; set; } = ProjectVM.Instance;
         public ImageCollection HeaderImages { get; init; } = new ImageCollection();
+        public FanDLL.DLLRequest Request{ get; init; } = new();
 
         #region Комманды
 

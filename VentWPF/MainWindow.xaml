@@ -395,7 +395,12 @@
               SelectedObject="{Binding CurrentProject}"
               TabVisibility="Collapsed"/>
           </TabItem>
-          <TabItem Header="Подбор"/>
+          <TabItem Header="Подбор">
+             <ex:PropertyGrid
+              HorizontalAlignment="Stretch"
+              SelectedObject="{Binding Request}"
+              TabVisibility="Collapsed"/>
+          </TabItem>
           <TabItem Header="Графики"/>
           <TabItem Header="Схема"/>
           <TabItem Header="Отчёт"/>
