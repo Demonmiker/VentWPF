@@ -63,13 +63,8 @@
         Margin="0 0 0 0"
         HorizontalAlignment="Right"
         Panel.ZIndex="2"
-        Background="Transparent"/>
+        Background="LightGray"/>
       <DockPanel>
-        <Rectangle
-          Width="5"
-          VerticalAlignment="Stretch"
-          DockPanel.Dock="Right"
-          Fill="{DynamicResource MaterialDesignDarkBackground}"/>
         <!--  Верхняя панель для содания элементов  -->
         <md:Card Background="LightGray" DockPanel.Dock="Top">
           <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
@@ -335,6 +330,7 @@
               Width="750"
               Height="150"
               HorizontalAlignment="Left"
+              Foreground="{StaticResource PrimaryHueLightBrush}"
               ItemsSource="{Binding Table}"
               SelectedIndex="{Binding SelectedIndex}"
               SelectedItem="{Binding SelectedElement}">
@@ -343,6 +339,15 @@
                   <UniformGrid Columns="10" Rows="2"/>
                 </ItemsPanelTemplate>
               </ListBox.ItemsPanel>
+              <ListBox.ItemContainerStyle>
+                <Style BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="{x:Type ListBoxItem}">
+                  <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                      <Setter Property="Background" Value="{DynamicResource PrimaryHueLightBrush}"/>
+                    </Trigger>
+                  </Style.Triggers>
+                </Style>
+              </ListBox.ItemContainerStyle>
               <ListBox.ItemTemplate>
                 <DataTemplate DataType="ElementVM">
                   <Image
@@ -356,15 +361,15 @@
           </ScrollViewer>
         </md:Card>
         <Rectangle
-          Height="5"
+          Height="3"
           HorizontalAlignment="Stretch"
           DockPanel.Dock="Bottom"
-          Fill="{DynamicResource MaterialDesignDarkBackground}"/>
+          Fill="{DynamicResource PrimaryHueDarkBrush}"/>
         <Rectangle
-          Height="5"
+          Height="3"
           HorizontalAlignment="Stretch"
           DockPanel.Dock="Top"
-          Fill="{DynamicResource MaterialDesignDarkBackground}"/>
+          Fill="{DynamicResource PrimaryHueDarkBrush}"/>
         <!--  Основная панель  -->
         <TabControl Margin="0 2 0 0">
           <TabItem Header="Проект">
@@ -382,64 +387,98 @@
           <TabItem Header="3D"/>
         </TabControl>
       </DockPanel>
-      <Grid Grid.Column="1" Margin="7 2 0 0">
-        <Grid.RowDefinitions>
-          <RowDefinition Height="auto"/>
-          <RowDefinition Height="2*"/>
-          <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid>
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition/>
-          </Grid.ColumnDefinitions>
-          <Image
-            Width="50"
-            Height="50"
-            Source="{Binding SelectedElement.Image}"/>
-          <TextBlock
-            Grid.Column="1"
-            Margin="4 0"
+      <md:Card Grid.Column="1" md:ShadowAssist.ShadowEdges="All">
+        <Grid Margin="0 2 0 0">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+
+          </Grid.RowDefinitions>
+          <Grid Grid.Row="0" Margin="7 0">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="auto"/>
+              <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Image
+              Width="50"
+              Height="50"
+              Source="{Binding SelectedElement.Image}"/>
+            <TextBlock
+              Grid.Column="1"
+              Margin="4 0"
+              VerticalAlignment="Bottom"
+              Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
+              Text="{Binding SelectedElement.Name}"
+              TextWrapping="WrapWithOverflow"/>
+          </Grid>
+          <ScrollViewer Grid.Row="1" Margin="7 5 0 5">
+            <ex:PropertyGrid
+              EnableLabelWidthResizing="True"
+              EnumAsRadioButtonsLimit="1"
+              SelectedObject="{Binding SelectedElement}"
+              TabVisibility="Collapsed"/>
+          </ScrollViewer>
+          <GridSplitter
+            Grid.Row="1"
+            Height="6"
+            Margin="-5 0 16 0"
+            HorizontalAlignment="Stretch"
             VerticalAlignment="Bottom"
-            Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
-            Text="{Binding SelectedElement.Name}"
-            TextWrapping="WrapWithOverflow"/>
+            Panel.ZIndex="2"
+            Background="LightGray"/>
+          <md:Card Grid.Row="2" Margin="0 0 0 5" >
+            <DataGrid
+                Name="dg"
+                Grid.Row="2"
+                Height="auto"
+                AutoGenerateColumns="True"
+                IsReadOnly="True"
+                ItemsSource="{Binding SelectedElement.QueryCollection}"
+                SelectedItem="{Binding SelectedElement.DeviceData}"
+                SelectionMode="Single"
+                SelectionUnit="FullRow">
+              <DataGrid.Resources>
+                <Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="DataGridCell">
+                  <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                      <Setter Property="Background" Value="Transparent"/>
+                    </Trigger>
+                  </Style.Triggers>
+                </Style>
+              </DataGrid.Resources>
+              <DataGrid.ItemContainerStyle>
+                <Style BasedOn="{StaticResource {x:Type DataGridRow}}" TargetType="DataGridRow">
+                  <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                      <Setter Property="Background" Value="{DynamicResource PrimaryHueLightBrush}"/>
+                    </Trigger>
+                  </Style.Triggers>
+                </Style>
+              </DataGrid.ItemContainerStyle>
+              <b:Interaction.Triggers>
+                <b:EventTrigger EventName="AutoGeneratingColumn">
+                  <b:InvokeCommandAction Command="{Binding CmdAutoColumns}" PassEventArgsToCommand="True"/>
+                </b:EventTrigger>
+              </b:Interaction.Triggers>
+              <DataGrid.Style>
+                <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="{x:Type DataGrid}">
+                  <Setter Property="Visibility" Value="Visible"/>
+                  <Style.Triggers>
+                    <DataTrigger Binding="{Binding Items.Count, ElementName=dg}" Value="0">
+                      <Setter Property="Visibility" Value="Collapsed"/>
+                    </DataTrigger>
+                  </Style.Triggers>
+                </Style>
+              </DataGrid.Style>
+
+
+            </DataGrid>
+
+
+          </md:Card>
         </Grid>
-        <ScrollViewer Grid.Row="1">
-          <ex:PropertyGrid
-            EnableLabelWidthResizing="True"
-            EnumAsRadioButtonsLimit="1"
-            SelectedObject="{Binding SelectedElement}"
-            TabVisibility="Collapsed"/>
-        </ScrollViewer>
-        <DataGrid
-          Name="dg"
-          Grid.Row="2"
-          Height="auto"
-          AutoGenerateColumns="True"
-          IsReadOnly="True"
-          ItemsSource="{Binding SelectedElement.QueryCollection}"
-          SelectionMode="Single"
-          SelectionUnit="FullRow">
-          <b:Interaction.Triggers>
-            <b:EventTrigger EventName="AutoGeneratingColumn">
-              <b:InvokeCommandAction Command="{Binding CmdAutoColumns}" PassEventArgsToCommand="True"/>
-            </b:EventTrigger>
-          </b:Interaction.Triggers>
-          <DataGrid.Style>
-            <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="{x:Type DataGrid}">
-              <Setter Property="Visibility" Value="Visible"/>
-              <Style.Triggers>
-                <DataTrigger Binding="{Binding Items.Count, ElementName=dg}" Value="0">
-                  <Setter Property="Visibility" Value="Collapsed"/>
-                </DataTrigger>
-              </Style.Triggers>
-            </Style>
-          </DataGrid.Style>
-        </DataGrid>
-      </Grid>
-
-
+      </md:Card>
     </Grid>
   </DockPanel>
 </Window>
