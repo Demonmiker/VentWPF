@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PropertyTools.DataAnnotations;
 using VentWPF.ViewModel;
 
 namespace VentWPF.Model
 {
     public  class ProjectVM : BaseViewModel
     {
+        [Description("Описание")]
         public int VFlow { get; set; }      = 6000;
         public int Resist { get; set; }
         public int Trend { get; set; }
