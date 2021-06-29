@@ -33,6 +33,8 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         public virtual float PressureDrop => 0;
 
+
+        #region DataGrid
         [Browsable(false)]
         public ICollection QueryCollection => Query != null ? Query.ToList() : null;
 
@@ -41,6 +43,10 @@ namespace VentWPF.ViewModel
 
         [Browsable(false)]
         public Dictionary<string, (string name, IValueConverter conv)> Format { get; init; }
+
+        [Browsable(false)]
+        public object DeviceData { get; set; }
+        #endregion
 
     }
 }
