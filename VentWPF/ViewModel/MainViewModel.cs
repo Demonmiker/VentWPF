@@ -11,8 +11,10 @@ namespace VentWPF.ViewModel
 {
     internal class MainViewModel : BaseViewModel
     {
+        
         public MainViewModel()
         {
+            
             InitTable(CurrentProject.Rows);
 
 
