@@ -12,21 +12,29 @@ namespace VentWPF.FanDLL
 {
     class DLLRequest : BaseViewModel , ISaveLoad
     {
-        public string username { get; set; } = "login";
-        public string password { get; set; } = "password";
-        public double qv { get; set; } = 6000;
-        public double psf { get; set; } = 150;
-        public double search_tolerance { get; set; } = 10;
-        public string language { get; set; } = "RU";
-        public string unit_system { get; set; } = "m";
-        public bool insert_geo_data { get; set; } = true;
-        public bool insert_motor_data { get; set; } = true;
-        public bool insert_nominal_values { get; set; } = true;
-        [JsonIgnore]
-        public string Req => this.ToString();
+        [JsonPropertyName("username")]
+        public string Username { get; set; } = "login";
+        [JsonPropertyName("password")]
+        public string Password { get; set; } = "password";
+        [JsonPropertyName("qv")]
+        public double VFlow { get; set; } = 6000;
+        [JsonPropertyName("psf")]
+        public double PressureDrop { get; set; } = 150;
+        [JsonPropertyName("search_tolerance")]
+        public double SearchTolerance { get; set; } = 10;
+        [JsonPropertyName("language")]
+        public string Language { get; set; } = "RU";
+        [JsonPropertyName("unit_system")]
+        public string UnitSystem { get; set; } = "m";
+        [JsonPropertyName("insert_geo_data")]
+        public bool InsertGeoData { get; set; } = true;
+        [JsonPropertyName("insert_motor_data")]
+        public bool insertMotorData { get; set; } = true;
+        [JsonPropertyName("insert_nominal_values")]
+        public bool InsertNominalValues { get; set; } = true;
 
         public override string ToString() =>
-           JsonSerializer.Serialize(this,new() {});
+           JsonSerializer.Serialize(this);
 
 
     }
