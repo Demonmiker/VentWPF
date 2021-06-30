@@ -21,22 +21,23 @@
   <Window.DataContext>
     <vm:MainViewModel/>
   </Window.DataContext>
+  <b:Interaction.Triggers>
+    <b:EventTrigger EventName="Closed">
+      <b:InvokeCommandAction Command="{Binding CmdWindowClosed}" PassEventArgsToCommand="True"/>
+    </b:EventTrigger>
+  </b:Interaction.Triggers>
   <Window.Resources>
     <!--  Ресурсы окна  -->
-    <Style TargetType="ToolTip" BasedOn="{StaticResource {x:Type ToolTip}}">
-    <Style.Triggers>
-        <Trigger Property="Content"
-                 Value="{x:Static sys:String.Empty}">
-            <Setter Property="Visibility"
-                    Value="Collapsed" />
+    <Style BasedOn="{StaticResource {x:Type ToolTip}}" TargetType="ToolTip">
+      <Style.Triggers>
+        <Trigger Property="Content" Value="{x:Static sys:String.Empty}">
+          <Setter Property="Visibility" Value="Collapsed"/>
         </Trigger>
-        <Trigger Property="Content"
-                 Value="{x:Null}">
-            <Setter Property="Visibility"
-                    Value="Collapsed" />
+        <Trigger Property="Content" Value="{x:Null}">
+          <Setter Property="Visibility" Value="Collapsed"/>
         </Trigger>
-    </Style.Triggers>
-</Style>
+      </Style.Triggers>
+    </Style>
     <Style TargetType="{x:Type Image}">
       <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
     </Style>
@@ -84,11 +85,11 @@
             <StackPanel
               Width="auto"
               Height="auto"
-              Orientation="Horizontal"
-              HorizontalAlignment="Left">
+              HorizontalAlignment="Left"
+              Orientation="Horizontal">
               <StackPanel.Resources>
-               
-                
+
+
                 <vm:Valve_Hor x:Key="Valve_Hor"/>
                 <vm:Valve_Hor_Heat x:Key="Valve_Hor_Heat"/>
                 <vm:Valve_Ver x:Key="Valve_Ver"/>
@@ -366,11 +367,11 @@
               <ListBox.ItemTemplate>
                 <DataTemplate DataType="ElementVM">
                   <Image
-                    ToolTip="{Binding Name}"
                     Margin="-6"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    Source="{Binding Image}"/>
+                    Source="{Binding Image}"
+                    ToolTip="{Binding Name}"/>
                 </DataTemplate>
               </ListBox.ItemTemplate>
             </ListBox>
@@ -392,11 +393,11 @@
             <ex:PropertyGrid
               Width="400"
               HorizontalAlignment="Left"
-              SelectedObject="{Binding CurrentProject}"
+              SelectedObject="{Binding Project}"
               TabVisibility="Collapsed"/>
           </TabItem>
           <TabItem Header="Подбор">
-             <ex:PropertyGrid
+            <ex:PropertyGrid
               HorizontalAlignment="Stretch"
               SelectedObject="{Binding Request}"
               TabVisibility="Collapsed"/>
@@ -448,17 +449,17 @@
             VerticalAlignment="Bottom"
             Panel.ZIndex="2"
             Background="LightGray"/>
-          <md:Card Grid.Row="2" Margin="0 0 0 5" >
+          <md:Card Grid.Row="2" Margin="0 0 0 5">
             <DataGrid
-                Name="dg"
-                Grid.Row="2"
-                Height="auto"
-                AutoGenerateColumns="True"
-                IsReadOnly="True"
-                ItemsSource="{Binding SelectedElement.QueryCollection}"
-                SelectedItem="{Binding SelectedElement.DeviceData}"
-                SelectionMode="Single"
-                SelectionUnit="FullRow">
+              Name="dg"
+              Grid.Row="2"
+              Height="auto"
+              AutoGenerateColumns="True"
+              IsReadOnly="True"
+              ItemsSource="{Binding SelectedElement.QueryCollection}"
+              SelectedItem="{Binding SelectedElement.DeviceData}"
+              SelectionMode="Single"
+              SelectionUnit="FullRow">
               <DataGrid.Resources>
                 <Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="DataGridCell">
                   <Style.Triggers>

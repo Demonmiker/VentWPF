@@ -6,6 +6,7 @@ using VentWPF.Model;
 using VentWPF.Tools;
 using System.Windows.Data;
 using System.Windows.Media;
+using VentWPF.FanDLL;
 
 namespace VentWPF.ViewModel
 {
@@ -15,17 +16,17 @@ namespace VentWPF.ViewModel
         public MainViewModel()
         {
             
-            InitTable(CurrentProject.Rows);
-
-
+            InitTable(Project.Rows);
 
             CmdAddElement = new(AddElement);
             CmdAutoColumns = new(AutoColumns);
+            CmdOpenPopup = new(OpenPopup);
+            CmdWindowClosed = new(OnWindowClosed);
         }
 
-        public ProjectVM CurrentProject { get; set; } = ProjectVM.Instance;
+        public ProjectVM Project { get; set; } = ProjectVM.Instance;
         public ImageCollection HeaderImages { get; init; } = new ImageCollection();
-        public FanDLL.DLLRequest Request{ get; init; } = new();
+        public DLLRequest Request { get; init; } = new();
 
         #region Комманды
 
@@ -33,7 +34,9 @@ namespace VentWPF.ViewModel
 
         public Command<DataGridAutoGeneratingColumnEventArgs> CmdAutoColumns { get; init; }
 
-        public Command<Popup> CmdOpenPopup { get; init; } = new Command<Popup>(OpenPopup);
+        public Command<Popup> CmdOpenPopup { get; init; } 
+
+        public Command<object> CmdWindowClosed { get; init; }
 
         private void AutoColumns(DataGridAutoGeneratingColumnEventArgs e)
         {
@@ -76,12 +79,19 @@ namespace VentWPF.ViewModel
             p.IsOpen = true;
         }
 
-        private void AddElement(Element e)
+        private void AddElement(Element el)
         {
             var ind = SelectedIndex;
             if (SelectedIndex >= 0 && SelectedIndex < Table.Count)
-                Table[SelectedIndex] = e;
+                Table[SelectedIndex] = el;
             SelectedIndex = ind;
+        }
+
+        private void OnWindowClosed(object e)
+        {
+            VentContext.Instance.Dispose();
+            IOManager.SaveAsJson(Request, "req.json");
+            IOManager.SaveAsJson(Project, "prj.json");
         }
         #endregion Комманды
 
