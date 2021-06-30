@@ -7,6 +7,8 @@ using VentWPF.Tools;
 using System.Windows.Data;
 using System.Windows.Media;
 using VentWPF.FanDLL;
+using Microsoft.Win32;
+using System.Linq;
 
 namespace VentWPF.ViewModel
 {
@@ -15,16 +17,18 @@ namespace VentWPF.ViewModel
         
         public MainViewModel()
         {
-            
-            InitTable(Project.Rows);
 
+            //Request= IOManager.LoadAsJson<DLLRequest>("req.json");
+            InitTable(ProjectInfo.Rows);
             CmdAddElement = new(AddElement);
             CmdAutoColumns = new(AutoColumns);
             CmdOpenPopup = new(OpenPopup);
             CmdWindowClosed = new(OnWindowClosed);
+            CmdSave = new(Save);
+            CmdLoad = new(Load);
         }
 
-        public ProjectVM Project { get; set; } = ProjectVM.Instance;
+        public ProjectInfoVM ProjectInfo { get; set; } = ProjectInfoVM.Instance;
         public ImageCollection HeaderImages { get; init; } = new ImageCollection();
         public DLLRequest Request { get; init; } = new();
 
@@ -37,6 +41,10 @@ namespace VentWPF.ViewModel
         public Command<Popup> CmdOpenPopup { get; init; } 
 
         public Command<object> CmdWindowClosed { get; init; }
+
+        public Command<object> CmdSave { get; init; }
+
+        public Command<object> CmdLoad { get; init; }
 
         private void AutoColumns(DataGridAutoGeneratingColumnEventArgs e)
         {
@@ -82,43 +90,55 @@ namespace VentWPF.ViewModel
         private void AddElement(Element el)
         {
             var ind = SelectedIndex;
-            if (SelectedIndex >= 0 && SelectedIndex < Table.Count)
-                Table[SelectedIndex] = el;
+            if (SelectedIndex >= 0 && SelectedIndex < Grid.Count)
+                Grid[SelectedIndex] = el;
             SelectedIndex = ind;
         }
 
         private void OnWindowClosed(object e)
         {
             VentContext.Instance.Dispose();
-            IOManager.SaveAsJson(Request, "req.json");
-            IOManager.SaveAsJson(Project, "prj.json");
+            //IOManager.SaveAsJson(Request, "req.json");
+        }
+
+        private void Load(object o)
+        {
+            OpenFileDialog sfd = new OpenFileDialog() { DefaultExt = ".prj", Filter = "Projects (.prj)|*.prj" };
+            if (sfd.ShowDialog() == true)
+            {
+                var project = IOManager.LoadAsJson<Project>(sfd.FileName);
+                ProjectInfo = project.ProjectInfo;
+                Grid = new ObservableCollection<Element>(project.Grid);
+            }
+        }
+
+        private void Save(object o)
+        {
+            SaveFileDialog sfd = new SaveFileDialog() { FileName = "Проект", DefaultExt = ".prj", Filter = "Projects (.prj)|*.prj" };
+            if(sfd.ShowDialog()==true) IOManager.SaveAsJson(new Project(ProjectInfo,Grid.ToList()), sfd.FileName);
         }
         #endregion Комманды
 
         #region Таблица со схемой
-
         public Element SelectedElement { get; set; }
         public int SelectedIndex { get; set; } = 0;
-        public ObservableCollection<Element> Table { get; set; }
+        public ObservableCollection<Element> Grid { get; set; }
 
         public void InitTable(Rows rows)
         {
             if (rows == Rows.Row1)
             {
-                Table = new ObservableCollection<Element>()
+                Grid = new ObservableCollection<Element>()
                 {
-                    new Heater_Gas(),new Heater_Water(),new Heater_Electric(),new Cooler_Fr(),new Cooler_Water(),
-                    new Muffler(),  new Muffler_Corrector(),new Filter_Section(),new Filter_Short(),new Filter_Valve(),
+                    new(),new(),new(),new(),new(),new(),new(),new(),new(),new(),
                 };
             }
             else
             {
-                Table = new ObservableCollection<Element>()
+                Grid = new ObservableCollection<Element>()
                 {
-                    new Heater_Gas(),new Heater_Water(),new Heater_Electric(),new Cooler_Fr(),new Cooler_Water(),
-                    new Muffler(),new Muffler_Corrector(),new Filter_Section(),new Filter_Short(),new Filter_Valve(),
-                    new Section_Straight(),new Section_Up(),new Section_Down(),new Section_Down_Reverse(),new  Valve_Hor(),
-                    new Valve_Hor_Heat(),new Valve_Ver(),new Valve_Ver_Heat(),new (),new(),
+                    new(),new(),new(),new(),new(),new(),new(),new(),new(),new(),
+                    new(),new(),new(),new(),new(),new(),new(),new(),new(),new(),
                 };
             }
         }

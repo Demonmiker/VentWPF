@@ -9,9 +9,11 @@ using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using VentWPF.Tools;
 using System.Windows.Data;
+using Newtonsoft.Json;
 
 namespace VentWPF.ViewModel
 {
+    
     public class Element : BaseViewModel
     {
         public const string c1 = "Данные";
@@ -19,7 +21,7 @@ namespace VentWPF.ViewModel
 
         protected string image = "Empty.png";
 
-        public static ProjectVM Project { get; set; } = ProjectVM.Instance;
+        public static ProjectInfoVM Project { get; set; } = ProjectInfoVM.Instance;
 
         [Browsable(false)]
         public virtual string Image => Path.GetFullPath("Assets/Images/" + image);
@@ -36,12 +38,15 @@ namespace VentWPF.ViewModel
 
         #region DataGrid
         [Browsable(false)]
+        [JsonIgnore]
         public ICollection QueryCollection => Query != null ? Query.ToList() : null;
 
         [Browsable(false)]
+        [JsonIgnore]
         protected IQueryable<object> Query { get; init; }
 
         [Browsable(false)]
+        [JsonIgnore]
         public Dictionary<string, (string name, IValueConverter conv)> Format { get; init; }
 
         [Browsable(false)]

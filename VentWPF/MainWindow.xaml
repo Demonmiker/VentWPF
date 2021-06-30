@@ -4,9 +4,9 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-  xmlns:ex="http://propertytools.org/wpf"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+  xmlns:pt="http://propertytools.org/wpf"
   xmlns:sys="clr-namespace:System;assembly=mscorlib"
   xmlns:vm="clr-namespace:VentWPF.ViewModel"
   Title="MainWindow"
@@ -54,7 +54,9 @@
     <Style BasedOn="{StaticResource MaterialDesignGroupBox}" TargetType="GroupBox">
       <Setter Property="FontSize" Value="13"/>
     </Style>
-
+    <Style BasedOn="{StaticResource {x:Type MenuItem}}" TargetType="{x:Type MenuItem}">
+      <Setter Property="Height" Value="25"/>
+    </Style>
 
 
 
@@ -62,7 +64,16 @@
   </Window.Resources>
   <DockPanel>
     <Menu Height="25" DockPanel.Dock="Top">
-      <MenuItem Height="25" Header="Файл"/>
+      <MenuItem Header="Проект" Height="auto">
+        <MenuItem
+          
+          Command="{Binding CmdSave}"
+          Header="Сохранить"/>
+
+        <MenuItem
+          Command="{Binding CmdLoad}"
+          Header="Загрузить"/>
+      </MenuItem>
     </Menu>
     <StatusBar DockPanel.Dock="Bottom">
       <TextBlock Text="Статус"/>
@@ -323,7 +334,7 @@
                   <Style BasedOn="{StaticResource {x:Type Grid}}" TargetType="{x:Type Grid}">
                     <Setter Property="Visibility" Value="Collapsed"/>
                     <Style.Triggers>
-                      <DataTrigger Binding="{Binding Path=CurrentProject.Rows}" Value="Row2">
+                      <DataTrigger Binding="{Binding Path=ProjectInfo.Rows}" Value="Row2">
                         <Setter Property="Visibility" Value="Visible"/>
                       </DataTrigger>
                     </Style.Triggers>
@@ -347,7 +358,7 @@
               Height="150"
               HorizontalAlignment="Left"
               Foreground="{StaticResource PrimaryHueLightBrush}"
-              ItemsSource="{Binding Table}"
+              ItemsSource="{Binding Grid}"
               SelectedIndex="{Binding SelectedIndex}"
               SelectedItem="{Binding SelectedElement}">
               <ListBox.ItemsPanel>
@@ -390,14 +401,14 @@
         <!--  Основная панель  -->
         <TabControl Margin="0 2 0 0">
           <TabItem Header="Проект">
-            <ex:PropertyGrid
+            <pt:PropertyGrid
               Width="400"
               HorizontalAlignment="Left"
-              SelectedObject="{Binding Project}"
+              SelectedObject="{Binding ProjectInfo}"
               TabVisibility="Collapsed"/>
           </TabItem>
           <TabItem Header="Подбор">
-            <ex:PropertyGrid
+            <pt:PropertyGrid
               HorizontalAlignment="Stretch"
               SelectedObject="{Binding Request}"
               TabVisibility="Collapsed"/>
@@ -435,7 +446,7 @@
               TextWrapping="WrapWithOverflow"/>
           </Grid>
           <ScrollViewer Grid.Row="1" Margin="7 5 0 5">
-            <ex:PropertyGrid
+            <pt:PropertyGrid
               EnableLabelWidthResizing="True"
               EnumAsRadioButtonsLimit="1"
               SelectedObject="{Binding SelectedElement}"

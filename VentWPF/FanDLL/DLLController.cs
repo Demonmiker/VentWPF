@@ -10,7 +10,7 @@ namespace VentWPF.FanDLL
     internal class DLLController
     {
         public static int RNums = 0;
-        public ProjectVM Project = ProjectVM.Instance;
+        public ProjectInfoVM Project = ProjectInfoVM.Instance;
         public DLLRequest Request{ get; set; }
 
 
