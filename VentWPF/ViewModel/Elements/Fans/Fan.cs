@@ -11,7 +11,11 @@ namespace VentWPF.ViewModel
         }
 
         [Browsable(false)]
-        public Fan_Direction Direction { get; init; } = Fan_Direction.LeftRight;
+        public Fan_Direction Direction
+        {
+            get => (Fan_Direction)SubType;
+            set => SubType = (int)value;
+        }
 
         public override string Image => Path.GetFullPath($"Assets/Images/Fans/Directions/{Direction}.png");
 

@@ -7,6 +7,7 @@ namespace VentWPF.ViewModel
         public Humid_Cell()
         {
             Name = "Увлажнитель сотовый";
+            image = "Humidifiers/Humid_Cell.png";
         }
 
         #region Данные

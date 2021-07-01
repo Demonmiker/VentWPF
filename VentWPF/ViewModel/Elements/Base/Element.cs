@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using PropertyChanged;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace VentWPF.ViewModel
         public static ProjectInfoVM Project { get; set; } = ProjectInfoVM.Instance;
 
         [Browsable(false)]
+        [DependsOn("SubType")]
         public virtual string Image => Path.GetFullPath("Assets/Images/" + image);
 
         [Browsable(false)]
@@ -29,12 +31,15 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         public virtual float PressureDrop => 0;
 
+        [Browsable(false)]
+        public int SubType { get; set; } = 0;
+
         #region DataGrid
 
         [Browsable(false)]
         public object DeviceData => DeviceIndex >= 0 ? QueryCollection[DeviceIndex] : null;
 
-        [DisplayName("Индекс")]
+        [Browsable(false)]
         [Category(c2), PropertyOrder(10)]
         public int DeviceIndex { get; set; } = 0;
 

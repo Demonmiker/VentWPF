@@ -7,6 +7,7 @@ namespace VentWPF.ViewModel
         public Humid_Steam()
         {
             Name = "Увлажнитель паровой";
+            image = "Humidifiers/Humid_Steam.png";
         }
 
         #region Данные

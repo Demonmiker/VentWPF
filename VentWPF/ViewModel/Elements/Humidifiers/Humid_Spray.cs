@@ -7,6 +7,7 @@ namespace VentWPF.ViewModel
         public Humid_Spray()
         {
             Name = "Увлажнитель форсуночный";
+            image = "Humidifiers/Humid_Spray.png";
         }
 
         #region Данные
