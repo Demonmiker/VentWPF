@@ -29,6 +29,9 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         public virtual float PressureDrop => 0;
 
+        [Browsable(false)]
+        public int SubType = 0;
+
         #region DataGrid
 
         [Browsable(false)]
