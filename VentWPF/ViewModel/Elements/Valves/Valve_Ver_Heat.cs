@@ -10,7 +10,7 @@ namespace VentWPF.ViewModel
             image = "Valves/Valve_Ver_Heat.png";
         }
 
-        public override float Performance => 15;
+        //public override float Performance => 15;
 
         [DisplayName("Количество ТЭНов")]
         [Category(c1), PropertyOrder(2)]

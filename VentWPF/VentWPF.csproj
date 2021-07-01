@@ -10,31 +10,29 @@
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
     <PackageReference Include="PropertyTools.Wpf" Version="3.1.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Assets\Images\Fans\Fan1.png">
+    <None Update="Assets\Images\Fans\Fan_C.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Fans\Fan2.png">
+    <None Update="Assets\Images\Fans\Fan_P.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Fans\Fan3.png">
+    <None Update="Assets\Images\Fans\Fan_K3G.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Fans\FanP1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Assets\Images\Fans\FanP2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Assets\Images\Fans\FanP3.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Assets\Images\Fans\Fan_4.png">
+    <None Update="Assets\Images\Fans\Directions\UpLeft.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Humidifiers\Humidifier1.png">
@@ -124,15 +122,19 @@
     <None Update="Assets\Images\Valves\Valve_Ver_Heat.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Fans\Fan_1.png">
+    <None Update="Assets\Images\Fans\Directions\LeftRight.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Fans\Fan_2.png">
+    <None Update="Assets\Images\Fans\Directions\LeftUp.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Fans\Fan_3.png">
+    <None Update="Assets\Images\Fans\Directions\RightLeft.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Assets\Images\Новая папка\" />
   </ItemGroup>
 
 </Project>

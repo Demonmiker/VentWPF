@@ -25,5 +25,11 @@ namespace VentWPF.ViewModel
 
         public string Humidifiers { get; set; } = Path.GetFullPath("Assets/Images/Humidifiers/Humidifiers.png");
 
+        public string Fans_C { get; set; } = Path.GetFullPath("Assets/Images/Fans/Fan_C.png");
+
+        public string Fans_P { get; set; } = Path.GetFullPath("Assets/Images/Fans/Fan_P.png");
+
+        public string Fans_K3G { get; set; } = Path.GetFullPath("Assets/Images/Fans/Fan_K3G.png");
+
     }
 }

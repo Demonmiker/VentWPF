@@ -24,11 +24,10 @@ namespace VentWPF
         public MainWindow()
         {
             InitializeComponent();
+            
         }
 
-        private void MouseLeave(object sender, MouseEventArgs e)
-        {
-            (sender as Popup).IsOpen = false;
-        }
+        public DataGrid datagrid => this.dg;
+        
     }
 }

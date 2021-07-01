@@ -2,10 +2,12 @@
 
 namespace VentWPF.ViewModel
 {
-    public class HasPerformance : Element
+    internal class HasPerformance : Element
     {
         [DisplayName("Производительность")]
         [Category(c1), PropertyOrder(1)]
-        public override float Performance { get; set; } = project.VFlow;
+        public override float Performance { get; set; } = Project.VFlow;
     }
+
+
 }
