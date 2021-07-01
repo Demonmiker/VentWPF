@@ -28,6 +28,15 @@
     <None Update="Assets\Images\Fans\Fan_4.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\Images\Humidifiers\Humidifier1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Images\Humidifiers\Humidifier2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Images\Humidifiers\Humidifier3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\Images\Humidifiers\Humidifiers.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
