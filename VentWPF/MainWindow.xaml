@@ -192,7 +192,10 @@
               <Grid ToolTip="Нагреватели">
                 <Popup x:Name="Heaters" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="3">
-                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Heater_Water}">
+                    <Button Command="{Binding CmdAddElement}">
+                      <Button.CommandParameter>
+                        <vm:Heater_Water/>
+                      </Button.CommandParameter>
                       <Image DataContext="{StaticResource Heater_Water}" Source="{Binding Image}"/>
                     </Button>
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Heater_Gas}">
@@ -344,8 +347,6 @@
                   <Image Source="{Binding HeaderImages.Empty}"/>
                 </Button>
               </Grid>
-
-
             </StackPanel>
           </ScrollViewer>
 
@@ -468,9 +469,10 @@
               AutoGenerateColumns="True"
               IsReadOnly="True"
               ItemsSource="{Binding SelectedElement.QueryCollection}"
-              SelectedItem="{Binding SelectedElement.DeviceData}"
+              SelectedIndex="{Binding SelectedElement.DeviceIndex}"
               SelectionMode="Single"
               SelectionUnit="FullRow">
+             
               <DataGrid.Resources>
                 <Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="DataGridCell">
                   <Style.Triggers>

@@ -7,8 +7,20 @@ using VentWPF.Tools;
 
 namespace VentWPF.ViewModel
 {
-    public class Heater_Water : HasPerformance
+    internal class Heater_Water : HasPerformance
     {
+        private static Dictionary<string, Column> format = new Dictionary<string, Column>()
+        {
+            { "Типоряд", new() },
+            { "LВозд", new("L Возд", new Condition<double>(x => x >= Project.VFlow)) },
+            { "ШиринаГабарит", new("Ширина габарит", new Condition<double>(x => x <= Project.Width)) },
+            { "ВысотаГабарит", new("Высота габарит", new Condition<double>(x => x <= Project.Height)) },
+            { "Cкорость", new("Скорость воздуха", new Condition<double>(x => x > 2.5 && x < 4.5)) },
+            { "ШиринаЖС", new("Ширина ЖС") },
+            { "ВысотаЖС", new("Высота ЖС") },
+            { "Цена", new() },
+        };
+
         private float AB = (((float)Project.Width / 1000) * ((float)Project.Height / 1000));
 
         public Heater_Water()
@@ -16,38 +28,9 @@ namespace VentWPF.ViewModel
             Name = "Нагреватель жидкосный";
             image = "Heaters/Heater_Water.png";
             // ("SELECT Типоряд, [L возд], [Ширина габарит], [Высота габарит], [Ширина ЖС], [Высота ЖС], Цена  FROM dbo.Вода_тепло",
-            Query = from h in VentContext.Instance.ВодаТеплоs select new
-            {
-                //нужно не оставлять double? менять а double если нужна сортировка по колонке
-                Типоряд = h.Типоряд,
-                LВозд = (double)h.LВозд,
-                Скорость = (double)(278 * Performance / (h.ШиринаГабарит * h.ВысотаГабарит)),
-                ШиринаГабарит = (double)h.ШиринаГабарит,
-                ВысотаГабарит = (double)h.ВысотаГабарит,
-                ШиринаЖс = (double)h.ШиринаЖс,
-                ВысотаЖС = (double)h.ВысотаЖс,
-                Цена = (double)h.Цена
-            };
-            // ColorColumn<double>("L возд", x => x>ProjectInfo.VFlow);
-            //ColorColumn<double>("Ширина габарит", x => x <= ProjectInfo.With);
-            //ColorColumn<double>("Высота габарит", x => x <= ProjectInfo.Height);
-            //ColorColumn<double>("Скорость воздуха", x => x > 2.5 && x < 4.5 );
-
-
-            
+            Query = from h in VentContext.Instance.ВодаТеплоs select h;
             Format = format;
-            
-
         }
-
-        private static Dictionary<string, (string name, System.Windows.Data.IValueConverter conv)> format = new()
-        {
-            { "LВозд", ("L возд", new Condition<double>(x => x >= Project.VFlow)) },
-            { "ШиринаГабарит", ("Ширина габарит", new Condition<double>(x => x <= Project.Width)) },
-            { "ВысотаГабарит", ("Высота габарит", new Condition<double>(x => x <= Project.Height)) },
-            { "Скорость", ("Скорость воздуха", new Condition<double>(x => x > 2.5 && x < 4.5)) },
-        };
-
         #region Данные
 
         [DisplayName("Теплоноситель")]
@@ -110,7 +93,4 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         public float pD2 => (float)(Math.Exp((1500.3 + 23.5 * tOut) / (234 + tOut)));
     }
-
-  
-
 }
