@@ -2,11 +2,14 @@
 using System.Text.Json.Serialization;
 using VentWPF.Tools;
 using VentWPF.ViewModel;
+using PropertyTools.DataAnnotations;
 
 namespace VentWPF.FanDLL
 {
+    
     internal class DLLRequest : BaseViewModel
     {
+        [Category("Запрос")]
         [JsonPropertyName("insert_geo_data")]
         public bool InsertGeoData { get; set; } = true;
 
@@ -39,5 +42,6 @@ namespace VentWPF.FanDLL
 
         public override string ToString() =>
            JsonSerializer.Serialize(this);
+
     }
 }

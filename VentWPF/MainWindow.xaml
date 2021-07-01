@@ -54,31 +54,31 @@
     <Style BasedOn="{StaticResource MaterialDesignGroupBox}" TargetType="GroupBox">
       <Setter Property="FontSize" Value="13"/>
     </Style>
-    <Style BasedOn="{StaticResource {x:Type MenuItem}}" TargetType="{x:Type MenuItem}">
-      <Setter Property="Height" Value="25"/>
-    </Style>
+   
 
 
 
 
   </Window.Resources>
   <DockPanel>
-    <Menu Height="25" DockPanel.Dock="Top">
-      <MenuItem Header="Проект" Height="auto">
-        <MenuItem
-          
-          Command="{Binding CmdSave}"
-          Header="Сохранить"/>
-
-        <MenuItem
-          Command="{Binding CmdLoad}"
-          Header="Загрузить"/>
+    <Menu  DockPanel.Dock="Top">
+      <MenuItem Header="Файл">
+        <MenuItem Command="{Binding CmdSave}" Header="Сохранить"/>
+        <MenuItem Command="{Binding CmdLoad}" Header="Загрузить"/>
       </MenuItem>
+      <MenuItem Header="Настройки">
+        <MenuItem Command="{Binding CmdConfig}" Header="Запрос">
+        </MenuItem>
+        <MenuItem Command="{Binding CmdLoad}" Header="Интерфейс"/>
+        <MenuItem Command="{Binding CmdLoad}" Header="Интерфейс"/>
+      </MenuItem>
+
     </Menu>
+
     <StatusBar DockPanel.Dock="Bottom">
       <TextBlock Text="Статус"/>
     </StatusBar>
-    <Grid>
+    <Grid Margin="0 0 0 0">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="5*" MinWidth="600"/>
         <ColumnDefinition Width="2*" MinWidth="400"/>
@@ -409,10 +409,6 @@
               TabVisibility="Collapsed"/>
           </TabItem>
           <TabItem Header="Подбор">
-            <pt:PropertyGrid
-              HorizontalAlignment="Stretch"
-              SelectedObject="{Binding Request}"
-              TabVisibility="Collapsed"/>
           </TabItem>
           <TabItem Header="Графики"/>
           <TabItem Header="Схема"/>
@@ -472,7 +468,7 @@
               SelectedIndex="{Binding SelectedElement.DeviceIndex}"
               SelectionMode="Single"
               SelectionUnit="FullRow">
-             
+
               <DataGrid.Resources>
                 <Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="DataGridCell">
                   <Style.Triggers>

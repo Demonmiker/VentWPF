@@ -9,6 +9,8 @@ using System.Windows.Media;
 using VentWPF.FanDLL;
 using Microsoft.Win32;
 using System.Linq;
+using PropertyTools.Wpf;
+using System;
 
 namespace VentWPF.ViewModel
 {
@@ -18,33 +20,40 @@ namespace VentWPF.ViewModel
         public MainViewModel()
         {
 
-            //Request= IOManager.LoadAsJson<DLLRequest>("req.json");
+            Request= IOManager.LoadAsJson<DLLRequest>("req.json");
             InitTable(ProjectInfo.Rows);
             CmdAddElement = new(AddElement);
             CmdAutoColumns = new(AutoColumns);
             CmdOpenPopup = new(OpenPopup);
             CmdWindowClosed = new(OnWindowClosed);
-            CmdSave = new(Save);
-            CmdLoad = new(Load);
+            CmdSave = new(SaveProject);
+            CmdLoad = new(LoadProject);
+            CmdConfig = new(OpenConfig);
+            var pd = new PropertyDialog();
+            
         }
 
         public ProjectInfoVM ProjectInfo { get; set; } = ProjectInfoVM.Instance;
         public ImageCollection HeaderImages { get; init; } = new ImageCollection();
-        public DLLRequest Request { get; init; } = new();
+        public DLLRequest Request { get; set; } = new();
 
         #region Комманды
 
+        #region Объявление
         public Command<Element> CmdAddElement { get; init; }
 
         public Command<DataGridAutoGeneratingColumnEventArgs> CmdAutoColumns { get; init; }
 
-        public Command<Popup> CmdOpenPopup { get; init; } 
+        public Command<Popup> CmdOpenPopup { get; init; }
 
         public Command<object> CmdWindowClosed { get; init; }
 
         public Command<object> CmdSave { get; init; }
 
         public Command<object> CmdLoad { get; init; }
+
+        public Command<string> CmdConfig { get; init; }
+        #endregion
 
         private void AutoColumns(DataGridAutoGeneratingColumnEventArgs e)
         {
@@ -96,7 +105,7 @@ namespace VentWPF.ViewModel
 
         }
 
-        private static void OpenPopup(Popup p)
+        private void OpenPopup(Popup p)
         {
             p.HorizontalOffset = 1;
             p.IsOpen = true;
@@ -113,10 +122,10 @@ namespace VentWPF.ViewModel
         private void OnWindowClosed(object e)
         {
             VentContext.Instance.Dispose();
-            //IOManager.SaveAsJson(Request, "req.json");
+            IOManager.SaveAsJson(Request, "req.json");
         }
 
-        private void Load(object o)
+        private void LoadProject(object o)
         {
             OpenFileDialog sfd = new OpenFileDialog() { DefaultExt = ".prj", Filter = "Projects (.prj)|*.prj" };
             if (sfd.ShowDialog() == true)
@@ -127,11 +136,30 @@ namespace VentWPF.ViewModel
             }
         }
 
-        private void Save(object o)
+        private void SaveProject(object o)
         {
             SaveFileDialog sfd = new SaveFileDialog() { FileName = "Проект", DefaultExt = ".prj", Filter = "Projects (.prj)|*.prj" };
             if(sfd.ShowDialog()==true) IOManager.SaveAsJson(new Project(ProjectInfo,Grid.ToList()), sfd.FileName);
         }
+
+        private void OpenConfig(string s)
+        {
+            var dlg = new PropertyDialog() { Owner = Application.Current.MainWindow };
+            dlg.DataContext = Request;
+            dlg.Title = "Настройки";
+            dlg.PropertyControl.TabVisibility = TabVisibility.Collapsed;
+            if (dlg.ShowDialog().Value)
+            {
+                IOManager.SaveAsJson(Request, "req.json");
+                MessageBox.Show(new DLLController() { Request = Request }.GetResponceString());
+            }
+            else
+            {
+                IOManager.LoadAsJson(Request, "req.json");
+            }
+            
+        }
+
         #endregion Комманды
 
         #region Таблица со схемой
@@ -160,4 +188,6 @@ namespace VentWPF.ViewModel
 
         #endregion Таблица со схемой
     }
+
+   
 }
