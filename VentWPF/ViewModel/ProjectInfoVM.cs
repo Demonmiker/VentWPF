@@ -1,15 +1,21 @@
 ﻿using PropertyTools.DataAnnotations;
 using VentWPF.Model;
+using VentWPF.Tools;
 
 namespace VentWPF.ViewModel
 {
-    public class ProjectVM : BaseViewModel
+    public class ProjectInfoVM : BaseViewModel
     {
-        private ProjectVM()
+        /// <summary>
+        /// Не пользоватся
+        /// </summary>
+        public ProjectInfoVM()
         {
+
         }
 
-        public static ProjectVM Instance { get; private set; } = new ProjectVM();
+
+        public static ProjectInfoVM Instance { get; private set; } = new ProjectInfoVM();
 
         [Description("Описание")]
         public int VFlow { get; set; } = 6000;
