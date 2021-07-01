@@ -117,6 +117,7 @@ namespace VentWPF.ViewModel
             if (SelectedIndex >= 0 && SelectedIndex < Grid.Count)
             {
                 Grid[SelectedIndex] = Element.GetInstance(el);
+                SelectedIndex = ind;
                 Grid[SelectedIndex].SubType = el.SubType;
             }
                 

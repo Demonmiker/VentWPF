@@ -10,7 +10,7 @@ namespace VentWPF.ViewModel
             Name = "Вентилятор";
         }
 
-        [Browsable(false)]
+        //[Browsable(false)]
         public Fan_Direction Direction
         {
             get => (Fan_Direction)SubType;
