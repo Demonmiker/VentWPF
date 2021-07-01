@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 
 #nullable disable
@@ -132,7 +133,8 @@ namespace VentWPF
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=Vent;Trusted_Connection=True;");
+                string currentDirectory = Environment.CurrentDirectory;
+                optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + currentDirectory + "\\Database.mdf;Integrated Security=True");
             }
         }
 
