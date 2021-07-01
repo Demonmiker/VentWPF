@@ -18,7 +18,7 @@ namespace VentWPF.ViewModel
 
         public static ProjectInfoVM Project { get; set; } = ProjectInfoVM.Instance;
 
-        //[Browsable(false)]
+        [Browsable(false)]
         [DependsOn("SubType")]
         public virtual string Image => Path.GetFullPath("Assets/Images/" + image);
 
@@ -31,7 +31,7 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         public virtual float PressureDrop => 0;
 
-        //[Browsable(false)]
+        [Browsable(false)]
         public int SubType { get; set; } = 0;
 
         #region DataGrid
