@@ -14,7 +14,7 @@ namespace VentWPF.ViewModel
         #region Данные
 
         [DisplayName("Длинна секции")]
-        [Category(c1), PropertyOrder(7)]
+        
         public Section FC { get; set; }
 
         #endregion Данные
@@ -22,7 +22,7 @@ namespace VentWPF.ViewModel
         #region Информация
 
         [DisplayName("Падение давления")]
-        [Category(c2), PropertyOrder(1)]
+        
         public override float PressureDrop
         {
             get

@@ -17,7 +17,6 @@ namespace VentWPF.ViewModel
         #region Данные
 
         [DisplayName("Класс очистки")]
-        [Category(c1), PropertyOrder(7)]
         public FilterClassType FC { get; set; }
 
         #endregion Данные
@@ -25,7 +24,6 @@ namespace VentWPF.ViewModel
         #region Информация
 
         [DisplayName("Падение давления при загряз. 50%")]
-        [Category(c2), PropertyOrder(1)]
         public override float PressureDrop => FC switch
         {
             FilterClassType.G4 => 175,

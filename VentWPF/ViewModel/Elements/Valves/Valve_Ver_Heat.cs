@@ -13,7 +13,7 @@ namespace VentWPF.ViewModel
         //public override float Performance => 15;
 
         [DisplayName("Количество ТЭНов")]
-        [Category(c1), PropertyOrder(2)]
+        
         public float TEN_count { get; set; } = 3;
     }
 }

@@ -31,14 +31,14 @@ namespace VentWPF.ViewModel
             Query = from h in VentContext.Instance.ВодаТеплоs select h;
             Format = format;
         }
+
         #region Данные
 
         [DisplayName("Теплоноситель")]
-        [Category(c1), PropertyOrder(7)]
         public CoolantType coolant { get; set; }
 
         [DisplayName("Влажность наружного воздуха")]
-        [Category(c1), PropertyOrder(6)]
+        
         public float humidityOutSide { get; set; } = Project.Humid;
 
         [DisplayName("t теплоносителя начальная")]
@@ -50,11 +50,9 @@ namespace VentWPF.ViewModel
         public float tEnd { get; set; } = 70;
 
         [DisplayName("t воздуха на выходе")]
-        [Category(c1), PropertyOrder(3)]
         public float tOut { get; set; } = 18;
 
         [DisplayName("t наружного воздуха")]
-        [Category(c1), PropertyOrder(2)]
         public float tOutside => Project.temp;
 
         #endregion Данные
@@ -62,15 +60,12 @@ namespace VentWPF.ViewModel
         #region Информация
 
         [DisplayName("Расход теплоносителя")]
-        [Category(c2), PropertyOrder(2)]
         public float consumption => (float)((Power * 1000) / (4200 * Math.Abs(tOutside - tOut)) * 3600);
 
         [DisplayName("Абсолютная влажность воздуха на выходе")]
-        [Category(c2), PropertyOrder(4)]
         public float humidityOut => (float)((0.6222 * (humidityOutSide / 100) * pD) / (Project.PressOut - (humidityOutSide / 100) * pD / 1000));
 
         [DisplayName("Относительная влажность воздуха на выходе")]
-        [Category(c2), PropertyOrder(4)]
         public int humidityOutOtn => (int)((Project.PressOut / pD2 * 1000 / (0.6222 / humidityOut * 1000 + 1)) * 100);
 
         [Browsable(false)]
@@ -81,7 +76,6 @@ namespace VentWPF.ViewModel
         public float Power => (float)(Project.VFlow * (353 / (273.15 + tOut)) / 3600000 * 1009 * Math.Abs(tOutside - tOut));
 
         [DisplayName("Падение давления расчётное")]
-        [Category(c2), PropertyOrder(1)]
         public override float PressureDrop => (70 / (4 / (((float)Project.VFlow / 3600) / AB)));
 
         [DisplayName("Падение давл. теплоносителя")]

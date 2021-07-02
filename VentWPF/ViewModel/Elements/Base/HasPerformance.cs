@@ -1,11 +1,13 @@
-﻿using System.ComponentModel;
+﻿using PropertyTools.DataAnnotations;
+using PropertyTools.Wpf;
 
 namespace VentWPF.ViewModel
 {
     internal class HasPerformance : Element
     {
+        [Category(c1)]
+        [SortIndex(-1)]
         [DisplayName("Производительность")]
-        [Category(c1), PropertyOrder(1)]
         public override float Performance { get; set; } = Project.VFlow;
     }
 

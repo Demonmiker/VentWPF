@@ -1,9 +1,10 @@
 ﻿using Newtonsoft.Json;
 using PropertyChanged;
+using PropertyTools.DataAnnotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
+
 using System.IO;
 using System.Linq;
 
@@ -24,10 +25,8 @@ namespace VentWPF.ViewModel
 
         [Browsable(false)]
         public string Name { get; protected set; } = "";
-
         [Browsable(false)]
         public virtual float Performance { get; set; }
-
         [Browsable(false)]
         public virtual float PressureDrop => 0;
 
@@ -40,7 +39,6 @@ namespace VentWPF.ViewModel
         public object DeviceData => DeviceIndex >= 0 ? QueryCollection[DeviceIndex] : null;
 
         [Browsable(false)]
-        [Category(c2), PropertyOrder(10)]
         public int DeviceIndex { get; set; } = 0;
 
         [Browsable(false)]
