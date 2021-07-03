@@ -2,7 +2,7 @@
 
 namespace VentWPF.ViewModel
 {
-    internal class Valve_Ver_Heat : HasPerformance
+    internal class Valve_Ver_Heat : Valve
     {
         public Valve_Ver_Heat()
         {
@@ -10,10 +10,8 @@ namespace VentWPF.ViewModel
             image = "Valves/Valve_Ver_Heat.png";
         }
 
-        //public override float Performance => 15;
-
+        [Category(Data)]
         [DisplayName("Количество ТЭНов")]
-        
-        public float TEN_count { get; set; } = 3;
+        public int TEN_count { get; set; } = 3;
     }
 }
