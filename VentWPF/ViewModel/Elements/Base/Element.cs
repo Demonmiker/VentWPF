@@ -29,11 +29,7 @@ namespace VentWPF.ViewModel
 
         public static ProjectInfoVM Project { get; set; } = ProjectInfoVM.Instance;
 
-        public bool ShowPR { get; init; } = false;
-
-        public bool ShowPD { get; init; } = false;
-
-        public bool ShowDebug { get; set; } = true;
+       
 
         [Browsable(false)]
         [DependsOn("SubType")]
@@ -44,7 +40,7 @@ namespace VentWPF.ViewModel
         
         [Category(Data)]
         [VisibleBy("ShowPR")]
-        [SortIndex(-1)]
+        [SortIndex(-2)]
         [DisplayName("Производительность")]
         public virtual float Performance { get; set; } = Project.VFlow;
 
@@ -57,8 +53,8 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         public object DeviceData => DeviceIndex >= 0 ? QueryCollection[DeviceIndex] : null;
 
-        [VisibleBy("ShowDebug")]
         [Category(Debug)]
+        [VisibleBy("ShowDebug")]
         public int DeviceIndex { get; set; } = -1;
 
         [Browsable(false)]
@@ -71,6 +67,16 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         [JsonIgnore]
         protected IQueryable<object> Query { get; init; }
+
+        [Browsable(false)]
+        public bool ShowPR { get; init; } = false;
+        [Browsable(false)]
+        public bool ShowPD { get; init; } = false;
+
+        [SortIndex(-1)]
+        [Category(Debug)]
+        [VisibleBy("ShowDebug")]
+        public bool ShowDebug { get; set; } = true;
 
 
         public static T GetInstance<T>(T o) => (T)Activator.CreateInstance(o.GetType());
