@@ -155,7 +155,8 @@ namespace VentWPF.ViewModel
             if (dlg.ShowDialog().Value)
             {
                 IOManager.SaveAsJson(Request, "req.json");
-                MessageBox.Show(new DLLController() { Request = Request }.GetResponceString());
+                var responce = new DLLController() { Request = Request }.GetResponceString();
+                int a = 5;
             }
             else
             {
