@@ -14,7 +14,6 @@ namespace VentWPF
         ~VentContext()
         {
             Debug.WriteLine("БД закрыта");
-            Instance.Dispose();
         }
 
         private VentContext() { Debug.WriteLine("БД открыта"); } 

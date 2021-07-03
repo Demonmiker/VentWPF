@@ -126,8 +126,7 @@ namespace VentWPF.ViewModel
 
         private void OnWindowClosed(object e)
         {
-            VentContext.Instance.Dispose();
-            IOManager.SaveAsJson(Request, "req.json");
+            App.Current.Shutdown();
         }
 
         private void LoadProject(object o)
@@ -156,7 +155,8 @@ namespace VentWPF.ViewModel
             if (dlg.ShowDialog().Value)
             {
                 IOManager.SaveAsJson(Request, "req.json");
-                MessageBox.Show(new DLLController() { Request = Request }.GetResponceString());
+                var responce = new DLLController() { Request = Request }.GetResponceString();
+                int a = 5;
             }
             else
             {

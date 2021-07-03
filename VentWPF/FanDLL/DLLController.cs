@@ -29,13 +29,13 @@ namespace VentWPF.FanDLL
 
         #region DLL import
         [DllImport(
-            "FANselect.dll",
+            "FanDLL/FANselect.dll",
             EntryPoint = "ZAJsonRequestW",
             CharSet = CharSet.Unicode, 
             ExactSpelling = true,
             CallingConvention = CallingConvention.StdCall)
         ]
-        private static extern IntPtr _ZAJsonRequest([MarshalAs(UnmanagedType.LPWStr)] String req);
+        private static extern System.IntPtr _ZAJsonRequest([MarshalAs(UnmanagedType.LPWStr)] String req);
 
         private static string ZAJsonRequest(String req)
         {

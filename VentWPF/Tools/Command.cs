@@ -15,11 +15,7 @@ namespace VentWPF.Tools
         {
         }
 
-        public event EventHandler CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
+        public event EventHandler CanExecuteChanged;
 
         public Action<T> action { get; init; }
         public Predicate<object> predicate { get; init; }
