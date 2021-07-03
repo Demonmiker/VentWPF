@@ -63,11 +63,8 @@ namespace VentWPF.ViewModel
         public Dictionary<string, Column> Format { get; init; }
 
         [Browsable(false)]
-        public List<object> QueryCollection { get; set; } = null;
+        public List<object> QueryCollection { get; init; } = null;
 
-        [Browsable(false)]
-        [JsonIgnore]
-        protected IQueryable<object> Query { get; init; }
 
         [Browsable(false)]
         public bool ShowPR { get; init; } = false;

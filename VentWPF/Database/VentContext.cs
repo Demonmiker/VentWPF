@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 #nullable disable
 
@@ -12,12 +13,13 @@ namespace VentWPF
 
         ~VentContext()
         {
+            Debug.WriteLine("БД закрыта");
             Instance.Dispose();
         }
 
-        private VentContext() {  } 
+        private VentContext() { Debug.WriteLine("БД открыта"); } 
 
-        private VentContext(DbContextOptions<VentContext> options) : base(options) { }
+        private VentContext(DbContextOptions<VentContext> options) : base(options) {  Debug.WriteLine("БД открыта"); }
 
         public virtual DbSet<_1с0> _1с0s { get; set; }
         public virtual DbSet<_1с> _1сs { get; set; }
