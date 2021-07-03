@@ -126,8 +126,7 @@ namespace VentWPF.ViewModel
 
         private void OnWindowClosed(object e)
         {
-            VentContext.Instance.Dispose();
-            IOManager.SaveAsJson(Request, "req.json");
+
         }
 
         private void LoadProject(object o)
