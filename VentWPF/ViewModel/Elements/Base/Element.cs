@@ -19,9 +19,9 @@ namespace VentWPF.ViewModel
         public const string f1 = "{0:0.0}";
         public const string f2 = "{0:0.00}";
         public const string fT = "{0:0.0}°";
-        public const string fW = "{0:0.00}kВт";
-        public const string fP = "{0:0.00}Па";
-        public const string fF = "{0:0.00}%";
+        public const string fW = "{0:0.00} kВт";
+        public const string fP = "{0:0.00} Па";
+        public const string fF = "{0:0.00} %";
         
        
 
@@ -76,7 +76,7 @@ namespace VentWPF.ViewModel
         [SortIndex(-1)]
         [Category(Debug)]
         [VisibleBy("ShowDebug")]
-        public bool ShowDebug { get; set; } = true;
+        public bool ShowDebug { get; set; } = false;
 
 
         public static T GetInstance<T>(T o) => (T)Activator.CreateInstance(o.GetType());
