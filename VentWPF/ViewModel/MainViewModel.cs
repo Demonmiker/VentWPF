@@ -126,7 +126,7 @@ namespace VentWPF.ViewModel
 
         private void OnWindowClosed(object e)
         {
-
+            App.Current.Shutdown();
         }
 
         private void LoadProject(object o)
