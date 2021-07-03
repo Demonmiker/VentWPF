@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 
 #nullable disable
 
@@ -135,7 +136,11 @@ namespace VentWPF
             if (!optionsBuilder.IsConfigured)
             {
                 string currentDirectory = Environment.CurrentDirectory;
-                optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + currentDirectory + "\\Database.mdf;Integrated Security=True");
+                string connection = 
+                    $"Data Source=(LocalDB)\\MSSQLLocalDB;" +
+                    $"AttachDbFilename={Path.GetFullPath("Database/Database.mdf")};" +
+                    $"Integrated Security=True";
+                optionsBuilder.UseSqlServer(connection);
             }
         }
 
