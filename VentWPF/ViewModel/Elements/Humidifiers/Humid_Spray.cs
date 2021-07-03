@@ -2,7 +2,7 @@
 
 namespace VentWPF.ViewModel
 {
-    internal class Humid_Spray : HasPerformance
+    internal class Humid_Spray : Humid
     {
         public Humid_Spray()
         {
@@ -10,21 +10,6 @@ namespace VentWPF.ViewModel
             image = "Humidifiers/Humid_Spray.png";
         }
 
-        #region Данные
-
-        [DisplayName("Влажность на входе")]
-        public float AirSoftIn { get; set; } = (float)0.000;
-
-        [DisplayName("Влажность на выходе")]
-        public float AirSoftOut { get; set; } = (float)0.0015;
-
-        #endregion Данные
-
-        #region Информация
-
-        [DisplayName("Расход воды")]
-        public float Qv => (float)(Performance * 1.17 * (((float)AirSoftOut - (float)AirSoftIn)));
-
-        #endregion Информация
+       
     }
 }
