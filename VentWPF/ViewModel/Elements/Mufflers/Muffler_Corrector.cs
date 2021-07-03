@@ -3,7 +3,7 @@ using VentWPF.Model;
 
 namespace VentWPF.ViewModel
 {
-    internal class Muffler_Corrector : HasPerformance
+    internal class Muffler_Corrector : Muffler
     {
         public Muffler_Corrector()
         {
@@ -11,31 +11,6 @@ namespace VentWPF.ViewModel
             image = "Mufflers/Muffler_Corrector.png";
         }
 
-        #region Данные
-
-        [DisplayName("Длинна секции")]
         
-        public Section FC { get; set; }
-
-        #endregion Данные
-
-        #region Информация
-
-        [DisplayName("Падение давления")]
-        
-        public override float PressureDrop
-        {
-            get
-            {
-                if (FC == Section.секция500)
-                    return (float)25;
-                if (FC == Section.секция1000)
-                    return (float)55;
-                else
-                    return (float)60;
-            }
-        }
-
-        #endregion Информация
     }
 }
