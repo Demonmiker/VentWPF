@@ -26,7 +26,7 @@ namespace VentWPF.ViewModel
             Name = "Нагреватель жидкосный";
             image = "Heaters/Heater_Water.png";
             // ("SELECT Типоряд, [L возд], [Ширина габарит], [Высота габарит], [Ширина ЖС], [Высота ЖС], Цена  FROM dbo.Вода_тепло",
-            Query = from h in VentContext.Instance.ВодаТеплоs select h;
+            QueryCollection = (from h in VentContext.Instance.ВодаТеплоs select h);
             Format = format;
         }
 

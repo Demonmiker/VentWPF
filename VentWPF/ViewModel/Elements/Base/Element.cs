@@ -12,6 +12,7 @@ namespace VentWPF.ViewModel
 {
     internal class Element : BaseViewModel
     {
+        #region Строковые константы
         public const string Data = "Данные";
         public const string Info = "Информация";
         public const string Debug = "Отладка";
@@ -23,14 +24,12 @@ namespace VentWPF.ViewModel
         public const string fP = "{0:0.00} Па";
         public const string fF = "{0:0.00} %";
         public const string fNull = "{0:0.00} [X]";
-        
-       
+        #endregion
+
 
         protected string image = "Empty.png";
 
         public static ProjectInfoVM Project { get; set; } = ProjectInfoVM.Instance;
-
-       
 
         [Browsable(false)]
         [DependsOn("SubType")]
@@ -64,7 +63,7 @@ namespace VentWPF.ViewModel
         public Dictionary<string, Column> Format { get; init; }
 
         [Browsable(false)]
-        public List<object> QueryCollection => Query != null ? Query.ToList() : null;
+        public List<object> QueryCollection { get; set; } = null;
 
         [Browsable(false)]
         [JsonIgnore]
