@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using VentWPF.Tools;
 using VentWPF.ViewModel;
 using PropertyTools.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace VentWPF.FanDLL
 {
@@ -23,6 +24,7 @@ namespace VentWPF.FanDLL
         public string Language { get; set; } = "RU";
 
         [JsonPropertyName("password")]
+        [DataType(DataType.Password)]
         public string Password { get; set; } = "password";
 
         [JsonPropertyName("psf")]

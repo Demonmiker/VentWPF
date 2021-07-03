@@ -1,6 +1,6 @@
 ﻿namespace VentWPF.ViewModel
 {
-    internal class Valve_Ver : HasPerformance
+    internal class Valve_Ver : Valve
     {
         public Valve_Ver()
         {

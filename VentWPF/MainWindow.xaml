@@ -117,7 +117,7 @@
                 <vm:Filter_Short x:Key="Filter_Short"/>
                 <vm:Filter_Valve x:Key="Filter_Valve"/>
 
-                <vm:Muffler x:Key="Muffler"/>
+                <vm:Muffler_Classic x:Key="Muffler_Classic"/>
                 <vm:Muffler_Corrector x:Key="Muffler_Corrector"/>
 
                 <vm:Humid_Cell x:Key="Humid_Cell"/>
@@ -300,8 +300,8 @@
               <Grid ToolTip="Шумоподавители">
                 <Popup x:Name="Mufflers" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="2">
-                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Muffler}">
-                      <Image DataContext="{StaticResource Muffler}" Source="{Binding Image}"/>
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Muffler_Classic}">
+                      <Image DataContext="{StaticResource Muffler_Classic}" Source="{Binding Image}"/>
                     </Button>
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Muffler_Corrector}">
                       <Image DataContext="{StaticResource Muffler_Corrector}" Source="{Binding Image}"/>
@@ -403,6 +403,7 @@
         <TabControl Margin="0 2 0 0">
           <TabItem Header="Проект">
             <pt:PropertyGrid
+              ShowDeclaredOnly="True"
               Width="400"
               HorizontalAlignment="Left"
               SelectedObject="{Binding ProjectInfo}"

@@ -1,41 +1,39 @@
-﻿using System.ComponentModel;
+﻿using PropertyTools.DataAnnotations;
 using VentWPF.Model;
 
 namespace VentWPF.ViewModel
 {
-    internal class Muffler : HasPerformance
+    internal abstract class Muffler : Element
     {
         public Muffler()
         {
             Name = "Шумоглушитель";
             image = "Mufflers/Muffler.png";
+            ShowPR = true;
+            ShowPD = true;
         }
 
+        [Category(Data)]
         #region Данные
 
         [DisplayName("Длинна секции")]
-        [Category(c1), PropertyOrder(7)]
+        
         public Section FC { get; set; }
 
         #endregion Данные
 
+        [Category(Info)]
         #region Информация
 
         [DisplayName("Падение давления")]
-        [Category(c2), PropertyOrder(1)]
-        public override float PressureDrop
-        {
-            get
-            {
-                if (FC == Section.секция500)
-                    return (float)25;
-                if (FC == Section.секция1000)
-                    return (float)55;
-                else
-                    return (float)60;
-            }
-        }
 
+        public override float PressureDrop => FC switch
+        {
+            Section.секция500 => 25,
+            Section.секция1000 => 55,
+            _ => 60,
+        };
+      
         #endregion Информация
     }
 }
