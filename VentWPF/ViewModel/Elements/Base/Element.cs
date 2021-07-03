@@ -41,11 +41,12 @@ namespace VentWPF.ViewModel
         
         [Category(Data)]
         [VisibleBy("ShowPR")]
-        [SortIndex(-2)]
+        [SortIndex(-3)]
         [DisplayName("Производительность")]
         public virtual float Performance { get; set; } = Project.VFlow;
 
         [VisibleBy("ShowPD")]
+        [SortIndex(-2)]
         public virtual float PressureDrop => 0;
 
         [Browsable(false)]
