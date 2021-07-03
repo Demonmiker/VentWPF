@@ -12,30 +12,31 @@ namespace VentWPF.ViewModel
         {
             Name = "Охладитель жидкостный";
             image = "Coolers/Cooler_Water.png";
+            ShowPD = true;
+            ShowPR = true;
         }
 
+        [Category(Data)]
         #region Данные
 
         [DisplayName("t наружного воздуха")]
-        public float tOutside { get; set; } = 30;
+        public float tOutside { get; set; } = 123;
 
         [DisplayName("t воздуха на выходе")]
         public float tOut { get; set; } = 18;
 
         [DisplayName("t теплоносителя начальная")]
-        [Category(c1), PropertyOrder(4)]
         public float tBegin { get; } = 7;
 
         [DisplayName("t теплоносителя конечная")]
-        [Category(c1), PropertyOrder(5)]
         public float tEnd { get; } = 12;
 
         [DisplayName("Влажность воздуха")]
-        
         public float humidityOutSide { get; set; } = 42;
 
         #endregion Данные
 
+        [Category(Info)]
         #region Информация
 
         [DisplayName("Падение давления расчётное")]
@@ -55,6 +56,7 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         public float pD => (float)(Math.Exp((1500.3 + 23.5 * tOutside) / (234 + tOutside)));
 
+        [Browsable(false)]
         private float AB = (((float)Project.Width / 1000) * ((float)Project.Height / 1000));
 
         [Browsable(false)]

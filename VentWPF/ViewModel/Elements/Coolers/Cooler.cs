@@ -8,12 +8,11 @@ namespace VentWPF.ViewModel
     /// <summary>
     /// Представление Охладитель фреоновый
     /// </summary>
-    internal class Cooler_Fr : Element
+    internal class Cooler : Element
     {
-        public Cooler_Fr()
+        public Cooler()
         {
-            Name = "Охладитель фреоновый";
-            image = "Coolers/Cooler_Fr.png";
+            Name = "<Охладитель> ";
             ShowPR = true;
             ShowPD = true;
         }
@@ -38,7 +37,7 @@ namespace VentWPF.ViewModel
         
         [DisplayName("t наружного воздуха")]
         [FormatString("{0:0.0##}°")]
-        public float tOutside { get; set; } =456;
+        public float tOutside { get; set; } =30;
 
         [DisplayName("t воздуха на выходе")]
         [FormatString("{0:0.0}°")]

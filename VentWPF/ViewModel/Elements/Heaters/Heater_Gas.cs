@@ -16,7 +16,7 @@ namespace VentWPF.ViewModel
 
         #region Данные
 
-        [Category(c1)]
+        [Category(Data)]
         [DisplayName("Влажность наружного воздуха")]
         [FormatString("{0:0.00}")]
         public float humidityOutSide { get; set; } = Project.Humid;
@@ -26,7 +26,6 @@ namespace VentWPF.ViewModel
 
         [DisplayName("t воздуха на выходе")]
         [FormatString("{0:0.0}°")]
-        [Resettable("Default")]
         public float tOut { get; set; } = 18;
 
         [DisplayName("t наружного воздуха")]
@@ -37,7 +36,7 @@ namespace VentWPF.ViewModel
 
         #region Информация
 
-        [Category(c2)]
+        [Category(Info)]
         [DisplayName("Абсолютная влажность воздуха на выходе")]
         [FormatString("{0:0.00}")]
         public float humidityOut => (float)((0.6222 * (humidityOutSide / 100) * pD) / (Project.PressOut - (humidityOutSide / 100) * pD / 1000));

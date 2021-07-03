@@ -42,11 +42,11 @@ namespace VentWPF.ViewModel
         public float humidityOutSide { get; set; } = Project.Humid;
 
         [DisplayName("t теплоносителя начальная")]
-        [Category(c1), PropertyOrder(4)]
+        [Category(Data), PropertyOrder(4)]
         public float tBegin { get; set; } = 95;
 
         [DisplayName("t теплоносителя конечная")]
-        [Category(c1), PropertyOrder(5)]
+        [Category(Data), PropertyOrder(5)]
         public float tEnd { get; set; } = 70;
 
         [DisplayName("t воздуха на выходе")]
@@ -72,14 +72,14 @@ namespace VentWPF.ViewModel
         public float pD => (float)(Math.Exp((1500.3 + 23.5 * tOutside) / (234 + tOutside)));
 
         [DisplayName("Мощность воздухонагревателя, кВТ")]
-        [Category(c2), PropertyOrder(3)]
+        [Category(Info), PropertyOrder(3)]
         public float Power => (float)(Project.VFlow * (353 / (273.15 + tOut)) / 3600000 * 1009 * Math.Abs(tOutside - tOut));
 
         [DisplayName("Падение давления расчётное")]
         public override float PressureDrop => (70 / (4 / (((float)Project.VFlow / 3600) / AB)));
 
         [DisplayName("Падение давл. теплоносителя")]
-        [Category(c2), PropertyOrder(5)]
+        [Category(Info), PropertyOrder(5)]
         public float PressureDropT { get { return (float)12.5; } }
 
         #endregion Информация

@@ -12,12 +12,28 @@ namespace VentWPF.ViewModel
 {
     internal class Element : BaseViewModel
     {
-        public const string c1 = "Данные";
-        public const string c2 = "Информация";
+        public const string Data = "Данные";
+        public const string Info = "Информация";
+        public const string Debug = "Отладка";
+
+        public const string f1 = "{0:0.0}";
+        public const string f2 = "{0:0.00}";
+        public const string fT = "{0:0.0}°";
+        public const string fW = "{0:0.00}kВт";
+        public const string fP = "{0:0.00}Па";
+        public const string fF = "{0:0.00}%";
+        
+       
 
         protected string image = "Empty.png";
 
         public static ProjectInfoVM Project { get; set; } = ProjectInfoVM.Instance;
+
+        public bool ShowPR { get; init; } = false;
+
+        public bool ShowPD { get; init; } = false;
+
+        public bool ShowDebug { get; set; } = true;
 
         [Browsable(false)]
         [DependsOn("SubType")]
@@ -25,21 +41,25 @@ namespace VentWPF.ViewModel
 
         [Browsable(false)]
         public string Name { get; protected set; } = "";
-        [Browsable(false)]
-        public virtual float Performance { get; set; }
-        [Browsable(false)]
+        
+        [Category(Data)]
+        [VisibleBy("ShowPR")]
+        [SortIndex(-1)]
+        [DisplayName("Производительность")]
+        public virtual float Performance { get; set; } = Project.VFlow;
+
+        [VisibleBy("ShowPD")]
         public virtual float PressureDrop => 0;
 
         [Browsable(false)]
         public int SubType { get; set; } = 0;
 
-        #region DataGrid
-
         [Browsable(false)]
         public object DeviceData => DeviceIndex >= 0 ? QueryCollection[DeviceIndex] : null;
 
-        [Browsable(false)]
-        public int DeviceIndex { get; set; } = 0;
+        [VisibleBy("ShowDebug")]
+        [Category(Debug)]
+        public int DeviceIndex { get; set; } = -1;
 
         [Browsable(false)]
         [JsonIgnore]
@@ -51,7 +71,7 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         [JsonIgnore]
         protected IQueryable<object> Query { get; init; }
-        #endregion DataGrid
+
 
         public static T GetInstance<T>(T o) => (T)Activator.CreateInstance(o.GetType());
     }

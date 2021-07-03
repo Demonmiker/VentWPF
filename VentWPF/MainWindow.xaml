@@ -403,6 +403,7 @@
         <TabControl Margin="0 2 0 0">
           <TabItem Header="Проект">
             <pt:PropertyGrid
+              ShowDeclaredOnly="True"
               Width="400"
               HorizontalAlignment="Left"
               SelectedObject="{Binding ProjectInfo}"
