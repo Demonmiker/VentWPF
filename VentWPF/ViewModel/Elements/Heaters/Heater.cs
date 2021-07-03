@@ -63,7 +63,7 @@ namespace VentWPF.ViewModel
         [Category(Debug)]
         #region Отладка
         [VisibleBy("ShowDebug")]
-        public float AB => Project.Width / 1000f * (Project.Height / 1000f);
+        public float AB => (Project.Width / 1000f) * (Project.Height / 1000f);
 
         [VisibleBy("ShowDebug")]
         public float pD2 => (float)Math.Exp((1500.3 + 23.5 * TempOut) / (234 + TempOut));
