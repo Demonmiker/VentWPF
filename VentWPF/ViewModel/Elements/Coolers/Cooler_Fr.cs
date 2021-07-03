@@ -12,7 +12,7 @@ namespace VentWPF.ViewModel
     {
         public Cooler_Fr()
         {
-            Name = "Охладитель фреоновый";
+            Name = "Фреоновый охладитель";
             image = "Coolers/Cooler_Fr.png";
         }
 

@@ -8,7 +8,7 @@ namespace VentWPF.ViewModel
     /// <summary>
     /// Представление Охладитель фреоновый
     /// </summary>
-    internal class Cooler : Element
+    internal abstract class Cooler : Element
     {
         public Cooler()
         {
@@ -26,19 +26,19 @@ namespace VentWPF.ViewModel
 
         
         [SortIndex(-1)]
-        [DisplayName("t наружного воздуха")]
+        [DisplayName("т. на входе")]
         [FormatString("{0:0.0##}°")]
-        public float tOutside { get; set; } =30;
+        public float TempIn { get; set; } = 30;
 
         [SortIndex(-1)]
-        [DisplayName("t воздуха на выходе")]
+        [DisplayName("т. на выходе")]
         [FormatString("{0:0.0}°")]
-        public float tOut { get; set; } = 18;
+        public float TempOut { get; set; } = 18;
 
         [SortIndex(-1)]
-        [DisplayName("Влажность наружного воздуха")]
+        [DisplayName("Влажность воздуха")]
         [FormatString("{0:0.00}")]
-        public float humidityOutSide { get; set; } = 42;
+        public float HumidityIn { get; set; } = 42;
 
         #endregion Данные
 
@@ -47,22 +47,22 @@ namespace VentWPF.ViewModel
         #region Информация
 
 
-        [DisplayName("Падение давления расчётное")]
+        [DisplayName("Падение давления")]
         [FormatString("{0:0.0# Па}")]
-        public override float PressureDrop => (70 / (4 / (((float)Project.VFlow / 3600) / AB)));
+        public override float PressureDrop => (70f / (4f / ((Project.VFlow / 3600f) / AB)));
 
-        [DisplayName("Мощность воздухоохладителя")]
+        [DisplayName("Мощность")]
         [FormatString("{0:0.00} kВт")]
-        public float Power => (float)(Project.VFlow * (353 / (273.15 + tOut)) / 3600000 * 1009 * Math.Abs(tOutside - tOut));
+        public float Power => (Project.VFlow * (353f / (273.15f + TempOut)) / 3600000f * 1009f * Math.Abs(TempIn - TempOut));
 
 
-        [DisplayName("Абсолютная влажность воздуха на выходе")]
+        [DisplayName("Абс. влажность на выходе")]
         [FormatString("{0:0.0}")]
-        public float humidityOut => (float)((0.6222 * (humidityOutSide / 100) * pD) / (Project.PressOut - (humidityOutSide / 100) * pD / 1000));
+        public float HumidOutAbs => ((0.6222f * (HumidityIn / 100f) * pD) / (Project.PressOut - (HumidityIn / 100f) * pD / 1000f));
 
-        [DisplayName("Относительная влажность воздуха на выходе")]
+        [DisplayName("Отн. влажность на выходе")]
         [FormatString("{0:0.00 %}")]
-        public int humidityOutOtn => (int)((Project.PressOut / pD2 * 1000 / (0.6222 / humidityOut * 1000 + 1)) * 100);
+        public float HumidOutRel => ((Project.PressOut / pD2 * 1000f / (0.6222f / HumidOutAbs * 1000f + 1)) * 100f);
 
         #endregion Информация
 
@@ -72,10 +72,10 @@ namespace VentWPF.ViewModel
         public virtual float AB => (((float)Project.Width / 1000) * ((float)Project.Height / 1000));
 
         [VisibleBy("ShowDebug")]
-        public virtual float pD => (float)(Math.Exp((1500.3 + 23.5 * tOutside) / (234 + tOutside)));
+        public virtual float pD => (float)(Math.Exp((1500.3 + 23.5 * TempIn) / (234 + TempIn)));
 
         [VisibleBy("ShowDebug")]
-        public virtual float pD2 => (float)(Math.Exp((1500.3 + 23.5 * tOut) / (234 + tOut)));
+        public virtual float pD2 => (float)(Math.Exp((1500.3 + 23.5 * TempOut) / (234 + TempOut)));
         #endregion
 
 
