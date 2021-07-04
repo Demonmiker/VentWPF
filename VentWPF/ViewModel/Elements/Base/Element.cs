@@ -63,7 +63,7 @@ namespace VentWPF.ViewModel
         public Dictionary<string, Column> Format { get; init; }
 
         [Browsable(false)]
-        public List<object> QueryCollection { get; init; } = null;
+        public IList QueryCollection { get; init; } = null;
 
 
         [Browsable(false)]

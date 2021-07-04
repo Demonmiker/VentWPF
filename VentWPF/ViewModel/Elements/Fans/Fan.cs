@@ -8,6 +8,7 @@ namespace VentWPF.ViewModel
         public Fan()
         {
             Name = "Вентилятор";
+            ShowPD = false; ;
         }
 
         [Browsable(false)]
@@ -19,10 +20,19 @@ namespace VentWPF.ViewModel
 
         public override string Image => Path.GetFullPath($"Assets/Images/Fans/Directions/{Direction}.png");
 
-        //
-        //FanData fd;
+        [Category(Data)]
+        [DisplayName("Данные уточняющие запрос")]
+        public float Test { get; set; } = 4;
 
-        //[DisplayName("Элемент:")][Category(c2), PropertyOrder(3)]
-        //public string Id => fd?.ARTICLE_NO;
+        [Category(Info)]
+        [DisplayName("Падение давления системы")]
+        public float PressureDropSystem => 999; // тут типо вычисляяю всё
+
+        public override float PressureDrop => -500;
+
+        [DisplayName("Повышение давления")]
+        public float PressureRaise => -PressureDrop;
+
+
     }
 }

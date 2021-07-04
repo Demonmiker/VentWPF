@@ -17,7 +17,7 @@ namespace VentWPF.FanDLL
         public List<FanData> GetResponce()
         {
             string response = ZAJsonRequest(Request.ToString());
-            return response[0] != '[' ? null : (List<FanData>)JsonSerializer.Deserialize(response, typeof(List<FanData>));
+            return response[0] != '[' ? null : JsonSerializer.Deserialize(response, typeof(List<FanData>)) as List<FanData>;
         }
 
         public string GetResponceString()
@@ -35,7 +35,7 @@ namespace VentWPF.FanDLL
             ExactSpelling = true,
             CallingConvention = CallingConvention.StdCall)
         ]
-        private static extern System.IntPtr _ZAJsonRequest([MarshalAs(UnmanagedType.LPWStr)] String req);
+        private static extern IntPtr _ZAJsonRequest([MarshalAs(UnmanagedType.LPWStr)] String req);
 
         private static string ZAJsonRequest(String req)
         {
