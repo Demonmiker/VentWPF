@@ -9,6 +9,7 @@
         public string CALC_LWA5_OKT;
         public string CALC_LWA6_OKT;
         public double CALC_N_RATED;
+
         //public string MOTOR_IE_CLASS { get; set; }
         public double CALC_NOZZLE_PRESSURE;
 
@@ -77,6 +78,7 @@
         public double ZA_WEIGHT;
         public string ARTICLE_NO { get; set; }
         public int INDEX { get; set; }
+        public double INSTALLATION_LENGTH_MM { get; set; }
         public double INSTALLATION_HEIGHT_MM { get; set; }
         public double INSTALLATION_WIDTH_MM { get; set; }
         public double POWER_OUTPUT_HP { get; set; }
