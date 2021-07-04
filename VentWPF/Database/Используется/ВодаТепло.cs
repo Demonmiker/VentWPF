@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using VentWPF.Model;
+using VentWPF.Tools;
 
 #nullable disable
 
@@ -8,16 +10,15 @@ namespace VentWPF
 {
     public partial class ВодаТепло
     {
-        public string Типоряд { get; set; }
-        [NotMapped]
-        public double Скорость => 5;
+        public string Типоряд { get; set; }        
         public double? LВозд { get; set; }
         public double? ШиринаГабарит { get; set; }
         public double? ВысотаГабарит { get; set; }
         public double? ШиринаЖс { get; set; }
         public double? ВысотаЖс { get; set; }
         public double? Цена { get; set; }
-       
+        [NotMapped]
+        public double Скорость => 278 * (double)LВозд / ((double)ШиринаЖс * (double)ВысотаГабарит);
         public double? Код { get; set; }
         public double? NКвт { get; set; }
         public string ДПрисоединения { get; set; }

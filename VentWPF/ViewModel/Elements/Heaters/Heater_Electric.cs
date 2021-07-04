@@ -22,8 +22,8 @@ namespace VentWPF.ViewModel
             //SELECT Маркировка, Мощность FROM dbo.TЭНРы
             Name = "Нагреватель электрический";
             image = "Heaters/Heater_Electric.png";
-          //  QueryCollection = ((IQueryable<object>)(from h in VentContext.Instance.Tэнрыs select h)).ToList();
-           // Format = format;
+            //QueryCollection = ((IQueryable<object>)(from h in VentContext.Instance.Tэнрыs select h)).ToList();
+            //Format = format;
         }
 
         [Category(Data)]
@@ -37,19 +37,19 @@ namespace VentWPF.ViewModel
         [FormatString(fT)]
         public float tEnd { get; } = 70;
 
+        [DisplayName("Длина калорифера")]
+        public int lengthKal => 50;
+
+        [DisplayName("Ступеней нагрева")]
+        public int heatSteps => 3;
+
         #endregion Данные
 
         [Category(Info)]
         #region Информация
 
-        [DisplayName("Ступеней нагрева")]
-        public int heatSteps => 3;
-
         [DisplayName("Горелка")]
         public TorchType TorchType { get; set; }
-
-        [DisplayName("Длина калорифера")]
-        public int lengthKal => 50;
 
         #endregion Информация
 
