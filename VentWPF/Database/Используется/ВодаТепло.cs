@@ -18,7 +18,7 @@ namespace VentWPF
         public double? ВысотаЖс { get; set; }
         public double? Цена { get; set; }
         [NotMapped]
-        public double Скорость => 278 * (double)LВозд / ((double)ШиринаЖс * (double)ВысотаГабарит);
+        public double? Скорость => 278 * LВозд / (ШиринаЖс * ВысотаГабарит);
         public double? Код { get; set; }
         public double? NКвт { get; set; }
         public string ДПрисоединения { get; set; }
