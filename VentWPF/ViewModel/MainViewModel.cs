@@ -10,6 +10,7 @@ using VentWPF.FanDLL;
 using Microsoft.Win32;
 using System.Linq;
 using PropertyTools.Wpf;
+using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;
 using System;
 
 namespace VentWPF.ViewModel
@@ -58,18 +59,37 @@ namespace VentWPF.ViewModel
         private void AutoColumns(DataGridAutoGeneratingColumnEventArgs e)
         {
             var header = e.Column.Header.ToString();
-            
-            
+            // Получчение имени из тэга
+            var atrs = SelectedElement.QueryCollection[0].GetType()
+                    .GetProperty(header).GetCustomAttributes(typeof(DisplayNameAttribute), true);
+            if (atrs.Length > 0)
+                e.Column.Header = (atrs[0] as DisplayNameAttribute).DisplayName ?? e.Column.Header;
+            else
+            {
+                e.Cancel = true;
+                return;
+            }
+            //Получение форматирования из тэга
+            var atrs2 = SelectedElement .QueryCollection[0] .GetType()
+                .GetProperty(header).GetCustomAttributes(typeof(FormatStringAttribute), true);
+            if (atrs2.Length > 0 && e.Column is DataGridTextColumn)
+            {
+                DataGridTextColumn col = e.Column as DataGridTextColumn;
+                col.Binding.StringFormat = (atrs2[0] as FormatStringAttribute).FormatString;
+            }
+
+
+            if (SelectedElement.Format == null) return;
             if (SelectedElement.Format.ContainsKey(header))
             {
                 var format = SelectedElement.Format[header];
-                if (format.Cond != null)
+                if (format != null)
                 {
                     Style defaultStyle = Application.Current.TryFindResource(typeof(DataGridCell)) as Style;
                     Style style = new Style(typeof(DataGridCell), defaultStyle);
                     style.Triggers.Add(new DataTrigger()
                     {
-                        Binding = new Binding(header) { Converter = format.Cond },
+                        Binding = new Binding(header) { Converter = format },
                         Value = true,
                         Setters =
                 {
@@ -79,7 +99,7 @@ namespace VentWPF.ViewModel
                     });
                     style.Triggers.Add(new DataTrigger()
                     {
-                        Binding = new Binding(header) { Converter = format.Cond },
+                        Binding = new Binding(header) { Converter = format },
                         Value = false,
                         Setters =
                 {
@@ -88,18 +108,10 @@ namespace VentWPF.ViewModel
                 }
                     });
                     e.Column.CellStyle = style;
-                }
-                if(format.Rename!=null)
-                {
-                    e.Column.Header = format.Rename;
-                }
-
-               
-                
-                
+                }    
             }
-            else
-                e.Cancel = true;
+          
+                
           
            
 

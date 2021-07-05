@@ -1,4 +1,4 @@
-﻿using PropertyTools.DataAnnotations;
+﻿using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
 {

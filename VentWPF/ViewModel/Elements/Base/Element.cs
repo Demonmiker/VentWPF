@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using PropertyChanged;
-using PropertyTools.DataAnnotations;
+using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,38 +8,47 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using VentWPF.Tools;
+using VentWPF.ViewModel.Elements;
 
 namespace VentWPF.ViewModel
 {
     internal class Element : BaseViewModel
     {
-        #region Строковые константы
-        public const string Data = "Данные";
-        public const string Info = "Информация";
-        public const string Debug = "Отладка";
-
-        public const string f1 = "{0:0.0}";
-        public const string f2 = "{0:0.00}";
-        public const string fT = "{0:0.0}°";
-        public const string fW = "{0:0.00} kВт";
-        public const string fP = "{0:0.00} Па";
-        public const string fF = "{0:0.00} %";
-        public const string fNull = "{0:0.00} [X]";
-        #endregion
-
-
-        protected string image = "Empty.png";
+        [Browsable(false)]
+        public string Name { get; protected set; } = "";
 
         public static ProjectInfoVM Project { get; set; } = ProjectInfoVM.Instance;
+
+        #region Управление изображением
+        protected string image = "Empty.png";
+        [Browsable(false)]
+        public int SubType { get; set; } = 0;
 
         [Browsable(false)]
         [DependsOn("SubType")]
         public virtual string Image => Path.GetFullPath("Assets/Images/" + image);
+        #endregion
+
+        #region отображением полей
+        [Browsable(false)]
+        public bool ShowQuery { get; init; } = false;
 
         [Browsable(false)]
-        public string Name { get; protected set; } = "";
+        public bool ShowPR { get; init; } = false;
 
+        [Browsable(false)]
+        public bool ShowPD { get; init; } = false;
+
+        [SortIndex(-1)]
+        [Category(Debug)]
+        [VisibleBy("ShowDebug")]
+        public bool ShowDebug { get; set; } = false;
+
+        #endregion
+
+        #region Общие свойства элементов
         [Category(Data)]
         [VisibleBy("ShowPR")]
         [SortIndex(-3)]
@@ -49,21 +58,9 @@ namespace VentWPF.ViewModel
         [VisibleBy("ShowPD")]
         [SortIndex(-2)]
         public virtual float PressureDrop => 0;
+        #endregion
 
-        [Browsable(false)]
-        public int SubType { get; set; } = 0;
-
-        [Browsable(false)]
-        public object DeviceData => DeviceIndex >= 0 ? QueryCollection[DeviceIndex] : null;
-
-        [Category(Debug)]
-        [VisibleBy("ShowDebug")]
-        public int DeviceIndex { get; set; } = -1;
-
-        [Browsable(false)]
-        [JsonIgnore]
-        public Dictionary<string, Column> Format { get; init; }
-
+        #region Запрос
 
         [Browsable(false)]
         public IList QueryCache { get; set; }
@@ -71,15 +68,13 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         public virtual IList Query => null;
 
-        public bool HasQuery = false;
-
         [Browsable(false)]
         [DependsOn("QueryCache")]
         public IList QueryCollection
         {
             get
             {
-                if(HasQuery)
+                if (ShowQuery)
                     if (QueryCache == null)
                         TaskManager.Add(() =>
                         {
@@ -90,22 +85,21 @@ namespace VentWPF.ViewModel
             }
         }
 
-
-        
-      
-
-
-        [Browsable(false)]
-        public bool ShowPR { get; init; } = false;
-        [Browsable(false)]
-        public bool ShowPD { get; init; } = false;
-
-        [SortIndex(-1)]
         [Category(Debug)]
         [VisibleBy("ShowDebug")]
-        public bool ShowDebug { get; set; } = false;
+        public int DeviceIndex { get; set; } = -1;
 
+        [Browsable(false)]
+        public object DeviceData => DeviceIndex >= 0 ? QueryCollection[DeviceIndex] : null;
+
+        #endregion
+
+        [Browsable(false)]
+        [JsonIgnore]
+        public Dictionary<string, IValueConverter> Format => Conditions.Get(this.GetType());
 
         public static T GetInstance<T>(T o) => (T)Activator.CreateInstance(o.GetType());
+
+
     }
 }

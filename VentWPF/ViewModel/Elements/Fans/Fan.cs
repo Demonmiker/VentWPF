@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.IO;
+using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
 {
@@ -17,7 +18,6 @@ namespace VentWPF.ViewModel
             get => (Fan_Direction)SubType;
             set => SubType = (int)value;
         }
-
         public override string Image => Path.GetFullPath($"Assets/Images/Fans/Directions/{Direction}.png");
 
         [Category(Data)]
