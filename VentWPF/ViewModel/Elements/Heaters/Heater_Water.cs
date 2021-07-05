@@ -15,7 +15,7 @@ namespace VentWPF.ViewModel
             { "LВозд", new("L Возд", new Condition<double>(x => x >= Project.VFlow)) },
             { "ШиринаГабарит", new("Ширина габарит", new Condition<double>(x => x <= Project.Width)) },
             { "ВысотаГабарит", new("Высота габарит", new Condition<double>(x => x <= Project.Height)) },
-            { "Cкорость", new("Скорость воздуха", new Condition<double>(x => x > 2.5 && x < 4.5)) },
+            { "Скорость", new("Скорость воздуха", new Condition<double>(x => x > 2.5 && x < 4.5)) },
             { "ШиринаЖС", new("Ширина ЖС") },
             { "ВысотаЖС", new("Высота ЖС") },
             { "Цена", new() },
