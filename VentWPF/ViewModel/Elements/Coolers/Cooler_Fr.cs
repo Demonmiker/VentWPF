@@ -28,9 +28,11 @@ namespace VentWPF.ViewModel
             //SELECT Типоряд, [L возд], [Ширина габарит], [Высота габарит], [N Квт], Цена FROM dbo.Фреон_холод"
             Name = "Фреоновый охладитель";
             image = "Coolers/Cooler_Fr.png";
-            QueryCollection = ((IQueryable<object>)(from h in VentContext.Instance.ФреонХолодs select h)).ToList();
+            //QueryCollection = ((IQueryable<object>)(from h in VentContext.Instance.ФреонХолодs select h)).ToList();
             Format = format;
         }
+
+        
 
         [Category(Data)]
         #region Данные

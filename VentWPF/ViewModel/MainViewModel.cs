@@ -59,6 +59,7 @@ namespace VentWPF.ViewModel
         {
             var header = e.Column.Header.ToString();
             
+            
             if (SelectedElement.Format.ContainsKey(header))
             {
                 var format = SelectedElement.Format[header];

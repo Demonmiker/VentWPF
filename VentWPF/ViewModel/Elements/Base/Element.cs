@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace VentWPF.ViewModel
 {
@@ -37,7 +38,7 @@ namespace VentWPF.ViewModel
 
         [Browsable(false)]
         public string Name { get; protected set; } = "";
-        
+
         [Category(Data)]
         [VisibleBy("ShowPR")]
         [SortIndex(-3)]
@@ -62,8 +63,28 @@ namespace VentWPF.ViewModel
         [JsonIgnore]
         public Dictionary<string, Column> Format { get; init; }
 
+
         [Browsable(false)]
-        public IList QueryCollection { get; init; } = null;
+        public IList QueryCache { get; set; }
+
+        [Browsable(false)]
+        public virtual IList Query => null;
+
+        [Browsable(false)]
+        [DependsOn("QueryCache")]
+        public IList QueryCollection
+        {
+            get
+            {
+                if (QueryCache == null)
+                    Task.Run(() => QueryCache = Query);
+                return QueryCache;
+            }
+        }
+
+
+        
+      
 
 
         [Browsable(false)]

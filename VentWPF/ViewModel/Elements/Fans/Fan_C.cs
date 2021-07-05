@@ -15,7 +15,7 @@ namespace VentWPF.ViewModel
         public Fan_C()
         {
             Name = "Вентилятор \"Обычный\"";
-            QueryCollection = new DLLController() { Request = IOManager.LoadAsJson<DLLRequest>("req.json") }.GetResponce();
+            //QueryCollection = new DLLController() { Request = IOManager.LoadAsJson<DLLRequest>("req.json") }.GetResponce();
             Format = format;
         }
 

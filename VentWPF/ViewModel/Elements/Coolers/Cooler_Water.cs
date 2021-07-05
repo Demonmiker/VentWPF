@@ -27,7 +27,7 @@ namespace VentWPF.ViewModel
             //SELECT Типоряд, [L возд], [Ширина габарит], [Высота габарит], [N Квт], Цена FROM dbo.Вода_холод
             Name = "Охладитель жидкостный";
             image = "Coolers/Cooler_Water.png";
-            QueryCollection = ((IQueryable<object>)(from h in VentContext.Instance.ВодаХолодs select h)).ToList();
+            //QueryCollection = ((IQueryable<object>)(from h in VentContext.Instance.ВодаХолодs select h)).ToList();
             Format = format;
         }
 
