@@ -11,7 +11,6 @@ namespace VentWPF.ViewModel
 {
     internal class Heater_Electric : Heater
     {
-        //private float AB = (((float)Project.Width / 1000) * ((float)Project.Height / 1000));
 
         private static Dictionary<string, Column> format = new Dictionary<string, Column>()
         {
@@ -24,6 +23,7 @@ namespace VentWPF.ViewModel
             Name = "Нагреватель электрический";
             image = "Heaters/Heater_Electric.png";
             Format = format;
+            HasQuery = true;
         }
 
         public override IList Query => ((IQueryable<object>)(from h in VentContext.Instance.Tэнрыs select h)).ToList();

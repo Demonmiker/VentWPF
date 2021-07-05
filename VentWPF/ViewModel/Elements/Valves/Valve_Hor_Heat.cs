@@ -22,6 +22,7 @@ namespace VentWPF.ViewModel
             Name = "Воздушный клапан горизонтальный с нагревателем";
             image = "Valves/Valve_Hor_Heat.png";
             Format = format;
+            HasQuery = true;
         }
 
         public override IList Query => ((IQueryable<object>)(from h in VentContext.Instance.Tэныs select h)).ToList();

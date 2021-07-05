@@ -15,7 +15,9 @@ namespace VentWPF.Tools
         {
         }
 
+#pragma warning disable 67
         public event EventHandler CanExecuteChanged;
+#pragma warning restore 67
 
         public Action<T> action { get; init; }
         public Predicate<object> predicate { get; init; }
