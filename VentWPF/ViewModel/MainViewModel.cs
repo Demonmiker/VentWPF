@@ -157,7 +157,6 @@ namespace VentWPF.ViewModel
             {
                 IOManager.SaveAsJson(Request, "req.json");
                 var responce = new DLLController() { Request = Request }.GetResponceString();
-                int a = 5;
             }
             else
             {

@@ -29,6 +29,7 @@ namespace VentWPF.ViewModel
             Name = "Охладитель жидкостный";
             image = "Coolers/Cooler_Water.png";
             Format = format;
+            HasQuery = true;
         }
 
         public override IList Query => ((IQueryable<object>)(from h in VentContext.Instance.ВодаХолодs select h)).ToList();

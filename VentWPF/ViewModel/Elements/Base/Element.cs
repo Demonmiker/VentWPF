@@ -81,7 +81,11 @@ namespace VentWPF.ViewModel
             {
                 if(HasQuery)
                     if (QueryCache == null)
-                        TaskManager.Add(() => QueryCache = Query);
+                        TaskManager.Add(() =>
+                        {
+                            if (QueryCache == null)
+                                QueryCache = Query;
+                        });
                 return QueryCache;
             }
         }
