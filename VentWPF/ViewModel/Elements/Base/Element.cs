@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using VentWPF.Tools;
 
 namespace VentWPF.ViewModel
 {
@@ -70,14 +71,17 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         public virtual IList Query => null;
 
+        public bool HasQuery = false;
+
         [Browsable(false)]
         [DependsOn("QueryCache")]
         public IList QueryCollection
         {
             get
             {
-                if (QueryCache == null)
-                    Task.Run(() => QueryCache = Query);
+                if(HasQuery)
+                    if (QueryCache == null)
+                        TaskManager.Add(() => QueryCache = Query);
                 return QueryCache;
             }
         }

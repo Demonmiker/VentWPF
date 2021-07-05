@@ -17,6 +17,7 @@ namespace VentWPF.ViewModel
         {
             Name = "Вентилятор \"Обычный\"";
             Format = format;
+            HasQuery = true;
         }
 
         public override IList Query => new DLLController() { Request = IOManager.LoadAsJson<DLLRequest>("req.json") }.GetResponce();
