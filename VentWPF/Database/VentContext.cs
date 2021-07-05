@@ -138,7 +138,7 @@ namespace VentWPF
             {                
                 string connection =
                     $"Data Source=(LocalDB)\\MSSQLLocalDB;" +                
-                    $"AttachDbFilename=" + Environment.CurrentDirectory + "\\Database.mdf;" +                    
+                    $"AttachDbFilename={ Path.GetFullPath("Database/DataBase.mdf")};" +
                     $"Integrated Security=True";
                 optionsBuilder.UseSqlServer(connection);
             }

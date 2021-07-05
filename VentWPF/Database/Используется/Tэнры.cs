@@ -10,7 +10,7 @@ namespace VentWPF
         public int? Код { get; set; }
         public string Типоряд { get; set; }
         public string Маркировка { get; set; }
-        public string Мощность { get; set; }
+        public double? Мощность { get; set; }
         public string Код1с { get; set; }
     }
 }

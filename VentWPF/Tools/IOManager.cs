@@ -28,7 +28,16 @@ namespace VentWPF.Tools
 
         public static T LoadAsJson<T>(string path) where T : new()
         {
-            return (T)JsonConvert.DeserializeObject(File.ReadAllText(path), jsonS);
+            try
+            {
+                return (T)JsonConvert.DeserializeObject(File.ReadAllText(path), jsonS);
+            }
+            catch
+            {
+                return new T();
+            }
+
+            
         }
     }
 
