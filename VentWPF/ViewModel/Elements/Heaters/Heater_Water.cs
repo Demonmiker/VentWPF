@@ -1,5 +1,6 @@
 ﻿using PropertyTools.DataAnnotations;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using VentWPF.Model;
@@ -25,10 +26,11 @@ namespace VentWPF.ViewModel
         {
             Name = "Нагреватель жидкосный";
             image = "Heaters/Heater_Water.png";
-            // ("SELECT Типоряд, [L возд], [Ширина габарит], [Высота габарит], [Ширина ЖС], [Высота ЖС], Цена  FROM dbo.Вода_тепло",
-            QueryCollection = ((IQueryable<object>)(from h in VentContext.Instance.ВодаТеплоs select h)).ToList();
             Format = format;
+            HasQuery = true;
         }
+
+        public override IList Query => ((IQueryable<object>)(from h in VentContext.Instance.ВодаТеплоs select h)).ToList();
 
         [Category(Data)]
         #region Данные
