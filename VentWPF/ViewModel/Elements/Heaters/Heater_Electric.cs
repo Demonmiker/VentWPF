@@ -30,9 +30,10 @@ namespace VentWPF.ViewModel
 
         [DisplayName("т. теплоносителя конечная")]
         [FormatString(fT)]
-        public float tEnd { get; } = 70;
+        public float tEnd { get;  set;} = 70;
 
         [DisplayName("Длина калорифера")]
+        
         public int lengthKal => 50;
 
         [DisplayName("Ступеней нагрева")]

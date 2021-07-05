@@ -41,6 +41,30 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         public bool ShowPD { get; init; } = false;
 
+        [Browsable(true)]
+        [DisplayName("Тест")]
+        public bool EnablePD { get; init; } = false;
+
+        private float? pdlocal = null;
+
+        [EnableBy("EnablePD")]
+        [HeaderPlacement(HeaderPlacement.Collapsed)]
+        public virtual float PreessureTest
+        {
+            get
+            {
+                if (EnablePD && pdlocal != null)
+                    return (float)pdlocal;
+                else
+                    return PressureDrop;
+
+            }
+            set
+            {
+                pdlocal = value;
+            }
+        }
+
         [SortIndex(-1)]
         [Category(Debug)]
         [VisibleBy("ShowDebug")]
@@ -52,6 +76,7 @@ namespace VentWPF.ViewModel
         [Category(Data)]
         [VisibleBy("ShowPR")]
         [SortIndex(-3)]
+        
         [DisplayName("Производительность")]
         public virtual float Performance { get; set; } = Project.VFlow;
 

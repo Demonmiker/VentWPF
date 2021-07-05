@@ -15,7 +15,7 @@ namespace VentWPF.ViewModel
             ShowQuery = true;
         }
 
-        public override IList Query => new DLLController() { Request = IOManager.LoadAsJson<DLLRequest>("req.json") }.GetResponce();
+        public override IList Query => new DLLController() { RequestInfo = IOManager.LoadAsJson<DLLRequest>("req.json") }.GetResponce();
 
 
     }

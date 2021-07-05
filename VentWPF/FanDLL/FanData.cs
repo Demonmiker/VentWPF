@@ -1,4 +1,6 @@
-﻿namespace VentWPF.FanDLL
+﻿using PropertyTools.DataAnnotations;
+
+namespace VentWPF.FanDLL
 {
     public class FanData
     {
@@ -76,6 +78,8 @@
         public string ZA_SFP_CLASS;
         public double ZA_U;
         public double ZA_WEIGHT;
+
+        [DisplayName("ID")]
         public string ARTICLE_NO { get; set; }
         public int INDEX { get; set; }
         public double INSTALLATION_LENGTH_MM { get; set; }
