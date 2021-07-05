@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
+
+
 #nullable disable
 
 namespace VentWPF
@@ -118,8 +120,7 @@ namespace VentWPF
         public virtual DbSet<СуВсбореЦена> СуВсбореЦенаs { get; set; }
         public virtual DbSet<СуГабариты> СуГабаритыs { get; set; }
         public virtual DbSet<СуКомплектующие> СуКомплектующиеs { get; set; }
-        public virtual DbSet<СуКомплектующиеТренд> СуКомплектующиеТрендs { get; set; }
-        public virtual DbSet<Тэны> Тэныs { get; set; }
+        public virtual DbSet<СуКомплектующиеТренд> СуКомплектующиеТрендs { get; set; }       
         public virtual DbSet<ТэныЭконом> ТэныЭкономs { get; set; }
         public virtual DbSet<Увлажнители> Увлажнителиs { get; set; }
         public virtual DbSet<УвлажнителиЭконом> УвлажнителиЭкономs { get; set; }
@@ -134,11 +135,10 @@ namespace VentWPF
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-            {
-                string currentDirectory = Environment.CurrentDirectory;
-                string connection = 
-                    $"Data Source=(LocalDB)\\MSSQLLocalDB;" +
-                    $"AttachDbFilename={Path.GetFullPath("Database/Database.mdf")};" +
+            {                
+                string connection =
+                    $"Data Source=(LocalDB)\\MSSQLLocalDB;" +                
+                    $"AttachDbFilename=" + Environment.CurrentDirectory + "\\Database.mdf;" +                    
                     $"Integrated Security=True";
                 optionsBuilder.UseSqlServer(connection);
             }
@@ -3550,22 +3550,7 @@ namespace VentWPF
                 entity.Property(e => e.ЦенаТрехход)
                     .HasMaxLength(255)
                     .HasColumnName("Цена трехход");
-            });
-
-            modelBuilder.Entity<Тэны>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToTable("Тэны");
-
-                entity.Property(e => e._).HasMaxLength(255);
-
-                entity.Property(e => e.КолВоМодулей).HasColumnName("Кол-во модулей");
-
-                entity.Property(e => e.МощностьКВт).HasColumnName("Мощность, кВт");
-
-                entity.Property(e => e.ШиринаКлемм).HasColumnName("Ширина клемм");
-            });
+            });           
 
             modelBuilder.Entity<ТэныЭконом>(entity =>
             {
