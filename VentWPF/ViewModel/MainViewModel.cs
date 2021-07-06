@@ -12,6 +12,7 @@ using System.Linq;
 using PropertyTools.Wpf;
 using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;
 using System;
+using System.Collections;
 
 namespace VentWPF.ViewModel
 {
@@ -22,6 +23,7 @@ namespace VentWPF.ViewModel
         {
 
             Request= IOManager.LoadAsJson<DLLRequest>("req.json");
+            TaskManager.Add(() => { var l = VentContext.Instance.ВодаХолодs; });
             InitTable(ProjectInfo.Rows);
             CmdAddElement = new(AddElement);
             CmdAutoColumns = new(AutoColumns);

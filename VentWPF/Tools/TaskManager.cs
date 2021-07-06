@@ -10,6 +10,7 @@ namespace VentWPF.Tools
     public static class TaskManager
     {
         static Queue<Action> tasks = new Queue<Action>();
+        static Stopwatch Sw = new Stopwatch();
 
         public static void Add(Action t)
         {
@@ -24,12 +25,15 @@ namespace VentWPF.Tools
         {
             
             IsWorking = true;
+            Sw.Restart();
             while(tasks.Count>0)
             {
                 Debug.WriteLine(tasks.Count);
                 var action = tasks.Dequeue();
                 action.Invoke();
             }
+            Sw.Stop();
+            Debug.WriteLine($"Запрос :{Sw.ElapsedTicks} тик");
             IsWorking = false;
         }
     }
