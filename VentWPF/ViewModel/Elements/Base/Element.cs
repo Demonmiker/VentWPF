@@ -17,7 +17,7 @@ namespace VentWPF.ViewModel
     internal class Element : BaseViewModel
     {
         [Browsable(false)]
-        public string Name { get; protected set; } = "";
+        public string Name { get; protected set; } = "null";
 
         public static ProjectInfoVM Project { get; set; } = ProjectInfoVM.Instance;
 

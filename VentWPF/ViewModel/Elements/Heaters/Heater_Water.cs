@@ -29,8 +29,6 @@ namespace VentWPF.ViewModel
         public float tBegin { get; set; } = 95;
 
         [DisplayName("т. теплоносителя кон.")]
-        [Resettable]
-        [PropertyTools.DataAnnotations.Optional()]
         public float tEnd { get; set; } = 70;
 
         #endregion Данные

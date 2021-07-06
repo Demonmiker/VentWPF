@@ -80,7 +80,21 @@
     <Grid Margin="0 0 0 0">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="5*" MinWidth="600"/>
-        <ColumnDefinition Width="2*" MinWidth="400"/>
+        <ColumnDefinition Width="2*">
+          <ColumnDefinition.Style>
+            <Style TargetType="{x:Type ColumnDefinition}">
+              <Setter Property="MaxWidth" Value="800" />
+              <Setter Property="MinWidth" Value="400" />
+              <Style.Triggers>
+                <DataTrigger Binding="{Binding SelectedElement.Name}" Value="null">
+                  <Setter Property="MinWidth" Value="50" />
+                  <Setter Property="Width" Value="50" />
+                  <Setter Property="MaxWidth" Value="50" />
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </ColumnDefinition.Style>
+        </ColumnDefinition>
       </Grid.ColumnDefinitions>
       <GridSplitter
         Width="6"
@@ -468,8 +482,19 @@
           </TabItem>
         </TabControl>
       </DockPanel>
+      <!--  Боковая Панель  -->
       <md:Card Grid.Column="1" md:ShadowAssist.ShadowEdges="All">
         <Grid Margin="0 2 0 0">
+          <Grid.Style>
+            <Style TargetType="{x:Type Grid}">
+              <Setter Property="Visibility" Value="Visible" />
+              <Style.Triggers>
+                <DataTrigger Binding="{Binding SelectedElement.Name}" Value="null">
+                  <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </Grid.Style>
           <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="2*"/>
