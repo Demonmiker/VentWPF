@@ -26,6 +26,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Images\Vega.webp" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FontAwesome5" Version="2.1.2" />
     <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.7" />
@@ -43,6 +47,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Assets\Images\Empty.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\Images\Fans\Fan_C.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -110,9 +117,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Coolers\Cooler_Water.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Assets\Images\Empty.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Filters\Filters.png">
@@ -374,6 +378,10 @@
 
   <ItemGroup>
     <Folder Include="Assets\Images\Новая папка\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SplashScreen Include="Assets\Images\Vega.webp" />
   </ItemGroup>
 
 </Project>

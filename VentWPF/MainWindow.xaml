@@ -11,14 +11,13 @@
   xmlns:sys="clr-namespace:System;assembly=mscorlib"
   xmlns:vm="clr-namespace:VentWPF.ViewModel"
   Title="MainWindow"
-  Width="1280"
-  Height="720"
+  WindowState="Maximized"
   Background="{DynamicResource MaterialDesignPaper}"
   FontFamily="{md:MaterialDesignFont}"
   TextElement.FontSize="14"
   TextElement.FontWeight="Medium"
   TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-  mc:Ignorable="d">
+  mc:Ignorable="d" >
   <Window.DataContext>
     <vm:MainViewModel/>
   </Window.DataContext>
@@ -80,14 +79,39 @@
     <Grid Margin="0 0 0 0">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="5*" MinWidth="600"/>
-        <ColumnDefinition Width="2*" MinWidth="400"/>
+        <ColumnDefinition Width="2*">
+          <ColumnDefinition.Style>
+            <Style TargetType="{x:Type ColumnDefinition}">
+              <Setter Property="MaxWidth" Value="800"/>
+              <Setter Property="MinWidth" Value="400"/>
+              <Style.Triggers>
+                <DataTrigger Binding="{Binding SelectedElement.Name}" Value="null">
+                  <Setter Property="MaxWidth" Value="50"/>
+                  <Setter Property="MinWidth" Value="50"/>
+                  <Setter Property="Width" Value="50"/>
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </ColumnDefinition.Style>
+        </ColumnDefinition>
       </Grid.ColumnDefinitions>
       <GridSplitter
         Width="6"
         Margin="0 0 0 0"
         HorizontalAlignment="Right"
         Panel.ZIndex="2"
-        Background="LightGray"/>
+        Background="Transparent">
+        <GridSplitter.Style>
+          <Style TargetType="{x:Type GridSplitter}">
+            <Setter Property="Visibility" Value="Visible"/>
+            <Style.Triggers>
+              <DataTrigger Binding="{Binding SelectedElement.Name}" Value="null">
+                <Setter Property="Visibility" Value="Collapsed"/>
+              </DataTrigger>
+            </Style.Triggers>
+          </Style>
+        </GridSplitter.Style>
+      </GridSplitter>
       <DockPanel>
         <!--  Верхняя панель для содания элементов  -->
         <md:Card Background="LightGray" DockPanel.Dock="Top">
@@ -343,7 +367,7 @@
                   </Style>
                 </Grid.Style>
                 <Button>
-                  <Image Source="{Binding HeaderImages.Empty}"/>
+                  <Image Source="{Binding HeaderImages.Recuperators}"/>
                 </Button>
               </Grid>
             </StackPanel>
@@ -437,7 +461,7 @@
             <TabItem.Header>
               <StackPanel>
                 <fa5:SvgAwesome Icon="Solid_BorderAll"/>
-                <TextBlock Text="Отчет"/>
+                <TextBlock Text="Схема"/>
               </StackPanel>
             </TabItem.Header>
           </TabItem>
@@ -468,8 +492,19 @@
           </TabItem>
         </TabControl>
       </DockPanel>
+      <!--  Боковая Панель  -->
       <md:Card Grid.Column="1" md:ShadowAssist.ShadowEdges="All">
         <Grid Margin="0 2 0 0">
+          <Grid.Style>
+            <Style TargetType="{x:Type Grid}">
+              <Setter Property="Visibility" Value="Visible"/>
+              <Style.Triggers>
+                <DataTrigger Binding="{Binding SelectedElement.Name}" Value="null">
+                  <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </Grid.Style>
           <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="2*"/>
@@ -477,10 +512,12 @@
               <RowDefinition.Style>
                 <Style TargetType="{x:Type RowDefinition}">
                   <Setter Property="Height" Value="*"/>
+                  <Setter Property="MaxHeight" Value="600"/>
                   <Setter Property="MinHeight" Value="155"/>
                   <Style.Triggers>
                     <DataTrigger Binding="{Binding SelectedElement.ShowQuery}" Value="false">
-                      <Setter Property="Height" Value="auto"/>
+                      <Setter Property="Height" Value="0"/>
+                      <Setter Property="MaxHeight" Value="0"/>
                       <Setter Property="MinHeight" Value="0"/>
                     </DataTrigger>
                   </Style.Triggers>
@@ -513,23 +550,16 @@
               TabVisibility="Collapsed"/>
           </ScrollViewer>
           <GridSplitter
-            ResizeBehavior="BasedOnAlignment"
             Grid.Row="1"
             Height="6"
             Margin="-5 -5 16 0"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Bottom"
             Panel.ZIndex="2"
-            Background="LightGray"/>
-          <fa5:SvgAwesome
-            Grid.Row="2"
-            Height="30"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Icon="Solid_Spinner"
-            Spin="True">
-            <fa5:SvgAwesome.Style>
-              <Style TargetType="{x:Type fa5:SvgAwesome}">
+            Background="Transparent"
+            ResizeBehavior="BasedOnAlignment">
+            <GridSplitter.Style>
+              <Style TargetType="{x:Type GridSplitter}">
                 <Setter Property="Visibility" Value="Visible"/>
                 <Style.Triggers>
                   <DataTrigger Binding="{Binding SelectedElement.ShowQuery}" Value="false">
@@ -537,57 +567,75 @@
                   </DataTrigger>
                 </Style.Triggers>
               </Style>
-            </fa5:SvgAwesome.Style>
-          </fa5:SvgAwesome>
+            </GridSplitter.Style>
+          </GridSplitter>
+
           <md:Card Grid.Row="2" Margin="0 0 0 5">
-            <md:Card.Style>
-              <Style BasedOn="{StaticResource {x:Type md:Card}}" TargetType="{x:Type md:Card}">
-                <Setter Property="Visibility" Value="Visible"/>
-                <Style.Triggers>
-                  <DataTrigger Binding="{Binding SelectedElement.QueryCache}" Value="{x:Null}">
-                    <Setter Property="Visibility" Value="Collapsed"/>
-                  </DataTrigger>
-                </Style.Triggers>
-              </Style>
-            </md:Card.Style>
-            <DataGrid
-              Name="dg"
-              Height="auto"
-              Panel.ZIndex="5"
-              AutoGenerateColumns="True"
-              IsReadOnly="True"
-              ItemsSource="{Binding SelectedElement.QueryCollection}"
-              SelectedIndex="{Binding SelectedElement.DeviceIndex}"
-              SelectionMode="Single"
-              SelectionUnit="FullRow">
+            <Grid>
+              <fa5:SvgAwesome
+                Height="30"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Icon="Solid_Spinner"
+                Spin="True">
+                <fa5:SvgAwesome.Style>
+                  <Style TargetType="{x:Type fa5:SvgAwesome}">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                      <DataTrigger Binding="{Binding SelectedElement.ShowQuery}" Value="false">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                      </DataTrigger>
+                    </Style.Triggers>
+                  </Style>
+                </fa5:SvgAwesome.Style>
+              </fa5:SvgAwesome>
+              <DataGrid
+                Name="dg"
+                Height="auto"
+                Panel.ZIndex="5"
+                AutoGenerateColumns="True"
+                IsReadOnly="True"
+                ItemsSource="{Binding SelectedElement.QueryCollection}"
+                SelectedIndex="{Binding SelectedElement.DeviceIndex}"
+                SelectionMode="Single"
+                SelectionUnit="FullRow">
+                <DataGrid.Style>
+                  <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="{x:Type DataGrid}">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                      <DataTrigger Binding="{Binding SelectedElement.QueryCache}" Value="{x:Null}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                      </DataTrigger>
+                    </Style.Triggers>
+                  </Style>
+                </DataGrid.Style>
+                <DataGrid.Resources>
+                  <Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="DataGridCell">
+                    <Style.Triggers>
+                      <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="Transparent"/>
+                      </Trigger>
+                    </Style.Triggers>
+                  </Style>
+                </DataGrid.Resources>
+                <DataGrid.ItemContainerStyle>
+                  <Style BasedOn="{StaticResource {x:Type DataGridRow}}" TargetType="DataGridRow">
+                    <Style.Triggers>
+                      <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource PrimaryHueLightBrush}"/>
+                      </Trigger>
+                    </Style.Triggers>
+                  </Style>
+                </DataGrid.ItemContainerStyle>
+                <b:Interaction.Triggers>
+                  <b:EventTrigger EventName="AutoGeneratingColumn">
+                    <b:InvokeCommandAction Command="{Binding CmdAutoColumns}" PassEventArgsToCommand="True"/>
+                  </b:EventTrigger>
+                </b:Interaction.Triggers>
+              </DataGrid>
+            </Grid>
 
-              <DataGrid.Resources>
-                <Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="DataGridCell">
-                  <Style.Triggers>
-                    <Trigger Property="IsSelected" Value="True">
-                      <Setter Property="Background" Value="Transparent"/>
-                    </Trigger>
-                  </Style.Triggers>
-                </Style>
-              </DataGrid.Resources>
-              <DataGrid.ItemContainerStyle>
-                <Style BasedOn="{StaticResource {x:Type DataGridRow}}" TargetType="DataGridRow">
-                  <Style.Triggers>
-                    <Trigger Property="IsSelected" Value="True">
-                      <Setter Property="Background" Value="{DynamicResource PrimaryHueLightBrush}"/>
-                    </Trigger>
-                  </Style.Triggers>
-                </Style>
-              </DataGrid.ItemContainerStyle>
-              <b:Interaction.Triggers>
-                <b:EventTrigger EventName="AutoGeneratingColumn">
-                  <b:InvokeCommandAction Command="{Binding CmdAutoColumns}" PassEventArgsToCommand="True"/>
-                </b:EventTrigger>
-              </b:Interaction.Triggers>
 
-
-
-            </DataGrid>
 
 
           </md:Card>

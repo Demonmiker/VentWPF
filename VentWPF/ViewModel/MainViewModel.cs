@@ -32,8 +32,6 @@ namespace VentWPF.ViewModel
             CmdSave = new(SaveProject);
             CmdLoad = new(LoadProject);
             CmdConfig = new(OpenConfig);
-            var pd = new PropertyDialog();
-            
         }
 
         public ProjectInfoVM ProjectInfo { get; set; } = ProjectInfoVM.Instance;
@@ -203,6 +201,7 @@ namespace VentWPF.ViewModel
                     new(),new(),new(),new(),new(),new(),new(),new(),new(),new(),
                 };
             }
+            SelectedIndex = 0;
         }
 
         #endregion Таблица со схемой
