@@ -32,8 +32,6 @@ namespace VentWPF.ViewModel
             CmdSave = new(SaveProject);
             CmdLoad = new(LoadProject);
             CmdConfig = new(OpenConfig);
-            var pd = new PropertyDialog();
-            
         }
 
         public ProjectInfoVM ProjectInfo { get; set; } = ProjectInfoVM.Instance;
