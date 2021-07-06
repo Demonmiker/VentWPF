@@ -9,6 +9,7 @@
   xmlns:pt="http://propertytools.org/wpf"
   xmlns:sys="clr-namespace:System;assembly=mscorlib"
   xmlns:vm="clr-namespace:VentWPF.ViewModel"
+  xmlns:fa5="http://schemas.fontawesome.com/icons/"
   Title="MainWindow"
   Width="1280"
   Height="720"
@@ -67,8 +68,7 @@
         <MenuItem Command="{Binding CmdLoad}" Header="Загрузить"/>
       </MenuItem>
       <MenuItem Header="Настройки">
-        <MenuItem Command="{Binding CmdConfig}" Header="Запрос">
-        </MenuItem>
+        <MenuItem Command="{Binding CmdConfig}" Header="Запрос"/>
         <MenuItem Command="{Binding CmdLoad}" Header="Интерфейс"/>
         <MenuItem Command="{Binding CmdLoad}" Header="Интерфейс"/>
       </MenuItem>
@@ -401,7 +401,23 @@
           Fill="{DynamicResource PrimaryHueDarkBrush}"/>
         <!--  Основная панель  -->
         <TabControl Margin="0 2 0 0">
-          <TabItem Header="Проект">
+          <TabControl.Resources>
+            <Style TargetType="{x:Type StackPanel}">
+              <Setter Property="Orientation" Value="Horizontal" />
+            </Style>
+            <Style TargetType="{x:Type fa5:SvgAwesome}">
+              <Setter Property="Margin" Value="0 0 3 0" />
+              <Setter Property="Height" Value="12" />
+              <Setter Property="Foreground" Value="{StaticResource PrimaryHueDarkBrush}" />
+            </Style>
+          </TabControl.Resources>
+          <TabItem>
+            <TabItem.Header>
+               <StackPanel>
+                <fa5:SvgAwesome Icon="Solid_Bars"/>
+                <TextBlock Text="Проект"/>
+              </StackPanel>
+            </TabItem.Header>
             <pt:PropertyGrid
               ShowDeclaredOnly="True"
               Width="400"
@@ -409,13 +425,48 @@
               SelectedObject="{Binding ProjectInfo}"
               TabVisibility="Collapsed"/>
           </TabItem>
-          <TabItem Header="Подбор">
+          <TabItem>
+            <TabItem.Header>
+               <StackPanel>
+                <fa5:SvgAwesome Icon="Solid_ChartLine"/>
+                <TextBlock Text="График"/>
+              </StackPanel>
+            </TabItem.Header>
+            
           </TabItem>
-          <TabItem Header="Графики"/>
-          <TabItem Header="Схема"/>
-          <TabItem Header="Отчёт"/>
-          <TabItem Header="Электроника"/>
-          <TabItem Header="3D"/>
+          <TabItem >
+            <TabItem.Header>
+              <StackPanel>
+                <fa5:SvgAwesome Icon="Solid_BorderAll"/>
+                <TextBlock Text="Отчет"/>
+              </StackPanel>
+            </TabItem.Header>
+          </TabItem>
+          <TabItem>
+            <TabItem.Header>
+              <StackPanel>
+                <fa5:SvgAwesome Icon="Solid_FileWord"/>
+                <TextBlock Text="Отчет"/>
+              </StackPanel>
+            </TabItem.Header>
+          </TabItem>
+          <TabItem>
+            <TabItem.Header>
+              <StackPanel>
+                <fa5:SvgAwesome Icon="Solid_Microchip"/>
+                <TextBlock Text="Электроника"/>
+              </StackPanel>
+            </TabItem.Header>
+          </TabItem>
+          <TabItem>
+            <TabItem.Header>
+              <StackPanel>
+                <fa5:SvgAwesome Icon="Solid_Cube"/>
+                <TextBlock Text="3D"/>
+              </StackPanel>
+              
+            </TabItem.Header>
+          </TabItem>
         </TabControl>
       </DockPanel>
       <md:Card Grid.Column="1" md:ShadowAssist.ShadowEdges="All">
@@ -423,8 +474,18 @@
           <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="2*"/>
-            <RowDefinition Height="*"/>
-
+            <RowDefinition >
+              <!--<RowDefinition.Style>
+                <Style TargetType="{x:Type RowDefinition}">
+                  <Setter Property="Height" Value="*"/>
+                  <Style.Triggers>
+                    <DataTrigger Binding="{Binding SelectedElement.HasQuery}" Value="{x:Null}">
+                      <Setter Property="Height" Value="0"/>
+                    </DataTrigger>
+                  </Style.Triggers>
+                </Style>
+              </RowDefinition.Style>-->
+            </RowDefinition>
           </Grid.RowDefinitions>
           <Grid Grid.Row="0" Margin="7 0">
             <Grid.ColumnDefinitions>
@@ -458,16 +519,28 @@
             VerticalAlignment="Bottom"
             Panel.ZIndex="2"
             Background="LightGray"/>
+          <fa5:SvgAwesome Icon="Solid_Spinner" Spin="True" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" />
           <md:Card Grid.Row="2" Margin="0 0 0 5">
+             <md:Card.Style>
+                <Style BasedOn="{StaticResource {x:Type md:Card}}" TargetType="{x:Type md:Card}">
+                  <Setter Property="Visibility" Value="Visible"/>
+                  <Style.Triggers>
+                    <DataTrigger Binding="{Binding SelectedElement.QueryCache}" Value="{x:Null}">
+                      <Setter Property="Visibility" Value="Collapsed"/>
+                    </DataTrigger>
+                  </Style.Triggers>
+                </Style>
+              </md:Card.Style>
             <DataGrid
-              Name="dg"
               Grid.Row="2"
+              Name="dg"
               Height="auto"
               AutoGenerateColumns="True"
               IsReadOnly="True"
               ItemsSource="{Binding SelectedElement.QueryCollection}"
               SelectedIndex="{Binding SelectedElement.DeviceIndex}"
               SelectionMode="Single"
+              Panel.ZIndex="5"
               SelectionUnit="FullRow">
 
               <DataGrid.Resources>
@@ -493,22 +566,14 @@
                   <b:InvokeCommandAction Command="{Binding CmdAutoColumns}" PassEventArgsToCommand="True"/>
                 </b:EventTrigger>
               </b:Interaction.Triggers>
-              <DataGrid.Style>
-                <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="{x:Type DataGrid}">
-                  <Setter Property="Visibility" Value="Visible"/>
-                  <Style.Triggers>
-                    <DataTrigger Binding="{Binding Items.Count, ElementName=dg}" Value="0">
-                      <Setter Property="Visibility" Value="Collapsed"/>
-                    </DataTrigger>
-                  </Style.Triggers>
-                </Style>
-              </DataGrid.Style>
+             
 
 
             </DataGrid>
 
 
           </md:Card>
+          
         </Grid>
       </md:Card>
     </Grid>
