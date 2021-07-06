@@ -2,7 +2,7 @@
 using System.Text.Json.Serialization;
 using VentWPF.Tools;
 using VentWPF.ViewModel;
-using PropertyTools.DataAnnotations;
+using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;
 using System.ComponentModel.DataAnnotations;
 
 namespace VentWPF.FanDLL

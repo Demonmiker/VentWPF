@@ -1,4 +1,4 @@
-﻿using PropertyTools.DataAnnotations;
+﻿using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,19 +11,12 @@ namespace VentWPF.ViewModel
 {
     internal class Heater_Electric : Heater
     {
-
-        private static Dictionary<string, Column> format = new Dictionary<string, Column>()
-        {
-            { "Маркировка", new() },
-            { "Мощность", new() },
-        };
         public Heater_Electric()
         {
             //SELECT Маркировка, Мощность FROM dbo.TЭНРы
             Name = "Нагреватель электрический";
             image = "Heaters/Heater_Electric.png";
-            Format = format;
-            HasQuery = true;
+            ShowQuery = true;
         }
 
         public override IList Query => ((IQueryable<object>)(from h in VentContext.Instance.Tэнрыs select h)).ToList();
@@ -37,9 +30,10 @@ namespace VentWPF.ViewModel
 
         [DisplayName("т. теплоносителя конечная")]
         [FormatString(fT)]
-        public float tEnd { get; } = 70;
+        public float tEnd { get;  set;} = 70;
 
         [DisplayName("Длина калорифера")]
+        
         public int lengthKal => 50;
 
         [DisplayName("Ступеней нагрева")]

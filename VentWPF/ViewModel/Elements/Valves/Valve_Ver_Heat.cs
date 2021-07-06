@@ -1,4 +1,4 @@
-﻿using PropertyTools.DataAnnotations;
+﻿using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,19 +10,12 @@ namespace VentWPF.ViewModel
 {
     internal class Valve_Ver_Heat : Valve
     {
-        private static Dictionary<string, Column> format = new Dictionary<string, Column>()
-        {
-            { "Маркировка", new() },
-            { "Типоряд", new() },
-            { "КолВоПоШирине", new("Кол-во по ширине") },
-        };
         public Valve_Ver_Heat()
         {
             //"SELECT Маркировка, Типоряд, [Кол-во по ширине] FROM dbo.TЭНы",
             Name = "Воздушный клапан вертикальный с нагревателем";
             image = "Valves/Valve_Ver_Heat.png";
-            Format = format;
-            HasQuery = true;
+            ShowQuery = true;
         }
 
         public override IList Query => ((IQueryable<object>)(from h in VentContext.Instance.Tэныs select h)).ToList();
