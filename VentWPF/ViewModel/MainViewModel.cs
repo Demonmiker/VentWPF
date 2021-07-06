@@ -203,6 +203,7 @@ namespace VentWPF.ViewModel
                     new(),new(),new(),new(),new(),new(),new(),new(),new(),new(),
                 };
             }
+            SelectedIndex = 0;
         }
 
         #endregion Таблица со схемой
