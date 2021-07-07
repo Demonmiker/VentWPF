@@ -17,6 +17,26 @@ namespace VentWPF.ViewModel
             ShowQuery = true;
         }
 
+        protected override List<string> InfoProperties => new ()
+        {
+            "DeviceData.Типоряд",
+            "Performance",
+            "TempIn",
+            "TempOut",
+            "tBegin",
+            "tEnd",
+            "HumidIn",
+            "HumidOutRel",
+            //DeviceData.Скорость,
+            "PressureDrop",
+            "Consumption",
+            "Coolant",
+            "CoolantPressureDrop",
+
+
+
+        };
+
         public override IList Query => ((IQueryable<object>)(from h in VentContext.Instance.ВодаТеплоs select h)).ToList();
 
         [Category(Data)]

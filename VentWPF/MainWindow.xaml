@@ -11,13 +11,13 @@
   xmlns:sys="clr-namespace:System;assembly=mscorlib"
   xmlns:vm="clr-namespace:VentWPF.ViewModel"
   Title="MainWindow"
-  WindowState="Maximized"
   Background="{DynamicResource MaterialDesignPaper}"
   FontFamily="{md:MaterialDesignFont}"
   TextElement.FontSize="14"
   TextElement.FontWeight="Medium"
   TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-  mc:Ignorable="d" >
+  WindowState="Maximized"
+  mc:Ignorable="d">
   <Window.DataContext>
     <vm:MainViewModel/>
   </Window.DataContext>
@@ -434,6 +434,7 @@
               <Setter Property="Margin" Value="0 0 3 0"/>
             </Style>
           </TabControl.Resources>
+          <!--Вкладка проект-->
           <TabItem>
             <TabItem.Header>
               <StackPanel>
@@ -448,6 +449,19 @@
               ShowDeclaredOnly="True"
               TabVisibility="Collapsed"/>
           </TabItem>
+          <!--Вкладка информация-->
+          <TabItem>
+            <TabItem.Header>
+              <StackPanel>
+                <fa5:SvgAwesome Icon="Solid_List"/>
+                <TextBlock Text="Инфо"/>
+              </StackPanel>
+            </TabItem.Header>
+            <RichTextBox IsReadOnly="true" Focusable="False" Cursor="Arrow">
+
+            </RichTextBox>
+          </TabItem>
+          <!--Вкладка графики-->
           <TabItem>
             <TabItem.Header>
               <StackPanel>
@@ -455,8 +469,8 @@
                 <TextBlock Text="График"/>
               </StackPanel>
             </TabItem.Header>
-
           </TabItem>
+          <!--Вкладка схема-->
           <TabItem>
             <TabItem.Header>
               <StackPanel>
@@ -465,6 +479,7 @@
               </StackPanel>
             </TabItem.Header>
           </TabItem>
+          <!--Вкладка отчет-->
           <TabItem>
             <TabItem.Header>
               <StackPanel>
@@ -472,7 +487,9 @@
                 <TextBlock Text="Отчет"/>
               </StackPanel>
             </TabItem.Header>
+            <FlowDocument/>
           </TabItem>
+          <!--Вкладка 3D-->
           <TabItem>
             <TabItem.Header>
               <StackPanel>
