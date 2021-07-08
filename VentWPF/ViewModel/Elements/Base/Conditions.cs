@@ -21,7 +21,9 @@ namespace VentWPF.ViewModel.Elements
                     { "ШиринаГабарит", new Condition<double>(x => x <= Project.Width) },
                     { "ВысотаГабарит", new Condition<double>(x => x <= Project.Height) },
                     { "Скорость", new Condition<double>(x => x > 2.5 && x < 4.5) },
-            }},
+                   // { "Мощность", new Condition<double>(x => x <= Power) },
+                }
+            },
             {typeof(Cooler_Water),
                 new()
                 {
