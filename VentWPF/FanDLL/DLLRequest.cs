@@ -31,10 +31,13 @@ namespace VentWPF.FanDLL
         public double PressureDrop { get; set; } = 150;
 
         [JsonPropertyName("search_tolerance")]
-        public double SearchTolerance { get; set; } = 10;
+        public double SearchTolerance { get; set; } = 10; 
 
         [JsonPropertyName("unit_system")]
         public string UnitSystem { get; set; } = "m";
+
+        [JsonPropertyName("product_design")]
+        public string ProductDesign { get; set; } = "ER";
 
         [JsonPropertyName("username")]
         public string Username { get; set; } = "login";

@@ -1,0 +1,14 @@
+{
+  "$type": "VentWPF.FanDLL.DLLRequest, VentWPF",
+  "InsertGeoData": true,
+  "insertMotorData": true,
+  "InsertNominalValues": true,
+  "Language": "RU",
+  "Password": "bnexg5",
+  "product_design": "ER",
+  "PressureDrop": 150.0,
+  "SearchTolerance": 10.0,
+  "UnitSystem": "m",
+  "Username": "ZAFS19946",
+  "VFlow": 6000.0
+}
