@@ -27,7 +27,7 @@ namespace VentWPF.ViewModel
             "tEnd",
             "HumidIn",
             "HumidOutRel",
-            //DeviceData.Скорость,
+            "DeviceData.Скорость",
             "PressureDrop",
             "Consumption",
             "Coolant",

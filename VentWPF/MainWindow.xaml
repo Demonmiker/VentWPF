@@ -457,9 +457,9 @@
                 <TextBlock Text="Инфо"/>
               </StackPanel>
             </TabItem.Header>
-            <RichTextBox IsReadOnly="true" Focusable="False" Cursor="Arrow">
-
-            </RichTextBox>
+            <ContentControl Content="{Binding ElementAsDocument}">
+             
+            </ContentControl>
           </TabItem>
           <!--Вкладка графики-->
           <TabItem>
@@ -487,7 +487,11 @@
                 <TextBlock Text="Отчет"/>
               </StackPanel>
             </TabItem.Header>
-            <FlowDocument/>
+            <FlowDocumentScrollViewer>
+              <FlowDocument>
+    
+              </FlowDocument>
+            </FlowDocumentScrollViewer>
           </TabItem>
           <!--Вкладка 3D-->
           <TabItem>

@@ -2,65 +2,75 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Windows.Data;
+using System.Windows.Documents;
 
 namespace VentWPF.ViewModel
 {
     public class InfoLine
     {
-        private string Header;
-        private object MainObject;
-        private string Property;
-        private object Value;
-        private string Format;
-
         public InfoLine(object mainType, string property)
         {
             MainObject = mainType;
-            Property = property;
-            Update();
+            Property = FindProperty(property);
         }
 
-        
+        public string Format
+        {
+            get
+            {
+                if (NotValid) return null;
+                var ats = Property?.GetCustomAttributes(typeof(FormatStringAttribute), true);
+                return ats.Length > 0 ? (ats[0] as FormatStringAttribute).FormatString : null;
+            }
+        }
 
-        private bool NotValid => Header == null || Value == null;
+        public string Header
+        {
+            get
+            {
+                if (NotValid) return null;
+                var ats = Property?.GetCustomAttributes(typeof(DisplayNameAttribute), true);
+                return ats.Length > 0 ? (ats[0] as DisplayNameAttribute).DisplayName : null;
+                
+            }
+        }
+
+        public object Value => Property?.GetValue(MainObject);
+
+        private object MainObject { get; set; }
+
+        private bool NotValid => Property==null;
+
+        private PropertyInfo Property { get; set; }
 
         public static IEnumerable<InfoLine> GenerateInfoLines(object o, IEnumerable<string> props)
             => props.Select(x => new InfoLine(o, x)).Where(x => !x.NotValid);
 
-        public override string ToString()
-                    => Format != null ? $"{Header}: {string.Format(Format, Value)}" : $"{Header}: {Value}";
-
-        public PropertyInfo FindProperty()
+        public PropertyInfo FindProperty(string path)
         {
-
-            while(Property.Contains('.'))
+            while (path.Contains('.'))
             {
-                int dot = Property.IndexOf('.');
-                var prop = Property.Substring(0, dot);
-                Property = Property.Substring(dot + 1, Property.Length - dot-1);
+                var dot = path.IndexOf('.');
+                var prop = path.Substring(0, dot);
+                path = path.Substring(dot + 1, path.Length - dot - 1);
                 MainObject = MainObject.GetType().GetProperty(prop).GetValue(MainObject);
             }
-            return MainObject?.GetType()?.GetProperty(Property);
-
+            return MainObject?.GetType()?.GetProperty(path);
         }
 
-        public void Update()
-        {
-            //Находим Нужное свойство
-            var prop = FindProperty();
-            if (prop == null) return;
-            //Находи его Имя
-            var ats = prop?.GetCustomAttributes(typeof(DisplayNameAttribute), true);
-            if (ats.Length > 0)
-            {
-                Header = (ats[0] as DisplayNameAttribute).DisplayName;
-                //Находим значение свойства
-                Value = prop?.GetValue(MainObject);
-                //Находи его форматирование
-                var ats2 = prop?.GetCustomAttributes(typeof(FormatStringAttribute), true);
-                if(ats2.Length>0)
-                    Format = (ats2[0] as FormatStringAttribute).FormatString;
-            }
+        public override string ToString()
+                            => Format != null ? $"{Header}: {string.Format(Format, Value)}" : $"{Header}: {Value}";
+
+        public Paragraph ToParagraph()
+        { 
+            var runH = new Run();
+            runH.SetBinding(Run.TextProperty, new Binding() {  Mode=BindingMode.OneWay, Source = Header });
+            var runV = new Run();
+            runV.SetBinding(Run.TextProperty, new Binding() { Mode=BindingMode.OneWay, Source = Value ,StringFormat=Format});
+            var res = new Paragraph();
+            res.Inlines.AddRange(new[] { runH, new Run(": "), runV });
+            return res;
         }
     }
 }

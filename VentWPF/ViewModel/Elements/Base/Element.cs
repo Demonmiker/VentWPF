@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Data;
 using System.Windows.Documents;
 using VentWPF.Tools;
@@ -13,24 +14,51 @@ using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
 {
-
     internal class Element : BaseViewModel
     {
-       
         public static ProjectInfoVM Project { get; set; } = ProjectInfoVM.Instance;
 
         [Browsable(false)]
         public string Name { get; protected set; } = "null";
 
-        #region Info
+        #region Генерация документации
 
-        [DependsOn("DeviceData")]
         public IEnumerable<InfoLine> InfoLines => InfoLine.GenerateInfoLines(this, InfoProperties);
-
+        
         protected virtual List<string> InfoProperties => new() { };
 
-        public Paragraph Info = new Paragraph(new Run() {Bin);
-        #endregion;
+        public TableRowGroup GetRows => AsRows(2);
+
+        public TableRowGroup AsRows(int columns = 1)
+        {
+            TableRowGroup rowGroup = new();
+            var header = new TableRow();
+            header.Cells.Add(new(new Paragraph(new Run(this.Name)) { FontSize=20 }));
+            rowGroup.Rows.Add(header);
+            var infos = InfoLines.ToList();
+            
+            while (infos.Count % columns > 0)
+            {
+                infos.Add(null);
+            }
+            int rows = infos.Count / columns;
+            for (int i = 0; i < rows; i++)
+            {
+                var row = new TableRow();
+                for (int j = 0; j < columns; j++)
+                {
+                    var par = infos?[i + j * rows]?.ToParagraph();
+                    if (par is not null)
+                    {
+                        row.Cells.Add(new TableCell(par));
+                    }
+                }
+                rowGroup.Rows.Add(row);
+            }
+            return rowGroup;
+        }
+
+        #endregion Генерация документации
 
         #region Управление изображением
 
@@ -45,7 +73,7 @@ namespace VentWPF.ViewModel
 
         #endregion Управление изображением
 
-        #region отображением полей
+        #region Отображением полей
 
         private float? pdlocal = null;
 
@@ -84,7 +112,7 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         public bool ShowQuery { get; init; } = false;
 
-        #endregion отображением полей
+        #endregion Отображением полей
 
         #region Общие свойства элементов
 

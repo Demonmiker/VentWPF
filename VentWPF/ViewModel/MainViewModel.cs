@@ -13,6 +13,8 @@ using PropertyTools.Wpf;
 using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;
 using System;
 using System.Collections;
+using System.Windows.Documents;
+using PropertyChanged;
 
 namespace VentWPF.ViewModel
 {
@@ -37,6 +39,23 @@ namespace VentWPF.ViewModel
         public ProjectInfoVM ProjectInfo { get; set; } = ProjectInfoVM.Instance;
         public ImageCollection HeaderImages { get; init; } = new ImageCollection();
         public DLLRequest Request { get; set; } = new();
+
+        #region Главное Меню
+        [DependsOn("SelectedElement.DeviceIndex")]
+        public FlowDocumentReader ElementAsDocument
+        {
+            get
+            {
+                var table = new Table();
+                if (SelectedElement is not null)
+                    table.RowGroups.Add(SelectedElement.GetRows);
+                return new FlowDocumentReader() { Document = new FlowDocument(table), ViewingMode = FlowDocumentReaderViewingMode.Scroll };
+            }
+        }
+
+        public int DeviceIndex => SelectedElement.DeviceIndex;
+        #endregion
+
 
         #region Комманды
 
@@ -180,10 +199,25 @@ namespace VentWPF.ViewModel
         #endregion Комманды
 
         #region Таблица со схемой
+        /// <summary>
+        /// Выбранный элемент в нижней панели
+        /// </summary>
         public Element SelectedElement { get; set; }
+
+        /// <summary>
+        /// Индекс выбранного элемента в нижней панели
+        /// </summary>
         public int SelectedIndex { get; set; } = 0;
+
+        /// <summary>
+        /// Лист отвечающий за хранение всех элементов
+        /// </summary>
         public ObservableCollection<Element> Grid { get; set; }
 
+        /// <summary>
+        /// Инициализирует Нижнюю панель с заданым количеством рядов
+        /// </summary>
+        /// <param name="rows">Кол-во рядов</param>
         public void InitTable(Rows rows)
         {
             if (rows == Rows.Row1)
