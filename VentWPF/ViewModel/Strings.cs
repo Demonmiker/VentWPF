@@ -17,8 +17,9 @@ namespace VentWPF.ViewModel
         public const string f2 = "{0:0.00}";
         public const string fT = "{0:0.0}°";
         public const string fW = "{0:0.00} kВт";
-        public const string fP = "{0:0.00} Па";
+        public const string fP = "{0:0.00} кПа";
         public const string fF = "{0:0.00} %";
+        public const string VL = "{0:0.00} кг/ч";
         public const string fNull = "{0:0.00} [X]";
         #endregion
     }

@@ -2,11 +2,13 @@
 using System.Net;
 using System.Text;
 using System.IO;
-using Nancy.Json;
+using System.Collections.Generic;
+using System.Text.Json;
+
 
 namespace VentWPF.FanDLL
 {
-    interface WebFanSelect
+    internal class WebFanSelect : IFanController
     {
         public static string ZAJsonRequest(string request)
         {
@@ -45,37 +47,32 @@ namespace VentWPF.FanDLL
         {
             public string SESSIONID;
         }
-        private void DllTest1_Click(object sender, EventArgs e)
+        public static int RNums = 0;        
+        public DLLRequest RequestInfo { get; set; }
+        public List<FanData> GetResponce()
         {
-            string sRequest, sResponse, sSessionId;
-            //-------------------------------------------Обязательно---------------------
-            // Create session:
+            string response = ZAJsonRequest(RequestInfo.ToString());
+            return response[0] != '[' ? null : JsonSerializer.Deserialize(response, typeof(List<FanData>)) as List<FanData>;
+        }
+        public string GetResponceString()
+        {
+            return ZAJsonRequest(RequestInfo.ToString());
+        }        
+
+
+        public static string Dll_WEB()
+        {
+            string sRequest, sResponse, sSessionId;            
             sSessionId = "";
             sRequest = "{'cmd': 'create_session'}";
-
             sResponse = ZAJsonRequest(sRequest);
             if (sResponse[0] == '{')
-            {
-                var serializer = new JavaScriptSerializer();
-                var oSessionId = serializer.Deserialize<FSSessionId>(sResponse);
+            {                
+                var oSessionId = JsonSerializer.Deserialize<FSSessionId>(sResponse);
                 sSessionId = oSessionId.SESSIONID;
+                return sSessionId;
             }
-            //------------------------------------------------------------------------------
-            /*
-             * sRequest = "{";
-            sRequest += "'sessionid': '" + sSessionId + "',";   <---------------Новая запись для Web
-            sRequest += "'username': '" + UsernameEdit.Text + "',";
-            sRequest += "'password': '" + PasswdEdit.Text + "',";
-            sRequest += "'cmd': 'search',";
-            sRequest += "'fan_size': '400',";
-            sRequest += "'psf': 50,";
-            sRequest += "'qv': 2500,";
-            sRequest += "'current_phase': 3,";
-            sRequest += "'voltage': 400,";
-            sRequest += "'nominal_frequency': 50,";
-            sRequest += "'search_tolerance': 10";
-            sRequest += "}";
-             * */
+            return null;
         }
     }
 }

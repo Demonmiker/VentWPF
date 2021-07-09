@@ -38,7 +38,7 @@ namespace VentWPF.ViewModel
         [SortIndex(-1)]
         [DisplayName("Влажность воздуха")]
         [FormatString(f2)]
-        public float HumidityIn { get; set; } = 42;
+        public float HumidityIn { get; set; } = 45;
 
         #endregion Данные
 

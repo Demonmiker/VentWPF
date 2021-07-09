@@ -151,6 +151,7 @@ namespace VentWPF.ViewModel
                 ProjectInfo = project.ProjectInfo;
                 Grid = new ObservableCollection<Element>(project.Grid);
             }
+            
         }
 
         private void SaveProject(object o)
