@@ -47,10 +47,10 @@ namespace VentWPF.ViewModel
         public CoolantType Coolant { get; set; }
 
         [DisplayName("т. теплоносителя нач.")]
-        public float tBegin { get; set; } = 95;
+        public float TempBegin { get; set; } = 95;
 
         [DisplayName("т. теплоносителя кон.")]
-        public float tEnd { get; set; } = 70;
+        public float TempEnd { get; set; } = 70;
 
         #endregion Данные
 

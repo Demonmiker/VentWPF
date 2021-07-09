@@ -28,10 +28,10 @@ namespace VentWPF.ViewModel
         #region Данные
 
         [DisplayName("т. теплоносителя нач.")]
-        public float tBegin => 7;
+        public float TempBegin => 7;
 
         [DisplayName("т. теплоносителя кон.")]
-        public float tEnd => 12;
+        public float TempEnd => 12;
 
         #endregion Данные
 

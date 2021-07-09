@@ -16,6 +16,7 @@ namespace VentWPF.ViewModel
 {
     internal class Element : BaseViewModel
     {
+
         public static ProjectInfoVM Project { get; set; } = ProjectInfoVM.Instance;
 
         /// <summary>
@@ -28,16 +29,15 @@ namespace VentWPF.ViewModel
 
         protected virtual List<string> InfoProperties => new() { };
 
-        public TableRowGroup Rows => GetRows(columns: 2);
+        public List<TableRow> Rows => GetRows(columns: 2);
 
-
-        protected TableRowGroup GetRows(int columns = 1)
+        protected List<TableRow> GetRows(int columns = 1)
         {
-            TableRowGroup rowGroup = new();
+            List<TableRow> rowList = new();
             var header = new TableRow();
             header.Cells.Add(new(new Paragraph(new Run(this.Name)) { FontSize = 20 }));
-            rowGroup.Rows.Add(header);
-            var infos = InfoLine.GenerateInfoLines(this,DeviceType, InfoProperties).ToList();
+            rowList.Add(header);
+            var infos = InfoLine.GenerateInfoLines(this, DeviceType, InfoProperties).ToList();
             while (infos.Count % columns > 0)
                 infos.Add(null);
             int rows = infos.Count / columns;
@@ -50,9 +50,9 @@ namespace VentWPF.ViewModel
                     if (par is not null)
                         row.Cells.Add(new TableCell(par));
                 }
-                rowGroup.Rows.Add(row);
+                rowList.Add(row);
             }
-            return rowGroup;
+            return rowList;
         }
 
         #endregion Генерация документации

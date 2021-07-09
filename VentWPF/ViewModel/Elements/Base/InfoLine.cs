@@ -13,7 +13,7 @@ namespace VentWPF.ViewModel
     {
         public InfoLine(object mainType, string propPath, Type type = null)
         {
-            type = type ?? mainType.GetType();
+            type ??= mainType.GetType();
             MainObject = mainType;
             ExpectedType = type;
             Path = propPath;

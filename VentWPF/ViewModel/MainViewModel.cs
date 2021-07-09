@@ -41,14 +41,19 @@ namespace VentWPF.ViewModel
         public DLLRequest Request { get; set; } = new();
 
         #region Главное Меню
-        [DependsOn("SelectedElement.DeviceIndex")]
+        [DependsOn("SelectedElement")]
         public FlowDocumentReader ElementAsDocument
         {
             get
             {
                 var table = new Table();
                 if (SelectedElement is not null)
-                    table.RowGroups.Add(SelectedElement.Rows);
+                {
+                    TableRowGroup tg = new();
+                    foreach (var item in SelectedElement.Rows)
+                        tg.Rows.Add(item);
+                    table.RowGroups.Add(tg);
+                } 
                 return new FlowDocumentReader() { Document = new FlowDocument(table), ViewingMode = FlowDocumentReaderViewingMode.Scroll };
             }
         }
@@ -105,7 +110,7 @@ namespace VentWPF.ViewModel
                 if (format != null)
                 {
                     Style defaultStyle = Application.Current.TryFindResource(typeof(DataGridCell)) as Style;
-                    Style style = new Style(typeof(DataGridCell), defaultStyle);
+                    Style style = new(typeof(DataGridCell), defaultStyle);
                     style.Triggers.Add(new DataTrigger()
                     {
                         Binding = new Binding(header) { Converter = format },
@@ -163,7 +168,7 @@ namespace VentWPF.ViewModel
 
         private void LoadProject(object o)
         {
-            OpenFileDialog sfd = new OpenFileDialog() { DefaultExt = ".prj", Filter = "Projects (.prj)|*.prj" };
+            var sfd = new OpenFileDialog{ DefaultExt = ".prj", Filter = "Projects (.prj)|*.prj" };
             if (sfd.ShowDialog() == true)
             {
                 var project = IOManager.LoadAsJson<Project>(sfd.FileName);
@@ -174,7 +179,7 @@ namespace VentWPF.ViewModel
 
         private void SaveProject(object o)
         {
-            SaveFileDialog sfd = new SaveFileDialog() { FileName = "Проект", DefaultExt = ".prj", Filter = "Projects (.prj)|*.prj" };
+            var sfd = new SaveFileDialog{ FileName = "Проект", DefaultExt = ".prj", Filter = "Projects (.prj)|*.prj" };
             if(sfd.ShowDialog()==true) IOManager.SaveAsJson(new Project(ProjectInfo,Grid.ToList()), sfd.FileName);
         }
 
@@ -187,7 +192,6 @@ namespace VentWPF.ViewModel
             if (dlg.ShowDialog().Value)
             {
                 IOManager.SaveAsJson(Request, "req.json");
-                var responce = new DLLController() { RequestInfo = Request }.GetResponceString();
             }
             else
             {

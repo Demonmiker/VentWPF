@@ -27,7 +27,7 @@ namespace VentWPF.ViewModel
         public float PDd { get; set; } = 0;
         public int Width { get; set; } = 500;
         public int Height { get; set; } = 500;
-        public int temp { get; set; } = -30;
+        public int Temp { get; set; } = -30;
         public float PressOut { get; set; } = 100;
 
         public Rows Rows { get; set; } = Rows.Row2;
