@@ -48,7 +48,7 @@ namespace VentWPF.ViewModel
             {
                 var table = new Table();
                 if (SelectedElement is not null)
-                    table.RowGroups.Add(SelectedElement.GetRows);
+                    table.RowGroups.Add(SelectedElement.Rows);
                 return new FlowDocumentReader() { Document = new FlowDocument(table), ViewingMode = FlowDocumentReaderViewingMode.Scroll };
             }
         }

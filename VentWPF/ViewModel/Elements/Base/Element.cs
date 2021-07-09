@@ -18,29 +18,27 @@ namespace VentWPF.ViewModel
     {
         public static ProjectInfoVM Project { get; set; } = ProjectInfoVM.Instance;
 
+        /// <summary>
+        /// Наименование элемента системы вентиляции
+        /// </summary>
         [Browsable(false)]
-        public string Name { get; protected set; } = "null";
+        public string Name { get; protected set; } = "";
 
         #region Генерация документации
 
-        public IEnumerable<InfoLine> InfoLines => InfoLine.GenerateInfoLines(this, InfoProperties);
-        
         protected virtual List<string> InfoProperties => new() { };
 
-        public TableRowGroup GetRows => AsRows(2);
+        public TableRowGroup Rows => GetRows(columns: 2);
 
-        public TableRowGroup AsRows(int columns = 1)
+        protected TableRowGroup GetRows(int columns = 1)
         {
             TableRowGroup rowGroup = new();
             var header = new TableRow();
-            header.Cells.Add(new(new Paragraph(new Run(this.Name)) { FontSize=20 }));
+            header.Cells.Add(new(new Paragraph(new Run(this.Name)) { FontSize = 20 }));
             rowGroup.Rows.Add(header);
-            var infos = InfoLines.ToList();
-            
+            var infos = InfoLine.GenerateInfoLines(this, InfoProperties).ToList();
             while (infos.Count % columns > 0)
-            {
                 infos.Add(null);
-            }
             int rows = infos.Count / columns;
             for (int i = 0; i < rows; i++)
             {
@@ -49,9 +47,7 @@ namespace VentWPF.ViewModel
                 {
                     var par = infos?[i + j * rows]?.ToParagraph();
                     if (par is not null)
-                    {
                         row.Cells.Add(new TableCell(par));
-                    }
                 }
                 rowGroup.Rows.Add(row);
             }
@@ -74,29 +70,6 @@ namespace VentWPF.ViewModel
         #endregion Управление изображением
 
         #region Отображением полей
-
-        private float? pdlocal = null;
-
-        [Browsable(true)]
-        [DisplayName("Тест")]
-        public bool EnablePD { get; init; } = false;
-
-        [EnableBy("EnablePD")]
-        [HeaderPlacement(HeaderPlacement.Collapsed)]
-        public virtual float PressureTest
-        {
-            get
-            {
-                if (EnablePD && pdlocal != null)
-                    return (float)pdlocal;
-                else
-                    return PressureDrop;
-            }
-            set
-            {
-                pdlocal = value;
-            }
-        }
 
         [SortIndex(-1)]
         [Category(Debug)]
@@ -128,14 +101,19 @@ namespace VentWPF.ViewModel
 
         #endregion Общие свойства элементов
 
-        #region Запрос
-
-        [Browsable(false)]
-        public object DeviceData => DeviceIndex >= 0 ? QueryCollection[DeviceIndex] : null;
+        #region Модель
 
         [Category(Debug)]
         [VisibleBy("ShowDebug")]
         public int DeviceIndex { get; set; } = -1;
+
+        [Browsable(false)]
+        public object DeviceData => DeviceIndex >= 0 ? QueryCollection[DeviceIndex] : null;
+        #endregion
+
+        #region Запрос
+
+        protected Type DeviceType = null;
 
         [Browsable(false)]
         [JsonIgnore]
@@ -165,6 +143,8 @@ namespace VentWPF.ViewModel
         }
 
         #endregion Запрос
+
+        
 
         public static T GetInstance<T>(T o) => (T)Activator.CreateInstance(o.GetType());
     }
