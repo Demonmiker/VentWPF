@@ -13,6 +13,8 @@ using PropertyTools.Wpf;
 using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;
 using System;
 using System.Collections;
+using System.Windows.Documents;
+using PropertyChanged;
 
 namespace VentWPF.ViewModel
 {
@@ -37,6 +39,28 @@ namespace VentWPF.ViewModel
         public ProjectInfoVM ProjectInfo { get; set; } = ProjectInfoVM.Instance;
         public ImageCollection HeaderImages { get; init; } = new ImageCollection();
         public DLLRequest Request { get; set; } = new();
+
+        #region Главное Меню
+        [DependsOn("SelectedElement")]
+        public FlowDocumentReader ElementAsDocument
+        {
+            get
+            {
+                var table = new Table();
+                if (SelectedElement is not null)
+                {
+                    TableRowGroup tg = new();
+                    foreach (var item in SelectedElement.Rows)
+                        tg.Rows.Add(item);
+                    table.RowGroups.Add(tg);
+                } 
+                return new FlowDocumentReader() { Document = new FlowDocument(table), ViewingMode = FlowDocumentReaderViewingMode.Scroll };
+            }
+        }
+
+        public int DeviceIndex => SelectedElement.DeviceIndex;
+        #endregion
+
 
         #region Комманды
 
@@ -86,7 +110,7 @@ namespace VentWPF.ViewModel
                 if (format != null)
                 {
                     Style defaultStyle = Application.Current.TryFindResource(typeof(DataGridCell)) as Style;
-                    Style style = new Style(typeof(DataGridCell), defaultStyle);
+                    Style style = new(typeof(DataGridCell), defaultStyle);
                     style.Triggers.Add(new DataTrigger()
                     {
                         Binding = new Binding(header) { Converter = format },
@@ -144,7 +168,7 @@ namespace VentWPF.ViewModel
 
         private void LoadProject(object o)
         {
-            OpenFileDialog sfd = new OpenFileDialog() { DefaultExt = ".prj", Filter = "Projects (.prj)|*.prj" };
+            var sfd = new OpenFileDialog{ DefaultExt = ".prj", Filter = "Projects (.prj)|*.prj" };
             if (sfd.ShowDialog() == true)
             {
                 var project = IOManager.LoadAsJson<Project>(sfd.FileName);
@@ -155,7 +179,7 @@ namespace VentWPF.ViewModel
 
         private void SaveProject(object o)
         {
-            SaveFileDialog sfd = new SaveFileDialog() { FileName = "Проект", DefaultExt = ".prj", Filter = "Projects (.prj)|*.prj" };
+            var sfd = new SaveFileDialog{ FileName = "Проект", DefaultExt = ".prj", Filter = "Projects (.prj)|*.prj" };
             if(sfd.ShowDialog()==true) IOManager.SaveAsJson(new Project(ProjectInfo,Grid.ToList()), sfd.FileName);
         }
 
@@ -168,7 +192,6 @@ namespace VentWPF.ViewModel
             if (dlg.ShowDialog().Value)
             {
                 IOManager.SaveAsJson(Request, "req.json");
-                var responce = new DLLController() { RequestInfo = Request }.GetResponceString();
             }
             else
             {
@@ -180,10 +203,25 @@ namespace VentWPF.ViewModel
         #endregion Комманды
 
         #region Таблица со схемой
+        /// <summary>
+        /// Выбранный элемент в нижней панели
+        /// </summary>
         public Element SelectedElement { get; set; }
+
+        /// <summary>
+        /// Индекс выбранного элемента в нижней панели
+        /// </summary>
         public int SelectedIndex { get; set; } = 0;
+
+        /// <summary>
+        /// Лист отвечающий за хранение всех элементов
+        /// </summary>
         public ObservableCollection<Element> Grid { get; set; }
 
+        /// <summary>
+        /// Инициализирует Нижнюю панель с заданым количеством рядов
+        /// </summary>
+        /// <param name="rows">Кол-во рядов</param>
         public void InitTable(Rows rows)
         {
             if (rows == Rows.Row1)

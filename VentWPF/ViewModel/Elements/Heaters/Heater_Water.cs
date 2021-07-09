@@ -15,7 +15,28 @@ namespace VentWPF.ViewModel
             Name = "Нагреватель жидкосный";
             image = "Heaters/Heater_Water.png";
             ShowQuery = true;
+            DeviceType = typeof(ВодаТепло);
         }
+
+        protected override List<string> InfoProperties => new ()
+        {
+            "DeviceData.Типоряд",
+            "Performance",
+            "TempIn",
+            "TempOut",
+            "tBegin",
+            "tEnd",
+            "HumidIn",
+            "HumidOutRel",
+            "DeviceData.Скорость",
+            "PressureDrop",
+            "Consumption",
+            "Coolant",
+            "CoolantPressureDrop",
+
+
+
+        };
 
         public override IList Query => ((IQueryable<object>)(from h in VentContext.Instance.ВодаТеплоs select h)).ToList();
 
@@ -26,10 +47,10 @@ namespace VentWPF.ViewModel
         public CoolantType Coolant { get; set; }
 
         [DisplayName("т. теплоносителя нач.")]
-        public float tBegin { get; set; } = 95;
+        public float TempBegin { get; set; } = 95;
 
         [DisplayName("т. теплоносителя кон.")]
-        public float tEnd { get; set; } = 70;
+        public float TempEnd { get; set; } = 70;
 
         #endregion Данные
 

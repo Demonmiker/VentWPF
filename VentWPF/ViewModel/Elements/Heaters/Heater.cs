@@ -27,7 +27,7 @@ namespace VentWPF.ViewModel
         [SortIndex(-1)]
         [DisplayName("т. на входе")]
         [FormatString(fT)]
-        public float TempIn => Project.temp;
+        public float TempIn => Project.Temp;
 
         [SortIndex(-1)]
         [DisplayName("Влажность воздуха")]
