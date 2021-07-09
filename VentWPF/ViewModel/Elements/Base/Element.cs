@@ -30,13 +30,14 @@ namespace VentWPF.ViewModel
 
         public TableRowGroup Rows => GetRows(columns: 2);
 
+
         protected TableRowGroup GetRows(int columns = 1)
         {
             TableRowGroup rowGroup = new();
             var header = new TableRow();
             header.Cells.Add(new(new Paragraph(new Run(this.Name)) { FontSize = 20 }));
             rowGroup.Rows.Add(header);
-            var infos = InfoLine.GenerateInfoLines(this, InfoProperties).ToList();
+            var infos = InfoLine.GenerateInfoLines(this,DeviceType, InfoProperties).ToList();
             while (infos.Count % columns > 0)
                 infos.Add(null);
             int rows = infos.Count / columns;
@@ -109,11 +110,12 @@ namespace VentWPF.ViewModel
 
         [Browsable(false)]
         public object DeviceData => DeviceIndex >= 0 ? QueryCollection[DeviceIndex] : null;
-        #endregion
-
-        #region Запрос
 
         protected Type DeviceType = null;
+
+        #endregion Модель
+
+        #region Запрос
 
         [Browsable(false)]
         [JsonIgnore]
@@ -143,8 +145,6 @@ namespace VentWPF.ViewModel
         }
 
         #endregion Запрос
-
-        
 
         public static T GetInstance<T>(T o) => (T)Activator.CreateInstance(o.GetType());
     }

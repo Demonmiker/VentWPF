@@ -15,6 +15,7 @@ namespace VentWPF.ViewModel
             Name = "Нагреватель жидкосный";
             image = "Heaters/Heater_Water.png";
             ShowQuery = true;
+            DeviceType = typeof(ВодаТепло);
         }
 
         protected override List<string> InfoProperties => new ()
