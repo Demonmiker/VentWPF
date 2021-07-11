@@ -1,8 +1,8 @@
 ﻿using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;
 using System.Collections;
 using System.Collections.Generic;
-using VentWPF.FanDLL;
 using VentWPF.Tools;
+using VentWPF.Fans.FanSelect;
 
 namespace VentWPF.ViewModel
 {
@@ -15,7 +15,7 @@ namespace VentWPF.ViewModel
             ShowQuery = true;
         }
 
-        public override IList Query => new DLLController() { RequestInfo = IOManager.LoadAsJson<FanDllRequest>("req.json") }.GetResponce();
+        public override IList Query => new DllController().GetResponce(IOManager.LoadAsJson<DllRequest>("req.json"));
 
 
     }

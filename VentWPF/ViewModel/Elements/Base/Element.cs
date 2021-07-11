@@ -29,6 +29,7 @@ namespace VentWPF.ViewModel
 
         protected virtual List<string> InfoProperties => new() { };
 
+        [Browsable(false)]
         public List<TableRow> Rows => GetRows(columns: 2);
 
         protected List<TableRow> GetRows(int columns = 1)
