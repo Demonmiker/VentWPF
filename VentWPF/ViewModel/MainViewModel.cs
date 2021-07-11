@@ -24,7 +24,7 @@ namespace VentWPF.ViewModel
         public MainViewModel()
         {
 
-            Request= IOManager.LoadAsJson<DLLRequest>("req.json");
+            Request= IOManager.LoadAsJson<FanDllRequest>("req.json");
             TaskManager.Add(() => { var l = VentContext.Instance.ВодаХолодs; });
             InitTable(ProjectInfo.Rows);
             CmdAddElement = new(AddElement);
@@ -38,7 +38,7 @@ namespace VentWPF.ViewModel
 
         public ProjectInfoVM ProjectInfo { get; set; } = ProjectInfoVM.Instance;
         public ImageCollection HeaderImages { get; init; } = new ImageCollection();
-        public DLLRequest Request { get; set; } = new();
+        public FanDllRequest Request { get; set; } = new();
 
         #region Главное Меню
         [DependsOn("SelectedElement")]

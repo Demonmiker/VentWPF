@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VentWPF.FanDLL
+namespace VentWPF.Fans
 {
-    interface IFanController
+    interface IController<Tin,Tout>
     {
-        List<FanData> GetResponce();
-
-        string GetResponceString();
+        Tout GetResponce(Tin request);
     }
 }

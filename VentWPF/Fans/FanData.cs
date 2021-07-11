@@ -1,6 +1,6 @@
 ﻿using PropertyTools.DataAnnotations;
 
-namespace VentWPF.FanDLL
+namespace VentWPF.Fans
 {
     public class FanData
     {
