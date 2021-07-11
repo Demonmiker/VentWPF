@@ -15,7 +15,7 @@ namespace VentWPF.Fans.FanSelect
         public bool InsertGeoData { get; set; } = true;
 
         [JsonPropertyName("insert_motor_data")]
-        public bool insertMotorData { get; set; } = true;
+        public bool InsertMotorData { get; set; } = true;
 
         [JsonPropertyName("insert_nominal_values")]
         public bool InsertNominalValues { get; set; } = true;

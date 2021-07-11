@@ -6,7 +6,6 @@ using VentWPF.Model;
 using VentWPF.Tools;
 using System.Windows.Data;
 using System.Windows.Media;
-using VentWPF.FanDLL;
 using Microsoft.Win32;
 using System.Linq;
 using PropertyTools.Wpf;
@@ -15,6 +14,7 @@ using System;
 using System.Collections;
 using System.Windows.Documents;
 using PropertyChanged;
+using VentWPF.Fans.FanSelect;
 
 namespace VentWPF.ViewModel
 {
@@ -24,7 +24,7 @@ namespace VentWPF.ViewModel
         public MainViewModel()
         {
 
-            Request= IOManager.LoadAsJson<FanDllRequest>("req.json");
+            Request= IOManager.LoadAsJson<DllRequest>("req.json");
             TaskManager.Add(() => { var l = VentContext.Instance.ВодаХолодs; });
             InitTable(ProjectInfo.Rows);
             CmdAddElement = new(AddElement);
@@ -38,7 +38,7 @@ namespace VentWPF.ViewModel
 
         public ProjectInfoVM ProjectInfo { get; set; } = ProjectInfoVM.Instance;
         public ImageCollection HeaderImages { get; init; } = new ImageCollection();
-        public FanDllRequest Request { get; set; } = new();
+        public DllRequest Request { get; set; } = new();
 
         #region Главное Меню
         [DependsOn("SelectedElement")]

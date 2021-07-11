@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VentWPF.Fans.FanSelect
 {
-    class UniController : IController<string, string>
+    class UniController : IController<IRequest<string>, string>
     {
         public string GetResponce(IRequest<string> request)
         {
