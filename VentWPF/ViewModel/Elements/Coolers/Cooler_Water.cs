@@ -22,7 +22,7 @@ namespace VentWPF.ViewModel
             ShowQuery = true;
         }
 
-        public override IList Query => ((IQueryable<object>)(from h in VentContext.Instance.ВодаХолодs select h)).ToList();
+        //public override IList Query => ((IQueryable<object>)(from h in VentContext.Instance.ВодаХолодs select h)).ToList();
 
         [Category(Data)]
         #region Данные

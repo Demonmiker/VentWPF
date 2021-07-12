@@ -536,7 +536,7 @@
                   <Setter Property="MaxHeight" Value="600"/>
                   <Setter Property="MinHeight" Value="155"/>
                   <Style.Triggers>
-                    <DataTrigger Binding="{Binding SelectedElement.ShowQuery}" Value="false">
+                    <DataTrigger Binding="{Binding SelectedElement.Query}" Value="{x:Null}">
                       <Setter Property="Height" Value="0"/>
                       <Setter Property="MaxHeight" Value="0"/>
                       <Setter Property="MinHeight" Value="0"/>
@@ -583,7 +583,7 @@
               <Style TargetType="{x:Type GridSplitter}">
                 <Setter Property="Visibility" Value="Visible"/>
                 <Style.Triggers>
-                  <DataTrigger Binding="{Binding SelectedElement.ShowQuery}" Value="false">
+                  <DataTrigger Binding="{Binding SelectedElement.Query}" Value="{x:Null}">
                     <Setter Property="Visibility" Value="Collapsed"/>
                   </DataTrigger>
                 </Style.Triggers>
@@ -603,7 +603,7 @@
                   <Style TargetType="{x:Type fa5:SvgAwesome}">
                     <Setter Property="Visibility" Value="Visible"/>
                     <Style.Triggers>
-                      <DataTrigger Binding="{Binding SelectedElement.ShowQuery}" Value="false">
+                      <DataTrigger Binding="{Binding SelectedElement.Query}" Value="{x:Null}">
                         <Setter Property="Visibility" Value="Collapsed"/>
                       </DataTrigger>
                     </Style.Triggers>
@@ -616,7 +616,7 @@
                 Panel.ZIndex="5"
                 AutoGenerateColumns="True"
                 IsReadOnly="True"
-                ItemsSource="{Binding SelectedElement.QueryCollection}"
+                ItemsSource="{Binding SelectedElement.Query.Result}"
                 SelectedIndex="{Binding SelectedElement.DeviceIndex}"
                 SelectionMode="Single"
                 SelectionUnit="FullRow">
@@ -624,7 +624,7 @@
                   <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="{x:Type DataGrid}">
                     <Setter Property="Visibility" Value="Visible"/>
                     <Style.Triggers>
-                      <DataTrigger Binding="{Binding SelectedElement.QueryCache}" Value="{x:Null}">
+                      <DataTrigger Binding="{Binding SelectedElement.Query.Result}" Value="{x:Null}"> <!--@@warn -->
                         <Setter Property="Visibility" Value="Collapsed"/>
                       </DataTrigger>
                     </Style.Triggers>

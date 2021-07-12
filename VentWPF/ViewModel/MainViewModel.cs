@@ -84,7 +84,7 @@ namespace VentWPF.ViewModel
         {
             var header = e.Column.Header.ToString();
             // Получчение имени из тэга
-            var atrs = SelectedElement.QueryCollection[0].GetType()
+            var atrs = SelectedElement.Query.Result[0].GetType()
                     .GetProperty(header).GetCustomAttributes(typeof(DisplayNameAttribute), true);
             if (atrs.Length > 0)
                 e.Column.Header = (atrs[0] as DisplayNameAttribute).DisplayName ?? e.Column.Header;
@@ -94,7 +94,7 @@ namespace VentWPF.ViewModel
                 return;
             }
             //Получение форматирования из тэга
-            var atrs2 = SelectedElement .QueryCollection[0] .GetType()
+            var atrs2 = SelectedElement.Query.Result[0] .GetType()
                 .GetProperty(header).GetCustomAttributes(typeof(FormatStringAttribute), true);
             if (atrs2.Length > 0 && e.Column is DataGridTextColumn)
             {

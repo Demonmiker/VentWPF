@@ -110,7 +110,7 @@ namespace VentWPF.ViewModel
         public int DeviceIndex { get; set; } = -1;
 
         [Browsable(false)]
-        public object DeviceData => DeviceIndex >= 0 ? QueryCollection[DeviceIndex] : null;
+        public object DeviceData => DeviceIndex >= 0 ? Query.Result[DeviceIndex] : null;
 
         protected Type DeviceType = null;
 
@@ -123,27 +123,8 @@ namespace VentWPF.ViewModel
         public Dictionary<string, IValueConverter> Format => Conditions.Get(this.GetType());
 
         [Browsable(false)]
-        public virtual IList Query => null;
-
-        [Browsable(false)]
-        public IList QueryCache { get; set; }
-
-        [Browsable(false)]
-        [DependsOn("QueryCache")]
-        public IList QueryCollection
-        {
-            get
-            {
-                if (ShowQuery)
-                    if (QueryCache == null)
-                        TaskManager.Add(() =>
-                        {
-                            if (QueryCache == null)
-                                QueryCache = Query;
-                        });
-                return QueryCache;
-            }
-        }
+        [JsonIgnore]
+        public Query Query { get; init; }
 
         #endregion Запрос
 

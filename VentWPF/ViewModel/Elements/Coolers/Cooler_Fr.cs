@@ -23,7 +23,7 @@ namespace VentWPF.ViewModel
             ShowQuery = true;
         }
 
-        public override IList Query => ((IQueryable<object>)(from h in VentContext.Instance.ФреонХолодs select h)).ToList();
+        //public override IList Query => ((IQueryable<object>)(from h in VentContext.Instance.ФреонХолодs select h)).ToList();
 
 
 

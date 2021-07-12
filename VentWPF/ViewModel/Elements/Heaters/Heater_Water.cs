@@ -16,6 +16,11 @@ namespace VentWPF.ViewModel
             image = "Heaters/Heater_Water.png";
             ShowQuery = true;
             DeviceType = typeof(ВодаТепло);
+            Query = new DatabaseQuery<ВодаТепло> 
+            { 
+                Source = from h in VentContext.Instance.ВодаТеплоs select h 
+            };
+            //public override IList Query => ((IQueryable<object>)(from h in VentContext.Instance.ВодаТеплоs select h)).ToList();
         }
 
         protected override List<string> InfoProperties => new ()
@@ -38,7 +43,7 @@ namespace VentWPF.ViewModel
 
         };
 
-        public override IList Query => ((IQueryable<object>)(from h in VentContext.Instance.ВодаТеплоs select h)).ToList();
+        
 
         [Category(Data)]
         #region Данные

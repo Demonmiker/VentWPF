@@ -18,7 +18,7 @@ namespace VentWPF.ViewModel
             ShowQuery = true;
         }
 
-        public override IList Query => ((IQueryable<object>)(from h in VentContext.Instance.Tэныs select h)).ToList();
+        //public override IList Query => ((IQueryable<object>)(from h in VentContext.Instance.Tэныs select h)).ToList();
         [Category(Data)]
         [DisplayName("Количество ТЭНов")]
         public int TEN_count { get; set; } = 3;

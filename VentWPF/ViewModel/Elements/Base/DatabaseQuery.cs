@@ -4,10 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using VentWPF.Tools;
 
-namespace VentWPF.ViewModel.Elements.Base
+namespace VentWPF.ViewModel
 {
-    internal abstract class DatabaseQuery<T> : CustomQuery<IQueryable<T>,T>
+    internal class DatabaseQuery<T> : Query
     {
-        public override IEnumerable<T> Fill(IQueryable<T> q) => q.ToList();
+        protected override IList Fill(object q) => (q as IQueryable<T>).ToList();
+
+        //protected override IEnumerable<T> Fill(object q)
+        //{
+        //    throw new System.NotImplementedException();
+        //}
     }
 }
