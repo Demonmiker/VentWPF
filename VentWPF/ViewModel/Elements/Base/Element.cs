@@ -23,7 +23,8 @@ namespace VentWPF.ViewModel
         /// Наименование элемента системы вентиляции
         /// </summary>
         [Browsable(false)]
-        public string Name { get; protected set; } = "";
+        [DependsOn("DeviceIndex")]
+        public virtual string Name => "";
 
         #region Генерация документации
 

@@ -14,11 +14,11 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Cooler_Fr : Cooler
     {
+        
       
         public Cooler_Fr()
         {
             //SELECT Типоряд, [L возд], [Ширина габарит], [Высота габарит], [N Квт], Цена FROM dbo.Фреон_холод"
-            Name = "Фреоновый охладитель";
             image = "Coolers/Cooler_Fr.png";
             Query = new DatabaseQuery<ФреонХолод>
             {
@@ -26,7 +26,8 @@ namespace VentWPF.ViewModel
             };
         }
 
-        //public override IList Query => ((IQueryable<object>)(from h in VentContext.Instance.ФреонХолодs select h)).ToList();
+        public override string Name => $"Фреоновый охладитель {(DeviceData as ФреонХолод)?.Типоряд}";
+
 
 
 

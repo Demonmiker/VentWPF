@@ -12,7 +12,6 @@ namespace VentWPF.ViewModel
     {
         public Cooler()
         {
-            Name = "<Охладитель> ";
             ShowPR = true;
             ShowPD = true;
         }

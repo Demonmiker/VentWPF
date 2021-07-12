@@ -16,16 +16,14 @@ namespace VentWPF.ViewModel
        
         public Cooler_Water()
         {
-            //SELECT Типоряд, [L возд], [Ширина габарит], [Высота габарит], [N Квт], Цена FROM dbo.Вода_холод
-            Name = "Охладитель жидкостный";
+            
             image = "Coolers/Cooler_Water.png";
             Query = new DatabaseQuery<ВодаХолод>
             {
                 Source = from o in VentContext.Instance.ВодаХолодs select o
             };
         }
-
-        //public override IList Query => ((IQueryable<object>)(from h in VentContext.Instance.ВодаХолодs select h)).ToList();
+        public override string Name => $"Охладитель жидкостный {(DeviceData as ВодаХолод)?.Типоряд}";
 
         [Category(Data)]
         #region Данные

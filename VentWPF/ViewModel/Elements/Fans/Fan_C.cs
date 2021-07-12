@@ -11,10 +11,13 @@ namespace VentWPF.ViewModel
 
         public Fan_C()
         {
-            Name = "Вентилятор \"Обычный\"";
+            //public override IList Query => new DllController()
+            //.GetResponce(IOManager.LoadAsJson<DllRequest>("req.json"));
+
         }
 
-        //public override IList Query => new DllController().GetResponce(IOManager.LoadAsJson<DllRequest>("req.json"));
+        public override string Name => "Вентилятор";
+
 
 
     }

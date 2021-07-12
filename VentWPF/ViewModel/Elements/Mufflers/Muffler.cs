@@ -7,7 +7,6 @@ namespace VentWPF.ViewModel
     {
         public Muffler()
         {
-            Name = "Шумоглушитель";
             image = "Mufflers/Muffler.png";
             ShowPR = true;
             ShowPD = true;

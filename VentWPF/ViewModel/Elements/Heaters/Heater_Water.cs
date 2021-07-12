@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using VentWPF.Model;
 using VentWPF.Tools;
+using PropertyChanged;
 
 namespace VentWPF.ViewModel
 {
@@ -12,19 +13,18 @@ namespace VentWPF.ViewModel
     {
         public Heater_Water()
         {
-            Name = "Нагреватель жидкостный";
             image = "Heaters/Heater_Water.png";
             DeviceType = typeof(ВодаТепло);
             Query = new DatabaseQuery<ВодаТепло>
             {
                 Source = from h in VentContext.Instance.ВодаТеплоs select h
             };
-            //public override IList Query => ((IQueryable<object>)(from h in VentContext.Instance.ВодаТеплоs select h)).ToList();
         }
+
+        public override string Name => $"Нагреватель жидкостный {(DeviceData as ВодаТепло)?.Типоряд}";
 
         protected override List<string> InfoProperties => new ()
         {
-            "DeviceData.Типоряд",
             "Performance",
             "TempIn",
             "TempOut",

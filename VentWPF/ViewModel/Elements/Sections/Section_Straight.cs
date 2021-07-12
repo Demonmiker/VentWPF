@@ -4,7 +4,6 @@
     {
         public Section_Straight()
         {
-            Name = "Секция";
             image = "Sections/Section_Straight.png";
         }
     }

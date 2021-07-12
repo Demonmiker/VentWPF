@@ -10,9 +10,10 @@ namespace VentWPF.ViewModel
     {
         public Filter_Section()
         {
-            Name = "Фильтр секционный";
             image = "Filters/Filter_Section.png";
         }
+
+        public override string Name => $"Фильтр секционный";
 
     }
 }

@@ -7,10 +7,11 @@ namespace VentWPF.ViewModel
     {
         public Muffler_Corrector()
         {
-            Name = "Шумоглушитель с выравниванием";
             image = "Mufflers/Muffler_Corrector.png";
         }
 
-        
+        public override string Name => "Шумоглушитель с выравниванием";
+
+
     }
 }

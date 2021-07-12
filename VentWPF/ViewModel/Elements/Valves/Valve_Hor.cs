@@ -4,9 +4,10 @@
     {
         public Valve_Hor()
         {
-            Name = "Воздушный клапан горизонтальный";
             image = "Valves/Valve_Hor.png";
         }
+
+        public override string Name => "Воздушный клапан горизонтальный";
 
     }
 }

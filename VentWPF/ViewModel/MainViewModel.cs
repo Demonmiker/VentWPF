@@ -61,7 +61,6 @@ namespace VentWPF.ViewModel
         public int DeviceIndex => SelectedElement.DeviceIndex;
         #endregion
 
-
         #region Комманды
 
         #region Объявление

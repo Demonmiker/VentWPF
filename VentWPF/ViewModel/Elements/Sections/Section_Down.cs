@@ -4,7 +4,6 @@
     {
         public Section_Down()
         {
-            Name = "Секция";
             image = "Sections/Section_Down.png";
         }
     }
