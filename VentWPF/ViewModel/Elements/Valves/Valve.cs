@@ -1,4 +1,5 @@
-﻿using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;
+﻿using PropertyTools.DataAnnotations;
+using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
 {
@@ -6,15 +7,15 @@ namespace VentWPF.ViewModel
     {
         public Valve()
         {
-            Name = "Воздушный клапан горизонтальный";
             image = "Valves/Valve_Hor.png";
             ShowPR = true;
             ShowPD = true;
         }
 
-        
+        public override string Name => "Воздушный клапан горизонтальный";
 
         [Category(Info)]
+
         #region Информация
 
         [DisplayName("Падение давления")]

@@ -8,9 +8,9 @@ namespace VentWPF.ViewModel
     {
         public Fan()
         {
-            Name = "Вентилятор";
             ShowPD = false; ;
         }
+
 
         [Browsable(false)]
         public Fan_Direction Direction

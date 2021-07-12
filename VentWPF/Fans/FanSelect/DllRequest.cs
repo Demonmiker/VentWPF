@@ -5,17 +5,17 @@ using VentWPF.ViewModel;
 using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;
 using System.ComponentModel.DataAnnotations;
 
-namespace VentWPF.FanDLL
+namespace VentWPF.Fans.FanSelect
 {
     
-    internal class DLLRequest : BaseViewModel
+    internal class DllRequest : BaseViewModel , IRequest<string>
     {
         [Category("Запрос")]
         [JsonPropertyName("insert_geo_data")]
         public bool InsertGeoData { get; set; } = true;
 
         [JsonPropertyName("insert_motor_data")]
-        public bool insertMotorData { get; set; } = true;
+        public bool InsertMotorData { get; set; } = true;
 
         [JsonPropertyName("insert_nominal_values")]
         public bool InsertNominalValues { get; set; } = true;
@@ -42,8 +42,7 @@ namespace VentWPF.FanDLL
         [JsonPropertyName("qv")]
         public double VFlow { get; set; } = 6000;
 
-        public override string ToString() =>
-           JsonSerializer.Serialize(this);
+        public string GetRequest() => JsonSerializer.Serialize(this);
 
     }
 }

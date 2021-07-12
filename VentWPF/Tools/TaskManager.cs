@@ -16,14 +16,18 @@ namespace VentWPF.Tools
         {
             tasks.Enqueue(t);
             if (!IsWorking)
+            {
+                IsWorking = true;
                 Task.Run(() => DoTasks());
+            }
+                
         }
 
         static bool IsWorking = false;
 
         static void DoTasks()
         {
-            
+            Debug.WriteLine($"TM Start");
             IsWorking = true;
             Sw.Restart();
             while(tasks.Count>0)
@@ -31,10 +35,13 @@ namespace VentWPF.Tools
                 Debug.WriteLine(tasks.Count);
                 var action = tasks.Dequeue();
                 action.Invoke();
+                Debug.WriteLine($"Запрос :{Sw.ElapsedTicks} тик");
             }
             Sw.Stop();
-            Debug.WriteLine($"Запрос :{Sw.ElapsedTicks} тик");
+            
             IsWorking = false;
+            Debug.WriteLine($"TM Stop");
+
         }
     }
 }

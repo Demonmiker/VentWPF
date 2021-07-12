@@ -4,7 +4,10 @@
     {
         public Fan_P()
         {
-            Name = "Вентилятор улиточный";
         }
+
+        public override string Name => "Вентилятор улиточный";
     }
+
+    
 }

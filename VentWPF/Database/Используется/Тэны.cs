@@ -1,4 +1,5 @@
-﻿using PropertyTools.DataAnnotations;
+﻿
+using PropertyTools.DataAnnotations;
 using System;
 using System.Collections.Generic;
 
@@ -6,7 +7,7 @@ using System.Collections.Generic;
 
 namespace VentWPF
 {
-    public partial class Tэнры
+    public partial class Тэны
     {
         [DisplayName(null)]
         public string Типоряд { get; set; }
@@ -14,9 +15,8 @@ namespace VentWPF
         [DisplayName(null)]
         public string Маркировка { get; set; }
 
-        [DisplayName(null)]
-        [FormatString("{0:0.00} kВт")]
-        public double? Мощность { get; set; }
+        [DisplayName("Кол-во по ширине")]
+        public string КолВоПоШирине { get; set; }
 
         public int? Код { get; set; }
         public string Код1с { get; set; }

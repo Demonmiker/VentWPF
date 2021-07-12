@@ -9,10 +9,6 @@ namespace VentWPF.Tools
 {
     public static class IOManager
     {
-        public static T LoadAsJson<T>(T o, string path)
-        {
-            return o = (T)JsonConvert.DeserializeObject(File.ReadAllText(path), jsonS);
-        }
 
         private static JsonSerializerSettings jsonS = new()
         {

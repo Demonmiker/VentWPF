@@ -10,11 +10,12 @@ namespace VentWPF.ViewModel
 
         public Heater()
         {
-            Name = "Нагреватель электрический";
             image = "Heaters/Heater_Electric.png";
             ShowPR = true;
             ShowPD = true;
         }
+
+        public override string Name => "Нагреватель электрический";
 
         [Category(Data)]
         #region Данные

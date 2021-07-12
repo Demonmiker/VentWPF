@@ -215,10 +215,7 @@
               <Grid ToolTip="Нагреватели">
                 <Popup x:Name="Heaters" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="3">
-                    <Button Command="{Binding CmdAddElement}">
-                      <Button.CommandParameter>
-                        <vm:Heater_Water/>
-                      </Button.CommandParameter>
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Heater_Water}">
                       <Image DataContext="{StaticResource Heater_Water}" Source="{Binding Image}"/>
                     </Button>
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Heater_Gas}">
@@ -434,7 +431,7 @@
               <Setter Property="Margin" Value="0 0 3 0"/>
             </Style>
           </TabControl.Resources>
-          <!--Вкладка проект-->
+          <!--  Вкладка проект  -->
           <TabItem>
             <TabItem.Header>
               <StackPanel>
@@ -449,7 +446,7 @@
               ShowDeclaredOnly="True"
               TabVisibility="Collapsed"/>
           </TabItem>
-          <!--Вкладка информация-->
+          <!--  Вкладка информация  -->
           <TabItem>
             <TabItem.Header>
               <StackPanel>
@@ -457,11 +454,9 @@
                 <TextBlock Text="Инфо"/>
               </StackPanel>
             </TabItem.Header>
-            <ContentControl Content="{Binding ElementAsDocument}">
-             
-            </ContentControl>
+            <ContentControl Content="{Binding ElementAsDocument}"/>
           </TabItem>
-          <!--Вкладка графики-->
+          <!--  Вкладка графики  -->
           <TabItem>
             <TabItem.Header>
               <StackPanel>
@@ -470,16 +465,85 @@
               </StackPanel>
             </TabItem.Header>
           </TabItem>
-          <!--Вкладка схема-->
+          <!--  Вкладка схема  -->
           <TabItem>
+            <TabItem.Resources>
+              <Style
+                x:Key="under"
+                BasedOn="{StaticResource {x:Type TextBox}}"
+                TargetType="{x:Type TextBox}">
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="1 0 1 2"/>
+                <Setter Property="TextAlignment" Value="Center"/>
+              </Style>
+            </TabItem.Resources>
             <TabItem.Header>
               <StackPanel>
                 <fa5:SvgAwesome Icon="Solid_BorderAll"/>
                 <TextBlock Text="Схема"/>
               </StackPanel>
             </TabItem.Header>
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+              </Grid.RowDefinitions>
+              <StackPanel
+                Width="auto"
+                Background="LightBlue"
+                Orientation="Horizontal">
+                <ItemsControl ItemsSource="{Binding Test}">
+                  <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                      <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                  </ItemsControl.ItemsPanel>
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <StackPanel>
+                        <Border
+                          Width="100"
+                          Height="100"
+                          BorderBrush="Black"
+                          BorderThickness="2"/>
+                        <TextBox
+                          Style="{StaticResource under}"
+                          Text="{Binding Value}"
+                          TextAlignment="Center"/>
+                      </StackPanel>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+              </StackPanel>
+              <TextBox
+                Grid.Column="1"
+                Width="100"
+                VerticalAlignment="Top"
+                Focusable="False"
+                Style="{StaticResource under}"
+                Text="600x500"
+                TextAlignment="Center">
+                <TextBox.RenderTransform>
+                  <RotateTransform Angle="-90" CenterX="50" CenterY="50"/>
+                </TextBox.RenderTransform>
+              </TextBox>
+              <TextBox
+                Grid.Row="1"
+                HorizontalAlignment="Stretch"
+                Focusable="false"
+                Style="{StaticResource under}"
+                Text="{Binding TestSum, Mode=OneWay}"/>
+            </Grid>
+
+
+
           </TabItem>
-          <!--Вкладка отчет-->
+          <!--  Вкладка отчет  -->
           <TabItem>
             <TabItem.Header>
               <StackPanel>
@@ -488,12 +552,10 @@
               </StackPanel>
             </TabItem.Header>
             <FlowDocumentScrollViewer>
-              <FlowDocument>
-    
-              </FlowDocument>
+              <FlowDocument/>
             </FlowDocumentScrollViewer>
           </TabItem>
-          <!--Вкладка 3D-->
+          <!--  Вкладка 3D  -->
           <TabItem>
             <TabItem.Header>
               <StackPanel>
@@ -536,7 +598,7 @@
                   <Setter Property="MaxHeight" Value="600"/>
                   <Setter Property="MinHeight" Value="155"/>
                   <Style.Triggers>
-                    <DataTrigger Binding="{Binding SelectedElement.ShowQuery}" Value="false">
+                    <DataTrigger Binding="{Binding SelectedElement.Query}" Value="{x:Null}">
                       <Setter Property="Height" Value="0"/>
                       <Setter Property="MaxHeight" Value="0"/>
                       <Setter Property="MinHeight" Value="0"/>
@@ -583,7 +645,7 @@
               <Style TargetType="{x:Type GridSplitter}">
                 <Setter Property="Visibility" Value="Visible"/>
                 <Style.Triggers>
-                  <DataTrigger Binding="{Binding SelectedElement.ShowQuery}" Value="false">
+                  <DataTrigger Binding="{Binding SelectedElement.Query}" Value="{x:Null}">
                     <Setter Property="Visibility" Value="Collapsed"/>
                   </DataTrigger>
                 </Style.Triggers>
@@ -603,7 +665,7 @@
                   <Style TargetType="{x:Type fa5:SvgAwesome}">
                     <Setter Property="Visibility" Value="Visible"/>
                     <Style.Triggers>
-                      <DataTrigger Binding="{Binding SelectedElement.ShowQuery}" Value="false">
+                      <DataTrigger Binding="{Binding SelectedElement.Query}" Value="{x:Null}">
                         <Setter Property="Visibility" Value="Collapsed"/>
                       </DataTrigger>
                     </Style.Triggers>
@@ -616,7 +678,7 @@
                 Panel.ZIndex="5"
                 AutoGenerateColumns="True"
                 IsReadOnly="True"
-                ItemsSource="{Binding SelectedElement.QueryCollection}"
+                ItemsSource="{Binding SelectedElement.Query.Result}"
                 SelectedIndex="{Binding SelectedElement.DeviceIndex}"
                 SelectionMode="Single"
                 SelectionUnit="FullRow">
@@ -624,7 +686,8 @@
                   <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="{x:Type DataGrid}">
                     <Setter Property="Visibility" Value="Visible"/>
                     <Style.Triggers>
-                      <DataTrigger Binding="{Binding SelectedElement.QueryCache}" Value="{x:Null}">
+                      <DataTrigger Binding="{Binding SelectedElement.Query.Result}" Value="{x:Null}">
+                        <!--  @@warn  -->
                         <Setter Property="Visibility" Value="Collapsed"/>
                       </DataTrigger>
                     </Style.Triggers>

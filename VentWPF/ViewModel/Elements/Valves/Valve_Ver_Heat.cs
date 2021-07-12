@@ -12,13 +12,15 @@ namespace VentWPF.ViewModel
     {
         public Valve_Ver_Heat()
         {
-            //"SELECT Маркировка, Типоряд, [Кол-во по ширине] FROM dbo.TЭНы",
-            Name = "Воздушный клапан вертикальный с нагревателем";
             image = "Valves/Valve_Ver_Heat.png";
-            ShowQuery = true;
+            Query = new DatabaseQuery<Тэны>
+            {
+                Source = from o in VentContext.Instance.Tэныs select o,
+            };
         }
 
-        public override IList Query => ((IQueryable<object>)(from h in VentContext.Instance.Tэныs select h)).ToList();
+        public override string Name => $"Воздушный клапан вертикальный с нагревателем {(DeviceData as Тэны)?.Маркировка}";
+
         [Category(Data)]
         [DisplayName("Количество ТЭНов")]
         public int TEN_count { get; set; } = 3;

@@ -4,7 +4,8 @@
     {
         private Fan_K3G()
         {
-            Name = "Вентилятор поточный";
         }
+
+        public override string Name => "Вентилятор поточный";
     }
 }

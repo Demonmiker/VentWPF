@@ -13,13 +13,14 @@ namespace VentWPF.ViewModel
     {
         public Heater_Electric()
         {
-            //SELECT Маркировка, Мощность FROM dbo.TЭНРы
-            Name = "Нагреватель электрический";
             image = "Heaters/Heater_Electric.png";
-            ShowQuery = true;
+            Query = new DatabaseQuery<Тэнры>
+            {
+                Source = from o in VentContext.Instance.Tэнрыs select o
+            };
         }
 
-        public override IList Query => ((IQueryable<object>)(from h in VentContext.Instance.Tэнрыs select h)).ToList();
+        public override string Name => $"Нагреватель электрический {(DeviceData as Тэнры)?.Маркировка}";
 
         [Category(Data)]
         #region Данные

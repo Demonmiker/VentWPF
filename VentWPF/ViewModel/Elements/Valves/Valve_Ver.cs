@@ -4,9 +4,10 @@
     {
         public Valve_Ver()
         {
-            Name = "Воздушный клапан вертикальный";
             image = "Valves/Valve_Ver.png";
         }
+
+        public override string Name => "Воздушный клапан вертикальный";
 
         //public override float Performance => 15;
     }

@@ -10,9 +10,10 @@ namespace VentWPF.ViewModel
     {
         public Filter_Valve()
         {
-            Name = "Фильтр клапанный";
             image = "Filters/Filter_Valve.png";
         }
+
+        public override string Name => "Фильтр клапанный";
 
     }
 }

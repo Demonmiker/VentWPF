@@ -6,7 +6,6 @@ using VentWPF.Model;
 using VentWPF.Tools;
 using System.Windows.Data;
 using System.Windows.Media;
-using VentWPF.FanDLL;
 using Microsoft.Win32;
 using System.Linq;
 using PropertyTools.Wpf;
@@ -15,6 +14,7 @@ using System;
 using System.Collections;
 using System.Windows.Documents;
 using PropertyChanged;
+using VentWPF.Fans.FanSelect;
 
 namespace VentWPF.ViewModel
 {
@@ -24,7 +24,7 @@ namespace VentWPF.ViewModel
         public MainViewModel()
         {
 
-            Request= IOManager.LoadAsJson<DLLRequest>("req.json");
+            Request= IOManager.LoadAsJson<DllRequest>("req.json");
             TaskManager.Add(() => { var l = VentContext.Instance.ВодаХолодs; });
             InitTable(ProjectInfo.Rows);
             CmdAddElement = new(AddElement);
@@ -38,7 +38,25 @@ namespace VentWPF.ViewModel
 
         public ProjectInfoVM ProjectInfo { get; set; } = ProjectInfoVM.Instance;
         public ImageCollection HeaderImages { get; init; } = new ImageCollection();
-        public DLLRequest Request { get; set; } = new();
+        public DllRequest Request { get; set; } = new();
+        #region Test
+        public ObservableCollection<TestS> Test { get; set; } = new ObservableCollection<TestS>
+        {
+            new(100),new(150),new(200),new(250),new(300) 
+        };
+        public class TestS : BaseViewModel
+        {
+            public int Value { get; set; }
+
+            public TestS(int value)
+            {
+                Value = value;
+            }
+        }
+
+        [DependsOn("Test")]
+        public int TestSum => Test.Sum(x=>x.Value);
+        #endregion
 
         #region Главное Меню
         [DependsOn("SelectedElement")]
@@ -60,7 +78,6 @@ namespace VentWPF.ViewModel
 
         public int DeviceIndex => SelectedElement.DeviceIndex;
         #endregion
-
 
         #region Комманды
 
@@ -84,7 +101,7 @@ namespace VentWPF.ViewModel
         {
             var header = e.Column.Header.ToString();
             // Получчение имени из тэга
-            var atrs = SelectedElement.QueryCollection[0].GetType()
+            var atrs = SelectedElement.Query.Result[0].GetType()
                     .GetProperty(header).GetCustomAttributes(typeof(DisplayNameAttribute), true);
             if (atrs.Length > 0)
                 e.Column.Header = (atrs[0] as DisplayNameAttribute).DisplayName ?? e.Column.Header;
@@ -94,7 +111,7 @@ namespace VentWPF.ViewModel
                 return;
             }
             //Получение форматирования из тэга
-            var atrs2 = SelectedElement .QueryCollection[0] .GetType()
+            var atrs2 = SelectedElement.Query.Result[0] .GetType()
                 .GetProperty(header).GetCustomAttributes(typeof(FormatStringAttribute), true);
             if (atrs2.Length > 0 && e.Column is DataGridTextColumn)
             {
@@ -190,13 +207,9 @@ namespace VentWPF.ViewModel
             dlg.Title = "Настройки";
             dlg.PropertyControl.TabVisibility = TabVisibility.Collapsed;
             if (dlg.ShowDialog().Value)
-            {
                 IOManager.SaveAsJson(Request, "req.json");
-            }
             else
-            {
-                IOManager.LoadAsJson(Request, "req.json");
-            }
+                Request = IOManager.LoadAsJson<DllRequest>("req.json");
             
         }
 

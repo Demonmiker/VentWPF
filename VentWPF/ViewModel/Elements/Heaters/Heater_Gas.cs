@@ -9,14 +9,15 @@ namespace VentWPF.ViewModel
 {
     internal class Heater_Gas : Heater
     {
-        //private float AB = (((float)Project.Width / 1000) * ((float)Project.Height / 1000));
+
 
        
         public Heater_Gas()
         {
-            Name = "Нагреватель газовый";
-            image = "Heaters/Heater_Gas.png";           
+            image = "Heaters/Heater_Gas.png";
         }
+
+        public override string Name => "Нагреватель газовый";
 
         [Category(Data)]
         #region Данные

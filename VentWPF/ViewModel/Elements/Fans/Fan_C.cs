@@ -1,8 +1,8 @@
 ﻿using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;
 using System.Collections;
 using System.Collections.Generic;
-using VentWPF.FanDLL;
 using VentWPF.Tools;
+using VentWPF.Fans.FanSelect;
 
 namespace VentWPF.ViewModel
 {
@@ -11,11 +11,13 @@ namespace VentWPF.ViewModel
 
         public Fan_C()
         {
-            Name = "Вентилятор \"Обычный\"";
-            ShowQuery = true;
+            //public override IList Query => new DllController()
+            //.GetResponce(IOManager.LoadAsJson<DllRequest>("req.json"));
+
         }
 
-        public override IList Query => new DLLController() { RequestInfo = IOManager.LoadAsJson<DLLRequest>("req.json") }.GetResponce();
+        public override string Name => "Вентилятор";
+
 
 
     }

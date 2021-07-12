@@ -10,10 +10,11 @@ namespace VentWPF.ViewModel
     {
         public Filter_Short()
         {
-            Name = "Фильтр клапанный укороченый";
             image = "Filters/Filter_Short.png";
         }
 
-      
+        public override string Name => "Фильтр клапанный укороченый";
+
+
     }
 }
