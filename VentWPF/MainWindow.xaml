@@ -215,10 +215,7 @@
               <Grid ToolTip="Нагреватели">
                 <Popup x:Name="Heaters" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="3">
-                    <Button Command="{Binding CmdAddElement}">
-                      <Button.CommandParameter>
-                        <vm:Heater_Water/>
-                      </Button.CommandParameter>
+                    <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Heater_Water}">
                       <Image DataContext="{StaticResource Heater_Water}" Source="{Binding Image}"/>
                     </Button>
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Heater_Gas}">

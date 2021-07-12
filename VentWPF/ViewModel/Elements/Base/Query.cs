@@ -11,6 +11,8 @@ namespace VentWPF.ViewModel
 
         protected abstract IList Fill(object q);
 
+        //Здесь можно создать объект регулирующий релоад запроса
+
         private IList Cache { get; set; }
 
         [DependsOn("Cache")]
