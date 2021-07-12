@@ -190,13 +190,9 @@ namespace VentWPF.ViewModel
             dlg.Title = "Настройки";
             dlg.PropertyControl.TabVisibility = TabVisibility.Collapsed;
             if (dlg.ShowDialog().Value)
-            {
                 IOManager.SaveAsJson(Request, "req.json");
-            }
             else
-            {
-                IOManager.LoadAsJson(Request, "req.json");
-            }
+                Request = IOManager.LoadAsJson<DllRequest>("req.json");
             
         }
 

@@ -12,7 +12,6 @@ namespace VentWPF.ViewModel
         public Fan_C()
         {
             Name = "Вентилятор \"Обычный\"";
-            ShowQuery = true;
         }
 
         //public override IList Query => new DllController().GetResponce(IOManager.LoadAsJson<DllRequest>("req.json"));

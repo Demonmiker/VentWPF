@@ -12,13 +12,12 @@ namespace VentWPF.ViewModel
     {
         public Heater_Water()
         {
-            Name = "Нагреватель жидкосный";
+            Name = "Нагреватель жидкостный";
             image = "Heaters/Heater_Water.png";
-            ShowQuery = true;
             DeviceType = typeof(ВодаТепло);
-            Query = new DatabaseQuery<ВодаТепло> 
-            { 
-                Source = from h in VentContext.Instance.ВодаТеплоs select h 
+            Query = new DatabaseQuery<ВодаТепло>
+            {
+                Source = from h in VentContext.Instance.ВодаТеплоs select h
             };
             //public override IList Query => ((IQueryable<object>)(from h in VentContext.Instance.ВодаТеплоs select h)).ToList();
         }

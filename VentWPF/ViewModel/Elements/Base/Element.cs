@@ -84,9 +84,6 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         public bool ShowPR { get; init; } = false;
 
-        [Browsable(false)]
-        public bool ShowQuery { get; init; } = false;
-
         #endregion Отображением полей
 
         #region Общие свойства элементов

@@ -54,8 +54,8 @@ namespace VentWPF
         public virtual DbSet<K3g> K3gs { get; set; }
         public virtual DbSet<K3gЗаготовка> K3gЗаготовкаs { get; set; }
         public virtual DbSet<K3gЭконом> K3gЭкономs { get; set; }
-        public virtual DbSet<Tэнры> Tэнрыs { get; set; }
-        public virtual DbSet<Tэны> Tэныs { get; set; }
+        public virtual DbSet<Тэнры> Tэнрыs { get; set; }
+        public virtual DbSet<Тэны> Tэныs { get; set; }
         public virtual DbSet<ZiehlAbegg> ZiehlAbeggs { get; set; }
         public virtual DbSet<Вентиляторы> Вентиляторыs { get; set; }
         public virtual DbSet<ВентиляторыУлитка> ВентиляторыУлиткаs { get; set; }
@@ -956,7 +956,7 @@ namespace VentWPF
                 entity.Property(e => e._4).HasColumnName("№4");
             });
 
-            modelBuilder.Entity<Tэнры>(entity =>
+            modelBuilder.Entity<Тэнры>(entity =>
             {
                 entity.HasNoKey();
 
@@ -973,7 +973,7 @@ namespace VentWPF
                 entity.Property(e => e.Типоряд).HasMaxLength(255);
             });
 
-            modelBuilder.Entity<Tэны>(entity =>
+            modelBuilder.Entity<Тэны>(entity =>
             {
                 entity.HasNoKey();
 
