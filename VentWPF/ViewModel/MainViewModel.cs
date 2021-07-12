@@ -39,6 +39,24 @@ namespace VentWPF.ViewModel
         public ProjectInfoVM ProjectInfo { get; set; } = ProjectInfoVM.Instance;
         public ImageCollection HeaderImages { get; init; } = new ImageCollection();
         public DllRequest Request { get; set; } = new();
+        #region Test
+        public ObservableCollection<TestS> Test { get; set; } = new ObservableCollection<TestS>
+        {
+            new(100),new(150),new(200),new(250),new(300) 
+        };
+        public class TestS : BaseViewModel
+        {
+            public int Value { get; set; }
+
+            public TestS(int value)
+            {
+                Value = value;
+            }
+        }
+
+        [DependsOn("Test")]
+        public int TestSum => Test.Sum(x=>x.Value);
+        #endregion
 
         #region Главное Меню
         [DependsOn("SelectedElement")]
