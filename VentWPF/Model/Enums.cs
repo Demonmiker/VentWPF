@@ -20,5 +20,12 @@ namespace VentWPF.Model
 
     public enum FilterClassType { G4, F5, F9 }
 
-    public enum Rows { Row1,Row2 }
+    public enum Rows { Одиноярусный, Двуярусный}
+
+    public enum Realization { ТРЕНД, Климат, Эксперт  }
+
+    public enum Maintenance { Справа, Слева, }
+
+    public enum ValvePos { Снаружи, Внутри }
+
 }

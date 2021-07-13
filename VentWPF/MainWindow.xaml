@@ -441,10 +441,10 @@
             </TabItem.Header>
             <pt:PropertyGrid
               Width="400"
+              EnumAsRadioButtonsLimit="1"
               HorizontalAlignment="Left"
               SelectedObject="{Binding Project.ProjectInfo}"
-              ShowDeclaredOnly="True"
-              TabVisibility="Collapsed"/>
+              ShowDeclaredOnly="True"/>
           </TabItem>
           <!--  Вкладка информация  -->
           <TabItem>

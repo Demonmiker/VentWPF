@@ -19,7 +19,7 @@ namespace VentWPF.ViewModel
         #region Информация
 
         [DisplayName("Падение давления")]
-        [FormatString(fP)]
+        [FormatString(fkPa)]
         public override float PressureDrop => 15;
 
         #endregion Информация
