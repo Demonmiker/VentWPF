@@ -28,8 +28,6 @@ namespace VentWPF.ViewModel
         public static ProjectVM Current { get; private set; }
 
 
-        //Информация о заказе
-        public OrderVM Order { get; init; } = new OrderVM();
         //Информация о проекте
         public ProjectInfoVM ProjectInfo { get; init; } = new ProjectInfoVM();
         //установка

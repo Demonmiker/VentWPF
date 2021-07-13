@@ -1,5 +1,6 @@
 ﻿using PropertyChanged;
 using PropertyTools.DataAnnotations;
+using System;
 using System.Collections.ObjectModel;
 using VentWPF.Model;
 using static VentWPF.ViewModel.Strings;
@@ -8,6 +9,36 @@ namespace VentWPF.ViewModel
 {
     public class ProjectInfoVM : BaseViewModel
     {
+
+        [Category("Заказ|")]
+        [DisplayName("Дата")]
+        [FormatString(fDate)]
+        public DateTime Date { get; set; } = DateTime.Now;
+
+        [Category("Заказ|")]
+        [DisplayName("Исполнитель")]
+        public string Worker { get; set; }
+
+        [Category("Заказ|")]
+        [DisplayName("Заказ")]
+        public string OrderName { get; set; }
+
+        [Category("Заказ|")]
+        [DisplayName("Обозначение установки")]
+        public string BuildName { get; set; }
+
+        [Category("Заказ|")]
+        [DisplayName("Заказчик")]
+        public string Customer { get; set; }
+
+        [Category("Заказ|")]
+        [DisplayName("Объект")]
+        public string Object { get; set; }
+
+        [Category("Заказ|")]
+        [DisplayName("Номер")]
+        public string Number { get; set; }
+
         [Category("Настройки|")]
         [DisplayName("Объём притока")]
         [FormatString(fm3)]

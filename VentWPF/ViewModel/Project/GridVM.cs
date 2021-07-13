@@ -14,7 +14,7 @@ namespace VentWPF.ViewModel
         public ObservableCollection<Element> Elements { get; set; }
 
         [DependsOn("Index")]
-        public Element Selected { get; set; }
+        public Element Selected { get; set; } = new Element();
 
         public int Index { get; set; }
 
