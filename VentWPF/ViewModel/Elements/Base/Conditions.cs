@@ -41,6 +41,6 @@ namespace VentWPF.ViewModel.Elements
 
         };
 
-        private static ProjectInfoVM Project = ProjectInfoVM.Instance;
+        private static ProjectInfoVM Project = ProjectVM.Current.ProjectInfo;
     }
 }

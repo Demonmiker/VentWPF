@@ -26,19 +26,18 @@ namespace VentWPF.ViewModel
 
             Request= IOManager.LoadAsJson<DllRequest>("req.json");
             TaskManager.Add(() => { var l = VentContext.Instance.ВодаХолодs; });
-            InitTable(ProjectInfo.Rows);
-            CmdAddElement = new(AddElement);
+            CmdAddElement = new(Project.Grid.AddElement);
             CmdAutoColumns = new(AutoColumns);
             CmdOpenPopup = new(OpenPopup);
             CmdWindowClosed = new(OnWindowClosed);
-            CmdSave = new(SaveProject);
-            CmdLoad = new(LoadProject);
+            CmdSave = new(Project.SaveProject);
+            CmdLoad = new(Project.LoadProject);
             CmdConfig = new(OpenConfig);
         }
-
-        public ProjectInfoVM ProjectInfo { get; set; } = ProjectInfoVM.Instance;
+       
         public ImageCollection HeaderImages { get; init; } = new ImageCollection();
         public DllRequest Request { get; set; } = new();
+
         #region Test
         public ObservableCollection<TestS> Test { get; set; } = new ObservableCollection<TestS>
         {
@@ -59,16 +58,15 @@ namespace VentWPF.ViewModel
         #endregion
 
         #region Главное Меню
-        [DependsOn("SelectedElement")]
         public FlowDocumentReader ElementAsDocument
         {
             get
             {
                 var table = new Table();
-                if (SelectedElement is not null)
+                if (Project.Grid.Selected is not null)
                 {
                     TableRowGroup tg = new();
-                    foreach (var item in SelectedElement.Rows)
+                    foreach (var item in Project.Grid.Selected.Rows)
                         tg.Rows.Add(item);
                     table.RowGroups.Add(tg);
                 } 
@@ -76,7 +74,7 @@ namespace VentWPF.ViewModel
             }
         }
 
-        public int DeviceIndex => SelectedElement.DeviceIndex;
+        public int DeviceIndex => Project.Grid.Selected.DeviceIndex;
         #endregion
 
         #region Комманды
@@ -101,7 +99,7 @@ namespace VentWPF.ViewModel
         {
             var header = e.Column.Header.ToString();
             // Получчение имени из тэга
-            var atrs = SelectedElement.Query.Result[0].GetType()
+            var atrs = Project.Grid.Selected.Query.Result[0].GetType()
                     .GetProperty(header).GetCustomAttributes(typeof(DisplayNameAttribute), true);
             if (atrs.Length > 0)
                 e.Column.Header = (atrs[0] as DisplayNameAttribute).DisplayName ?? e.Column.Header;
@@ -111,7 +109,7 @@ namespace VentWPF.ViewModel
                 return;
             }
             //Получение форматирования из тэга
-            var atrs2 = SelectedElement.Query.Result[0] .GetType()
+            var atrs2 = Project.Grid.Selected.Query.Result[0] .GetType()
                 .GetProperty(header).GetCustomAttributes(typeof(FormatStringAttribute), true);
             if (atrs2.Length > 0 && e.Column is DataGridTextColumn)
             {
@@ -120,10 +118,10 @@ namespace VentWPF.ViewModel
             }
 
 
-            if (SelectedElement.Format == null) return;
-            if (SelectedElement.Format.ContainsKey(header))
+            if (Project.Grid.Selected.Format == null) return;
+            if (Project.Grid.Selected.Format.ContainsKey(header))
             {
-                var format = SelectedElement.Format[header];
+                var format = Project.Grid.Selected.Format[header];
                 if (format != null)
                 {
                     Style defaultStyle = Application.Current.TryFindResource(typeof(DataGridCell)) as Style;
@@ -165,39 +163,9 @@ namespace VentWPF.ViewModel
             p.IsOpen = true;
         }
 
-        private void AddElement(Element el)
-        {
-            var ind = SelectedIndex;
-            if (SelectedIndex >= 0 && SelectedIndex < Grid.Count)
-            {
-                Grid[SelectedIndex] = Element.GetInstance(el);
-                SelectedIndex = ind;
-                Grid[SelectedIndex].SubType = el.SubType;
-            }
-                
-            SelectedIndex = ind;
-        }
-
         private void OnWindowClosed(object e)
         {
             App.Current.Shutdown();
-        }
-
-        private void LoadProject(object o)
-        {
-            var sfd = new OpenFileDialog{ DefaultExt = ".prj", Filter = "Projects (.prj)|*.prj" };
-            if (sfd.ShowDialog() == true)
-            {
-                var project = IOManager.LoadAsJson<Project>(sfd.FileName);
-                ProjectInfo = project.ProjectInfo;
-                Grid = new ObservableCollection<Element>(project.Grid);
-            }
-        }
-
-        private void SaveProject(object o)
-        {
-            var sfd = new SaveFileDialog{ FileName = "Проект", DefaultExt = ".prj", Filter = "Projects (.prj)|*.prj" };
-            if(sfd.ShowDialog()==true) IOManager.SaveAsJson(new Project(ProjectInfo,Grid.ToList()), sfd.FileName);
         }
 
         private void OpenConfig(string s)
@@ -216,44 +184,8 @@ namespace VentWPF.ViewModel
         #endregion Комманды
 
         #region Таблица со схемой
-        /// <summary>
-        /// Выбранный элемент в нижней панели
-        /// </summary>
-        public Element SelectedElement { get; set; }
 
-        /// <summary>
-        /// Индекс выбранного элемента в нижней панели
-        /// </summary>
-        public int SelectedIndex { get; set; } = 0;
-
-        /// <summary>
-        /// Лист отвечающий за хранение всех элементов
-        /// </summary>
-        public ObservableCollection<Element> Grid { get; set; }
-
-        /// <summary>
-        /// Инициализирует Нижнюю панель с заданым количеством рядов
-        /// </summary>
-        /// <param name="rows">Кол-во рядов</param>
-        public void InitTable(Rows rows)
-        {
-            if (rows == Rows.Row1)
-            {
-                Grid = new ObservableCollection<Element>()
-                {
-                    new(),new(),new(),new(),new(),new(),new(),new(),new(),new(),
-                };
-            }
-            else
-            {
-                Grid = new ObservableCollection<Element>()
-                {
-                    new(),new(),new(),new(),new(),new(),new(),new(),new(),new(),
-                    new(),new(),new(),new(),new(),new(),new(),new(),new(),new(),
-                };
-            }
-            SelectedIndex = 0;
-        }
+        public ProjectVM Project  { get; set; } = ProjectVM.Current;
 
         #endregion Таблица со схемой
     }

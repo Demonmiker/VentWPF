@@ -17,7 +17,7 @@ namespace VentWPF.ViewModel
     internal class Element : BaseViewModel
     {
 
-        public static ProjectInfoVM Project { get; set; } = ProjectInfoVM.Instance;
+        public static ProjectInfoVM Project { get; set; } = ProjectVM.Current.ProjectInfo;
 
         /// <summary>
         /// Наименование элемента системы вентиляции
