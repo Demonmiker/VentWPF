@@ -72,7 +72,7 @@ namespace VentWPF.ViewModel
 
         [DisplayName("Высота")]
         [FormatString(fmm)]
-        public int Height { get; set; } = 500;
+        public int Height { get; set; } = 600;
 
 
 

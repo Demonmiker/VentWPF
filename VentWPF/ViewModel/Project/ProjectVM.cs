@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VentWPF.ViewModel
+﻿namespace VentWPF.ViewModel
 {
-    class ProjectVM : BaseViewModel
+    internal class ProjectVM : BaseViewModel
     {
         static ProjectVM()
         {
@@ -16,7 +10,6 @@ namespace VentWPF.ViewModel
 
         private ProjectVM()
         {
-           
         }
 
         protected void Init()
@@ -27,17 +20,21 @@ namespace VentWPF.ViewModel
 
         public static ProjectVM Current { get; private set; }
 
-
         //Информация о проекте
-        public ProjectInfoVM ProjectInfo { get; init; } = new ProjectInfoVM();
+        public ProjectInfoVM ProjectInfo { get; init; } = new();
+
         //установка
         public GridVM Grid { get; private set; }
+
         //чертеж установки
 
         //каркас установки
+        public FrameVM Frame { get; init; } = new();
 
         //отчёт
 
+        //Менеджер запросов
+        public TaskManagerVM TaskManager { get; init; } = new();
 
         public void LoadProject(object o)
         {
@@ -55,6 +52,5 @@ namespace VentWPF.ViewModel
             //var sfd = new SaveFileDialog{ FileName = "Проект", DefaultExt = ".prj", Filter = "Projects (.prj)|*.prj" };
             //if(sfd.ShowDialog()==true) IOManager.SaveAsJson(new Project(ProjectInfo,Grid.ToList()), sfd.FileName);
         }
-
     }
 }

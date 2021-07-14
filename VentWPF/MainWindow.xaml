@@ -10,6 +10,7 @@
   xmlns:pt="http://propertytools.org/wpf"
   xmlns:sys="clr-namespace:System;assembly=mscorlib"
   xmlns:vm="clr-namespace:VentWPF.ViewModel"
+  xmlns:ts="clr-namespace:VentWPF.Tools"
   Title="MainWindow"
   Background="{DynamicResource MaterialDesignPaper}"
   FontFamily="{md:MaterialDesignFont}"
@@ -74,7 +75,12 @@
     </Menu>
 
     <StatusBar DockPanel.Dock="Bottom">
-      <TextBlock Text="Статус"/>
+      <TextBlock>
+        <Run Text="Очередь запросов"/>
+        <Run Text="{Binding Project.TaskManager.Count, Mode=OneWay}"/>
+      </TextBlock>
+      <fa5:SvgAwesome Icon="Solid_ExclamationTriangle" Height="18" Foreground="Red"/>
+      <fa5:SvgAwesome Icon="Solid_CheckCircle" Height="18" Foreground="LimeGreen"/>
     </StatusBar>
     <Grid Margin="0 0 0 0">
       <Grid.ColumnDefinitions>
@@ -441,8 +447,8 @@
             </TabItem.Header>
             <pt:PropertyGrid
               Width="400"
-              EnumAsRadioButtonsLimit="1"
               HorizontalAlignment="Left"
+              EnumAsRadioButtonsLimit="1"
               SelectedObject="{Binding Project.ProjectInfo}"
               ShowDeclaredOnly="True"/>
           </TabItem>
@@ -483,65 +489,74 @@
                 <TextBlock Text="Схема"/>
               </StackPanel>
             </TabItem.Header>
-            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-              </Grid.ColumnDefinitions>
-              <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-              </Grid.RowDefinitions>
-              <StackPanel
-                Width="auto"
-                Background="LightBlue"
-                Orientation="Horizontal">
-                <ItemsControl ItemsSource="{Binding Test}">
-                  <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                      <StackPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                  </ItemsControl.ItemsPanel>
-                  <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                      <StackPanel>
-                        <Border
-                          Width="100"
-                          Height="100"
-                          BorderBrush="Black"
-                          BorderThickness="2"/>
-                        <TextBox
-                          Style="{StaticResource under}"
-                          Text="{Binding Value}"
-                          TextAlignment="Center"/>
-                      </StackPanel>
-                    </DataTemplate>
-                  </ItemsControl.ItemTemplate>
-                </ItemsControl>
-
-              </StackPanel>
-              <TextBox
-                Grid.Column="1"
-                Width="100"
-                VerticalAlignment="Top"
-                Focusable="False"
-                Style="{StaticResource under}"
-                Text="600x500"
-                TextAlignment="Center">
-                <TextBox.RenderTransform>
-                  <RotateTransform Angle="-90" CenterX="50" CenterY="50"/>
-                </TextBox.RenderTransform>
-              </TextBox>
-              <TextBox
-                Grid.Row="1"
-                HorizontalAlignment="Stretch"
-                Focusable="false"
-                Style="{StaticResource under}"
-                Text="{Binding TestSum, Mode=OneWay}"/>
-            </Grid>
-
-
-
+            <StackPanel Orientation="Vertical">
+              <StackPanel.Resources>
+                <DataTemplate DataType="{x:Type vm:FrameSideVM}">
+                  <Grid
+                    Width="{Binding Width, Mode=OneWayToSource}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="auto"/>
+                      <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                      <RowDefinition/>
+                      <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                      <ItemsControl ItemsSource="{Binding Values}">
+                        <ItemsControl.ItemsPanel>
+                          <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                          </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                          <DataTemplate>
+                            <StackPanel>
+                              <Border
+                                Width="{Binding Value}"
+                                Height="100"
+                                MinWidth="50"
+                                MaxWidth="300"
+                                BorderBrush="Black"
+                                BorderThickness="2">
+                                <TextBox
+                                  VerticalAlignment="Center"
+                                  BorderThickness="0"
+                                  Text="{Binding Value}"
+                                  TextAlignment="Center"/>
+                              </Border>
+                            </StackPanel>
+                          </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                      </ItemsControl>
+                    </StackPanel>
+                    <TextBox
+                      Grid.Column="1"
+                      Width="100"
+                      VerticalAlignment="Top"
+                      Focusable="False"
+                      Style="{StaticResource under}"
+                      Text="{Binding Side, Mode=OneWay}"
+                      TextAlignment="Center">
+                      <TextBox.RenderTransform>
+                        <RotateTransform Angle="-90" CenterX="50" CenterY="50"/>
+                      </TextBox.RenderTransform>
+                    </TextBox>
+                    <TextBox
+                        Grid.Row="1"
+                        HorizontalAlignment="Stretch"
+                        Style="{StaticResource under}"
+                        Text="{Binding FrameLenght}"/>
+                  </Grid>
+                </DataTemplate>
+                <Style TargetType="{x:Type GroupBox}"/>
+              </StackPanel.Resources>
+              <GroupBox Content="{Binding Project.Frame.Top}" Header="Верх"/>
+              <GroupBox Content="{Binding Project.Frame.Left}" Header="Слева"/>
+              <GroupBox Content="{Binding Project.Frame.Right}" Header="Справа"/>
+            </StackPanel>
           </TabItem>
           <!--  Вкладка отчет  -->
           <TabItem>

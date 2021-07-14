@@ -25,7 +25,7 @@ namespace VentWPF.ViewModel
         {
 
             Request= IOManager.LoadAsJson<DllRequest>("req.json");
-            TaskManager.Add(() => { var l = VentContext.Instance.ВодаХолодs; });
+            ProjectVM.Current.TaskManager.Add(() => { var l = VentContext.Instance.ВодаХолодs; });
             CmdAddElement = new(Project.Grid.AddElement);
             CmdAutoColumns = new(AutoColumns);
             CmdOpenPopup = new(OpenPopup);

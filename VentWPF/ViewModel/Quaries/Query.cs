@@ -21,7 +21,7 @@ namespace VentWPF.ViewModel
             get
             {
                 if (Cache == null)
-                    TaskManager.Add(() =>
+                    ProjectVM.Current.TaskManager.Add(() =>
                     {
                         if (Cache == null)
                             Cache = Fill(Source);
