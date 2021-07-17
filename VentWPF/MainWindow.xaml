@@ -10,7 +10,6 @@
   xmlns:pt="http://propertytools.org/wpf"
   xmlns:sys="clr-namespace:System;assembly=mscorlib"
   xmlns:vm="clr-namespace:VentWPF.ViewModel"
-  xmlns:ts="clr-namespace:VentWPF.Tools"
   Title="MainWindow"
   Background="{DynamicResource MaterialDesignPaper}"
   FontFamily="{md:MaterialDesignFont}"
@@ -73,14 +72,19 @@
         <MenuItem Command="{Binding CmdLoad}" Header="Интерфейс"/>
       </MenuItem>
     </Menu>
-
     <StatusBar DockPanel.Dock="Bottom">
       <TextBlock>
         <Run Text="Очередь запросов"/>
         <Run Text="{Binding Project.TaskManager.Count, Mode=OneWay}"/>
       </TextBlock>
-      <fa5:SvgAwesome Icon="Solid_ExclamationTriangle" Height="18" Foreground="Red"/>
-      <fa5:SvgAwesome Icon="Solid_CheckCircle" Height="18" Foreground="LimeGreen"/>
+      <fa5:SvgAwesome
+        Height="18"
+        Foreground="Red"
+        Icon="Solid_ExclamationTriangle"/>
+      <fa5:SvgAwesome
+        Height="18"
+        Foreground="LimeGreen"
+        Icon="Solid_CheckCircle"/>
     </StatusBar>
     <Grid Margin="0 0 0 0">
       <Grid.ColumnDefinitions>
@@ -92,13 +96,14 @@
               <Setter Property="MinWidth" Value="400"/>
               <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=Project.Grid.Selected.Name}" Value="">
-                  <Setter Property="MaxWidth" Value="50"/>
-                  <Setter Property="MinWidth" Value="50"/>
-                  <Setter Property="Width" Value="50"/>
+                  <Setter Property="MaxWidth" Value="25"/>
+                  <Setter Property="MinWidth" Value="25"/>
+                  <Setter Property="Width" Value="25"/>
                 </DataTrigger>
               </Style.Triggers>
             </Style>
           </ColumnDefinition.Style>
+
         </ColumnDefinition>
       </Grid.ColumnDefinitions>
       <GridSplitter
@@ -117,6 +122,7 @@
             </Style.Triggers>
           </Style>
         </GridSplitter.Style>
+
       </GridSplitter>
       <DockPanel>
         <!--  Верхняя панель для содания элементов  -->
@@ -478,8 +484,31 @@
                 x:Key="under"
                 BasedOn="{StaticResource {x:Type TextBox}}"
                 TargetType="{x:Type TextBox}">
-                <Setter Property="BorderBrush" Value="Black"/>
-                <Setter Property="BorderThickness" Value="1 0 1 2"/>
+                <Setter Property="Template">
+                  <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                      <Grid>
+                        <TextBox
+                          BorderBrush="Black"
+                          BorderThickness="1 0 1 2"
+                          Text="{TemplateBinding Text}"/>
+                        <Polygon
+                          Margin="0 -3"
+                          HorizontalAlignment="Right"
+                          VerticalAlignment="Bottom"
+                          Fill="Black"
+                          Points="0,0 8,4 0,8"/>
+                        <Polygon
+                          Margin="0 -3"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Bottom"
+                          Fill="Black"
+                          Points="8,0 0,4 8,8"/>
+
+                      </Grid>
+                    </ControlTemplate>
+                  </Setter.Value>
+                </Setter>
                 <Setter Property="TextAlignment" Value="Center"/>
               </Style>
             </TabItem.Resources>
@@ -513,21 +542,26 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                           <DataTemplate>
-                            <StackPanel>
-                              <Border
+                            <Border
                                 Width="{Binding Value}"
                                 Height="100"
-                                MinWidth="50"
+                                MinWidth="30"
                                 MaxWidth="300"
                                 BorderBrush="Black"
                                 BorderThickness="2">
-                                <TextBox
+                              <b:Interaction.Behaviors>
+                                <b:FluidMoveBehavior Duration="00:00:01">
+                                  <b:FluidMoveBehavior.EaseX>
+                                    <QuadraticEase EasingMode="EaseInOut"/>
+                                  </b:FluidMoveBehavior.EaseX>
+                                </b:FluidMoveBehavior>
+                              </b:Interaction.Behaviors>
+                              <TextBox
                                   VerticalAlignment="Center"
                                   BorderThickness="0"
                                   Text="{Binding Value}"
                                   TextAlignment="Center"/>
-                              </Border>
-                            </StackPanel>
+                            </Border>
                           </DataTemplate>
                         </ItemsControl.ItemTemplate>
                       </ItemsControl>
@@ -535,8 +569,8 @@
                     <TextBox
                       Grid.Column="1"
                       Width="100"
+                      IsReadOnly="True"
                       VerticalAlignment="Top"
-                      Focusable="False"
                       Style="{StaticResource under}"
                       Text="{Binding Side, Mode=OneWay}"
                       TextAlignment="Center">
@@ -545,10 +579,11 @@
                       </TextBox.RenderTransform>
                     </TextBox>
                     <TextBox
-                        Grid.Row="1"
-                        HorizontalAlignment="Stretch"
-                        Style="{StaticResource under}"
-                        Text="{Binding FrameLenght}"/>
+                      Grid.Row="1"
+                      IsReadOnly="True"
+                      HorizontalAlignment="Stretch"
+                      Style="{StaticResource under}"
+                      Text="{Binding FrameLenght}"/>
                   </Grid>
                 </DataTemplate>
                 <Style TargetType="{x:Type GroupBox}"/>
@@ -570,7 +605,7 @@
               <FlowDocument/>
             </FlowDocumentScrollViewer>
           </TabItem>
-          <!--  Вкладка 3D  -->
+          <!--  Вкладка электроника  -->
           <TabItem>
             <TabItem.Header>
               <StackPanel>
@@ -579,6 +614,7 @@
               </StackPanel>
             </TabItem.Header>
           </TabItem>
+          <!--  Вкладка 3D  -->
           <TabItem>
             <TabItem.Header>
               <StackPanel>
@@ -586,6 +622,15 @@
                 <TextBlock Text="3D"/>
               </StackPanel>
 
+            </TabItem.Header>
+          </TabItem>
+          <!--  Вкладка debug  -->
+          <TabItem>
+            <TabItem.Header>
+              <StackPanel>
+                <fa5:SvgAwesome Icon="Solid_Bug"/>
+                <TextBlock Text="Debug"/>
+              </StackPanel>
             </TabItem.Header>
           </TabItem>
         </TabControl>

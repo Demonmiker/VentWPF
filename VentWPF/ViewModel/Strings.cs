@@ -8,11 +8,13 @@ namespace VentWPF.ViewModel
 {
     static class Strings
     {
-        #region Строковые константы
+        #region Категории
         public const string Data = "Данные";
         public const string Info = "Информация";
         public const string Debug = "Отладка";
+        #endregion
 
+        #region Форматирование
         public const string f1 = "{0:0.0}";
         public const string f2 = "{0:0.00}";
         
@@ -32,6 +34,14 @@ namespace VentWPF.ViewModel
         public const string fDate = "{0:dd/MM/yyyy}";
         
         public const string fNull = "{0:0.00} [X]";
+
+        #endregion
+
+        #region Сообщения об ошибке
+        public const string errorRange = "Значение должно быть между {1} и {2}";
+
+        public const string errorReq = "Обязательно к заполнению";
+
 
         #endregion
     }

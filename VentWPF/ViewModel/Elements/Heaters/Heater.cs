@@ -44,7 +44,7 @@ namespace VentWPF.ViewModel
 
         [DisplayName("Падение давления")]
         [FormatString(fkPa)]
-        public override float PressureDrop => 70f / (4f / (Project.VFlow / 3600f / AB));
+        public override float GeneratedPressureDrop => 70f / (4f / (Project.VFlow / 3600f / AB));
 
         [DisplayName("Абс. влажность на выходе")]
         [FormatString(f2)]

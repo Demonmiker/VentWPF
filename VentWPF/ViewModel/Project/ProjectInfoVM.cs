@@ -2,12 +2,13 @@
 using PropertyTools.DataAnnotations;
 using System;
 using System.Collections.ObjectModel;
+using valid = VentWPF.Tools;
 using VentWPF.Model;
 using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
 {
-    public class ProjectInfoVM : BaseViewModel
+    public class ProjectInfoVM : ValidViewModel
     {
 
         [Category("Заказ|")]
@@ -17,26 +18,32 @@ namespace VentWPF.ViewModel
 
         [Category("Заказ|")]
         [DisplayName("Исполнитель")]
+        [valid.Required]
         public string Worker { get; set; }
 
         [Category("Заказ|")]
         [DisplayName("Заказ")]
+        [valid.Required]
         public string OrderName { get; set; }
 
         [Category("Заказ|")]
         [DisplayName("Обозначение установки")]
+        [valid.Required]
         public string BuildName { get; set; }
 
         [Category("Заказ|")]
         [DisplayName("Заказчик")]
+        [valid.Required]
         public string Customer { get; set; }
 
         [Category("Заказ|")]
         [DisplayName("Объект")]
+        [valid.Required]
         public string Object { get; set; }
 
         [Category("Заказ|")]
         [DisplayName("Номер")]
+        //[valid.Phone]
         public string Number { get; set; }
 
         [Category("Настройки|")]

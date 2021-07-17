@@ -1,7 +1,9 @@
-﻿using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;
+﻿using PropertyTools.DataAnnotations; 
+using static VentWPF.ViewModel.Strings;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using VentWPF.Tools;
 using System.Linq;
 using VentWPF.Model;
 using VentWPF.Tools;
@@ -27,10 +29,12 @@ namespace VentWPF.ViewModel
 
         [DisplayName("т. теплоносителя начальная")]
         [FormatString(fT)]
-        public float tBegin { get; } = 95;
+        [Range(maximum: 100)]
+        public float tBegin { get; set; } = 95;
 
         [DisplayName("т. теплоносителя конечная")]
         [FormatString(fT)]
+        [Range(minimum: 0)]
         public float tEnd { get;  set;} = 70;
 
         [DisplayName("Длина калорифера")]

@@ -28,7 +28,7 @@ namespace VentWPF.ViewModel
         [DisplayName("Падение давления системы")]
         public float PressureDropSystem => 999; // тут типо вычисляяю всё
 
-        public override float PressureDrop => -500;
+        public override float GeneratedPressureDrop => -500;
 
         [DisplayName("Повышение давления")]
         public float PressureRaise => -PressureDrop;

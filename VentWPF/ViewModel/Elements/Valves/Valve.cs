@@ -12,7 +12,13 @@ namespace VentWPF.ViewModel
             ShowPD = true;
         }
 
-        public override string Name => "Воздушный клапан горизонтальный";
+        public override string Name => "!";
+
+        //[Category(Data)]
+
+        #region Данные
+
+        #endregion Данные
 
         [Category(Info)]
 
@@ -20,7 +26,7 @@ namespace VentWPF.ViewModel
 
         [DisplayName("Падение давления")]
         [FormatString(fkPa)]
-        public override float PressureDrop => 15;
+        public override float GeneratedPressureDrop => 15;
 
         #endregion Информация
     }

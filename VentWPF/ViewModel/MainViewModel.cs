@@ -6,7 +6,6 @@ using VentWPF.Model;
 using VentWPF.Tools;
 using System.Windows.Data;
 using System.Windows.Media;
-using Microsoft.Win32;
 using System.Linq;
 using PropertyTools.Wpf;
 using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;

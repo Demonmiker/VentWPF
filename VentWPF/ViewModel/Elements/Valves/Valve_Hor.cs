@@ -7,7 +7,7 @@
             image = "Valves/Valve_Hor.png";
         }
 
-        public override string Name => "Воздушный клапан горизонтальный";
+        public override string Name => "Клапан воздушный горизонтальный";
 
     }
 }

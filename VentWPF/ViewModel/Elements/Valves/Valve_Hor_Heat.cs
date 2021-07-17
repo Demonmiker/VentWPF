@@ -19,7 +19,7 @@ namespace VentWPF.ViewModel
                 Source = from o in VentContext.Instance.Tэныs select o
             };
         }
-        public override string Name => $"Воздушный клапан горизонтальный с нагревателем {(DeviceData as Тэны)?.Маркировка}";
+        public override string Name => $"Клапан воздушный утеплённый горизонтальный {(DeviceData as Тэны)?.Маркировка}";
 
 
         [Category(Data)]
