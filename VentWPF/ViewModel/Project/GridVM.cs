@@ -34,7 +34,9 @@ namespace VentWPF.ViewModel
                     new(),new(),new(),new(),new(),new(),new(),new(),new(),new(),
                     new(),new(),new(),new(),new(),new(),new(),new(),new(),new(),
                 };
+               
             }
+            ProjectVM.Current.ErrorManager.AddRange(Enumerable.Range(0, 20).Select(x => ($"[{x % 10 + 1},{x / 10 + 1}]", new Element() as ValidViewModel)));
             Index = 0;
         }
 
@@ -48,6 +50,7 @@ namespace VentWPF.ViewModel
                 Elements[Index].SubType = el.SubType;
             }
             Index = ind;
+            ProjectVM.Current.ErrorManager.Add(Elements[Index], $"[{Index % 10 + 1},{Index / 10 + 1}]");
         }
     }
 }

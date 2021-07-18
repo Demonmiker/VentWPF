@@ -15,6 +15,7 @@
         protected void Init()
         {
             Grid = new GridVM();
+            ErrorManager.Add(ProjectInfo,"Информация о проекте");
             Grid.Init(ProjectInfo.Rows);
         }
 
@@ -35,6 +36,9 @@
 
         //Менеджер запросов
         public TaskManagerVM TaskManager { get; init; } = new();
+
+        //Менеджер ошибок
+        public ErrorManagerVM ErrorManager { get; init; } = new();
 
         public void LoadProject(object o)
         {

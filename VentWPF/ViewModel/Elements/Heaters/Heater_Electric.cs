@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using VentWPF.Tools;
 using System.Linq;
 using VentWPF.Model;
-using VentWPF.Tools;
 
 
 namespace VentWPF.ViewModel

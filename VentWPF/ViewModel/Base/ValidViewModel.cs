@@ -5,6 +5,8 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.Text;
+using pt = PropertyTools.DataAnnotations;
 
 namespace VentWPF.ViewModel
 {
@@ -12,9 +14,14 @@ namespace VentWPF.ViewModel
     {
         [NotMapped]
         [Browsable(false)]
-        public string this[string columnName] => OnValidate(columnName);
+        public string this[string columnName] => OnPropertyValidation(columnName);
 
-        private string OnValidate(string propertyName)
+        protected virtual string OnValidation()
+        {
+            return null;
+        }
+
+        protected virtual string OnPropertyValidation(string propertyName)
         {
             try
             {
@@ -34,13 +41,36 @@ namespace VentWPF.ViewModel
           
         }
 
+
+     
         [NotMapped]
         [Browsable(false)]
         public string Error
         {
             get
             {
-                return "";
+                var sb = new StringBuilder();
+                var props = this.GetType().GetProperties().Select(x=>x.Name).Where(x=>x!="Error");
+                var error = this.OnValidation();
+                if(error!="")
+                    sb.Append(this.OnValidation() + "\n");
+                foreach (var pr in props)
+                {
+                    error = this[pr];
+                    if(error!=null)
+                    {
+                        sb.Append(
+                            (this.GetType()
+                            .GetProperty(pr)
+                            .GetCustomAttributes(typeof(pt.DisplayNameAttribute), true)
+                            .FirstOrDefault() as pt.DisplayNameAttribute)?.DisplayName ?? pr);
+                        sb.Append(": ");
+                        sb.Append(this[pr]);
+                        sb.Append('\n');
+                    }
+                   
+                }
+                return sb.ToString();
             }
         }
 

@@ -137,7 +137,6 @@ namespace VentWPF.ViewModel
         public int DeviceIndex { get; set; } = -1;
 
         [Browsable(false)]
-        [valid.Required]
         public object DeviceData => DeviceIndex >= 0 ? Query.Result[DeviceIndex] : null;
 
         protected Type DeviceType = null;
@@ -156,6 +155,17 @@ namespace VentWPF.ViewModel
 
         #endregion Запрос
 
+        protected override string OnValidation()
+        {
+            if (DeviceType != null && DeviceData == null)
+                return "Не выбрана модель устройства";
+            else
+                return "";
+
+        }
+
         public static T GetInstance<T>(T o) => (T)Activator.CreateInstance(o.GetType());
+
+
     }
 }

@@ -77,14 +77,20 @@
         <Run Text="Очередь запросов"/>
         <Run Text="{Binding Project.TaskManager.Count, Mode=OneWay}"/>
       </TextBlock>
-      <fa5:SvgAwesome
-        Height="18"
-        Foreground="Red"
-        Icon="Solid_ExclamationTriangle"/>
-      <fa5:SvgAwesome
-        Height="18"
-        Foreground="LimeGreen"
-        Icon="Solid_CheckCircle"/>
+      <fa5:SvgAwesome Width="20" Height="18">
+        <fa5:SvgAwesome.Style>
+          <Style TargetType="{x:Type fa5:SvgAwesome}">
+            <Setter Property="Foreground" Value="Red"/>
+            <Setter Property="Icon" Value="Solid_ExclamationTriangle"/>
+            <Style.Triggers>
+              <DataTrigger Binding="{Binding Project.ErrorManager.HasErrors}" Value="false">
+                <Setter Property="Foreground" Value="LimeGreen"/>
+                <Setter Property="Icon" Value="Solid_CheckCircle"/>
+              </DataTrigger>
+            </Style.Triggers>
+          </Style>
+        </fa5:SvgAwesome.Style>
+      </fa5:SvgAwesome>
     </StatusBar>
     <Grid Margin="0 0 0 0">
       <Grid.ColumnDefinitions>
@@ -504,7 +510,6 @@
                           VerticalAlignment="Bottom"
                           Fill="Black"
                           Points="8,0 0,4 8,8"/>
-
                       </Grid>
                     </ControlTemplate>
                   </Setter.Value>
@@ -543,12 +548,12 @@
                         <ItemsControl.ItemTemplate>
                           <DataTemplate>
                             <Border
-                                Width="{Binding Value}"
-                                Height="100"
-                                MinWidth="30"
-                                MaxWidth="300"
-                                BorderBrush="Black"
-                                BorderThickness="2">
+                              Width="{Binding Value}"
+                              Height="100"
+                              MinWidth="30"
+                              MaxWidth="300"
+                              BorderBrush="Black"
+                              BorderThickness="2">
                               <b:Interaction.Behaviors>
                                 <b:FluidMoveBehavior Duration="00:00:01">
                                   <b:FluidMoveBehavior.EaseX>
@@ -557,10 +562,10 @@
                                 </b:FluidMoveBehavior>
                               </b:Interaction.Behaviors>
                               <TextBox
-                                  VerticalAlignment="Center"
-                                  BorderThickness="0"
-                                  Text="{Binding Value}"
-                                  TextAlignment="Center"/>
+                                VerticalAlignment="Center"
+                                BorderThickness="0"
+                                Text="{Binding Value}"
+                                TextAlignment="Center"/>
                             </Border>
                           </DataTemplate>
                         </ItemsControl.ItemTemplate>
@@ -569,8 +574,8 @@
                     <TextBox
                       Grid.Column="1"
                       Width="100"
-                      IsReadOnly="True"
                       VerticalAlignment="Top"
+                      IsReadOnly="True"
                       Style="{StaticResource under}"
                       Text="{Binding Side, Mode=OneWay}"
                       TextAlignment="Center">
@@ -580,8 +585,8 @@
                     </TextBox>
                     <TextBox
                       Grid.Row="1"
-                      IsReadOnly="True"
                       HorizontalAlignment="Stretch"
+                      IsReadOnly="True"
                       Style="{StaticResource under}"
                       Text="{Binding FrameLenght}"/>
                   </Grid>
@@ -632,6 +637,9 @@
                 <TextBlock Text="Debug"/>
               </StackPanel>
             </TabItem.Header>
+            <ListBox ItemsSource="{Binding Project.ErrorManager.Errors}">
+              
+            </ListBox>
           </TabItem>
         </TabControl>
       </DockPanel>

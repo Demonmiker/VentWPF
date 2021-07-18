@@ -56,5 +56,7 @@ namespace VentWPF.ViewModel
             Values.Insert(index, NewBox(val));
             Values.Insert(index, NewBox(val+mod));
         }
+
+
     }
 }

@@ -1,5 +1,7 @@
-﻿using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;
+﻿using PropertyTools.DataAnnotations; 
+using static VentWPF.ViewModel.Strings;
 using System;
+using valid = VentWPF.Tools;
 
 
 namespace VentWPF.ViewModel
@@ -23,6 +25,7 @@ namespace VentWPF.ViewModel
         [SortIndex(-1)]
         [DisplayName("т. на выходе")]
         [FormatString(fT)]
+        
         public float TempOut { get; set; } = 18;
 
         [SortIndex(-1)]
@@ -32,8 +35,8 @@ namespace VentWPF.ViewModel
 
         [SortIndex(-1)]
         [DisplayName("Влажность воздуха")]
-        [FormatString(f2)]
-        [Resettable]
+        [FormatString(fper)]
+        [valid.Range(0,100)]
         public float HumidIn { get; set; } = 85;
 
 
