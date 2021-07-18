@@ -18,7 +18,7 @@ namespace VentWPF.ViewModel
 
         protected virtual string OnValidation()
         {
-            return null;
+            return "";
         }
 
         protected virtual string OnPropertyValidation(string propertyName)
@@ -42,7 +42,7 @@ namespace VentWPF.ViewModel
         }
 
 
-     
+        public bool HasErrors { get; private set; } = false;
         [NotMapped]
         [Browsable(false)]
         public string Error
@@ -70,6 +70,7 @@ namespace VentWPF.ViewModel
                     }
                    
                 }
+                HasErrors = sb.Length > 0;
                 return sb.ToString();
             }
         }

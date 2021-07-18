@@ -16,6 +16,7 @@ namespace VentWPF.ViewModel
             ShowPD = true;
         }
 
+        public override float GeneratedPressureDrop => (70f / (4f / ((Project.VFlow / 3600f) / AB)));
        
 
 
@@ -43,14 +44,13 @@ namespace VentWPF.ViewModel
         #endregion Данные
 
 
-        [Category(Info)]
+
         #region Информация
 
 
-        [DisplayName("Падение давления")]
-        [FormatString(fkPa)]
-        public override float GeneratedPressureDrop => (70f / (4f / ((Project.VFlow / 3600f) / AB)));
 
+
+        [Category(Info)]
         [DisplayName("Мощность")]
         [FormatString(fkW)]
         public float Power => (Project.VFlow * (353f / (273.15f + TempOut)) / 3600000f * 1009f * Math.Abs(TempIn - TempOut));

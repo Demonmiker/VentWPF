@@ -11,6 +11,8 @@ namespace VentWPF.ViewModel
             ShowPD = false; ;
         }
 
+        public override float GeneratedPressureDrop => -500;
+
 
         [Browsable(false)]
         public Fan_Direction Direction
@@ -18,6 +20,7 @@ namespace VentWPF.ViewModel
             get => (Fan_Direction)SubType;
             set => SubType = (int)value;
         }
+
         public override string Image => Path.GetFullPath($"Assets/Images/Fans/Directions/{Direction}.png");
 
         [Category(Data)]
@@ -28,7 +31,7 @@ namespace VentWPF.ViewModel
         [DisplayName("Падение давления системы")]
         public float PressureDropSystem => 999; // тут типо вычисляяю всё
 
-        public override float GeneratedPressureDrop => -500;
+        
 
         [DisplayName("Повышение давления")]
         public float PressureRaise => -PressureDrop;

@@ -12,6 +12,13 @@ namespace VentWPF.ViewModel
             ShowPD = true;
         }
 
+        public override float GeneratedPressureDrop => FC switch
+        {
+            Section.секция500 => 25,
+            Section.секция1000 => 55,
+            _ => 60,
+        };
+
         [Category(Data)]
         #region Данные
 
@@ -21,17 +28,10 @@ namespace VentWPF.ViewModel
 
         #endregion Данные
 
-        [Category(Info)]
+        //[Category(Info)]
         #region Информация
 
-        [DisplayName("Падение давления")]
-
-        public override float GeneratedPressureDrop => FC switch
-        {
-            Section.секция500 => 25,
-            Section.секция1000 => 55,
-            _ => 60,
-        };
+       
       
         #endregion Информация
     }

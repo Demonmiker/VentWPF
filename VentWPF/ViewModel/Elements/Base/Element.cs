@@ -166,6 +166,8 @@ namespace VentWPF.ViewModel
 
         public static T GetInstance<T>(T o) => (T)Activator.CreateInstance(o.GetType());
 
+        
+
 
     }
 }
