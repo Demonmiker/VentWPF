@@ -72,9 +72,25 @@
         <MenuItem Command="{Binding CmdLoad}" Header="Интерфейс"/>
       </MenuItem>
     </Menu>
-
     <StatusBar DockPanel.Dock="Bottom">
-      <TextBlock Text="Статус"/>
+      <TextBlock>
+        <Run Text="Очередь запросов"/>
+        <Run Text="{Binding Project.TaskManager.Count, Mode=OneWay}"/>
+      </TextBlock>
+      <fa5:SvgAwesome Width="20" Height="18">
+        <fa5:SvgAwesome.Style>
+          <Style TargetType="{x:Type fa5:SvgAwesome}">
+            <Setter Property="Foreground" Value="Red"/>
+            <Setter Property="Icon" Value="Solid_ExclamationTriangle"/>
+            <Style.Triggers>
+              <DataTrigger Binding="{Binding Project.ErrorManager.HasErrors}" Value="false">
+                <Setter Property="Foreground" Value="LimeGreen"/>
+                <Setter Property="Icon" Value="Solid_CheckCircle"/>
+              </DataTrigger>
+            </Style.Triggers>
+          </Style>
+        </fa5:SvgAwesome.Style>
+      </fa5:SvgAwesome>
     </StatusBar>
     <Grid Margin="0 0 0 0">
       <Grid.ColumnDefinitions>
@@ -85,14 +101,15 @@
               <Setter Property="MaxWidth" Value="800"/>
               <Setter Property="MinWidth" Value="400"/>
               <Style.Triggers>
-                <DataTrigger Binding="{Binding SelectedElement.Name}" Value="">
-                  <Setter Property="MaxWidth" Value="50"/>
-                  <Setter Property="MinWidth" Value="50"/>
-                  <Setter Property="Width" Value="50"/>
+                <DataTrigger Binding="{Binding Path=Project.Grid.Selected.Name}" Value="">
+                  <Setter Property="MaxWidth" Value="25"/>
+                  <Setter Property="MinWidth" Value="25"/>
+                  <Setter Property="Width" Value="25"/>
                 </DataTrigger>
               </Style.Triggers>
             </Style>
           </ColumnDefinition.Style>
+
         </ColumnDefinition>
       </Grid.ColumnDefinitions>
       <GridSplitter
@@ -105,12 +122,13 @@
           <Style TargetType="{x:Type GridSplitter}">
             <Setter Property="Visibility" Value="Visible"/>
             <Style.Triggers>
-              <DataTrigger Binding="{Binding SelectedElement.Name}" Value="">
+              <DataTrigger Binding="{Binding Project.Grid.Selected.Name}" Value="">
                 <Setter Property="Visibility" Value="Collapsed"/>
               </DataTrigger>
             </Style.Triggers>
           </Style>
         </GridSplitter.Style>
+
       </GridSplitter>
       <DockPanel>
         <!--  Верхняя панель для содания элементов  -->
@@ -357,7 +375,7 @@
                   <Style BasedOn="{StaticResource {x:Type Grid}}" TargetType="{x:Type Grid}">
                     <Setter Property="Visibility" Value="Collapsed"/>
                     <Style.Triggers>
-                      <DataTrigger Binding="{Binding Path=ProjectInfo.Rows}" Value="Row2">
+                      <DataTrigger Binding="{Binding Project.ProjectInfo.Rows}" Value="Row2">
                         <Setter Property="Visibility" Value="Visible"/>
                       </DataTrigger>
                     </Style.Triggers>
@@ -379,9 +397,9 @@
               Height="150"
               HorizontalAlignment="Left"
               Foreground="{StaticResource PrimaryHueLightBrush}"
-              ItemsSource="{Binding Grid}"
-              SelectedIndex="{Binding SelectedIndex}"
-              SelectedItem="{Binding SelectedElement}">
+              ItemsSource="{Binding Project.Grid.Elements}"
+              SelectedIndex="{Binding Project.Grid.Index}"
+              SelectedItem="{Binding Project.Grid.Selected}">
               <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                   <UniformGrid Columns="10" Rows="2"/>
@@ -442,9 +460,9 @@
             <pt:PropertyGrid
               Width="400"
               HorizontalAlignment="Left"
-              SelectedObject="{Binding ProjectInfo}"
-              ShowDeclaredOnly="True"
-              TabVisibility="Collapsed"/>
+              EnumAsRadioButtonsLimit="1"
+              SelectedObject="{Binding Project.ProjectInfo}"
+              ShowDeclaredOnly="True"/>
           </TabItem>
           <!--  Вкладка информация  -->
           <TabItem>
@@ -472,8 +490,30 @@
                 x:Key="under"
                 BasedOn="{StaticResource {x:Type TextBox}}"
                 TargetType="{x:Type TextBox}">
-                <Setter Property="BorderBrush" Value="Black"/>
-                <Setter Property="BorderThickness" Value="1 0 1 2"/>
+                <Setter Property="Template">
+                  <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                      <Grid>
+                        <TextBox
+                          BorderBrush="Black"
+                          BorderThickness="1 0 1 2"
+                          Text="{TemplateBinding Text}"/>
+                        <Polygon
+                          Margin="0 -3"
+                          HorizontalAlignment="Right"
+                          VerticalAlignment="Bottom"
+                          Fill="Black"
+                          Points="0,0 8,4 0,8"/>
+                        <Polygon
+                          Margin="0 -3"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Bottom"
+                          Fill="Black"
+                          Points="8,0 0,4 8,8"/>
+                      </Grid>
+                    </ControlTemplate>
+                  </Setter.Value>
+                </Setter>
                 <Setter Property="TextAlignment" Value="Center"/>
               </Style>
             </TabItem.Resources>
@@ -483,65 +523,80 @@
                 <TextBlock Text="Схема"/>
               </StackPanel>
             </TabItem.Header>
-            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-              </Grid.ColumnDefinitions>
-              <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-              </Grid.RowDefinitions>
-              <StackPanel
-                Width="auto"
-                Background="LightBlue"
-                Orientation="Horizontal">
-                <ItemsControl ItemsSource="{Binding Test}">
-                  <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                      <StackPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                  </ItemsControl.ItemsPanel>
-                  <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                      <StackPanel>
-                        <Border
-                          Width="100"
-                          Height="100"
-                          BorderBrush="Black"
-                          BorderThickness="2"/>
-                        <TextBox
-                          Style="{StaticResource under}"
-                          Text="{Binding Value}"
-                          TextAlignment="Center"/>
-                      </StackPanel>
-                    </DataTemplate>
-                  </ItemsControl.ItemTemplate>
-                </ItemsControl>
-
-              </StackPanel>
-              <TextBox
-                Grid.Column="1"
-                Width="100"
-                VerticalAlignment="Top"
-                Focusable="False"
-                Style="{StaticResource under}"
-                Text="600x500"
-                TextAlignment="Center">
-                <TextBox.RenderTransform>
-                  <RotateTransform Angle="-90" CenterX="50" CenterY="50"/>
-                </TextBox.RenderTransform>
-              </TextBox>
-              <TextBox
-                Grid.Row="1"
-                HorizontalAlignment="Stretch"
-                Focusable="false"
-                Style="{StaticResource under}"
-                Text="{Binding TestSum, Mode=OneWay}"/>
-            </Grid>
-
-
-
+            <StackPanel Orientation="Vertical">
+              <StackPanel.Resources>
+                <DataTemplate DataType="{x:Type vm:FrameSideVM}">
+                  <Grid
+                    Width="{Binding Width, Mode=OneWayToSource}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="auto"/>
+                      <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                      <RowDefinition/>
+                      <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                      <ItemsControl ItemsSource="{Binding Values}">
+                        <ItemsControl.ItemsPanel>
+                          <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                          </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                          <DataTemplate>
+                            <Border
+                              Width="{Binding Value}"
+                              Height="100"
+                              MinWidth="30"
+                              MaxWidth="300"
+                              BorderBrush="Black"
+                              BorderThickness="2">
+                              <b:Interaction.Behaviors>
+                                <b:FluidMoveBehavior Duration="00:00:01">
+                                  <b:FluidMoveBehavior.EaseX>
+                                    <QuadraticEase EasingMode="EaseInOut"/>
+                                  </b:FluidMoveBehavior.EaseX>
+                                </b:FluidMoveBehavior>
+                              </b:Interaction.Behaviors>
+                              <TextBox
+                                VerticalAlignment="Center"
+                                BorderThickness="0"
+                                Text="{Binding Value}"
+                                TextAlignment="Center"/>
+                            </Border>
+                          </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                      </ItemsControl>
+                    </StackPanel>
+                    <TextBox
+                      Grid.Column="1"
+                      Width="100"
+                      VerticalAlignment="Top"
+                      IsReadOnly="True"
+                      Style="{StaticResource under}"
+                      Text="{Binding Side, Mode=OneWay}"
+                      TextAlignment="Center">
+                      <TextBox.RenderTransform>
+                        <RotateTransform Angle="-90" CenterX="50" CenterY="50"/>
+                      </TextBox.RenderTransform>
+                    </TextBox>
+                    <TextBox
+                      Grid.Row="1"
+                      HorizontalAlignment="Stretch"
+                      IsReadOnly="True"
+                      Style="{StaticResource under}"
+                      Text="{Binding FrameLenght}"/>
+                  </Grid>
+                </DataTemplate>
+                <Style TargetType="{x:Type GroupBox}"/>
+              </StackPanel.Resources>
+              <GroupBox Content="{Binding Project.Frame.Top}" Header="Верх"/>
+              <GroupBox Content="{Binding Project.Frame.Left}" Header="Слева"/>
+              <GroupBox Content="{Binding Project.Frame.Right}" Header="Справа"/>
+            </StackPanel>
           </TabItem>
           <!--  Вкладка отчет  -->
           <TabItem>
@@ -555,7 +610,7 @@
               <FlowDocument/>
             </FlowDocumentScrollViewer>
           </TabItem>
-          <!--  Вкладка 3D  -->
+          <!--  Вкладка электроника  -->
           <TabItem>
             <TabItem.Header>
               <StackPanel>
@@ -564,6 +619,7 @@
               </StackPanel>
             </TabItem.Header>
           </TabItem>
+          <!--  Вкладка 3D  -->
           <TabItem>
             <TabItem.Header>
               <StackPanel>
@@ -572,6 +628,18 @@
               </StackPanel>
 
             </TabItem.Header>
+          </TabItem>
+          <!--  Вкладка debug  -->
+          <TabItem>
+            <TabItem.Header>
+              <StackPanel>
+                <fa5:SvgAwesome Icon="Solid_Bug"/>
+                <TextBlock Text="Debug"/>
+              </StackPanel>
+            </TabItem.Header>
+            <ListBox ItemsSource="{Binding Project.ErrorManager.Errors}">
+              
+            </ListBox>
           </TabItem>
         </TabControl>
       </DockPanel>
@@ -582,7 +650,7 @@
             <Style TargetType="{x:Type Grid}">
               <Setter Property="Visibility" Value="Visible"/>
               <Style.Triggers>
-                <DataTrigger Binding="{Binding SelectedElement.Name}" Value="">
+                <DataTrigger Binding="{Binding Project.Grid.Selected.Name}" Value="">
                   <Setter Property="Visibility" Value="Collapsed"/>
                 </DataTrigger>
               </Style.Triggers>
@@ -598,7 +666,7 @@
                   <Setter Property="MaxHeight" Value="600"/>
                   <Setter Property="MinHeight" Value="155"/>
                   <Style.Triggers>
-                    <DataTrigger Binding="{Binding SelectedElement.Query}" Value="{x:Null}">
+                    <DataTrigger Binding="{Binding Project.Grid.Selected.Query}" Value="{x:Null}">
                       <Setter Property="Height" Value="0"/>
                       <Setter Property="MaxHeight" Value="0"/>
                       <Setter Property="MinHeight" Value="0"/>
@@ -616,20 +684,20 @@
             <Image
               Width="50"
               Height="50"
-              Source="{Binding SelectedElement.Image}"/>
+              Source="{Binding Project.Grid.Selected.Image}"/>
             <TextBlock
               Grid.Column="1"
               Margin="4 0"
               VerticalAlignment="Bottom"
               Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
-              Text="{Binding SelectedElement.Name}"
+              Text="{Binding Project.Grid.Selected.Name}"
               TextWrapping="WrapWithOverflow"/>
           </Grid>
           <ScrollViewer Grid.Row="1" Margin="7 5 0 5">
             <pt:PropertyGrid
               EnableLabelWidthResizing="True"
               EnumAsRadioButtonsLimit="1"
-              SelectedObject="{Binding SelectedElement}"
+              SelectedObject="{Binding Project.Grid.Selected}"
               TabVisibility="Collapsed"/>
           </ScrollViewer>
           <GridSplitter
@@ -645,7 +713,7 @@
               <Style TargetType="{x:Type GridSplitter}">
                 <Setter Property="Visibility" Value="Visible"/>
                 <Style.Triggers>
-                  <DataTrigger Binding="{Binding SelectedElement.Query}" Value="{x:Null}">
+                  <DataTrigger Binding="{Binding Project.Grid.Selected.Query}" Value="{x:Null}">
                     <Setter Property="Visibility" Value="Collapsed"/>
                   </DataTrigger>
                 </Style.Triggers>
@@ -665,7 +733,7 @@
                   <Style TargetType="{x:Type fa5:SvgAwesome}">
                     <Setter Property="Visibility" Value="Visible"/>
                     <Style.Triggers>
-                      <DataTrigger Binding="{Binding SelectedElement.Query}" Value="{x:Null}">
+                      <DataTrigger Binding="{Binding Project.Grid.Selected.Query}" Value="{x:Null}">
                         <Setter Property="Visibility" Value="Collapsed"/>
                       </DataTrigger>
                     </Style.Triggers>
@@ -678,15 +746,15 @@
                 Panel.ZIndex="5"
                 AutoGenerateColumns="True"
                 IsReadOnly="True"
-                ItemsSource="{Binding SelectedElement.Query.Result}"
-                SelectedIndex="{Binding SelectedElement.DeviceIndex}"
+                ItemsSource="{Binding Project.Grid.Selected.Query.Result}"
+                SelectedIndex="{Binding Project.Grid.Selected.DeviceIndex}"
                 SelectionMode="Single"
                 SelectionUnit="FullRow">
                 <DataGrid.Style>
                   <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="{x:Type DataGrid}">
                     <Setter Property="Visibility" Value="Visible"/>
                     <Style.Triggers>
-                      <DataTrigger Binding="{Binding SelectedElement.Query.Result}" Value="{x:Null}">
+                      <DataTrigger Binding="{Binding Project.Grid.Selected.Query.Result}" Value="{x:Null}">
                         <!--  @@warn  -->
                         <Setter Property="Visibility" Value="Collapsed"/>
                       </DataTrigger>

@@ -1,20 +1,27 @@
-﻿using System;
+﻿using PropertyChanged;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VentWPF.ViewModel;
 
-namespace VentWPF.Tools
+namespace VentWPF.ViewModel
 {
-    public static class TaskManager
+    public class TaskManagerVM : BaseViewModel
     {
-        static Queue<Action> tasks = new Queue<Action>();
-        static Stopwatch Sw = new Stopwatch();
+        ObservableCollection<Action> Tasks { get; init; } = new ObservableCollection<Action>();
 
-        public static void Add(Action t)
+        Stopwatch Sw = new Stopwatch();
+
+        [DependsOn("Tasks")]
+        public int Count => Tasks.Count;
+
+        public void Add(Action t)
         {
-            tasks.Enqueue(t);
+            Tasks.Add(t);
             if (!IsWorking)
             {
                 IsWorking = true;
@@ -23,17 +30,18 @@ namespace VentWPF.Tools
                 
         }
 
-        static bool IsWorking = false;
+        bool IsWorking = false;
 
-        static void DoTasks()
+        void DoTasks()
         {
             Debug.WriteLine($"TM Start");
             IsWorking = true;
             Sw.Restart();
-            while(tasks.Count>0)
+            while(Tasks.Count>0)
             {
-                Debug.WriteLine(tasks.Count);
-                var action = tasks.Dequeue();
+                Debug.WriteLine(Tasks.Count);
+                var action = Tasks[0];
+                Tasks.RemoveAt(0);
                 action.Invoke();
                 Debug.WriteLine($"Запрос :{Sw.ElapsedTicks} тик");
             }

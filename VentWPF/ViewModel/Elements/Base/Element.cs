@@ -2,22 +2,20 @@
 using PropertyChanged;
 using PropertyTools.DataAnnotations;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Data;
 using System.Windows.Documents;
-using VentWPF.Tools;
 using VentWPF.ViewModel.Elements;
 using static VentWPF.ViewModel.Strings;
+using valid = System.ComponentModel.DataAnnotations;
 
 namespace VentWPF.ViewModel
 {
-    internal class Element : BaseViewModel
+    internal class Element : ValidViewModel
     {
-
-        public static ProjectInfoVM Project { get; set; } = ProjectInfoVM.Instance;
+        public static ProjectInfoVM Project { get; set; } = ProjectVM.Current.ProjectInfo;
 
         /// <summary>
         /// Наименование элемента системы вентиляции
@@ -95,9 +93,40 @@ namespace VentWPF.ViewModel
         [DisplayName("Производительность")]
         public virtual float Performance { get; set; } = Project.VFlow;
 
+        #region Падение давления
+
+        [Browsable(false)]
+        public virtual float GeneratedPressureDrop => 0;
+        [Category(Info)]
         [VisibleBy("ShowPD")]
         [SortIndex(-2)]
-        public virtual float PressureDrop => 0;
+        [Optional("ManualPD")]
+        [DisplayName("Падение давления")]
+        [FormatString(fkPa)]
+
+        public virtual float PressureDrop
+        {
+            get
+            {
+                if (!ManualPD) 
+                    pressureDrop = GeneratedPressureDrop;
+                return pressureDrop;
+
+            }
+            set
+            {
+                pressureDrop = value;
+            }
+
+        }
+
+        protected float pressureDrop = 0;
+
+        [VisibleBy("ShowPD")]
+        [Browsable(false)]
+        public bool ManualPD { get; set; } = false;
+
+        #endregion Падение давления
 
         #endregion Общие свойства элементов
 
@@ -126,6 +155,17 @@ namespace VentWPF.ViewModel
 
         #endregion Запрос
 
+        protected override string OnValidation()
+        {
+            if (DeviceType != null && DeviceData == null)
+                return "Не выбрана модель устройства";
+            else
+                return "";
+
+        }
+
         public static T GetInstance<T>(T o) => (T)Activator.CreateInstance(o.GetType());
+
+
     }
 }

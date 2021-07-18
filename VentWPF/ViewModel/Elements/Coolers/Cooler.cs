@@ -1,7 +1,7 @@
 ﻿using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;
 using System;
 using VentWPF.Model;
-
+using VentWPF.Tools;
 
 namespace VentWPF.ViewModel
 {
@@ -37,6 +37,7 @@ namespace VentWPF.ViewModel
         [SortIndex(-1)]
         [DisplayName("Влажность воздуха")]
         [FormatString(f2)]
+        [Range(0,100)]
         public float HumidityIn { get; set; } = 42;
 
         #endregion Данные
@@ -47,11 +48,11 @@ namespace VentWPF.ViewModel
 
 
         [DisplayName("Падение давления")]
-        [FormatString(fP)]
-        public override float PressureDrop => (70f / (4f / ((Project.VFlow / 3600f) / AB)));
+        [FormatString(fkPa)]
+        public override float GeneratedPressureDrop => (70f / (4f / ((Project.VFlow / 3600f) / AB)));
 
         [DisplayName("Мощность")]
-        [FormatString(fW)]
+        [FormatString(fkW)]
         public float Power => (Project.VFlow * (353f / (273.15f + TempOut)) / 3600000f * 1009f * Math.Abs(TempIn - TempOut));
 
 
@@ -60,7 +61,7 @@ namespace VentWPF.ViewModel
         public float HumidOutAbs => ((0.6222f * (HumidityIn / 100f) * pD) / (Project.PressOut - (HumidityIn / 100f) * pD / 1000f));
 
         [DisplayName("Отн. влажность на выходе")]
-        [FormatString(fF)]
+        [FormatString(fper)]
         public float HumidOutRel => ((Project.PressOut / pD2 * 1000f / (0.6222f / HumidOutAbs * 1000f + 1)) * 100f);
 
         #endregion Информация

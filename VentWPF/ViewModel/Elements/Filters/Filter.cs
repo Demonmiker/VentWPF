@@ -26,8 +26,8 @@ namespace VentWPF.ViewModel
         #region Информация
 
         [DisplayName("Падение давления при загряз. 50%")]
-        [FormatString(fP)]
-        public override float PressureDrop => FC switch
+        [FormatString(fkPa)]
+        public override float GeneratedPressureDrop => FC switch
         {
             FilterClassType.G4 => 175,
             FilterClassType.F5 => 225,

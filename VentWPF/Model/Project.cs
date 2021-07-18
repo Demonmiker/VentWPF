@@ -16,7 +16,7 @@ namespace VentWPF.Model
         {
         }
 
-        public ProjectInfoVM ProjectInfo { get; init; } = ProjectInfoVM.Instance;
+        public ProjectInfoVM ProjectInfo { get; init; } = ProjectVM.Current.ProjectInfo;
         public Element[] Grid { get; set; }
     }
 }

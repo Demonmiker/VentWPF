@@ -67,7 +67,7 @@ namespace VentWPF.ViewModel
 
 
         [DisplayName("Падение давл. теплоносителя")]
-        [FormatString(fP)]
+        [FormatString(fkPa)]
         public float CoolantPressureDrop => 12.5f;
 
         #endregion Информация

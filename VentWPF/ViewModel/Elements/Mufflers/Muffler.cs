@@ -26,7 +26,7 @@ namespace VentWPF.ViewModel
 
         [DisplayName("Падение давления")]
 
-        public override float PressureDrop => FC switch
+        public override float GeneratedPressureDrop => FC switch
         {
             Section.секция500 => 25,
             Section.секция1000 => 55,
