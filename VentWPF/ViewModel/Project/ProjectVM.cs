@@ -4,7 +4,6 @@
     {
         static ProjectVM()
         {
-            Current = new ProjectVM();
             Current.Init();
         }
 
@@ -14,12 +13,16 @@
 
         protected void Init()
         {
-            Grid = new GridVM();
+            Grid = new ();
+            Frame = new ();
+            TaskManager = new();
+            ErrorManager = new();
             ErrorManager.Add(ProjectInfo,"Информация о проекте");
             Grid.Init(ProjectInfo.Rows);
+           
         }
 
-        public static ProjectVM Current { get; private set; }
+        public static ProjectVM Current { get; private set; } = new ProjectVM();
 
         //Информация о проекте
         public ProjectInfoVM ProjectInfo { get; init; } = new();
@@ -30,15 +33,15 @@
         //чертеж установки
 
         //каркас установки
-        public FrameVM Frame { get; init; } = new();
+        public FrameVM Frame { get; private set; }
 
         //отчёт
 
         //Менеджер запросов
-        public TaskManagerVM TaskManager { get; init; } = new();
+        public TaskManagerVM TaskManager { get; private set; }
 
         //Менеджер ошибок
-        public ErrorManagerVM ErrorManager { get; init; } = new();
+        public ErrorManagerVM ErrorManager { get; private set; }
 
         public void LoadProject(object o)
         {

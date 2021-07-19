@@ -9,6 +9,7 @@
   xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
   xmlns:pt="http://propertytools.org/wpf"
   xmlns:sys="clr-namespace:System;assembly=mscorlib"
+  xmlns:tl="clr-namespace:VentWPF.Tools"
   xmlns:vm="clr-namespace:VentWPF.ViewModel"
   Title="MainWindow"
   Background="{DynamicResource MaterialDesignPaper}"
@@ -28,6 +29,16 @@
   </b:Interaction.Triggers>
   <Window.Resources>
     <!--  Ресурсы окна  -->
+    <tl:VisibilityConverter x:Key="visConv"/>
+    <tl:VisibilityConverter x:Key="visConvrev" Reverse="True"/>
+    <tl:BrushConverter
+      x:Key="brNR"
+      FalseBrush="{StaticResource PrimaryHueDarkBrush}"
+      TrueBrush="Red"/>
+    <tl:BrushConverter
+      x:Key="brGR"
+      FalseBrush="LimeGreen"
+      TrueBrush="Red"/>
     <Style BasedOn="{StaticResource {x:Type ToolTip}}" TargetType="ToolTip">
       <Style.Triggers>
         <Trigger Property="Content" Value="{x:Static sys:String.Empty}">
@@ -77,14 +88,15 @@
         <Run Text="Очередь запросов"/>
         <Run Text="{Binding Project.TaskManager.Count, Mode=OneWay}"/>
       </TextBlock>
-      <fa5:SvgAwesome Width="20" Height="18">
+      <fa5:SvgAwesome
+        Width="20"
+        Height="18"
+        Foreground="{Binding Project.ErrorManager.HasErrors, Converter={StaticResource brGR}}">
         <fa5:SvgAwesome.Style>
           <Style TargetType="{x:Type fa5:SvgAwesome}">
-            <Setter Property="Foreground" Value="Red"/>
             <Setter Property="Icon" Value="Solid_ExclamationTriangle"/>
             <Style.Triggers>
               <DataTrigger Binding="{Binding Project.ErrorManager.HasErrors}" Value="false">
-                <Setter Property="Foreground" Value="LimeGreen"/>
                 <Setter Property="Icon" Value="Solid_CheckCircle"/>
               </DataTrigger>
             </Style.Triggers>
@@ -117,19 +129,8 @@
         Margin="0 0 0 0"
         HorizontalAlignment="Right"
         Panel.ZIndex="2"
-        Background="Transparent">
-        <GridSplitter.Style>
-          <Style TargetType="{x:Type GridSplitter}">
-            <Setter Property="Visibility" Value="Visible"/>
-            <Style.Triggers>
-              <DataTrigger Binding="{Binding Project.Grid.Selected.Name}" Value="">
-                <Setter Property="Visibility" Value="Collapsed"/>
-              </DataTrigger>
-            </Style.Triggers>
-          </Style>
-        </GridSplitter.Style>
-
-      </GridSplitter>
+        Background="Transparent"
+        Visibility="{Binding Project.Grid.Selected.Name, Converter={StaticResource visConv}}"/>
       <DockPanel>
         <!--  Верхняя панель для содания элементов  -->
         <md:Card Background="LightGray" DockPanel.Dock="Top">
@@ -416,12 +417,22 @@
               </ListBox.ItemContainerStyle>
               <ListBox.ItemTemplate>
                 <DataTemplate DataType="ElementVM">
-                  <Image
-                    Margin="-6"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Source="{Binding Image}"
-                    ToolTip="{Binding Name}"/>
+                  <Grid Margin="-6">
+                    <Image Source="{Binding Image}" ToolTip="{Binding Name}"/>
+                    <Border
+                      Width="auto"
+                      Background="Transparent"
+                      ToolTip="{Binding Error}"
+                      Visibility="{Binding HasErrors, Converter={StaticResource visConv}}">
+                      <fa5:SvgAwesome
+                        Height="12"
+                        Margin="4.5 5"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"
+                        Foreground="Red"
+                        Icon="Solid_ExclamationCircle"/>
+                    </Border>
+                  </Grid>
                 </DataTemplate>
               </ListBox.ItemTemplate>
             </ListBox>
@@ -446,15 +457,16 @@
             <Style TargetType="{x:Type fa5:SvgAwesome}">
               <Setter Property="Foreground" Value="{StaticResource PrimaryHueDarkBrush}"/>
               <Setter Property="Height" Value="12"/>
-              <Setter Property="Margin" Value="0 0 3 0"/>
+              <Setter Property="Margin" Value="2 0 2 0"/>
             </Style>
           </TabControl.Resources>
           <!--  Вкладка проект  -->
           <TabItem>
             <TabItem.Header>
-              <StackPanel>
-                <fa5:SvgAwesome Icon="Solid_Bars"/>
+              <StackPanel ToolTip="{Binding Project.ProjectInfo.Error}">
+                <fa5:SvgAwesome Icon="Solid_Bars" Foreground="{StaticResource PrimaryHueDarkBrush}"/>
                 <TextBlock Text="Проект"/>
+                <fa5:SvgAwesome Icon="Solid_ExclamationCircle" Foreground="Red" Visibility="{Binding Project.ProjectInfo.HasErrors}"/>
               </StackPanel>
             </TabItem.Header>
             <pt:PropertyGrid
@@ -637,25 +649,14 @@
                 <TextBlock Text="Debug"/>
               </StackPanel>
             </TabItem.Header>
-            <ListBox ItemsSource="{Binding Project.ErrorManager.Errors}">
-              
-            </ListBox>
+            <ListBox ItemsSource="{Binding Project.ErrorManager.Errors}"/>
           </TabItem>
         </TabControl>
       </DockPanel>
       <!--  Боковая Панель  -->
       <md:Card Grid.Column="1" md:ShadowAssist.ShadowEdges="All">
-        <Grid Margin="0 2 0 0">
-          <Grid.Style>
-            <Style TargetType="{x:Type Grid}">
-              <Setter Property="Visibility" Value="Visible"/>
-              <Style.Triggers>
-                <DataTrigger Binding="{Binding Project.Grid.Selected.Name}" Value="">
-                  <Setter Property="Visibility" Value="Collapsed"/>
-                </DataTrigger>
-              </Style.Triggers>
-            </Style>
-          </Grid.Style>
+        <Grid Margin="0 2 0 0" Visibility="{Binding Project.Grid.Selected.Name, Converter={StaticResource visConv}}">
+
           <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="2*"/>
@@ -708,59 +709,19 @@
             VerticalAlignment="Bottom"
             Panel.ZIndex="2"
             Background="Transparent"
-            ResizeBehavior="BasedOnAlignment">
-            <GridSplitter.Style>
-              <Style TargetType="{x:Type GridSplitter}">
-                <Setter Property="Visibility" Value="Visible"/>
-                <Style.Triggers>
-                  <DataTrigger Binding="{Binding Project.Grid.Selected.Query}" Value="{x:Null}">
-                    <Setter Property="Visibility" Value="Collapsed"/>
-                  </DataTrigger>
-                </Style.Triggers>
-              </Style>
-            </GridSplitter.Style>
-          </GridSplitter>
-
+            Visibility="{Binding Project.Grid.Selected.Query, Converter={StaticResource visConv}}"/>
           <md:Card Grid.Row="2" Margin="0 0 0 5">
             <Grid>
-              <fa5:SvgAwesome
-                Height="30"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Icon="Solid_Spinner"
-                Spin="True">
-                <fa5:SvgAwesome.Style>
-                  <Style TargetType="{x:Type fa5:SvgAwesome}">
-                    <Setter Property="Visibility" Value="Visible"/>
-                    <Style.Triggers>
-                      <DataTrigger Binding="{Binding Project.Grid.Selected.Query}" Value="{x:Null}">
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                      </DataTrigger>
-                    </Style.Triggers>
-                  </Style>
-                </fa5:SvgAwesome.Style>
-              </fa5:SvgAwesome>
               <DataGrid
                 Name="dg"
                 Height="auto"
-                Panel.ZIndex="5"
                 AutoGenerateColumns="True"
                 IsReadOnly="True"
                 ItemsSource="{Binding Project.Grid.Selected.Query.Result}"
                 SelectedIndex="{Binding Project.Grid.Selected.DeviceIndex}"
                 SelectionMode="Single"
-                SelectionUnit="FullRow">
-                <DataGrid.Style>
-                  <Style BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="{x:Type DataGrid}">
-                    <Setter Property="Visibility" Value="Visible"/>
-                    <Style.Triggers>
-                      <DataTrigger Binding="{Binding Project.Grid.Selected.Query.Result}" Value="{x:Null}">
-                        <!--  @@warn  -->
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                      </DataTrigger>
-                    </Style.Triggers>
-                  </Style>
-                </DataGrid.Style>
+                SelectionUnit="FullRow"
+                Visibility="{Binding roject.Grid.Selected.Query.Result, Converter={StaticResource visConv}}">
                 <DataGrid.Resources>
                   <Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="DataGridCell">
                     <Style.Triggers>
@@ -785,13 +746,16 @@
                   </b:EventTrigger>
                 </b:Interaction.Triggers>
               </DataGrid>
+              <fa5:SvgAwesome
+                Height="30"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Panel.ZIndex="3"
+                Icon="Solid_Spinner"
+                Spin="True"
+                Visibility="{Binding Project.Grid.Selected.Query.Result, Converter={StaticResource visConvrev}}"/>
             </Grid>
-
-
-
-
           </md:Card>
-
         </Grid>
       </md:Card>
     </Grid>

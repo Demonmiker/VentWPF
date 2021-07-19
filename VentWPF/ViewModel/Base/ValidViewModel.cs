@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Text;
 using pt = PropertyTools.DataAnnotations;
+using PropertyChanged;
 
 namespace VentWPF.ViewModel
 {
@@ -44,6 +45,10 @@ namespace VentWPF.ViewModel
 
         public bool HasErrors { get; private set; } = false;
         [NotMapped]
+
+
+
+        [DependsOn(nameof(HasErrors))]
         [Browsable(false)]
         public string Error
         {
@@ -70,10 +75,14 @@ namespace VentWPF.ViewModel
                     }
                    
                 }
+                if(sb.Length>0)
+                    sb.Remove(sb.Length - 1, 1);
                 HasErrors = sb.Length > 0;
                 return sb.ToString();
             }
         }
+
+        
 
     }
 }
