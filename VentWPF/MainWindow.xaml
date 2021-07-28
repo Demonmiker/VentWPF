@@ -29,6 +29,142 @@
   </b:Interaction.Triggers>
   <Window.Resources>
     <!--  Ресурсы окна  -->
+    <Style
+      x:Key="under"
+      BasedOn="{StaticResource {x:Type TextBox}}"
+      TargetType="{x:Type TextBox}">
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="{x:Type TextBox}">
+            <Grid>
+              <TextBox
+                BorderBrush="Black"
+                BorderThickness="1 0 1 1.5"
+                Text="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" />
+              <Polygon
+                Margin="0 -3"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Fill="Black"
+                Points="0,0 8,4 0,8" />
+              <Polygon
+                Margin="0 -3"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Fill="Black"
+                Points="8,0 0,4 8,8" />
+            </Grid>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+      <Setter Property="TextAlignment" Value="Center" />
+    </Style>
+    <DataTemplate DataType="{x:Type vm:FrameSideVM}">
+      <Grid HorizontalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="auto" />
+          <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition />
+          <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBox
+          Grid.Column="0"
+          Width="100"
+          VerticalAlignment="Top"
+          IsReadOnly="True"
+          Style="{StaticResource under}"
+          Text="{Binding Side, Mode=OneWay}"
+          TextAlignment="Center">
+          <TextBox.RenderTransform>
+            <RotateTransform Angle="90" CenterX="50" CenterY="50" />
+          </TextBox.RenderTransform>
+        </TextBox>
+        <StackPanel Grid.Column="1" Orientation="Horizontal">
+          <ItemsControl ItemsSource="{Binding Values}">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <StackPanel Orientation="Horizontal" />
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+              <DataTemplate DataType="{x:Type vm:Box}">
+                <StackPanel Width="auto" Orientation="Vertical">
+                  <Border
+                    Width="{Binding Value}"
+                    Height="100"
+                    MinWidth="30"
+                    MaxWidth="300"
+                    Margin="-0.5 0 0 0"
+                    Background="Transparent"
+                    BorderBrush="Black"
+                    BorderThickness="1">
+                    <Border.ContextMenu>
+                      <ContextMenu>
+                        <MenuItem
+                          Command="{Binding Parent.CmdSplit}"
+                          CommandParameter="{Binding}"
+                          Header="Разделить" />
+                        <MenuItem
+                          Command="{Binding Parent.CmdDelete}"
+                          CommandParameter="{Binding}"
+                          Header="Удалить" />
+                      </ContextMenu>
+                    </Border.ContextMenu>
+                  </Border>
+                  <TextBox
+                    Background="LightBlue"
+                    Style="{StaticResource under}"
+                    Text="{Binding Value}" />
+                </StackPanel>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+        <TextBox
+          Grid.Row="1"
+          Grid.Column="1"
+          HorizontalAlignment="Stretch"
+          IsReadOnly="True"
+          Style="{StaticResource under}"
+          Text="{Binding Parent.FrameLength}" />
+      </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:FrameVM}">
+      <ScrollViewer>
+        <StackPanel Orientation="Vertical">
+          <StackPanel Margin="2 2" Orientation="Horizontal">
+            <TextBox
+              MinWidth="40"
+              Text="{Binding FrameWidth}"
+              TextAlignment="Center" />
+            <TextBlock Margin="0 4 0 0" Text="x" />
+            <TextBox
+              MinWidth="40"
+              Text="{Binding FrameHeight}"
+              TextAlignment="Center" />
+            <TextBlock Margin="0 4 0 0" Text="x" />
+            <TextBox
+              MinWidth="40"
+              Text="{Binding FrameLength}"
+              TextAlignment="Center" />
+          </StackPanel>
+          <GroupBox
+            Content="{Binding Top}"
+            Header="Верх"
+            Style="{x:Null}" />
+          <GroupBox
+            Content="{Binding Left}"
+            Header="Слева"
+            Style="{x:Null}" />
+          <GroupBox
+            Content="{Binding Right}"
+            Header="Справа"
+            Style="{x:Null}" />
+        </StackPanel>
+      </ScrollViewer>
+    </DataTemplate>
     <tl:VisibilityConverter x:Key="visConv" />
     <tl:VisibilityConverter x:Key="visConvrev" Reverse="True" />
     <tl:BrushConverter
@@ -491,134 +627,13 @@
             </TabItem.Header>
           </TabItem>
           <!--  Вкладка схема  -->
-          <TabItem>
-            <TabItem.Resources>
-              <Style
-                x:Key="under"
-                BasedOn="{StaticResource {x:Type TextBox}}"
-                TargetType="{x:Type TextBox}">
-                <Setter Property="Template">
-                  <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TextBox}">
-                      <Grid>
-                        <TextBox
-                          BorderBrush="Black"
-                          BorderThickness="1 0 1 1.5"
-                          Text="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" />
-                        <Polygon
-                          Margin="0 -3"
-                          HorizontalAlignment="Right"
-                          VerticalAlignment="Bottom"
-                          Fill="Black"
-                          Points="0,0 8,4 0,8" />
-                        <Polygon
-                          Margin="0 -3"
-                          HorizontalAlignment="Left"
-                          VerticalAlignment="Bottom"
-                          Fill="Black"
-                          Points="8,0 0,4 8,8" />
-                      </Grid>
-                    </ControlTemplate>
-                  </Setter.Value>
-                </Setter>
-                <Setter Property="TextAlignment" Value="Center" />
-              </Style>
-            </TabItem.Resources>
+          <TabItem Content="{Binding Project.Frame}">
             <TabItem.Header>
               <StackPanel>
                 <fa5:SvgAwesome Icon="Solid_BorderAll" />
                 <TextBlock Text="Схема" />
               </StackPanel>
             </TabItem.Header>
-            <ScrollViewer>
-              <StackPanel Orientation="Vertical">
-                <StackPanel.Resources>
-                  <DataTemplate DataType="{x:Type vm:FrameSideVM}">
-                    <Grid HorizontalAlignment="Stretch">
-                      <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="auto" />
-                      </Grid.ColumnDefinitions>
-                      <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                      </Grid.RowDefinitions>
-                      <TextBox
-                        Grid.Column="0"
-                        Width="100"
-                        VerticalAlignment="Top"
-                        IsReadOnly="True"
-                        Style="{StaticResource under}"
-                        Text="{Binding Side, Mode=OneWay}"
-                        TextAlignment="Center">
-                        <TextBox.RenderTransform>
-                          <RotateTransform Angle="90" CenterX="50" CenterY="50" />
-                        </TextBox.RenderTransform>
-                      </TextBox>
-                      <StackPanel Grid.Column="1" Orientation="Horizontal">
-                        <ItemsControl ItemsSource="{Binding Values}">
-                          <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                              <StackPanel Orientation="Horizontal" />
-                            </ItemsPanelTemplate>
-                          </ItemsControl.ItemsPanel>
-                          <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="{x:Type vm:Box}">
-                              <StackPanel Width="auto" Orientation="Vertical">
-                                <Border
-                                  Width="{Binding Value}"
-                                  Height="100"
-                                  MinWidth="30"
-                                  MaxWidth="300"
-                                  Margin="-0.5 0 0 0"
-                                  Background="Transparent"
-                                  BorderBrush="Black"
-                                  BorderThickness="1">
-                                  <Border.ContextMenu>
-                                    <ContextMenu>
-                                      <MenuItem
-                                        Command="{Binding Parent.CmdSplit}"
-                                        CommandParameter="{Binding}"
-                                        Header="Разделить" />
-                                      <MenuItem
-                                        Command="{Binding Parent.CmdDelete}"
-                                        CommandParameter="{Binding}"
-                                        Header="Удалить" />
-                                    </ContextMenu>
-                                  </Border.ContextMenu>
-                                </Border>
-                                <TextBox
-                                  Background="LightBlue"
-                                  Style="{StaticResource under}"
-                                  Text="{Binding Value}" />
-                              </StackPanel>
-                            </DataTemplate>
-                          </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                      </StackPanel>
-
-                      <TextBox
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        HorizontalAlignment="Stretch"
-                        IsReadOnly="True"
-                        Style="{StaticResource under}"
-                        Text="{Binding FrameLenght}" />
-                    </Grid>
-                  </DataTemplate>
-                  <Style TargetType="{x:Type GroupBox}" />
-                </StackPanel.Resources>
-                <StackPanel Orientation="Horizontal">
-                  <TextBox Text="{Binding Project.ProjectInfo.Width, Mode=OneTime}"/>
-                  <TextBox Text="{Binding Project.ProjectInfo.Width, Mode=OneTime}"/>
-                  <TextBox/>
-                </StackPanel>
-                
-                <GroupBox Content="{Binding Project.Frame.Top}" Header="Верх" />
-                <GroupBox Content="{Binding Project.Frame.Left}" Header="Слева" />
-                <GroupBox Content="{Binding Project.Frame.Right}" Header="Справа" />
-              </StackPanel>
-            </ScrollViewer>
           </TabItem>
           <!--  Вкладка отчет  -->
           <TabItem>

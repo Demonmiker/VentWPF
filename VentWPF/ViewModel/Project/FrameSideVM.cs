@@ -9,32 +9,11 @@ using VentWPF.Tools;
 
 namespace VentWPF.ViewModel
 {
-    internal class Box : BaseViewModel
-    {
-        #region Constructors
-
-        public Box(FrameSideVM parent, int value = 50)
-        {
-            this.Parent = parent;
-            this.Value = value;
-        }
-
-        #endregion
-
-        #region Properties
-
-        public int Value { get; set; }
-
-        public FrameSideVM Parent { get; set; }
-
-        #endregion
-    }
-
     internal class FrameSideVM : BaseViewModel
     {
         #region Constructors
 
-        public FrameSideVM()
+        public FrameSideVM(FrameVM parent)
         {
             CmdSplit = new(Split);
             CmdDelete = new(Delete);
@@ -47,28 +26,18 @@ namespace VentWPF.ViewModel
 
         public ObservableCollection<Box> Values { get; private set; }
 
-        public int FrameWidth { get; set; } = ProjectVM.Current.ProjectInfo.Width;
-
-        public int FrameHeight { get; set; } = ProjectVM.Current.ProjectInfo.Height;
-
-        public int FrameLenght
-        {
-            get => ProjectVM.Current.Frame.FrameLength;
-            set => ProjectVM.Current.Frame.FrameLength = value;
-        }
-
         [DependsOn(nameof(Values))]
         public int Sum => Values.Sum(x => x.Value);
 
         public bool IsTop { get; init; }
 
-        public double Side => IsTop ? ProjectVM.Current.ProjectInfo.Width : ProjectVM.Current.ProjectInfo.Height;
-
-        
+        public double Side => IsTop ? ProjectVM.Current.Frame.FrameWidth : ProjectVM.Current.Frame.FrameHeight;
 
         public Command<Box> CmdSplit { get; init; }
 
         public Command<Box> CmdDelete { get; init; }
+
+        public FrameVM Parent { get; init; }
 
         #endregion
 

@@ -6,15 +6,36 @@ using System.Threading.Tasks;
 
 namespace VentWPF.ViewModel
 {
-    class FrameVM : BaseViewModel
+    internal class FrameVM : BaseViewModel
     {
-        public FrameSideVM Top { get; init; } = new() {IsTop=true };
+        #region Constructors
 
-        public FrameSideVM Left { get; init; } = new();
+        public FrameVM(int frameLength, int frameWidth, int frameHeight)
+        {
+            FrameLength = frameLength;
+            FrameWidth = frameWidth;
+            FrameHeight = frameHeight;
+            Top = new(this) { IsTop = true };
+            Right = new(this);
+            Left = new(this);
+        }
 
-        public FrameSideVM Right { get; init; } = new();
+        #endregion
 
-        public int FrameLength { get; set; } = 500;
+        #region Properties
 
+        public FrameSideVM Top { get; init; }
+
+        public FrameSideVM Left { get; init; }
+
+        public FrameSideVM Right { get; init; }
+
+        public int FrameLength { get; set; }
+
+        public int FrameWidth { get; set; }
+
+        public int FrameHeight { get; set; }
+
+        #endregion
     }
 }
