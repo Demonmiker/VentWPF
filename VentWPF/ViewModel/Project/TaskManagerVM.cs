@@ -16,7 +16,6 @@ namespace VentWPF.ViewModel
 
         Stopwatch Sw = new Stopwatch();
 
-        [DependsOn("Tasks")]
         public int Count => Tasks.Count;
 
         public void Add(Action t)
@@ -34,7 +33,6 @@ namespace VentWPF.ViewModel
 
         void DoTasks()
         {
-            Debug.WriteLine($"TM Start");
             IsWorking = true;
             Sw.Restart();
             while(Tasks.Count>0)
@@ -43,12 +41,9 @@ namespace VentWPF.ViewModel
                 var action = Tasks[0];
                 Tasks.RemoveAt(0);
                 action.Invoke();
-                Debug.WriteLine($"Запрос :{Sw.ElapsedTicks} тик");
             }
             Sw.Stop();
-            
             IsWorking = false;
-            Debug.WriteLine($"TM Stop");
 
         }
     }

@@ -17,7 +17,7 @@ namespace VentWPF.ViewModel
             ShowPD = true;
         }
 
-        public override string Name => "Нагреватель электрический";
+        public override float GeneratedPressureDrop => 70f / (4f / (Project.VFlow / 3600f / AB));
 
         [Category(Data)]
         #region Данные
@@ -42,13 +42,12 @@ namespace VentWPF.ViewModel
 
         #endregion Данные
 
-        [Category(Info)]
+        
         #region Информация
 
-        [DisplayName("Падение давления")]
-        [FormatString(fkPa)]
-        public override float GeneratedPressureDrop => 70f / (4f / (Project.VFlow / 3600f / AB));
 
+
+        [Category(Info)]
         [DisplayName("Абс. влажность на выходе")]
         [FormatString(f2)]
         public float HumidOutAbs => (float)(0.6222f * (HumidIn / 100f) * pD / (Project.PressOut - HumidIn / 100f * pD / 1000f));
