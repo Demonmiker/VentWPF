@@ -63,6 +63,17 @@
       x:Key="brBR"
       FalseBrush="Red"
       TrueBrush="Black"/>
+    <tl:VisibilityConverter x:Key="visConv"/>
+    <tl:VisibilityConverter x:Key="visConvrev" Reverse="True"/>
+
+    <tl:BrushConverter
+      x:Key="brNR"
+      FalseBrush="{StaticResource PrimaryHueDarkBrush}"
+      TrueBrush="Red"/>
+    <tl:BrushConverter
+      x:Key="brGR"
+      FalseBrush="LimeGreen"
+      TrueBrush="Red"/>
     <DataTemplate DataType="{x:Type vm:FrameSideVM}">
       <Grid HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
@@ -98,8 +109,8 @@
                   <Border
                     Width="{Binding Value}"
                     Height="100"
-                    MinWidth="30"
-                    MaxWidth="300"
+                    MinWidth="50"
+                    MaxWidth="450"
                     Margin="-0.5 0 0 0"
                     Background="Transparent"
                     BorderBrush="Black"
@@ -114,9 +125,13 @@
                           Command="{Binding Parent.CmdDelete}"
                           CommandParameter="{Binding}"
                           Header="Удалить"/>
+                        <MenuItem
+                          Command="{Binding Parent.CmdSupport}"
+                          CommandParameter="{Binding}"
+                          Header="Добавить опору"/>
                       </ContextMenu>
                     </Border.ContextMenu>
-                    <Grid>
+                    <Grid Visibility="{Binding Support, Converter={StaticResource visConv}}">
                       <Grid.RowDefinitions>
                         <RowDefinition Height="35*"/>
                         <RowDefinition Height="65*"/>
@@ -134,10 +149,14 @@
                             <RotateTransform Angle="90" CenterX="15" CenterY="15"/>
                           </TextBox.RenderTransform>
                         </TextBox>
-                       
                       </Border>
-                      <TextBox Text="20" Background="Transparent" VerticalAlignment="Center" Margin="10 0" BorderThickness="0"/>
-                      
+                      <TextBox
+                        Margin="10 0"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Text="{Binding Support}"/>
+
 
                     </Grid>
 
@@ -195,17 +214,7 @@
         </StackPanel>
       </ScrollViewer>
     </DataTemplate>
-    <tl:VisibilityConverter x:Key="visConv"/>
-    <tl:VisibilityConverter x:Key="visConvrev" Reverse="True"/>
 
-    <tl:BrushConverter
-      x:Key="brNR"
-      FalseBrush="{StaticResource PrimaryHueDarkBrush}"
-      TrueBrush="Red"/>
-    <tl:BrushConverter
-      x:Key="brGR"
-      FalseBrush="LimeGreen"
-      TrueBrush="Red"/>
     <Style BasedOn="{StaticResource {x:Type ToolTip}}" TargetType="ToolTip">
       <Style.Triggers>
         <Trigger Property="Content" Value="{x:Static sys:String.Empty}">

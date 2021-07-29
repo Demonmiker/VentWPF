@@ -14,11 +14,19 @@
 
         #region Properties
 
-        public FrameSideVM parent;
+        private FrameSideVM parent;
+
+
+        public FrameSideVM Parent
+        {
+            get { return parent; }
+            set { parent = value; }
+        }
+
 
         private uint value;
 
-        public uint Support { get; set; } = 10;
+        public uint Support { get; set; }
 
         public uint Value
         {

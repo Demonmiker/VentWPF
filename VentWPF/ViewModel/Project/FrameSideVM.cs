@@ -13,7 +13,8 @@ namespace VentWPF.ViewModel
         {
             CmdSplit = new(Split);
             CmdDelete = new(Delete);
-            Values = new() { new(this) };
+            CmdSupport = new(AddSupport) { predicate = CanAddSupport };
+            Values = new() { new(this),new(this) { Support = 25 } };
             ValuesChanged();
         }
 
@@ -43,6 +44,8 @@ namespace VentWPF.ViewModel
 
         public Command<Box> CmdDelete { get; init; }
 
+        public Command<Box> CmdSupport { get; init; }
+
         #endregion
 
         #region Methods
@@ -60,6 +63,17 @@ namespace VentWPF.ViewModel
         private void Delete(Box b)
         {
             Values.Remove(b);
+        }
+
+        private void AddSupport(Box b)
+        {
+            Values.First(x => b == x).Support = 25;
+        }
+
+        private bool CanAddSupport(Box b)
+        {
+            if (b == null) return true;
+            return Values.First(x => b == x).Support == 0;
         }
 
         #endregion
