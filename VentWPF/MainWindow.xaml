@@ -20,11 +20,11 @@
   WindowState="Maximized"
   mc:Ignorable="d">
   <Window.DataContext>
-    <vm:MainViewModel />
+    <vm:MainViewModel/>
   </Window.DataContext>
   <b:Interaction.Triggers>
     <b:EventTrigger EventName="Closed">
-      <b:InvokeCommandAction Command="{Binding CmdWindowClosed}" PassEventArgsToCommand="True" />
+      <b:InvokeCommandAction Command="{Binding CmdWindowClosed}" PassEventArgsToCommand="True"/>
     </b:EventTrigger>
   </b:Interaction.Triggers>
   <Window.Resources>
@@ -40,34 +40,38 @@
               <TextBox
                 BorderBrush="Black"
                 BorderThickness="1 0 1 1.5"
-                Text="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" />
+                Text="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
               <Polygon
                 Margin="0 -3"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Fill="Black"
-                Points="0,0 8,4 0,8" />
+                Points="0,0 8,4 0,8"/>
               <Polygon
                 Margin="0 -3"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
                 Fill="Black"
-                Points="8,0 0,4 8,8" />
+                Points="8,0 0,4 8,8"/>
             </Grid>
           </ControlTemplate>
         </Setter.Value>
       </Setter>
-      <Setter Property="TextAlignment" Value="Center" />
+      <Setter Property="TextAlignment" Value="Center"/>
     </Style>
+    <tl:BrushConverter
+      x:Key="brBR"
+      FalseBrush="Red"
+      TrueBrush="Black"/>
     <DataTemplate DataType="{x:Type vm:FrameSideVM}">
       <Grid HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="auto" />
-          <ColumnDefinition Width="auto" />
+          <ColumnDefinition Width="auto"/>
+          <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-          <RowDefinition />
-          <RowDefinition />
+          <RowDefinition/>
+          <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBox
           Grid.Column="0"
@@ -78,14 +82,14 @@
           Text="{Binding Side, Mode=OneWay}"
           TextAlignment="Center">
           <TextBox.RenderTransform>
-            <RotateTransform Angle="90" CenterX="50" CenterY="50" />
+            <RotateTransform Angle="90" CenterX="50" CenterY="50"/>
           </TextBox.RenderTransform>
         </TextBox>
         <StackPanel Grid.Column="1" Orientation="Horizontal">
           <ItemsControl ItemsSource="{Binding Values}">
             <ItemsControl.ItemsPanel>
               <ItemsPanelTemplate>
-                <StackPanel Orientation="Horizontal" />
+                <StackPanel Orientation="Horizontal"/>
               </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
@@ -99,24 +103,49 @@
                     Margin="-0.5 0 0 0"
                     Background="Transparent"
                     BorderBrush="Black"
-                    BorderThickness="1">
+                    BorderThickness="2">
                     <Border.ContextMenu>
                       <ContextMenu>
                         <MenuItem
                           Command="{Binding Parent.CmdSplit}"
                           CommandParameter="{Binding}"
-                          Header="Разделить" />
+                          Header="Разделить"/>
                         <MenuItem
                           Command="{Binding Parent.CmdDelete}"
                           CommandParameter="{Binding}"
-                          Header="Удалить" />
+                          Header="Удалить"/>
                       </ContextMenu>
                     </Border.ContextMenu>
+                    <Grid>
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="35*"/>
+                        <RowDefinition Height="65*"/>
+                      </Grid.RowDefinitions>
+                      <Border BorderBrush="Black" BorderThickness="0 0 0 1">
+                        <TextBox
+                          Width="35"
+                          Height="30"
+                          Margin="5 -1 0 0"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Top"
+                          IsReadOnly="True"
+                          Style="{StaticResource under}">
+                          <TextBox.RenderTransform>
+                            <RotateTransform Angle="90" CenterX="15" CenterY="15"/>
+                          </TextBox.RenderTransform>
+                        </TextBox>
+                       
+                      </Border>
+                      <TextBox Text="20" Background="Transparent" VerticalAlignment="Center" Margin="10 0" BorderThickness="0"/>
+                      
+
+                    </Grid>
+
                   </Border>
                   <TextBox
                     Background="LightBlue"
                     Style="{StaticResource under}"
-                    Text="{Binding Value}" />
+                    Text="{Binding Value}"/>
                 </StackPanel>
               </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -126,9 +155,10 @@
           Grid.Row="1"
           Grid.Column="1"
           HorizontalAlignment="Stretch"
+          Foreground="{Binding RightSize, Converter={StaticResource brBR}}"
           IsReadOnly="True"
           Style="{StaticResource under}"
-          Text="{Binding Parent.FrameLength}" />
+          Text="{Binding Sum, Mode=OneWay}"/>
       </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:FrameVM}">
@@ -137,87 +167,88 @@
           <StackPanel Margin="2 2" Orientation="Horizontal">
             <TextBox
               MinWidth="40"
-              Text="{Binding FrameWidth}"
-              TextAlignment="Center" />
-            <TextBlock Margin="0 4 0 0" Text="x" />
+              Text="{Binding Width}"
+              TextAlignment="Center"/>
+            <TextBlock Margin="0 4 0 0" Text="x"/>
             <TextBox
               MinWidth="40"
-              Text="{Binding FrameHeight}"
-              TextAlignment="Center" />
-            <TextBlock Margin="0 4 0 0" Text="x" />
+              Text="{Binding Height}"
+              TextAlignment="Center"/>
+            <TextBlock Margin="0 4 0 0" Text="x"/>
             <TextBox
               MinWidth="40"
-              Text="{Binding FrameLength}"
-              TextAlignment="Center" />
+              Text="{Binding Length}"
+              TextAlignment="Center"/>
           </StackPanel>
           <GroupBox
             Content="{Binding Top}"
-            Header="Верх"
-            Style="{x:Null}" />
+            Header="Верхняя"
+            Style="{x:Null}"/>
           <GroupBox
             Content="{Binding Left}"
-            Header="Слева"
-            Style="{x:Null}" />
+            Header="Левая"
+            Style="{x:Null}"/>
           <GroupBox
             Content="{Binding Right}"
-            Header="Справа"
-            Style="{x:Null}" />
+            Header="Правая"
+            Style="{x:Null}"/>
         </StackPanel>
       </ScrollViewer>
     </DataTemplate>
-    <tl:VisibilityConverter x:Key="visConv" />
-    <tl:VisibilityConverter x:Key="visConvrev" Reverse="True" />
+    <tl:VisibilityConverter x:Key="visConv"/>
+    <tl:VisibilityConverter x:Key="visConvrev" Reverse="True"/>
+
     <tl:BrushConverter
       x:Key="brNR"
       FalseBrush="{StaticResource PrimaryHueDarkBrush}"
-      TrueBrush="Red" />
+      TrueBrush="Red"/>
     <tl:BrushConverter
       x:Key="brGR"
       FalseBrush="LimeGreen"
-      TrueBrush="Red" />
+      TrueBrush="Red"/>
     <Style BasedOn="{StaticResource {x:Type ToolTip}}" TargetType="ToolTip">
       <Style.Triggers>
         <Trigger Property="Content" Value="{x:Static sys:String.Empty}">
-          <Setter Property="Visibility" Value="Collapsed" />
+          <Setter Property="Visibility" Value="Collapsed"/>
         </Trigger>
         <Trigger Property="Content" Value="{x:Null}">
-          <Setter Property="Visibility" Value="Collapsed" />
+          <Setter Property="Visibility" Value="Collapsed"/>
         </Trigger>
       </Style.Triggers>
     </Style>
     <Style TargetType="{x:Type Image}">
-      <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+      <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
     </Style>
     <Style x:Key="PopupMenu" TargetType="Popup">
-      <Setter Property="AllowsTransparency" Value="True" />
-      <Setter Property="Placement" Value="Relative" />
+      <Setter Property="AllowsTransparency" Value="True"/>
+      <Setter Property="Placement" Value="Relative"/>
 
-      <Setter Property="StaysOpen" Value="False" />
+      <Setter Property="StaysOpen" Value="False"/>
     </Style>
     <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="{x:Type Button}">
-      <Setter Property="Height" Value="75" />
-      <Setter Property="Width" Value="75" />
+      <Setter Property="Height" Value="75"/>
+      <Setter Property="Width" Value="75"/>
     </Style>
     <Style BasedOn="{StaticResource MaterialDesignGroupBox}" TargetType="GroupBox">
-      <Setter Property="FontSize" Value="13" />
+      <Setter Property="FontSize" Value="13"/>
     </Style>
   </Window.Resources>
   <DockPanel>
     <Menu DockPanel.Dock="Top">
       <MenuItem Header="Файл">
-        <MenuItem Command="{Binding CmdSave}" Header="Сохранить" />
-        <MenuItem Command="{Binding CmdLoad}" Header="Загрузить" />
+        <MenuItem Command="{Binding CmdSave}" Header="Сохранить"/>
+        <MenuItem Command="{Binding CmdLoad}" Header="Загрузить"/>
       </MenuItem>
       <MenuItem Header="Настройки">
-        <MenuItem Command="{Binding CmdConfig}" Header="Запрос" />
-        <MenuItem Command="{Binding CmdLoad}" Header="Интерфейс" />
-        <MenuItem Command="{Binding CmdLoad}" Header="Интерфейс" />
+        <MenuItem Command="{Binding CmdConfig}" Header="Запрос"/>
+        <MenuItem Command="{Binding CmdLoad}" Header="Интерфейс"/>
+        <MenuItem Command="{Binding CmdLoad}" Header="Интерфейс"/>
       </MenuItem>
     </Menu>
     <StatusBar DockPanel.Dock="Bottom">
       <TextBlock>
-        <Run Text="Очередь запросов" />
-        <Run Text="{Binding Project.TaskManager.Count, Mode=OneWay}" />
+        <Run Text="Очередь запросов"/>
+        <Run Text="{Binding Project.TaskManager.Count, Mode=OneWay}"/>
       </TextBlock>
       <fa5:SvgAwesome
         Width="20"
@@ -225,10 +256,10 @@
         Foreground="{Binding Project.ErrorManager.HasErrors, Converter={StaticResource brGR}}">
         <fa5:SvgAwesome.Style>
           <Style TargetType="{x:Type fa5:SvgAwesome}">
-            <Setter Property="Icon" Value="Solid_ExclamationTriangle" />
+            <Setter Property="Icon" Value="Solid_ExclamationTriangle"/>
             <Style.Triggers>
               <DataTrigger Binding="{Binding Project.ErrorManager.HasErrors}" Value="false">
-                <Setter Property="Icon" Value="Solid_CheckCircle" />
+                <Setter Property="Icon" Value="Solid_CheckCircle"/>
               </DataTrigger>
             </Style.Triggers>
           </Style>
@@ -237,17 +268,17 @@
     </StatusBar>
     <Grid Margin="0 0 0 0">
       <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="5*" MinWidth="600" />
+        <ColumnDefinition Width="5*" MinWidth="600"/>
         <ColumnDefinition Width="2*">
           <ColumnDefinition.Style>
             <Style TargetType="{x:Type ColumnDefinition}">
-              <Setter Property="MaxWidth" Value="800" />
-              <Setter Property="MinWidth" Value="400" />
+              <Setter Property="MaxWidth" Value="800"/>
+              <Setter Property="MinWidth" Value="400"/>
               <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=Project.Grid.Selected.Name}" Value="">
-                  <Setter Property="MaxWidth" Value="25" />
-                  <Setter Property="MinWidth" Value="25" />
-                  <Setter Property="Width" Value="25" />
+                  <Setter Property="MaxWidth" Value="25"/>
+                  <Setter Property="MinWidth" Value="25"/>
+                  <Setter Property="Width" Value="25"/>
                 </DataTrigger>
               </Style.Triggers>
             </Style>
@@ -260,7 +291,7 @@
         HorizontalAlignment="Right"
         Panel.ZIndex="2"
         Background="Transparent"
-        Visibility="{Binding Project.Grid.Selected.Name, Converter={StaticResource visConv}}" />
+        Visibility="{Binding Project.Grid.Selected.Name, Converter={StaticResource visConv}}"/>
       <DockPanel>
         <!--  Верхняя панель для содания элементов  -->
         <md:Card Background="LightGray" DockPanel.Dock="Top">
@@ -272,50 +303,50 @@
               Orientation="Horizontal">
               <StackPanel.Resources>
 
-                <vm:Valve_Hor x:Key="Valve_Hor" />
-                <vm:Valve_Hor_Heat x:Key="Valve_Hor_Heat" />
-                <vm:Valve_Ver x:Key="Valve_Ver" />
-                <vm:Valve_Ver_Heat x:Key="Valve_Ver_Heat" />
+                <vm:Valve_Hor x:Key="Valve_Hor"/>
+                <vm:Valve_Hor_Heat x:Key="Valve_Hor_Heat"/>
+                <vm:Valve_Ver x:Key="Valve_Ver"/>
+                <vm:Valve_Ver_Heat x:Key="Valve_Ver_Heat"/>
 
-                <vm:Heater_Water x:Key="Heater_Water" />
-                <vm:Heater_Gas x:Key="Heater_Gas" />
-                <vm:Heater_Electric x:Key="Heater_Elec" />
+                <vm:Heater_Water x:Key="Heater_Water"/>
+                <vm:Heater_Gas x:Key="Heater_Gas"/>
+                <vm:Heater_Electric x:Key="Heater_Elec"/>
 
-                <vm:Cooler_Fr x:Key="Cooler_Fr" />
-                <vm:Cooler_Water x:Key="Cooler_Water" />
+                <vm:Cooler_Fr x:Key="Cooler_Fr"/>
+                <vm:Cooler_Water x:Key="Cooler_Water"/>
 
-                <vm:Filter_Section x:Key="Filter_Section" />
-                <vm:Filter_Short x:Key="Filter_Short" />
-                <vm:Filter_Valve x:Key="Filter_Valve" />
+                <vm:Filter_Section x:Key="Filter_Section"/>
+                <vm:Filter_Short x:Key="Filter_Short"/>
+                <vm:Filter_Valve x:Key="Filter_Valve"/>
 
-                <vm:Muffler_Classic x:Key="Muffler_Classic" />
-                <vm:Muffler_Corrector x:Key="Muffler_Corrector" />
+                <vm:Muffler_Classic x:Key="Muffler_Classic"/>
+                <vm:Muffler_Corrector x:Key="Muffler_Corrector"/>
 
-                <vm:Humid_Cell x:Key="Humid_Cell" />
-                <vm:Humid_Spray x:Key="Humid_Spray" />
-                <vm:Humid_Steam x:Key="Humid_Steam" />
+                <vm:Humid_Cell x:Key="Humid_Cell"/>
+                <vm:Humid_Spray x:Key="Humid_Spray"/>
+                <vm:Humid_Steam x:Key="Humid_Steam"/>
 
-                <vm:Section_Straight x:Key="Section_Straight" />
-                <vm:Section_Down x:Key="Section_Down" />
-                <vm:Section_Down_Reverse x:Key="Section_Down_Reverse" />
-                <vm:Section_Up x:Key="Section_Up" />
+                <vm:Section_Straight x:Key="Section_Straight"/>
+                <vm:Section_Down x:Key="Section_Down"/>
+                <vm:Section_Down_Reverse x:Key="Section_Down_Reverse"/>
+                <vm:Section_Up x:Key="Section_Up"/>
 
-                <vm:Fan_C x:Key="FanC_LR" Direction="LeftRight" />
-                <vm:Fan_C x:Key="FanC_RL" Direction="RightLeft" />
-                <vm:Fan_C x:Key="FanC_LU" Direction="LeftUp" />
-                <vm:Fan_C x:Key="FanC_UL" Direction="UpLeft" />
+                <vm:Fan_C x:Key="FanC_LR" Direction="LeftRight"/>
+                <vm:Fan_C x:Key="FanC_RL" Direction="RightLeft"/>
+                <vm:Fan_C x:Key="FanC_LU" Direction="LeftUp"/>
+                <vm:Fan_C x:Key="FanC_UL" Direction="UpLeft"/>
 
                 <Style TargetType="Grid">
-                  <Setter Property="Margin" Value="3 5 2 5" />
+                  <Setter Property="Margin" Value="3 5 2 5"/>
                 </Style>
                 <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="{x:Type Button}">
-                  <Setter Property="Height" Value="80" />
-                  <Setter Property="Margin" Value="1" />
-                  <Setter Property="VerticalAlignment" Value="Top" />
-                  <Setter Property="Width" Value="80" />
+                  <Setter Property="Height" Value="80"/>
+                  <Setter Property="Margin" Value="1"/>
+                  <Setter Property="VerticalAlignment" Value="Top"/>
+                  <Setter Property="Width" Value="80"/>
                 </Style>
                 <Style BasedOn="{x:Null}" TargetType="{x:Type Image}">
-                  <Setter Property="Margin" Value="-16" />
+                  <Setter Property="Margin" Value="-16"/>
                 </Style>
               </StackPanel.Resources>
               <!--  Клапаны  -->
@@ -323,21 +354,21 @@
                 <Popup x:Name="Valves" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="4">
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Valve_Hor}">
-                      <Image DataContext="{StaticResource Valve_Hor}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource Valve_Hor}" Source="{Binding Image}"/>
                     </Button>
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Valve_Hor_Heat}">
-                      <Image DataContext="{StaticResource Valve_Hor_Heat}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource Valve_Hor_Heat}" Source="{Binding Image}"/>
                     </Button>
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Valve_Ver}">
-                      <Image DataContext="{StaticResource Valve_Ver}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource Valve_Ver}" Source="{Binding Image}"/>
                     </Button>
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Valve_Ver_Heat}">
-                      <Image DataContext="{StaticResource Valve_Ver_Heat}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource Valve_Ver_Heat}" Source="{Binding Image}"/>
                     </Button>
                   </UniformGrid>
                 </Popup>
                 <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Valves}">
-                  <Image Source="{Binding HeaderImages.Valves}" />
+                  <Image Source="{Binding HeaderImages.Valves}"/>
                 </Button>
               </Grid>
               <!--  Фильтры  -->
@@ -345,18 +376,18 @@
                 <Popup x:Name="Filters" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="3">
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Filter_Section}">
-                      <Image DataContext="{StaticResource Filter_Section}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource Filter_Section}" Source="{Binding Image}"/>
                     </Button>
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Filter_Short}">
-                      <Image DataContext="{StaticResource Filter_Short}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource Filter_Short}" Source="{Binding Image}"/>
                     </Button>
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Filter_Valve}">
-                      <Image DataContext="{StaticResource Filter_Valve}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource Filter_Valve}" Source="{Binding Image}"/>
                     </Button>
                   </UniformGrid>
                 </Popup>
                 <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Filters}">
-                  <Image Source="{Binding HeaderImages.Filters}" />
+                  <Image Source="{Binding HeaderImages.Filters}"/>
                 </Button>
               </Grid>
               <!--  Нагреватели  -->
@@ -364,18 +395,18 @@
                 <Popup x:Name="Heaters" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="3">
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Heater_Water}">
-                      <Image DataContext="{StaticResource Heater_Water}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource Heater_Water}" Source="{Binding Image}"/>
                     </Button>
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Heater_Gas}">
-                      <Image DataContext="{StaticResource Heater_Gas}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource Heater_Gas}" Source="{Binding Image}"/>
                     </Button>
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Heater_Elec}">
-                      <Image DataContext="{StaticResource Heater_Elec}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource Heater_Elec}" Source="{Binding Image}"/>
                     </Button>
                   </UniformGrid>
                 </Popup>
                 <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Heaters}">
-                  <Image Source="{Binding HeaderImages.Heaters}" />
+                  <Image Source="{Binding HeaderImages.Heaters}"/>
                 </Button>
               </Grid>
               <!--  Охладители  -->
@@ -383,15 +414,15 @@
                 <Popup x:Name="Coolers" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="2">
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Cooler_Water}">
-                      <Image DataContext="{StaticResource Cooler_Water}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource Cooler_Water}" Source="{Binding Image}"/>
                     </Button>
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Cooler_Fr}">
-                      <Image DataContext="{StaticResource Cooler_Fr}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource Cooler_Fr}" Source="{Binding Image}"/>
                     </Button>
                   </UniformGrid>
                 </Popup>
                 <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Coolers}">
-                  <Image Source="{Binding HeaderImages.Coolers}" />
+                  <Image Source="{Binding HeaderImages.Coolers}"/>
                 </Button>
               </Grid>
               <!--  Вентилятор1  -->
@@ -399,21 +430,21 @@
                 <Popup x:Name="Fans_C" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="4">
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource FanC_LR}">
-                      <Image DataContext="{StaticResource FanC_LR}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource FanC_LR}" Source="{Binding Image}"/>
                     </Button>
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource FanC_LU}">
-                      <Image DataContext="{StaticResource FanC_LU}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource FanC_LU}" Source="{Binding Image}"/>
                     </Button>
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource FanC_RL}">
-                      <Image DataContext="{StaticResource FanC_RL}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource FanC_RL}" Source="{Binding Image}"/>
                     </Button>
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource FanC_UL}">
-                      <Image DataContext="{StaticResource FanC_UL}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource FanC_UL}" Source="{Binding Image}"/>
                     </Button>
                   </UniformGrid>
                 </Popup>
                 <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Fans_C}">
-                  <Image Source="{Binding HeaderImages.Fans_C}" />
+                  <Image Source="{Binding HeaderImages.Fans_C}"/>
                 </Button>
               </Grid>
               <!--  Вентилятор2  -->
@@ -421,12 +452,12 @@
                 <Popup x:Name="Fans_P" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="1">
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource FanC_LR}">
-                      <Image DataContext="{StaticResource FanC_LR}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource FanC_LR}" Source="{Binding Image}"/>
                     </Button>
                   </UniformGrid>
                 </Popup>
                 <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Fans_P}">
-                  <Image Source="{Binding HeaderImages.Fans_P}" />
+                  <Image Source="{Binding HeaderImages.Fans_P}"/>
                 </Button>
               </Grid>
               <!--  Вентилятор3  -->
@@ -434,12 +465,12 @@
                 <Popup x:Name="Fans_K3G" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="1">
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource FanC_LR}">
-                      <Image DataContext="{StaticResource FanC_LR}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource FanC_LR}" Source="{Binding Image}"/>
                     </Button>
                   </UniformGrid>
                 </Popup>
                 <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Fans_K3G}">
-                  <Image Source="{Binding HeaderImages.Fans_K3G}" />
+                  <Image Source="{Binding HeaderImages.Fans_K3G}"/>
                 </Button>
               </Grid>
               <!--  Секции  -->
@@ -447,21 +478,21 @@
                 <Popup x:Name="Sections" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="4">
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Section_Straight}">
-                      <Image DataContext="{StaticResource Section_Straight}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource Section_Straight}" Source="{Binding Image}"/>
                     </Button>
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Section_Down}">
-                      <Image DataContext="{StaticResource Section_Down}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource Section_Down}" Source="{Binding Image}"/>
                     </Button>
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Section_Up}">
-                      <Image DataContext="{StaticResource Section_Up}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource Section_Up}" Source="{Binding Image}"/>
                     </Button>
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Section_Down_Reverse}">
-                      <Image DataContext="{StaticResource Section_Down_Reverse}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource Section_Down_Reverse}" Source="{Binding Image}"/>
                     </Button>
                   </UniformGrid>
                 </Popup>
                 <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Sections}">
-                  <Image Source="{Binding HeaderImages.Sections}" />
+                  <Image Source="{Binding HeaderImages.Sections}"/>
                 </Button>
               </Grid>
               <!--  Шумоподавители  -->
@@ -469,15 +500,15 @@
                 <Popup x:Name="Mufflers" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="2">
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Muffler_Classic}">
-                      <Image DataContext="{StaticResource Muffler_Classic}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource Muffler_Classic}" Source="{Binding Image}"/>
                     </Button>
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Muffler_Corrector}">
-                      <Image DataContext="{StaticResource Muffler_Corrector}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource Muffler_Corrector}" Source="{Binding Image}"/>
                     </Button>
                   </UniformGrid>
                 </Popup>
                 <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Mufflers}">
-                  <Image Source="{Binding HeaderImages.Muffers}" />
+                  <Image Source="{Binding HeaderImages.Muffers}"/>
                 </Button>
               </Grid>
               <!--  Увлажнители  -->
@@ -485,34 +516,34 @@
                 <Popup x:Name="Humids" Style="{StaticResource PopupMenu}">
                   <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="3">
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Humid_Cell}">
-                      <Image DataContext="{StaticResource Humid_Cell}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource Humid_Cell}" Source="{Binding Image}"/>
                     </Button>
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Humid_Spray}">
-                      <Image DataContext="{StaticResource Humid_Spray}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource Humid_Spray}" Source="{Binding Image}"/>
                     </Button>
                     <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource Humid_Steam}">
-                      <Image DataContext="{StaticResource Humid_Steam}" Source="{Binding Image}" />
+                      <Image DataContext="{StaticResource Humid_Steam}" Source="{Binding Image}"/>
                     </Button>
                   </UniformGrid>
                 </Popup>
                 <Button Command="{Binding CmdOpenPopup}" CommandParameter="{Binding ElementName=Humids}">
-                  <Image Source="{Binding HeaderImages.Humidifiers}" />
+                  <Image Source="{Binding HeaderImages.Humidifiers}"/>
                 </Button>
               </Grid>
               <!--  Рекуператоры  -->
               <Grid ToolTip="Рекуператоры">
                 <Grid.Style>
                   <Style BasedOn="{StaticResource {x:Type Grid}}" TargetType="{x:Type Grid}">
-                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Setter Property="Visibility" Value="Collapsed"/>
                     <Style.Triggers>
                       <DataTrigger Binding="{Binding Project.ProjectInfo.Rows}" Value="Row2">
-                        <Setter Property="Visibility" Value="Visible" />
+                        <Setter Property="Visibility" Value="Visible"/>
                       </DataTrigger>
                     </Style.Triggers>
                   </Style>
                 </Grid.Style>
                 <Button>
-                  <Image Source="{Binding HeaderImages.Recuperators}" />
+                  <Image Source="{Binding HeaderImages.Recuperators}"/>
                 </Button>
               </Grid>
             </StackPanel>
@@ -531,14 +562,14 @@
               SelectedItem="{Binding Project.Grid.Selected}">
               <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                  <UniformGrid Columns="10" Rows="2" />
+                  <UniformGrid Columns="10" Rows="2"/>
                 </ItemsPanelTemplate>
               </ListBox.ItemsPanel>
               <ListBox.ItemContainerStyle>
                 <Style BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="{x:Type ListBoxItem}">
                   <Style.Triggers>
                     <Trigger Property="IsSelected" Value="True">
-                      <Setter Property="Background" Value="{DynamicResource PrimaryHueLightBrush}" />
+                      <Setter Property="Background" Value="{DynamicResource PrimaryHueLightBrush}"/>
                     </Trigger>
                   </Style.Triggers>
                 </Style>
@@ -546,7 +577,7 @@
               <ListBox.ItemTemplate>
                 <DataTemplate DataType="ElementVM">
                   <Grid Margin="-6">
-                    <Image Source="{Binding Image}" ToolTip="{Binding Name}" />
+                    <Image Source="{Binding Image}" ToolTip="{Binding Name}"/>
                     <Border
                       Width="auto"
                       Background="Transparent"
@@ -558,7 +589,7 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Bottom"
                         Foreground="Red"
-                        Icon="Solid_ExclamationCircle" />
+                        Icon="Solid_ExclamationCircle"/>
                     </Border>
                   </Grid>
                 </DataTemplate>
@@ -570,34 +601,34 @@
           Height="3"
           HorizontalAlignment="Stretch"
           DockPanel.Dock="Bottom"
-          Fill="{DynamicResource PrimaryHueDarkBrush}" />
+          Fill="{DynamicResource PrimaryHueDarkBrush}"/>
         <Rectangle
           Height="3"
           HorizontalAlignment="Stretch"
           DockPanel.Dock="Top"
-          Fill="{DynamicResource PrimaryHueDarkBrush}" />
+          Fill="{DynamicResource PrimaryHueDarkBrush}"/>
         <!--  Основная панель  -->
         <TabControl Margin="0 2 0 0">
           <TabControl.Resources>
             <Style TargetType="{x:Type StackPanel}">
-              <Setter Property="Orientation" Value="Horizontal" />
+              <Setter Property="Orientation" Value="Horizontal"/>
             </Style>
             <Style TargetType="{x:Type fa5:SvgAwesome}">
-              <Setter Property="Foreground" Value="{StaticResource PrimaryHueDarkBrush}" />
-              <Setter Property="Height" Value="12" />
-              <Setter Property="Margin" Value="2 0 2 0" />
+              <Setter Property="Foreground" Value="{StaticResource PrimaryHueDarkBrush}"/>
+              <Setter Property="Height" Value="12"/>
+              <Setter Property="Margin" Value="2 0 2 0"/>
             </Style>
           </TabControl.Resources>
           <!--  Вкладка проект  -->
           <TabItem>
             <TabItem.Header>
               <StackPanel ToolTip="{Binding Project.ProjectInfo.Error}">
-                <fa5:SvgAwesome Foreground="{StaticResource PrimaryHueDarkBrush}" Icon="Solid_Bars" />
-                <TextBlock Text="Проект" />
+                <fa5:SvgAwesome Foreground="{StaticResource PrimaryHueDarkBrush}" Icon="Solid_Bars"/>
+                <TextBlock Text="Проект"/>
                 <fa5:SvgAwesome
                   Foreground="Red"
                   Icon="Solid_ExclamationCircle"
-                  Visibility="{Binding Project.ProjectInfo.HasErrors}" />
+                  Visibility="{Binding Project.ProjectInfo.HasErrors}"/>
               </StackPanel>
             </TabItem.Header>
             <pt:PropertyGrid
@@ -605,63 +636,63 @@
               HorizontalAlignment="Left"
               EnumAsRadioButtonsLimit="1"
               SelectedObject="{Binding Project.ProjectInfo}"
-              ShowDeclaredOnly="True" />
+              ShowDeclaredOnly="True"/>
           </TabItem>
           <!--  Вкладка информация  -->
-          <TabItem>
+          <TabItem Visibility="Collapsed">
             <TabItem.Header>
               <StackPanel>
-                <fa5:SvgAwesome Icon="Solid_List" />
-                <TextBlock Text="Инфо" />
+                <fa5:SvgAwesome Icon="Solid_List"/>
+                <TextBlock Text="Инфо"/>
               </StackPanel>
             </TabItem.Header>
-            <ContentControl Content="{Binding ElementAsDocument}" />
+            <ContentControl Content="{Binding ElementAsDocument}"/>
           </TabItem>
           <!--  Вкладка графики  -->
-          <TabItem>
+          <TabItem Visibility="Collapsed">
             <TabItem.Header>
               <StackPanel>
-                <fa5:SvgAwesome Icon="Solid_ChartLine" />
-                <TextBlock Text="График" />
+                <fa5:SvgAwesome Icon="Solid_ChartLine"/>
+                <TextBlock Text="График"/>
               </StackPanel>
             </TabItem.Header>
           </TabItem>
-          <!--  Вкладка схема  -->
+          <!--  Вкладка каркас  -->
           <TabItem Content="{Binding Project.Frame}">
             <TabItem.Header>
               <StackPanel>
-                <fa5:SvgAwesome Icon="Solid_BorderAll" />
-                <TextBlock Text="Схема" />
+                <fa5:SvgAwesome Icon="Solid_BorderAll"/>
+                <TextBlock Text="Каркас"/>
               </StackPanel>
             </TabItem.Header>
           </TabItem>
           <!--  Вкладка отчет  -->
-          <TabItem>
+          <TabItem Visibility="Collapsed">
             <TabItem.Header>
               <StackPanel>
-                <fa5:SvgAwesome Icon="Solid_FileWord" />
-                <TextBlock Text="Отчет" />
+                <fa5:SvgAwesome Icon="Solid_FileWord"/>
+                <TextBlock Text="Отчет"/>
               </StackPanel>
             </TabItem.Header>
             <FlowDocumentScrollViewer>
-              <FlowDocument />
+              <FlowDocument/>
             </FlowDocumentScrollViewer>
           </TabItem>
           <!--  Вкладка электроника  -->
-          <TabItem>
+          <TabItem Visibility="Collapsed">
             <TabItem.Header>
               <StackPanel>
-                <fa5:SvgAwesome Icon="Solid_Microchip" />
-                <TextBlock Text="Электроника" />
+                <fa5:SvgAwesome Icon="Solid_Microchip"/>
+                <TextBlock Text="Электроника"/>
               </StackPanel>
             </TabItem.Header>
           </TabItem>
           <!--  Вкладка 3D  -->
-          <TabItem>
+          <TabItem Visibility="Collapsed">
             <TabItem.Header>
               <StackPanel>
-                <fa5:SvgAwesome Icon="Solid_Cube" />
-                <TextBlock Text="3D" />
+                <fa5:SvgAwesome Icon="Solid_Cube"/>
+                <TextBlock Text="3D"/>
               </StackPanel>
             </TabItem.Header>
           </TabItem>
@@ -669,11 +700,11 @@
           <TabItem>
             <TabItem.Header>
               <StackPanel>
-                <fa5:SvgAwesome Icon="Solid_Bug" />
-                <TextBlock Text="Debug" />
+                <fa5:SvgAwesome Icon="Solid_Bug"/>
+                <TextBlock Text="Debug"/>
               </StackPanel>
             </TabItem.Header>
-            <ListBox ItemsSource="{Binding Project.ErrorManager.Errors}" />
+            <ListBox ItemsSource="{Binding Project.ErrorManager.Errors}"/>
           </TabItem>
         </TabControl>
       </DockPanel>
@@ -682,19 +713,19 @@
         <Grid Margin="0 2 0 0" Visibility="{Binding Project.Grid.Selected.Name, Converter={StaticResource visConv}}">
 
           <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="2*" />
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="2*"/>
             <RowDefinition>
               <RowDefinition.Style>
                 <Style TargetType="{x:Type RowDefinition}">
-                  <Setter Property="Height" Value="*" />
-                  <Setter Property="MaxHeight" Value="600" />
-                  <Setter Property="MinHeight" Value="155" />
+                  <Setter Property="Height" Value="*"/>
+                  <Setter Property="MaxHeight" Value="600"/>
+                  <Setter Property="MinHeight" Value="155"/>
                   <Style.Triggers>
                     <DataTrigger Binding="{Binding Project.Grid.Selected.Query}" Value="{x:Null}">
-                      <Setter Property="Height" Value="0" />
-                      <Setter Property="MaxHeight" Value="0" />
-                      <Setter Property="MinHeight" Value="0" />
+                      <Setter Property="Height" Value="0"/>
+                      <Setter Property="MaxHeight" Value="0"/>
+                      <Setter Property="MinHeight" Value="0"/>
                     </DataTrigger>
                   </Style.Triggers>
                 </Style>
@@ -703,27 +734,27 @@
           </Grid.RowDefinitions>
           <Grid Grid.Row="0" Margin="7 0">
             <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="auto" />
-              <ColumnDefinition />
+              <ColumnDefinition Width="auto"/>
+              <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Image
               Width="50"
               Height="50"
-              Source="{Binding Project.Grid.Selected.Image}" />
+              Source="{Binding Project.Grid.Selected.Image}"/>
             <TextBlock
               Grid.Column="1"
               Margin="4 0"
               VerticalAlignment="Bottom"
               Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
               Text="{Binding Project.Grid.Selected.Name}"
-              TextWrapping="WrapWithOverflow" />
+              TextWrapping="WrapWithOverflow"/>
           </Grid>
           <ScrollViewer Grid.Row="1" Margin="7 5 0 5">
             <pt:PropertyGrid
               EnableLabelWidthResizing="True"
               EnumAsRadioButtonsLimit="1"
               SelectedObject="{Binding Project.Grid.Selected}"
-              TabVisibility="Collapsed" />
+              TabVisibility="Collapsed"/>
           </ScrollViewer>
           <GridSplitter
             Grid.Row="1"
@@ -733,7 +764,7 @@
             VerticalAlignment="Bottom"
             Panel.ZIndex="2"
             Background="Transparent"
-            Visibility="{Binding Project.Grid.Selected.Query, Converter={StaticResource visConv}}" />
+            Visibility="{Binding Project.Grid.Selected.Query, Converter={StaticResource visConv}}"/>
           <md:Card Grid.Row="2" Margin="0 0 0 5">
             <Grid>
               <DataGrid
@@ -750,7 +781,7 @@
                   <Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="DataGridCell">
                     <Style.Triggers>
                       <Trigger Property="IsSelected" Value="True">
-                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Background" Value="Transparent"/>
                       </Trigger>
                     </Style.Triggers>
                   </Style>
@@ -759,14 +790,14 @@
                   <Style BasedOn="{StaticResource {x:Type DataGridRow}}" TargetType="DataGridRow">
                     <Style.Triggers>
                       <Trigger Property="IsSelected" Value="True">
-                        <Setter Property="Background" Value="{DynamicResource PrimaryHueLightBrush}" />
+                        <Setter Property="Background" Value="{DynamicResource PrimaryHueLightBrush}"/>
                       </Trigger>
                     </Style.Triggers>
                   </Style>
                 </DataGrid.ItemContainerStyle>
                 <b:Interaction.Triggers>
                   <b:EventTrigger EventName="AutoGeneratingColumn">
-                    <b:InvokeCommandAction Command="{Binding CmdAutoColumns}" PassEventArgsToCommand="True" />
+                    <b:InvokeCommandAction Command="{Binding CmdAutoColumns}" PassEventArgsToCommand="True"/>
                   </b:EventTrigger>
                 </b:Interaction.Triggers>
               </DataGrid>
@@ -777,7 +808,7 @@
                 Panel.ZIndex="3"
                 Icon="Solid_Spinner"
                 Spin="True"
-                Visibility="{Binding Project.Grid.Selected.Query.Result, Converter={StaticResource visConvrev}}" />
+                Visibility="{Binding Project.Grid.Selected.Query.Result, Converter={StaticResource visConvrev}}"/>
             </Grid>
           </md:Card>
         </Grid>

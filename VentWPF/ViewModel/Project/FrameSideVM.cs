@@ -1,10 +1,6 @@
-﻿using PropertyChanged;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VentWPF.Tools;
 
 namespace VentWPF.ViewModel
@@ -13,31 +9,39 @@ namespace VentWPF.ViewModel
     {
         #region Constructors
 
-        public FrameSideVM(FrameVM parent)
+        public FrameSideVM(FrameVM parent, bool top = false)
         {
             CmdSplit = new(Split);
             CmdDelete = new(Delete);
-            Values = new() { new(this), new(this), new(this), new(this), new(this, 60), new(this, 120) };
+            Values = new() { new(this) };
+            ValuesChanged();
+        }
+
+        public void ValuesChanged()
+        {
+            Sum = Values.Sum(x => x.Value);
+            RightSize = Sum == Length;
         }
 
         #endregion
 
         #region Properties
 
+        public bool RightSize { get; set; }
+
+        
+
         public ObservableCollection<Box> Values { get; private set; }
 
-        [DependsOn(nameof(Values))]
-        public int Sum => Values.Sum(x => x.Value);
+        public long Sum { get; set; }
 
-        public bool IsTop { get; init; }
+        public double Side { get; set; }
 
-        public double Side => IsTop ? ProjectVM.Current.Frame.FrameWidth : ProjectVM.Current.Frame.FrameHeight;
+        public double Length { get; set; }
 
         public Command<Box> CmdSplit { get; init; }
 
         public Command<Box> CmdDelete { get; init; }
-
-        public FrameVM Parent { get; init; }
 
         #endregion
 

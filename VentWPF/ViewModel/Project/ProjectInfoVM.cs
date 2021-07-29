@@ -2,14 +2,15 @@
 using PropertyTools.DataAnnotations;
 using System;
 using System.Collections.ObjectModel;
-using valid = VentWPF.Tools;
 using VentWPF.Model;
 using static VentWPF.ViewModel.Strings;
+using valid = VentWPF.Tools;
 
 namespace VentWPF.ViewModel
 {
     public class ProjectInfoVM : ValidViewModel
     {
+        #region Properties
 
         [Category("Заказ|")]
         [DisplayName("Дата")]
@@ -57,13 +58,13 @@ namespace VentWPF.ViewModel
         public float PFlow { get; set; } = 0;
 
         [Category("Настройки|")]
-        [EnableBy("Rows",Rows.Двуярусный)]
+        [EnableBy("Rows", Rows.Двуярусный)]
         [DisplayName("Объём вытяжки/резерва")]
         [FormatString(fm3)]
         public int VReserv { get; set; } = 6000;
 
         [Category("Настройки|")]
-        [EnableBy("Rows",Rows.Двуярусный)]
+        [EnableBy("Rows", Rows.Двуярусный)]
         [DisplayName("Сопр. сети вытяжки")]
         [FormatString(fPa)]
         public float PReserv { get; set; } = 0;
@@ -81,10 +82,7 @@ namespace VentWPF.ViewModel
         [FormatString(fmm)]
         public int Height { get; set; } = 600;
 
-
-
         //+Толщина панели ?? @@stop
-
 
         [Category("Настройки|")]
         [DisplayName("Влажность")]
@@ -92,7 +90,6 @@ namespace VentWPF.ViewModel
         public int Humid { get; set; } = 85;
 
         [Category("Вид|")]
-
         [DisplayName("Кол-во рядов")]
         [FormatString(fkPa)]
         public Rows Rows { get; set; } = Rows.Двуярусный;
@@ -106,7 +103,6 @@ namespace VentWPF.ViewModel
         [DisplayName("Типоряд не сделано")]
         public ObservableCollection<string> Types
             => new ObservableCollection<string>() { $"{Realization}1", $"{Realization}2" };
-
 
         [Category("Вид|")]
         [DisplayName("Сторона обслуживания")]
@@ -132,16 +128,10 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         public float PressOut { get; set; } = 100;
 
-
-       
         //Непонятно @@info
         [Browsable(false)]
         public int Temp { get; set; } = -30;
 
-        
-
-      
-
-       
+        #endregion
     }
 }

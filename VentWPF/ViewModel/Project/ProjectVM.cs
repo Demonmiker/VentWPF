@@ -6,6 +6,7 @@
 
         static ProjectVM()
         {
+            Current = new ProjectVM();
             Current.Init();
         }
 
@@ -17,10 +18,10 @@
 
         #region Properties
 
-        public static ProjectVM Current { get; private set; } = new ProjectVM();
+        public static ProjectVM Current { get; private set; }
 
         //Информация о проекте
-        public ProjectInfoVM ProjectInfo { get; init; } = new();
+        public ProjectInfoVM ProjectInfo { get; private set; }
 
         //установка
         public GridVM Grid { get; private set; }
@@ -59,11 +60,13 @@
 
         protected void Init()
         {
-            Grid = new();
-            Frame = new(500, ProjectInfo.Width, ProjectInfo.Height);
+            ProjectInfo = new();
             TaskManager = new();
             ErrorManager = new();
             ErrorManager.Add(ProjectInfo, "Информация о проекте");
+            Grid = new();
+            Grid.ErrorManager = ErrorManager;
+            Frame = new(500, ProjectInfo.Width, ProjectInfo.Height);
             Grid.Init(ProjectInfo.Rows);
         }
 

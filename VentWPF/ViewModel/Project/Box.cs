@@ -4,19 +4,27 @@
     {
         #region Constructors
 
-        public Box(FrameSideVM parent, int value = 50)
+        public Box(FrameSideVM parent, uint value = 50)
         {
-            this.Parent = parent;
-            this.Value = value;
+            this.parent = parent;
+            this.value = value;
         }
 
         #endregion
 
         #region Properties
 
-        public int Value { get; set; }
+        public FrameSideVM parent;
 
-        public FrameSideVM Parent { get; set; }
+        private uint value;
+
+        public uint Support { get; set; } = 10;
+
+        public uint Value
+        {
+            get { return value; }
+            set { this.value = value; parent.ValuesChanged(); }
+        }
 
         #endregion
     }
