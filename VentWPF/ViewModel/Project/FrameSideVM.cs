@@ -1,62 +1,81 @@
-﻿using PropertyChanged;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VentWPF.Tools;
 
 namespace VentWPF.ViewModel
 {
-    class FrameSideVM : BaseViewModel
+    internal class FrameSideVM : BaseViewModel
     {
-        public class Box : BaseViewModel
-        {
-            public FrameSideVM parent;
+        #region Constructors
 
-            public Box(FrameSideVM @parent, int @value) { this.parent = @parent; this.Value = @value; }
-
-            public int Value { get; set; }
-        }
-
-        public FrameSideVM()
+        public FrameSideVM(FrameVM parent, bool top = false)
         {
             CmdSplit = new(Split);
-            Values = new() { NewBox(), NewBox(), NewBox(), NewBox(), NewBox(60) };
+            CmdDelete = new(Delete);
+            CmdSupport = new(AddSupport) { predicate = CanAddSupport };
+            Values = new() { new(this),new(this) { Support = 25 } };
+            ValuesChanged();
         }
 
-        private Box NewBox(int value = 50) => new Box(this, value);
+        public void ValuesChanged()
+        {
+            Sum = Values.Sum(x => x.Value);
+            RightSize = Sum == Length;
+        }
 
-        public ObservableCollection<Box> Values { get; private init; }
+        #endregion
 
-        [DependsOn("Values")]
-        public int Sum => Values.Sum(x => x.Value);
+        #region Properties
 
-        public int Length = 500;
+        public bool RightSize { get; set; }
 
-        public bool IsTop { get; init; }
-
-        public double Side => IsTop ? ProjectVM.Current.ProjectInfo.Width : ProjectVM.Current.ProjectInfo.Height;
         
-        public int FrameLenght
+
+        public ObservableCollection<Box> Values { get; private set; }
+
+        public long Sum { get; set; }
+
+        public double Side { get; set; }
+
+        public double Length { get; set; }
+
+        public Command<Box> CmdSplit { get; init; }
+
+        public Command<Box> CmdDelete { get; init; }
+
+        public Command<Box> CmdSupport { get; init; }
+
+        #endregion
+
+        #region Methods
+
+        private void Split(Box b)
         {
-            get => ProjectVM.Current.Frame.FrameLength;
-            set => ProjectVM.Current.Frame.FrameLength =value;
-        }
-
-
-        Command<int> CmdSplit { get; init; }
-
-        public void Split(int index)
-        {
+            int index = Values.IndexOf(b);
             var val = Values[index].Value / 2;
             var mod = Values[index].Value % 2;
             Values.RemoveAt(index);
-            Values.Insert(index, NewBox(val));
-            Values.Insert(index, NewBox(val+mod));
+            Values.Insert(index, new Box(this, val));
+            Values.Insert(index, new Box(this, val + mod));
         }
 
+        private void Delete(Box b)
+        {
+            Values.Remove(b);
+        }
 
+        private void AddSupport(Box b)
+        {
+            Values.First(x => b == x).Support = 25;
+        }
+
+        private bool CanAddSupport(Box b)
+        {
+            if (b == null) return true;
+            return Values.First(x => b == x).Support == 0;
+        }
+
+        #endregion
     }
 }

@@ -15,6 +15,7 @@ namespace VentWPF.Tools
             {
                 null => false,
                 bool => (bool)value,
+                uint => ((uint)value)>0,
                 string => (value as string).Length > 0,
                 object => (value as object) != null,
             } ^ Reverse;

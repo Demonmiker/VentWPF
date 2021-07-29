@@ -25,13 +25,13 @@ namespace VentWPF.ViewModel
         public MainViewModel()
         {
             Request = IOManager.LoadAsJson<DllRequest>("req.json");
-            ProjectVM.Current.TaskManager.Add(() => { var l = VentContext.Instance.ВодаХолодs; });
-            CmdAddElement = new(Project.Grid.AddElement);
+            ProjectVM.Current?.TaskManager.Add(() => { var l = VentContext.Instance.ВодаХолодs; });
+            CmdAddElement = new(ProjectVM.Current.Grid.AddElement);
             CmdAutoColumns = new(AutoColumns);
             CmdOpenPopup = new(OpenPopup);
             CmdWindowClosed = new(OnWindowClosed);
-            CmdSave = new(Project.SaveProject);
-            CmdLoad = new(Project.LoadProject);
+            CmdSave = new(ProjectVM.Current.SaveProject);
+            CmdLoad = new(ProjectVM.Current.LoadProject);
             CmdConfig = new(OpenConfig);
         }
 
@@ -52,10 +52,10 @@ namespace VentWPF.ViewModel
             get
             {
                 var table = new Table();
-                if (Project.Grid.Selected is not null)
+                if (ProjectVM.Current.Grid.Selected is not null)
                 {
                     TableRowGroup tg = new();
-                    foreach (var item in Project.Grid.Selected.Rows)
+                    foreach (var item in ProjectVM.Current.Grid.Selected.Rows)
                         tg.Rows.Add(item);
                     table.RowGroups.Add(tg);
                 }
@@ -63,7 +63,7 @@ namespace VentWPF.ViewModel
             }
         }
 
-        public int DeviceIndex => Project.Grid.Selected.DeviceIndex;
+        public int DeviceIndex => ProjectVM.Current.Grid.Selected.DeviceIndex;
 
         #endregion
 
@@ -91,7 +91,7 @@ namespace VentWPF.ViewModel
         {
             var header = e.Column.Header.ToString();
             // Получчение имени из тэга
-            var atrs = Project.Grid.Selected.Query.Result[0].GetType()
+            var atrs = ProjectVM.Current.Grid.Selected.Query.Result[0].GetType()
                     .GetProperty(header).GetCustomAttributes(typeof(DisplayNameAttribute), true);
             if (atrs.Length > 0)
                 e.Column.Header = (atrs[0] as DisplayNameAttribute).DisplayName ?? e.Column.Header;
@@ -101,7 +101,7 @@ namespace VentWPF.ViewModel
                 return;
             }
             //Получение форматирования из тэга
-            var atrs2 = Project.Grid.Selected.Query.Result[0].GetType()
+            var atrs2 = ProjectVM.Current.Grid.Selected.Query.Result[0].GetType()
                 .GetProperty(header).GetCustomAttributes(typeof(FormatStringAttribute), true);
             if (atrs2.Length > 0 && e.Column is DataGridTextColumn)
             {
@@ -109,10 +109,10 @@ namespace VentWPF.ViewModel
                 col.Binding.StringFormat = (atrs2[0] as FormatStringAttribute).FormatString;
             }
 
-            if (Project.Grid.Selected.Format == null) return;
-            if (Project.Grid.Selected.Format.ContainsKey(header))
+            if (ProjectVM.Current.Grid.Selected.Format == null) return;
+            if (ProjectVM.Current.Grid.Selected.Format.ContainsKey(header))
             {
-                var format = Project.Grid.Selected.Format[header];
+                var format = ProjectVM.Current.Grid.Selected.Format[header];
                 if (format != null)
                 {
                     Style defaultStyle = Application.Current.TryFindResource(typeof(DataGridCell)) as Style;
@@ -167,10 +167,6 @@ namespace VentWPF.ViewModel
 
         #endregion Комманды
 
-        #region Таблица со схемой
-
         public ProjectVM Project { get; set; } = ProjectVM.Current;
-
-        #endregion Таблица со схемой
     }
 }

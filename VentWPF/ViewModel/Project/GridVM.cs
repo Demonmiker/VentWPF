@@ -9,14 +9,22 @@ using VentWPF.Model;
 
 namespace VentWPF.ViewModel
 {
-    class GridVM : BaseViewModel
+    internal class GridVM : BaseViewModel
     {
+        #region Properties
+
+        public ErrorManagerVM ErrorManager { get; set; }
+
         public ObservableCollection<Element> Elements { get; set; }
 
         [DependsOn("Index")]
         public Element Selected { get; set; } = new Element();
 
         public int Index { get; set; }
+
+        #endregion
+
+        #region Methods
 
         public void Init(Rows rows)
         {
@@ -34,9 +42,8 @@ namespace VentWPF.ViewModel
                     new(),new(),new(),new(),new(),new(),new(),new(),new(),new(),
                     new(),new(),new(),new(),new(),new(),new(),new(),new(),new(),
                 };
-               
             }
-            ProjectVM.Current.ErrorManager.AddRange(Enumerable.Range(0, 20).Select(x => ($"[{x % 10 + 1},{x / 10 + 1}]", new Element() as ValidViewModel)));
+            ErrorManager.AddRange(Enumerable.Range(0, 20).Select(x => ($"[{x % 10 + 1},{x / 10 + 1}]", new Element() as ValidViewModel)));
             Index = 0;
         }
 
@@ -50,7 +57,9 @@ namespace VentWPF.ViewModel
                 Elements[Index].SubType = el.SubType;
             }
             Index = ind;
-            ProjectVM.Current.ErrorManager.Add(Elements[Index], $"[{Index % 10 + 1},{Index / 10 + 1}]");
+            ErrorManager.Add(Elements[Index], $"[{Index % 10 + 1},{Index / 10 + 1}]");
         }
+
+        #endregion
     }
 }

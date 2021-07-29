@@ -15,7 +15,9 @@ namespace VentWPF.ViewModel
 {
     internal class Element : ValidViewModel
     {
-        public static ProjectInfoVM Project { get; set; } = ProjectVM.Current.ProjectInfo;
+        #region Properties
+
+        public static ProjectInfoVM Project { get; set; } = ProjectVM.Current?.ProjectInfo;
 
         /// <summary>
         /// Наименование элемента системы вентиляции
@@ -24,12 +26,14 @@ namespace VentWPF.ViewModel
         [DependsOn("DeviceIndex")]
         public virtual string Name => "";
 
-        #region Генерация документации
+        #endregion
 
-        protected virtual List<string> InfoProperties => new() { };
+        #region Генерация документации
 
         [Browsable(false)]
         public List<TableRow> Rows => GetRows(columns: 2);
+
+        protected virtual List<string> InfoProperties => new() { };
 
         protected List<TableRow> GetRows(int columns = 1)
         {
@@ -95,32 +99,30 @@ namespace VentWPF.ViewModel
 
         #region Падение давления
 
+        protected float pressureDrop = 0;
+
         [Browsable(false)]
         public virtual float GeneratedPressureDrop => 0;
+
         [Category(Info)]
         [VisibleBy("ShowPD")]
         [SortIndex(-2)]
         [Optional("ManualPD")]
         [DisplayName("Падение давления")]
         [FormatString(fkPa)]
-
         public virtual float PressureDrop
         {
             get
             {
-                if (!ManualPD) 
+                if (!ManualPD)
                     pressureDrop = GeneratedPressureDrop;
                 return pressureDrop;
-
             }
             set
             {
                 pressureDrop = value;
             }
-
         }
-
-        protected float pressureDrop = 0;
 
         [VisibleBy("ShowPD")]
         [Browsable(false)]
@@ -132,14 +134,14 @@ namespace VentWPF.ViewModel
 
         #region Модель
 
+        protected Type DeviceType = null;
+
         [Category(Debug)]
         [VisibleBy("ShowDebug")]
         public int DeviceIndex { get; set; } = -1;
 
         [Browsable(false)]
         public object DeviceData => DeviceIndex >= 0 ? Query.Result[DeviceIndex] : null;
-
-        protected Type DeviceType = null;
 
         #endregion Модель
 
@@ -155,19 +157,18 @@ namespace VentWPF.ViewModel
 
         #endregion Запрос
 
+        #region Methods
+
+        public static T GetInstance<T>(T o) => (T)Activator.CreateInstance(o.GetType());
+
         protected override string OnValidation()
         {
             if (DeviceType != null && DeviceData == null)
                 return "Не выбрана модель устройства";
             else
                 return "";
-
         }
 
-        public static T GetInstance<T>(T o) => (T)Activator.CreateInstance(o.GetType());
-
-        
-
-
+        #endregion
     }
 }

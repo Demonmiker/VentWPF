@@ -20,9 +20,9 @@ namespace VentWPF.Tools
 #pragma warning restore 67
 
         public Action<T> action { get; init; }
-        public Predicate<object> predicate { get; init; }
+        public Predicate<T> predicate { get; init; }
 
-        public bool CanExecute(object parameter) => predicate == null ? true : predicate(parameter);
+        public bool CanExecute(object parameter) => predicate == null ? true : predicate((T)parameter);
 
         public virtual void Execute(object parameter) => action((T)parameter);
 

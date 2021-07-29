@@ -29,8 +29,43 @@
   </b:Interaction.Triggers>
   <Window.Resources>
     <!--  Ресурсы окна  -->
+    <Style
+      x:Key="under"
+      BasedOn="{StaticResource {x:Type TextBox}}"
+      TargetType="{x:Type TextBox}">
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="{x:Type TextBox}">
+            <Grid>
+              <TextBox
+                BorderBrush="Black"
+                BorderThickness="1 0 1 1.5"
+                Text="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+              <Polygon
+                Margin="0 -3"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Fill="Black"
+                Points="0,0 8,4 0,8"/>
+              <Polygon
+                Margin="0 -3"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Fill="Black"
+                Points="8,0 0,4 8,8"/>
+            </Grid>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+      <Setter Property="TextAlignment" Value="Center"/>
+    </Style>
+    <tl:BrushConverter
+      x:Key="brBR"
+      FalseBrush="Red"
+      TrueBrush="Black"/>
     <tl:VisibilityConverter x:Key="visConv"/>
     <tl:VisibilityConverter x:Key="visConvrev" Reverse="True"/>
+
     <tl:BrushConverter
       x:Key="brNR"
       FalseBrush="{StaticResource PrimaryHueDarkBrush}"
@@ -39,6 +74,147 @@
       x:Key="brGR"
       FalseBrush="LimeGreen"
       TrueBrush="Red"/>
+    <DataTemplate DataType="{x:Type vm:FrameSideVM}">
+      <Grid HorizontalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="auto"/>
+          <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition/>
+          <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBox
+          Grid.Column="0"
+          Width="100"
+          VerticalAlignment="Top"
+          IsReadOnly="True"
+          Style="{StaticResource under}"
+          Text="{Binding Side, Mode=OneWay}"
+          TextAlignment="Center">
+          <TextBox.RenderTransform>
+            <RotateTransform Angle="90" CenterX="50" CenterY="50"/>
+          </TextBox.RenderTransform>
+        </TextBox>
+        <StackPanel Grid.Column="1" Orientation="Horizontal">
+          <ItemsControl ItemsSource="{Binding Values}">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <StackPanel Orientation="Horizontal"/>
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+              <DataTemplate DataType="{x:Type vm:Box}">
+                <StackPanel Width="auto" Orientation="Vertical">
+                  <Border
+                    Width="{Binding Value}"
+                    Height="100"
+                    MinWidth="50"
+                    MaxWidth="450"
+                    Margin="-0.5 0 0 0"
+                    Background="Transparent"
+                    BorderBrush="Black"
+                    BorderThickness="2">
+                    <Border.ContextMenu>
+                      <ContextMenu>
+                        <MenuItem
+                          Command="{Binding Parent.CmdSplit}"
+                          CommandParameter="{Binding}"
+                          Header="Разделить"/>
+                        <MenuItem
+                          Command="{Binding Parent.CmdDelete}"
+                          CommandParameter="{Binding}"
+                          Header="Удалить"/>
+                        <MenuItem
+                          Command="{Binding Parent.CmdSupport}"
+                          CommandParameter="{Binding}"
+                          Header="Добавить опору"/>
+                      </ContextMenu>
+                    </Border.ContextMenu>
+                    <Grid Visibility="{Binding Support, Converter={StaticResource visConv}}">
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="35*"/>
+                        <RowDefinition Height="65*"/>
+                      </Grid.RowDefinitions>
+                      <Border BorderBrush="Black" BorderThickness="0 0 0 1">
+                        <TextBox
+                          Width="35"
+                          Height="30"
+                          Margin="5 -1 0 0"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Top"
+                          IsReadOnly="True"
+                          Style="{StaticResource under}">
+                          <TextBox.RenderTransform>
+                            <RotateTransform Angle="90" CenterX="15" CenterY="15"/>
+                          </TextBox.RenderTransform>
+                        </TextBox>
+                      </Border>
+                      <TextBox
+                        Margin="10 0"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Text="{Binding Support}"/>
+
+
+                    </Grid>
+
+                  </Border>
+                  <TextBox
+                    Background="LightBlue"
+                    Style="{StaticResource under}"
+                    Text="{Binding Value}"/>
+                </StackPanel>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+        <TextBox
+          Grid.Row="1"
+          Grid.Column="1"
+          HorizontalAlignment="Stretch"
+          Foreground="{Binding RightSize, Converter={StaticResource brBR}}"
+          IsReadOnly="True"
+          Style="{StaticResource under}"
+          Text="{Binding Sum, Mode=OneWay}"/>
+      </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:FrameVM}">
+      <ScrollViewer>
+        <StackPanel Orientation="Vertical">
+          <StackPanel Margin="2 2" Orientation="Horizontal">
+            <TextBox
+              MinWidth="40"
+              Text="{Binding Width}"
+              TextAlignment="Center"/>
+            <TextBlock Margin="0 4 0 0" Text="x"/>
+            <TextBox
+              MinWidth="40"
+              Text="{Binding Height}"
+              TextAlignment="Center"/>
+            <TextBlock Margin="0 4 0 0" Text="x"/>
+            <TextBox
+              MinWidth="40"
+              Text="{Binding Length}"
+              TextAlignment="Center"/>
+          </StackPanel>
+          <GroupBox
+            Content="{Binding Top}"
+            Header="Верхняя"
+            Style="{x:Null}"/>
+          <GroupBox
+            Content="{Binding Left}"
+            Header="Левая"
+            Style="{x:Null}"/>
+          <GroupBox
+            Content="{Binding Right}"
+            Header="Правая"
+            Style="{x:Null}"/>
+        </StackPanel>
+      </ScrollViewer>
+    </DataTemplate>
+
     <Style BasedOn="{StaticResource {x:Type ToolTip}}" TargetType="ToolTip">
       <Style.Triggers>
         <Trigger Property="Content" Value="{x:Static sys:String.Empty}">
@@ -65,11 +241,6 @@
     <Style BasedOn="{StaticResource MaterialDesignGroupBox}" TargetType="GroupBox">
       <Setter Property="FontSize" Value="13"/>
     </Style>
-
-
-
-
-
   </Window.Resources>
   <DockPanel>
     <Menu DockPanel.Dock="Top">
@@ -121,7 +292,6 @@
               </Style.Triggers>
             </Style>
           </ColumnDefinition.Style>
-
         </ColumnDefinition>
       </Grid.ColumnDefinitions>
       <GridSplitter
@@ -141,7 +311,6 @@
               HorizontalAlignment="Left"
               Orientation="Horizontal">
               <StackPanel.Resources>
-
 
                 <vm:Valve_Hor x:Key="Valve_Hor"/>
                 <vm:Valve_Hor_Heat x:Key="Valve_Hor_Heat"/>
@@ -388,7 +557,6 @@
               </Grid>
             </StackPanel>
           </ScrollViewer>
-
         </md:Card>
         <!--  Нижняя панель для констурирования системы  -->
         <md:Card Background="LightGray" DockPanel.Dock="Bottom">
@@ -464,9 +632,12 @@
           <TabItem>
             <TabItem.Header>
               <StackPanel ToolTip="{Binding Project.ProjectInfo.Error}">
-                <fa5:SvgAwesome Icon="Solid_Bars" Foreground="{StaticResource PrimaryHueDarkBrush}"/>
+                <fa5:SvgAwesome Foreground="{StaticResource PrimaryHueDarkBrush}" Icon="Solid_Bars"/>
                 <TextBlock Text="Проект"/>
-                <fa5:SvgAwesome Icon="Solid_ExclamationCircle" Foreground="Red" Visibility="{Binding Project.ProjectInfo.HasErrors}"/>
+                <fa5:SvgAwesome
+                  Foreground="Red"
+                  Icon="Solid_ExclamationCircle"
+                  Visibility="{Binding Project.ProjectInfo.HasErrors}"/>
               </StackPanel>
             </TabItem.Header>
             <pt:PropertyGrid
@@ -477,7 +648,7 @@
               ShowDeclaredOnly="True"/>
           </TabItem>
           <!--  Вкладка информация  -->
-          <TabItem>
+          <TabItem Visibility="Collapsed">
             <TabItem.Header>
               <StackPanel>
                 <fa5:SvgAwesome Icon="Solid_List"/>
@@ -487,7 +658,7 @@
             <ContentControl Content="{Binding ElementAsDocument}"/>
           </TabItem>
           <!--  Вкладка графики  -->
-          <TabItem>
+          <TabItem Visibility="Collapsed">
             <TabItem.Header>
               <StackPanel>
                 <fa5:SvgAwesome Icon="Solid_ChartLine"/>
@@ -495,123 +666,17 @@
               </StackPanel>
             </TabItem.Header>
           </TabItem>
-          <!--  Вкладка схема  -->
-          <TabItem>
-            <TabItem.Resources>
-              <Style
-                x:Key="under"
-                BasedOn="{StaticResource {x:Type TextBox}}"
-                TargetType="{x:Type TextBox}">
-                <Setter Property="Template">
-                  <Setter.Value>
-                    <ControlTemplate TargetType="TextBox">
-                      <Grid>
-                        <TextBox
-                          BorderBrush="Black"
-                          BorderThickness="1 0 1 2"
-                          Text="{TemplateBinding Text}"/>
-                        <Polygon
-                          Margin="0 -3"
-                          HorizontalAlignment="Right"
-                          VerticalAlignment="Bottom"
-                          Fill="Black"
-                          Points="0,0 8,4 0,8"/>
-                        <Polygon
-                          Margin="0 -3"
-                          HorizontalAlignment="Left"
-                          VerticalAlignment="Bottom"
-                          Fill="Black"
-                          Points="8,0 0,4 8,8"/>
-                      </Grid>
-                    </ControlTemplate>
-                  </Setter.Value>
-                </Setter>
-                <Setter Property="TextAlignment" Value="Center"/>
-              </Style>
-            </TabItem.Resources>
+          <!--  Вкладка каркас  -->
+          <TabItem Content="{Binding Project.Frame}">
             <TabItem.Header>
               <StackPanel>
                 <fa5:SvgAwesome Icon="Solid_BorderAll"/>
-                <TextBlock Text="Схема"/>
+                <TextBlock Text="Каркас"/>
               </StackPanel>
             </TabItem.Header>
-            <StackPanel Orientation="Vertical">
-              <StackPanel.Resources>
-                <DataTemplate DataType="{x:Type vm:FrameSideVM}">
-                  <Grid
-                    Width="{Binding Width, Mode=OneWayToSource}"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                      <ColumnDefinition Width="auto"/>
-                      <ColumnDefinition Width="auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                      <RowDefinition/>
-                      <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal">
-                      <ItemsControl ItemsSource="{Binding Values}">
-                        <ItemsControl.ItemsPanel>
-                          <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal"/>
-                          </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                          <DataTemplate>
-                            <Border
-                              Width="{Binding Value}"
-                              Height="100"
-                              MinWidth="30"
-                              MaxWidth="300"
-                              BorderBrush="Black"
-                              BorderThickness="2">
-                              <b:Interaction.Behaviors>
-                                <b:FluidMoveBehavior Duration="00:00:01">
-                                  <b:FluidMoveBehavior.EaseX>
-                                    <QuadraticEase EasingMode="EaseInOut"/>
-                                  </b:FluidMoveBehavior.EaseX>
-                                </b:FluidMoveBehavior>
-                              </b:Interaction.Behaviors>
-                              <TextBox
-                                VerticalAlignment="Center"
-                                BorderThickness="0"
-                                Text="{Binding Value}"
-                                TextAlignment="Center"/>
-                            </Border>
-                          </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                      </ItemsControl>
-                    </StackPanel>
-                    <TextBox
-                      Grid.Column="1"
-                      Width="100"
-                      VerticalAlignment="Top"
-                      IsReadOnly="True"
-                      Style="{StaticResource under}"
-                      Text="{Binding Side, Mode=OneWay}"
-                      TextAlignment="Center">
-                      <TextBox.RenderTransform>
-                        <RotateTransform Angle="-90" CenterX="50" CenterY="50"/>
-                      </TextBox.RenderTransform>
-                    </TextBox>
-                    <TextBox
-                      Grid.Row="1"
-                      HorizontalAlignment="Stretch"
-                      IsReadOnly="True"
-                      Style="{StaticResource under}"
-                      Text="{Binding FrameLenght}"/>
-                  </Grid>
-                </DataTemplate>
-                <Style TargetType="{x:Type GroupBox}"/>
-              </StackPanel.Resources>
-              <GroupBox Content="{Binding Project.Frame.Top}" Header="Верх"/>
-              <GroupBox Content="{Binding Project.Frame.Left}" Header="Слева"/>
-              <GroupBox Content="{Binding Project.Frame.Right}" Header="Справа"/>
-            </StackPanel>
           </TabItem>
           <!--  Вкладка отчет  -->
-          <TabItem>
+          <TabItem Visibility="Collapsed">
             <TabItem.Header>
               <StackPanel>
                 <fa5:SvgAwesome Icon="Solid_FileWord"/>
@@ -623,7 +688,7 @@
             </FlowDocumentScrollViewer>
           </TabItem>
           <!--  Вкладка электроника  -->
-          <TabItem>
+          <TabItem Visibility="Collapsed">
             <TabItem.Header>
               <StackPanel>
                 <fa5:SvgAwesome Icon="Solid_Microchip"/>
@@ -632,13 +697,12 @@
             </TabItem.Header>
           </TabItem>
           <!--  Вкладка 3D  -->
-          <TabItem>
+          <TabItem Visibility="Collapsed">
             <TabItem.Header>
               <StackPanel>
                 <fa5:SvgAwesome Icon="Solid_Cube"/>
                 <TextBlock Text="3D"/>
               </StackPanel>
-
             </TabItem.Header>
           </TabItem>
           <!--  Вкладка debug  -->
@@ -721,7 +785,7 @@
                 SelectedIndex="{Binding Project.Grid.Selected.DeviceIndex}"
                 SelectionMode="Single"
                 SelectionUnit="FullRow"
-                Visibility="{Binding roject.Grid.Selected.Query.Result, Converter={StaticResource visConv}}">
+                Visibility="{Binding Project.Grid.Selected.Query.Result, Converter={StaticResource visConv}}">
                 <DataGrid.Resources>
                   <Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="DataGridCell">
                     <Style.Triggers>

@@ -18,8 +18,6 @@ namespace VentWPF.ViewModel
         public bool HasErrors { get; private set; } = false;
 
         [NotMapped]
-
-        [DependsOn(nameof(HasErrors))]
         [Browsable(false)]
         public string Error
         {

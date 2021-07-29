@@ -1,20 +1,27 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System;
 
 namespace VentWPF.ViewModel
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        public BaseViewModel()
+        {
+            PropertyChanged += OnPropChanged;
+        }
+
+        protected virtual void OnPropChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != "Error")
+                PropertyChanged(sender, new PropertyChangedEventArgs("Error"));
+        }
+
 #pragma warning disable 67
+
         public event PropertyChangedEventHandler PropertyChanged;
+
 #pragma warning restore 67
-
-        //public void OnPropertyChanged(string propertyName, object before, object after)
-        //{
-
-        //    //if (propertyName != nameof(Error))
-        //    //    OnPropertyChanged(nameof(Error), "", Error);
-        //}
     }
 }
