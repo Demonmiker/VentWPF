@@ -14,7 +14,7 @@ namespace VentWPF.ViewModel
     public abstract class ValidViewModel : BaseViewModel, IDataErrorInfo
     {
         #region Properties
-
+        [pt.Browsable(false)]
         public bool HasErrors { get; private set; } = false;
 
         [NotMapped]
