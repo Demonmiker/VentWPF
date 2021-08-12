@@ -51,15 +51,7 @@ namespace VentWPF.ViewModel
         {
             get
             {
-                var table = new Table();
-                if (ProjectVM.Current.Grid.Selected is not null)
-                {
-                    TableRowGroup tg = new();
-                    foreach (var item in ProjectVM.Current.Grid.Selected.Rows)
-                        tg.Rows.Add(item);
-                    table.RowGroups.Add(tg);
-                }
-                return new FlowDocumentReader() { Document = new FlowDocument(table), ViewingMode = FlowDocumentReaderViewingMode.Scroll };
+                return new FlowDocumentReader() { Document = new FlowDocument(ProjectVM.Current.Grid.Selected.GetTable(2)), ViewingMode = FlowDocumentReaderViewingMode.Scroll };
             }
         }
 

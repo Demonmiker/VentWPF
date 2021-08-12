@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using VentWPF.Model;
 
 namespace VentWPF.ViewModel
@@ -16,6 +17,8 @@ namespace VentWPF.ViewModel
         public ErrorManagerVM ErrorManager { get; set; }
 
         public ObservableCollection<Element> Elements { get; set; }
+
+        public Dictionary<Element,Table> Tables { get; init; }
 
         [DependsOn("Index")]
         public Element Selected { get; set; } = new Element();

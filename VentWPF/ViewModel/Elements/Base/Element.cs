@@ -30,12 +30,9 @@ namespace VentWPF.ViewModel
 
         #region Генерация документации
 
-        [Browsable(false)]
-        public List<TableRow> Rows => GetRows(columns: 2);
-
         protected virtual List<string> InfoProperties => new() { };
 
-        protected List<TableRow> GetRows(int columns = 1)
+        public Table GetTable(int columns = 1)
         {
             List<TableRow> rowList = new();
             var header = new TableRow();
@@ -56,7 +53,15 @@ namespace VentWPF.ViewModel
                 }
                 rowList.Add(row);
             }
-            return rowList;
+            var table = new Table();
+            if (ProjectVM.Current.Grid.Selected is not null)
+            {
+                TableRowGroup tg = new();
+                foreach (var item in rowList)
+                    tg.Rows.Add(item);
+                table.RowGroups.Add(tg);
+            }
+            return table;
         }
 
         #endregion Генерация документации
