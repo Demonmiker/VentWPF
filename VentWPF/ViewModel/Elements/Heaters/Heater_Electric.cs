@@ -25,12 +25,13 @@ namespace VentWPF.ViewModel
 
         [Category(Data)]
         #region Данные
-
+        [Browsable(false)]
         [DisplayName("т. теплоносителя начальная")]
         [FormatString(fT)]
         [Range(maximum: 100)]
         public float tBegin { get; set; } = 95;
 
+        [Browsable(false)]
         [DisplayName("т. теплоносителя конечная")]
         [FormatString(fT)]
         [Range(minimum: 0)]
@@ -47,7 +48,7 @@ namespace VentWPF.ViewModel
 
         [Category(Info)]
         #region Информация
-
+        [Browsable(false)]
         [DisplayName("Горелка")]
         public TorchType TorchType { get; set; }
 

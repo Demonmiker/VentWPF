@@ -58,7 +58,7 @@ namespace VentWPF.ViewModel
 
         [DisplayName("Мощность")]
         [FormatString(fkW)]
-        public float Power => (float)(Project.VFlow * (353f / (273.15f + TempOut)) / 3600000f * 1009f * Math.Abs(TempIn - TempOut));
+        public float Power => (float)(Project.VFlow * (353f / (273.15f + TempOut)) / 3600000f * 1030f * Math.Abs(TempIn - TempOut));
 
 
 

@@ -36,10 +36,14 @@ namespace VentWPF.ViewModel
 
         #endregion Данные
 
-        //[Category(Info)]
+        [Category(Info)]
         #region Информация
 
-        
+        [DisplayName("Расход теплоносителя")]
+        [FormatString(MasFr)]
+        public float Consumption => (float)(((Power * 1000) / (4198 * Math.Abs(TempBegin - TempEnd)))) * 3600;
+
+
 
         #endregion Информация
 
