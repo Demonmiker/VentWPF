@@ -47,13 +47,7 @@ namespace VentWPF.ViewModel
 
         #region Главное Меню
 
-        public FlowDocumentReader ElementAsDocument
-        {
-            get
-            {
-                return new FlowDocumentReader() { Document = new FlowDocument(ProjectVM.Current.Grid.Selected.GetTable(2)), ViewingMode = FlowDocumentReaderViewingMode.Scroll };
-            }
-        }
+        
 
         public int DeviceIndex => ProjectVM.Current.Grid.Selected.DeviceIndex;
 
@@ -78,6 +72,8 @@ namespace VentWPF.ViewModel
         public Command<string> CmdConfig { get; init; }
 
         #endregion
+
+       
 
         private void AutoColumns(DataGridAutoGeneratingColumnEventArgs e)
         {

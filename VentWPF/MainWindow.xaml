@@ -678,7 +678,7 @@
                 <TextBlock Text="Инфо"/>
               </StackPanel>
             </TabItem.Header>
-            <ContentControl Content="{Binding ElementAsDocument}"/>
+            <ContentControl Content="{Binding Project.Grid.InfoBox}"/>
           </TabItem>
           <!--  Вкладка графики  -->
           <TabItem Visibility="Collapsed">
@@ -699,7 +699,7 @@
             </TabItem.Header>
           </TabItem>
           <!--  Вкладка отчет  -->
-          <TabItem Visibility="Collapsed">
+          <TabItem>
             <TabItem.Header>
               <StackPanel>
                 <fa5:SvgAwesome Icon="Solid_FileWord"/>
@@ -743,7 +743,6 @@
       <!--  Боковая Панель  -->
       <md:Card Grid.Column="1" md:ShadowAssist.ShadowEdges="All">
         <Grid Margin="0 2 0 0" Visibility="{Binding Project.Grid.Selected.Name, Converter={StaticResource visConv}}">
-
           <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="2*"/>
@@ -804,7 +803,8 @@
                 Height="auto"
                 AutoGenerateColumns="True"
                 IsReadOnly="True"
-                ItemsSource="{Binding Project.Grid.Selected.Query.Result}"
+                EnableRowVirtualization="True"
+                ItemsSource="{Binding Project.Grid.Selected.Query.Result, IsAsync=True}"
                 SelectedIndex="{Binding Project.Grid.Selected.DeviceIndex}"
                 SelectionMode="Single"
                 SelectionUnit="FullRow"

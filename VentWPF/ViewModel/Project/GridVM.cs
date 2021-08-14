@@ -5,7 +5,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Media;
 using VentWPF.Model;
 
 namespace VentWPF.ViewModel
@@ -18,13 +20,28 @@ namespace VentWPF.ViewModel
 
         public ObservableCollection<Element> Elements { get; set; }
 
-        public Dictionary<Element,Table> Tables { get; init; }
 
-        [DependsOn("Index")]
-        public Element Selected { get; set; } = new Element();
+        private Element _Selected = new Element();
+        [DependsOn(nameof(Index))]
+        public Element Selected 
+        { 
+            get => _Selected;
+            set { _Selected = value; ChangeInfo(); } 
+        } 
 
         public int Index { get; set; }
 
+        public RichTextBox InfoBox { get; init; } = new RichTextBox() { Focusable = false, Document=new FlowDocument() };
+
+
+        private void ChangeInfo()
+        {
+            InfoBox.Document.Blocks.Clear();
+            if (Selected?.InfoTable is not null)
+                InfoBox.Document.Blocks.Add(_Selected.InfoTable);
+        }
+
+        
         #endregion
 
         #region Methods
@@ -62,6 +79,12 @@ namespace VentWPF.ViewModel
             Index = ind;
             ErrorManager.Add(Elements[Index], $"[{Index % 10 + 1},{Index / 10 + 1}]");
         }
+
+        public void RemoveElement(Element el)
+        {
+            throw new NotImplementedException("Удаление не реализованно");
+        }
+
 
         #endregion
     }

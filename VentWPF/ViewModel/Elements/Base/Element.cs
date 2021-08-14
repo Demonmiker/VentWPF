@@ -32,8 +32,23 @@ namespace VentWPF.ViewModel
 
         protected virtual List<string> InfoProperties => new() { };
 
-        public Table GetTable(int columns = 1)
+        private Table _InfoTable = null;
+
+        [Browsable(false)]
+        public Table InfoTable
         {
+            get
+            {
+                if (_InfoTable is null)
+                    _InfoTable = GetTable(2);
+                return _InfoTable;
+            }
+        }
+
+
+        private Table GetTable(int columns = 1)
+        {
+            
             List<TableRow> rowList = new();
             var header = new TableRow();
             header.Cells.Add(new(new Paragraph(new Run(this.Name)) { FontSize = 20 }));
@@ -84,7 +99,7 @@ namespace VentWPF.ViewModel
         [SortIndex(-1)]
         [Category(Debug)]
         [VisibleBy("ShowDebug")]
-        public bool ShowDebug { get; set; } = false;
+        public bool ShowDebug { get; set; } = true;
 
         [Browsable(false)]
         public bool ShowPD { get; init; } = false;
@@ -141,9 +156,15 @@ namespace VentWPF.ViewModel
 
         protected Type DeviceType = null;
 
+
+        private int _DeviceIndex = -1;
         [Category(Debug)]
         [VisibleBy("ShowDebug")]
-        public int DeviceIndex { get; set; } = -1;
+        public int DeviceIndex
+        {
+            get => _DeviceIndex;
+            set { if(value >= 0) _DeviceIndex = value; }
+        }
 
         [Browsable(false)]
         public object DeviceData => DeviceIndex >= 0 ? Query.Result[DeviceIndex] : null;

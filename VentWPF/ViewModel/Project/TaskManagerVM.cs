@@ -12,7 +12,7 @@ namespace VentWPF.ViewModel
 {
     public class TaskManagerVM : BaseViewModel
     {
-        ObservableCollection<Action> Tasks { get; init; } = new ObservableCollection<Action>();
+        List<Action> Tasks { get; init; } = new List<Action>();
 
         Stopwatch Sw = new Stopwatch();
 
@@ -37,7 +37,7 @@ namespace VentWPF.ViewModel
             Sw.Restart();
             while(Tasks.Count>0)
             {
-                Debug.WriteLine(Tasks.Count);
+                Debug.WriteLine($"TM: {Tasks.Count}");
                 var action = Tasks[0];
                 Tasks.RemoveAt(0);
                 action.Invoke();
