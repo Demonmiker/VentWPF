@@ -706,9 +706,22 @@
                 <TextBlock Text="Отчет"/>
               </StackPanel>
             </TabItem.Header>
-            <FlowDocumentScrollViewer>
-              <FlowDocument/>
-            </FlowDocumentScrollViewer>
+            <DockPanel>
+              <md:Card DockPanel.Dock="Top" HorizontalAlignment="Left">
+                <StackPanel>
+                  <Button  Command="{Binding CmdUpdateReport}" Height="auto" Width="auto" Padding="10">
+                    <fa5:SvgAwesome Icon="Solid_Sync"/>
+                  </Button>
+                   <Button  Command="{Binding CmdSaveReport}" Height="auto" Width="auto" Padding="10">
+                    <fa5:SvgAwesome Icon="Solid_FileWord"/>
+                  </Button>
+                </StackPanel>
+
+
+              </md:Card>
+              <ContentControl Content="{Binding ReportViewer, Mode=OneWay}"/>
+            </DockPanel>
+            
           </TabItem>
           <!--  Вкладка электроника  -->
           <TabItem Visibility="Collapsed">
@@ -804,6 +817,7 @@
                 AutoGenerateColumns="True"
                 IsReadOnly="True"
                 EnableRowVirtualization="True"
+                EnableColumnVirtualization="True"
                 ItemsSource="{Binding Project.Grid.Selected.Query.Result, IsAsync=True}"
                 SelectedIndex="{Binding Project.Grid.Selected.DeviceIndex}"
                 SelectionMode="Single"

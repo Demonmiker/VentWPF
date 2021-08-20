@@ -15,6 +15,10 @@ using System.Collections;
 using System.Windows.Documents;
 using PropertyChanged;
 using VentWPF.Fans.FanSelect;
+using System.IO;
+using Microsoft.Win32;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace VentWPF.ViewModel
 {
@@ -33,6 +37,8 @@ namespace VentWPF.ViewModel
             CmdSave = new(ProjectVM.Current.SaveProject);
             CmdLoad = new(ProjectVM.Current.LoadProject);
             CmdConfig = new(OpenConfig);
+            CmdUpdateReport = new Command<object>(UpdateReport);
+            CmdSaveReport = new Command<object>(SaveReport);
         }
 
         #endregion
@@ -43,11 +49,18 @@ namespace VentWPF.ViewModel
 
         public DllRequest Request { get; set; } = new();
 
+        public FlowDocumentScrollViewer ReportViewer { get; private set; }
+            = new FlowDocumentScrollViewer() 
+            { 
+                Document = new(),
+            };
+
+
         #endregion
 
         #region Главное Меню
 
-        
+
 
         public int DeviceIndex => ProjectVM.Current.Grid.Selected.DeviceIndex;
 
@@ -70,6 +83,10 @@ namespace VentWPF.ViewModel
         public Command<object> CmdLoad { get; init; }
 
         public Command<string> CmdConfig { get; init; }
+
+        public Command<object> CmdUpdateReport { get; init; }
+
+        public Command<object> CmdSaveReport { get; init; }
 
         #endregion
 
@@ -128,6 +145,36 @@ namespace VentWPF.ViewModel
                     e.Column.CellStyle = style;
                 }
             }
+        }
+
+        public void UpdateReport(object _)
+        {
+
+            var doc = ReportViewer.Document;
+            doc.Blocks.Clear();
+            foreach (var item in Project.Grid.Elements)
+            {
+                if (item.Name!="")
+                {
+                    doc.Blocks.Add(item.GetTable(2, false));
+                    doc.Blocks.Add(new Paragraph());
+                }    
+                   
+            }
+        }
+
+        public void SaveReport(object _)
+        {
+
+            var cfd = new SaveFileDialog() { DefaultExt = "rtf", AddExtension = true };
+            if(cfd.ShowDialog()==true)
+            {
+                using FileStream fs = new FileStream(cfd.FileName, FileMode.Create, FileAccess.Write);
+                TextRange textRange = new TextRange(ReportViewer.Document.ContentStart, ReportViewer.Document.ContentEnd);
+                textRange.Save(fs, DataFormats.Rtf);
+            }
+
+           
         }
 
         private void OpenPopup(Popup p)

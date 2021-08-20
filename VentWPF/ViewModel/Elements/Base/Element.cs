@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Media;
 using VentWPF.ViewModel.Elements;
 using static VentWPF.ViewModel.Strings;
 using valid = System.ComponentModel.DataAnnotations;
@@ -40,13 +41,13 @@ namespace VentWPF.ViewModel
             get
             {
                 if (_InfoTable is null)
-                    _InfoTable = GetTable(2);
+                    _InfoTable = GetTable(2,true);
                 return _InfoTable;
             }
         }
 
 
-        private Table GetTable(int columns = 1)
+        public Table GetTable(int columns = 1,bool isDynamic=false)
         {
             
             List<TableRow> rowList = new();
@@ -62,13 +63,15 @@ namespace VentWPF.ViewModel
                 var row = new TableRow();
                 for (int j = 0; j < columns; j++)
                 {
-                    var par = infos?[i + j * rows]?.ToParagraph();
+                    var par = infos?[i + j * rows]?.ToParagraph(isDynamic);
                     if (par is not null)
                         row.Cells.Add(new TableCell(par));
                 }
                 rowList.Add(row);
             }
             var table = new Table();
+            for (int i = 0; i < columns; i++)
+                table.Columns.Add(new TableColumn() { Width=new System.Windows.GridLength(720/columns) });
             if (ProjectVM.Current.Grid.Selected is not null)
             {
                 TableRowGroup tg = new();
