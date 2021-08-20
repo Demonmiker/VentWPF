@@ -17,7 +17,7 @@ namespace VentWPF.ViewModel
             MainObject = mainType;
             ExpectedType = type;
             Path = propPath;
-            var prop = FindProperty(propPath);
+            var prop = FindProperty(propPath,out _);
             if (prop == null) return;
             Header = prop.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName;
             Format = prop.GetCustomAttribute<FormatStringAttribute>()?.FormatString;
@@ -36,28 +36,41 @@ namespace VentWPF.ViewModel
         public static IEnumerable<InfoLine> GenerateInfoLines(object o, Type exType, IEnumerable<string> props)
             => props.Select(x => new InfoLine(o, x, exType)).Where(x => x.Header != null);
 
-        public PropertyInfo FindProperty(string path)
+        public PropertyInfo FindProperty(string path,out object parent)
         {
-            var o = MainObject;
+            parent = MainObject;
             while (path.Contains('.'))
             {
                 var dot = path.IndexOf('.');
                 var prop = path.Substring(0, dot);
                 path = path.Substring(dot + 1, path.Length - dot - 1);
-                o = o.GetType().GetProperty(prop).GetValue(o);
+                parent = parent.GetType().GetProperty(prop).GetValue(parent);
             }
-            if (o != null)
-                return o.GetType().GetProperty(path);
+            if (parent != null)
+                return parent.GetType().GetProperty(path);
             else
                 return ExpectedType?.GetProperty(path);
+              
         }
 
-        public Paragraph ToParagraph()
+        public Paragraph ToParagraph(bool isDynamic=false)
         {
-            var runH = new Run();
-            runH.SetBinding(Run.TextProperty, new Binding() { Mode = BindingMode.OneWay, Source = Header });
+            var runH = new Run(Header);
             var runV = new Run();
-            runV.SetBinding(Run.TextProperty, new Binding() { Mode = BindingMode.OneWay, Source = MainObject, Path=new PropertyPath(Path), StringFormat = Format });
+            if (isDynamic)
+                runV.SetBinding(Run.TextProperty, new Binding() { Mode = BindingMode.OneWay, Source = MainObject, Path = new PropertyPath(Path), StringFormat = Format });
+            else
+            {
+
+                var prop = FindProperty(Path, out var parent);
+                if(parent is not null)
+                    runV.Text = String.Format(Format ?? "{0}", prop.GetValue(parent));
+                else
+                    runV.Text = "";
+                
+                
+            }
+              
             var res = new Paragraph();
             res.Inlines.AddRange(new[] { runH, new Run(": "), runV });
             return res;

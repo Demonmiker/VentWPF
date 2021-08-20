@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Media;
 using VentWPF.ViewModel.Elements;
 using static VentWPF.ViewModel.Strings;
 using valid = System.ComponentModel.DataAnnotations;
@@ -30,13 +31,25 @@ namespace VentWPF.ViewModel
 
         #region Генерация документации
 
-        [Browsable(false)]
-        public List<TableRow> Rows => GetRows(columns: 2);
-
         protected virtual List<string> InfoProperties => new() { };
 
-        protected List<TableRow> GetRows(int columns = 1)
+        private Table _InfoTable = null;
+
+        [Browsable(false)]
+        public Table InfoTable
         {
+            get
+            {
+                if (_InfoTable is null)
+                    _InfoTable = GetTable(2,true);
+                return _InfoTable;
+            }
+        }
+
+
+        public Table GetTable(int columns = 1,bool isDynamic=false)
+        {
+            
             List<TableRow> rowList = new();
             var header = new TableRow();
             header.Cells.Add(new(new Paragraph(new Run(this.Name)) { FontSize = 20 }));
@@ -50,13 +63,23 @@ namespace VentWPF.ViewModel
                 var row = new TableRow();
                 for (int j = 0; j < columns; j++)
                 {
-                    var par = infos?[i + j * rows]?.ToParagraph();
+                    var par = infos?[i + j * rows]?.ToParagraph(isDynamic);
                     if (par is not null)
                         row.Cells.Add(new TableCell(par));
                 }
                 rowList.Add(row);
             }
-            return rowList;
+            var table = new Table();
+            for (int i = 0; i < columns; i++)
+                table.Columns.Add(new TableColumn() { Width=new System.Windows.GridLength(720/columns) });
+            if (ProjectVM.Current.Grid.Selected is not null)
+            {
+                TableRowGroup tg = new();
+                foreach (var item in rowList)
+                    tg.Rows.Add(item);
+                table.RowGroups.Add(tg);
+            }
+            return table;
         }
 
         #endregion Генерация документации
@@ -79,7 +102,7 @@ namespace VentWPF.ViewModel
         [SortIndex(-1)]
         [Category(Debug)]
         [VisibleBy("ShowDebug")]
-        public bool ShowDebug { get; set; } = false;
+        public bool ShowDebug { get; set; } = true;
 
         [Browsable(false)]
         public bool ShowPD { get; init; } = false;
@@ -136,9 +159,15 @@ namespace VentWPF.ViewModel
 
         protected Type DeviceType = null;
 
+
+        private int _DeviceIndex = -1;
         [Category(Debug)]
         [VisibleBy("ShowDebug")]
-        public int DeviceIndex { get; set; } = -1;
+        public int DeviceIndex
+        {
+            get => _DeviceIndex;
+            set { if(value >= 0) _DeviceIndex = value; }
+        }
 
         [Browsable(false)]
         public object DeviceData => DeviceIndex >= 0 ? Query.Result[DeviceIndex] : null;

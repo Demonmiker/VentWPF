@@ -12,9 +12,9 @@ namespace VentWPF.ViewModel
 
         public FrameVM(int frameLength, int frameWidth, int frameHeight)
         {
-            length = frameLength;
-            width = frameWidth;
-            height = frameHeight;
+            length = (uint)frameLength;
+            width = (uint)frameWidth;
+            height = (uint)frameHeight;
             Top = new(this);
             Right = new(this);
             Left = new(this);
@@ -25,11 +25,11 @@ namespace VentWPF.ViewModel
 
         #region Fields
 
-        private int height;
+        private uint height;
 
-        private int width;
+        private uint width;
 
-        private int length;
+        private uint length;
 
         #endregion
 
@@ -41,19 +41,19 @@ namespace VentWPF.ViewModel
 
         public FrameSideVM Right { get; init; }
 
-        public int Height
+        public uint Height
         {
             get { return height; }
             set { height = value; UpdateSides(); }
         }
 
-        public int Width
+        public uint Width
         {
             get { return width; }
             set { width = value; UpdateSides(); }
         }
 
-        public int Length
+        public uint Length
         {
             get { return length; }
             set { length = value; UpdateSides(); }

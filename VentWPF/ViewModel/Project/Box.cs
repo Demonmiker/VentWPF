@@ -4,7 +4,7 @@
     {
         #region Constructors
 
-        public Box(FrameSideVM parent, uint value = 50)
+        public Box(FrameSideVM parent, uint value = 300)
         {
             this.parent = parent;
             this.value = value;
@@ -26,7 +26,13 @@
 
         private uint value;
 
-        public uint Support { get; set; }
+        private uint _Support;
+
+        public uint Support
+        {
+            get => _Support;
+            set => _Support = value > Parent.Side ? (uint)Parent.Side : value;
+        }
 
         public uint Value
         {

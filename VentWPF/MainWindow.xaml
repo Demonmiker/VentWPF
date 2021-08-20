@@ -28,7 +28,7 @@
     </b:EventTrigger>
   </b:Interaction.Triggers>
   <Window.Resources>
-    <!--  Ресурсы окна  -->
+    <!--  Стили  -->
     <Style
       x:Key="under"
       BasedOn="{StaticResource {x:Type TextBox}}"
@@ -59,13 +59,39 @@
       </Setter>
       <Setter Property="TextAlignment" Value="Center"/>
     </Style>
+    <Style BasedOn="{StaticResource {x:Type ToolTip}}" TargetType="ToolTip">
+      <Style.Triggers>
+        <Trigger Property="Content" Value="{x:Static sys:String.Empty}">
+          <Setter Property="Visibility" Value="Collapsed"/>
+        </Trigger>
+        <Trigger Property="Content" Value="{x:Null}">
+          <Setter Property="Visibility" Value="Collapsed"/>
+        </Trigger>
+      </Style.Triggers>
+    </Style>
+    <Style TargetType="{x:Type Image}">
+      <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
+    </Style>
+    <Style x:Key="PopupMenu" TargetType="Popup">
+      <Setter Property="AllowsTransparency" Value="True"/>
+      <Setter Property="Placement" Value="Relative"/>
+
+      <Setter Property="StaysOpen" Value="False"/>
+    </Style>
+    <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="{x:Type Button}">
+      <Setter Property="Height" Value="75"/>
+      <Setter Property="Width" Value="75"/>
+    </Style>
+    <Style BasedOn="{StaticResource MaterialDesignGroupBox}" TargetType="GroupBox">
+      <Setter Property="FontSize" Value="13"/>
+    </Style>
+    <!--  Конверторы  -->
     <tl:BrushConverter
       x:Key="brBR"
       FalseBrush="Red"
       TrueBrush="Black"/>
     <tl:VisibilityConverter x:Key="visConv"/>
     <tl:VisibilityConverter x:Key="visConvrev" Reverse="True"/>
-
     <tl:BrushConverter
       x:Key="brNR"
       FalseBrush="{StaticResource PrimaryHueDarkBrush}"
@@ -74,6 +100,13 @@
       x:Key="brGR"
       FalseBrush="LimeGreen"
       TrueBrush="Red"/>
+    <tl:MulConverter x:Key="frame-scale" K="0.3"/>
+    <tl:MarginConverter
+      x:Key="toleft"
+      Margin="5 0 0 0"
+      Direction="0"/>
+    <tl:MarginConverter x:Key="toTop" Direction="1"/>
+    <!--  Шаблоны данных  -->
     <DataTemplate DataType="{x:Type vm:FrameSideVM}">
       <Grid HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
@@ -84,18 +117,27 @@
           <RowDefinition/>
           <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBox
+        <Canvas
           Grid.Column="0"
-          Width="100"
-          VerticalAlignment="Top"
-          IsReadOnly="True"
-          Style="{StaticResource under}"
-          Text="{Binding Side, Mode=OneWay}"
-          TextAlignment="Center">
-          <TextBox.RenderTransform>
-            <RotateTransform Angle="90" CenterX="50" CenterY="50"/>
-          </TextBox.RenderTransform>
-        </TextBox>
+          Width="30"
+          Height="{Binding Side, Converter={StaticResource frame-scale}}"
+          Margin="0 -26 0 0">
+          <TextBox
+            Width="{Binding Side, Converter={StaticResource frame-scale}}"
+            Height="25"
+            Margin="30 0 0 0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            ClipToBounds="False"
+            IsReadOnly="True"
+            Style="{StaticResource under}"
+            Text="{Binding Side, Mode=OneWay}"
+            TextAlignment="Center">
+            <TextBox.RenderTransform>
+              <RotateTransform Angle="90"/>
+            </TextBox.RenderTransform>
+          </TextBox>
+        </Canvas>
         <StackPanel Grid.Column="1" Orientation="Horizontal">
           <ItemsControl ItemsSource="{Binding Values}">
             <ItemsControl.ItemsPanel>
@@ -107,14 +149,14 @@
               <DataTemplate DataType="{x:Type vm:Box}">
                 <StackPanel Width="auto" Orientation="Vertical">
                   <Border
-                    Width="{Binding Value}"
-                    Height="100"
-                    MinWidth="50"
-                    MaxWidth="450"
-                    Margin="-0.5 0 0 0"
+                    Width="{Binding Value, Converter={StaticResource frame-scale}}"
+                    Height="{Binding Parent.Side, Converter={StaticResource frame-scale}}"
+                    MinWidth="20"
+                    MaxWidth="1100"
+                    Margin="-0.3 0 0 0"
                     Background="Transparent"
                     BorderBrush="Black"
-                    BorderThickness="2">
+                    BorderThickness="1">
                     <Border.ContextMenu>
                       <ContextMenu>
                         <MenuItem
@@ -131,31 +173,37 @@
                           Header="Добавить опору"/>
                       </ContextMenu>
                     </Border.ContextMenu>
-                    <Grid Visibility="{Binding Support, Converter={StaticResource visConv}}">
-                      <Grid.RowDefinitions>
-                        <RowDefinition Height="35*"/>
-                        <RowDefinition Height="65*"/>
-                      </Grid.RowDefinitions>
-                      <Border BorderBrush="Black" BorderThickness="0 0 0 1">
+                    <Grid
+                      VerticalAlignment="Top"
+                      Width="{Binding Value, Converter={StaticResource frame-scale}}"
+                      Height="{Binding Support, Converter={StaticResource frame-scale}}"
+                      Visibility="{Binding Support, Converter={StaticResource visConv}}">
+                      <Canvas
+                        Width="{Binding Value, Converter={StaticResource frame-scale}}"
+                        Height="{Binding Support, Converter={StaticResource frame-scale}}"
+                        ClipToBounds="True">
                         <TextBox
-                          Width="35"
-                          Height="30"
-                          Margin="5 -1 0 0"
-                          HorizontalAlignment="Left"
-                          VerticalAlignment="Top"
+                          Width="{Binding Height, RelativeSource={RelativeSource AncestorType=Canvas}}"
+                          Height="{Binding Width, RelativeSource={RelativeSource AncestorType=Canvas}}"
+                          Margin="{Binding Height, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource toleft}}"
+                          HorizontalAlignment="Stretch"
                           IsReadOnly="True"
                           Style="{StaticResource under}">
                           <TextBox.RenderTransform>
-                            <RotateTransform Angle="90" CenterX="15" CenterY="15"/>
+                            <RotateTransform Angle="90"/>
                           </TextBox.RenderTransform>
                         </TextBox>
-                      </Border>
+                        
+
+                      </Canvas>
                       <TextBox
-                        Margin="10 0"
-                        VerticalAlignment="Center"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Text="{Binding Support}"/>
+                          HorizontalAlignment="Stretch"
+                          Margin="10"
+                          VerticalAlignment="Center"
+                          Background="Transparent"
+                          BorderThickness="0"
+                          Text="{Binding Support}"/>
+
 
 
                     </Grid>
@@ -215,32 +263,7 @@
       </ScrollViewer>
     </DataTemplate>
 
-    <Style BasedOn="{StaticResource {x:Type ToolTip}}" TargetType="ToolTip">
-      <Style.Triggers>
-        <Trigger Property="Content" Value="{x:Static sys:String.Empty}">
-          <Setter Property="Visibility" Value="Collapsed"/>
-        </Trigger>
-        <Trigger Property="Content" Value="{x:Null}">
-          <Setter Property="Visibility" Value="Collapsed"/>
-        </Trigger>
-      </Style.Triggers>
-    </Style>
-    <Style TargetType="{x:Type Image}">
-      <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
-    </Style>
-    <Style x:Key="PopupMenu" TargetType="Popup">
-      <Setter Property="AllowsTransparency" Value="True"/>
-      <Setter Property="Placement" Value="Relative"/>
 
-      <Setter Property="StaysOpen" Value="False"/>
-    </Style>
-    <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="{x:Type Button}">
-      <Setter Property="Height" Value="75"/>
-      <Setter Property="Width" Value="75"/>
-    </Style>
-    <Style BasedOn="{StaticResource MaterialDesignGroupBox}" TargetType="GroupBox">
-      <Setter Property="FontSize" Value="13"/>
-    </Style>
   </Window.Resources>
   <DockPanel>
     <Menu DockPanel.Dock="Top">
@@ -648,14 +671,14 @@
               ShowDeclaredOnly="True"/>
           </TabItem>
           <!--  Вкладка информация  -->
-          <TabItem Visibility="Collapsed">
+          <TabItem>
             <TabItem.Header>
               <StackPanel>
                 <fa5:SvgAwesome Icon="Solid_List"/>
                 <TextBlock Text="Инфо"/>
               </StackPanel>
             </TabItem.Header>
-            <ContentControl Content="{Binding ElementAsDocument}"/>
+            <ContentControl Content="{Binding Project.Grid.InfoBox}"/>
           </TabItem>
           <!--  Вкладка графики  -->
           <TabItem Visibility="Collapsed">
@@ -676,16 +699,29 @@
             </TabItem.Header>
           </TabItem>
           <!--  Вкладка отчет  -->
-          <TabItem Visibility="Collapsed">
+          <TabItem>
             <TabItem.Header>
               <StackPanel>
                 <fa5:SvgAwesome Icon="Solid_FileWord"/>
                 <TextBlock Text="Отчет"/>
               </StackPanel>
             </TabItem.Header>
-            <FlowDocumentScrollViewer>
-              <FlowDocument/>
-            </FlowDocumentScrollViewer>
+            <DockPanel>
+              <md:Card DockPanel.Dock="Top" HorizontalAlignment="Left">
+                <StackPanel>
+                  <Button  Command="{Binding CmdUpdateReport}" Height="auto" Width="auto" Padding="10">
+                    <fa5:SvgAwesome Icon="Solid_Sync"/>
+                  </Button>
+                   <Button  Command="{Binding CmdSaveReport}" Height="auto" Width="auto" Padding="10">
+                    <fa5:SvgAwesome Icon="Solid_FileWord"/>
+                  </Button>
+                </StackPanel>
+
+
+              </md:Card>
+              <ContentControl Content="{Binding ReportViewer, Mode=OneWay}"/>
+            </DockPanel>
+            
           </TabItem>
           <!--  Вкладка электроника  -->
           <TabItem Visibility="Collapsed">
@@ -720,7 +756,6 @@
       <!--  Боковая Панель  -->
       <md:Card Grid.Column="1" md:ShadowAssist.ShadowEdges="All">
         <Grid Margin="0 2 0 0" Visibility="{Binding Project.Grid.Selected.Name, Converter={StaticResource visConv}}">
-
           <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="2*"/>
@@ -781,7 +816,9 @@
                 Height="auto"
                 AutoGenerateColumns="True"
                 IsReadOnly="True"
-                ItemsSource="{Binding Project.Grid.Selected.Query.Result}"
+                EnableRowVirtualization="True"
+                EnableColumnVirtualization="True"
+                ItemsSource="{Binding Project.Grid.Selected.Query.Result, IsAsync=True}"
                 SelectedIndex="{Binding Project.Grid.Selected.DeviceIndex}"
                 SelectionMode="Single"
                 SelectionUnit="FullRow"
