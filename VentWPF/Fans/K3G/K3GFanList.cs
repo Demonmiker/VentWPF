@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PropertyTools.DataAnnotations;
 
 namespace VentWPF.Fans.K3G
 {
-    class K3GFanList
+    public class K3GFanList
     {
+        [DisplayName("ID")]
+        public string ARTICLE_NO { get; set; }
     }
 }

@@ -4,16 +4,18 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text.Json;
 using VentWPF.ViewModel;
 
 
 namespace VentWPF.Fans.K3G
 {
-    class K3GController
+    class K3GController : IController<K3GRequest, List<K3GFanList>>
     {
         K3GRequest req = new();
         public static ProjectInfoVM Project { get; set; } = ProjectVM.Current?.ProjectInfo;
         public static string ID;
+        bool connect = false;
         string path = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         public string data;
 
@@ -28,16 +30,47 @@ namespace VentWPF.Fans.K3G
         [DllImport(@"EbmPapstFan.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public static extern int GET_CCSI_DATA([MarshalAsAttribute(UnmanagedType.AnsiBStr)] string fanDescription, ref string buffer);
 
+
+        public List<K3GFanList> GetResponce(K3GRequest request)
+        {
+            string response = "";
+            return response[0] != '!' ? null : JsonSerializer.Deserialize<List<K3GFanList>>(response);
+
+        }
+
+        public string Response()
+        {
+            string Reqest = null;
+            if (connect == false)
+            {
+                try
+                {
+                    connection();
+                }
+                catch (FileNotFoundException e)
+                {
+                    return "!";
+                }
+            }
+            FanCollection();
+
+
+
+            return Reqest;
+        }
+        
+
         //ПОДКЛЮЧЕНИЕ К ДЛЛ(НУЖНО ВЫПОЛНИТЬ ОДИН РАЗ, ЕСЛИ ЧТО)
         public void connection()
         {
+            bool errors = false;
             Int32 n;
             Int32 l;
             string path = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             if (File.Exists(path + @"\Data.sqlite"))
             {
                 l = path.Length;
-
+                
 
                 if (path[l - 1] != (';'))
                 {
@@ -48,12 +81,12 @@ namespace VentWPF.Fans.K3G
                 }
                 else
                 {
-                    //errors.Text = "ERROR Connect()";
+                    errors = true;
                 }
             }
             else
             {
-                //errors.Text = "ERROR NoFile";
+                errors = true;
             }
         }
 
@@ -150,11 +183,44 @@ namespace VentWPF.Fans.K3G
                 ID = IdNo[n];
 
                 //lbInfo.Items.Add("No:  " + Convert.ToString(n) + "  " + IdNo[n] + "  " + Typen[n] + "  "); --
-                req.FanCalcData();
+                FanCalcData();
                 n++;
             }
 
-        }        
+        }
+
+        //НАЧАЛО ЗАПРОСА РАСЧЁТА
+        public void FanCalcData()
+        {
+            string buffer = new string(new Char(), 4000);
+            string Input_Data = "";
+            int n;
+            Input_Data = Get_Input_Value(Input_Data);
+
+            GC.GetTotalMemory(false);
+            GC.GetTotalMemory(true);
+            n = GET_CCSI_DATA(Input_Data, ref buffer);
+            CalcData(n, buffer);
+            //lbInfo.Items.Add(data);
+            //lbInfo.Items.Add("\n");
+        }
+        //НАСТРОЙКА ЗАПРОСА К ДЛЛ
+        private string Get_Input_Value(string Input_Data)
+        {
+            double Volumenstrom = Project.VFlow / 3600;        //VFlow    
+
+            Input_Data = ID + ';' + // the ID // die ID                    // Setze alle Informationen in den String und fülle es mit Semikolon um weitere Informationen zu bekommen
+                         "0" + ';' +                          // 0 = static Pressure 1 = total pressure
+                         "0:DIDO" + ';' +                                 // InstallationType(0:DIDO,1:FIDO,2:DIFO,3:FIFO) 
+                         "1.14" + ';' +                                            // AirDensity(kg/m³) 
+                         "0" + ';' +                                          // The altitude 
+                         "24" + ';' +                                             // AirTemperature(°C) 
+                         Project.PFlow + ';' +                                        // requiredPressure(Pa)
+                         Convert.ToString(Volumenstrom) + ';' +                         // flowRate(m³/h) 
+                         "0" + ';';                                               // Voltage (U) 
+
+            return Input_Data;
+        }
 
         //РАСЧЁТ ВЕНТИЛЯТОРА
         public void CalcData(int n, string buffer)
@@ -196,7 +262,7 @@ namespace VentWPF.Fans.K3G
                 zahl++;
                 j = 0;                                                                  // j = 0 because you have to count from the beginning 
             }
-
+            
 
             for (int i = 0; i < 58; i++)
             {
