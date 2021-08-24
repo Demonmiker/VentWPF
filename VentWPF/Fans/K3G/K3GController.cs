@@ -11,11 +11,11 @@ using VentWPF.ViewModel;
 namespace VentWPF.Fans.K3G
 {
     class K3GController : IController<K3GRequest, List<K3GFanList>>
-    {
-        K3GRequest req = new();
+    {        
         public static ProjectInfoVM Project { get; set; } = ProjectVM.Current?.ProjectInfo;
         public static string ID;
         bool connect = false;
+        string Reqest = "[";
         string path = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         public string data;
 
@@ -33,14 +33,15 @@ namespace VentWPF.Fans.K3G
 
         public List<K3GFanList> GetResponce(K3GRequest request)
         {
-            string response = "";
-            return response[0] != '!' ? null : JsonSerializer.Deserialize<List<K3GFanList>>(response);
+            string response = Response();
+            Reqest = "[";
+            return response[0] != '[' ? null : JsonSerializer.Deserialize<List<K3GFanList>>(response);
 
         }
 
         public string Response()
         {
-            string Reqest = null;
+            
             if (connect == false)
             {
                 try
@@ -53,9 +54,7 @@ namespace VentWPF.Fans.K3G
                 }
             }
             FanCollection();
-
-
-
+            Reqest += "]";
             return Reqest;
         }
         
@@ -262,14 +261,15 @@ namespace VentWPF.Fans.K3G
                 zahl++;
                 j = 0;                                                                  // j = 0 because you have to count from the beginning 
             }
-            
+
+            Reqest += "{";
 
             for (int i = 0; i < 58; i++)
             {
-                data += Descripts[i] + " | ";
+                Reqest += "\"Descripts" + i + "\"" + ":" + "\"" + Descripts[i] + "\"" + "," + "\n";
             }
 
-
+            Reqest += "},\n";
             /*
             tb_nSoll.Text = Descripts[0];                                               //
             tb_P1Soll.Text = Descripts[1];                                              //
@@ -334,6 +334,6 @@ namespace VentWPF.Fans.K3G
             textBox28.Text = Descripts[58];
             */
 
-    }
+        }
     }
 }
