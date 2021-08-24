@@ -81,11 +81,17 @@ namespace VentWPF.Fans
 
         [DisplayName("ID")]
         public string ARTICLE_NO { get; set; }
+        [DisplayName("Индекс")]
         public int INDEX { get; set; }
+        [DisplayName("Длина установки")]
         public double INSTALLATION_LENGTH_MM { get; set; }
+        [DisplayName("Высота установки")]
         public double INSTALLATION_HEIGHT_MM { get; set; }
+        [DisplayName("Ширина установки")]
         public double INSTALLATION_WIDTH_MM { get; set; }
+        [DisplayName("Мощность")]
         public double POWER_OUTPUT_HP { get; set; }
+        [DisplayName("Тип")]
         public string TYPE { get; set; }
         public double ZA_BG { get; set; }
         public double ZA_ETAF_L { get; set; }
