@@ -93,13 +93,21 @@ namespace VentWPF.Fans
         public double POWER_OUTPUT_HP { get; set; }
         [DisplayName("Тип")]
         public string TYPE { get; set; }
+        [DisplayName("Размер")]
         public double ZA_BG { get; set; }
+        [DisplayName("Общий КПД %")]
         public double ZA_ETAF_L { get; set; }
+        [DisplayName("Шум на выходе дБ")]
         public double ZA_LW6 { get; set; }
+        [DisplayName("Подключение")]
         public string ZA_MAINS_SUPPLY { get; set; }
+        [DisplayName("Обороты номинал")]
         public double ZA_N { get; set; }
+        [DisplayName("Обороты максимальные")]
         public double ZA_NMAX { get; set; }
+        [DisplayName("Динамическое сопротивление")]
         public double ZA_PD { get; set; }
+        [DisplayName("Суммарное сопротивление")]
         public double ZA_PF { get; set; }
     }
 }

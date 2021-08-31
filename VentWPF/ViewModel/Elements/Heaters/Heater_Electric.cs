@@ -23,6 +23,21 @@ namespace VentWPF.ViewModel
 
         public override string Name => $"Нагреватель электрический {(DeviceData as Тэнры)?.Маркировка}";
 
+        protected override List<string> InfoProperties => new()
+        {
+            "Performance",
+            "TempIn",
+            "TempOut",
+            "tBegin",
+            "tEnd",
+            "lengthKal",
+            "heatSteps",
+            "TorchType",
+            "DeviceData.Типоряд",
+            "DeviceData.Маркировка",
+            "DeviceData.Мощность",
+        };
+
         [Category(Data)]
         #region Данные
         [Browsable(false)]

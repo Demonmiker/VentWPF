@@ -209,6 +209,8 @@ namespace VentWPF
                 entity.Property(e => e.Типоряд).HasMaxLength(255);
             });
 
+            #region[K3G]
+
             modelBuilder.Entity<K3g>(entity =>
             {
                 entity.HasNoKey();
@@ -955,6 +957,7 @@ namespace VentWPF
 
                 entity.Property(e => e._4).HasColumnName("№4");
             });
+            #endregion
 
             modelBuilder.Entity<Тэнры>(entity =>
             {

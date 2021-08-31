@@ -37,9 +37,6 @@ namespace VentWPF.ViewModel
             "Consumption",
             "Coolant",
             "CoolantPressureDrop",
-
-
-
         };
 
         
