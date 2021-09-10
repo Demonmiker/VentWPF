@@ -30,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.13.1" />
     <PackageReference Include="FontAwesome5" Version="2.1.2" />
     <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.7" />
@@ -86,22 +87,22 @@
     <None Update="Assets\Images\Recuperators\Recuperators.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Sections\Sections_Valve.png">
+    <None Update="Assets\Images\Sections\Sections_LCR.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Sections\Sections_Valve2.png">
+    <None Update="Assets\Images\Sections\Sections_DCU.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Sections\Section_2Dedges.png">
+    <None Update="Assets\Images\Sections\Section_LDR.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Sections\Section_2edges.png">
+    <None Update="Assets\Images\Sections\Section_LUR.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Sections\Section_2Ledges.png">
+    <None Update="Assets\Images\Sections\Section_LDU.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Sections\Section_Down_Reverse.png">
+    <None Update="Assets\Images\Sections\Section_DR.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Sections\Section_Short.png">
@@ -158,10 +159,10 @@
     <None Update="Assets\Images\Sections\Section_Straight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Sections\Section_Down.png">
+    <None Update="Assets\Images\Sections\Section_LD.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Sections\Section_Up.png">
+    <None Update="Assets\Images\Sections\Section_LU.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Valves\Valve_Hor.png">
