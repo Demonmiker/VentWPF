@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Text;
 using pt = PropertyTools.DataAnnotations;
+using t = VentWPF.Tools;
 using PropertyChanged;
 
 namespace VentWPF.ViewModel
@@ -14,7 +15,7 @@ namespace VentWPF.ViewModel
     public abstract class ValidViewModel : BaseViewModel, IDataErrorInfo
     {
         #region Properties
-
+        [pt.Browsable(false)]
         public bool HasErrors { get; private set; } = false;
 
         [NotMapped]
@@ -71,13 +72,20 @@ namespace VentWPF.ViewModel
         {
             try
             {
-                var value = this.GetType().GetProperty(propertyName).GetValue(this, null);
-                var results = new List<ValidationResult>();
-                var result = Validator.TryValidateProperty(
-                    value,
-                    new ValidationContext(this, null, null) { MemberName = propertyName },
-                    results);
-                return !result ? results.Select(x => x.ErrorMessage).Aggregate((a, b) => $"{a}\n{b}") : null;
+                var prop = this.GetType().GetProperty(propertyName);
+                if (prop.GetCustomAttributes(true)
+                    .Any(x => x is t.RequiredAttribute || x is t.RangeAttribute))
+                {
+                    var value = this.GetType().GetProperty(propertyName).GetValue(this);
+                    var results = new List<ValidationResult>();
+                    var result = Validator.TryValidateProperty(
+                        value,
+                        new ValidationContext(this, null, null) { MemberName = propertyName },
+                        results);
+                    return !result ? results.Select(x => x.ErrorMessage).Aggregate((a, b) => $"{a}\n{b}") : null;
+                }
+                return null;
+               
             }
             catch (Exception ex)
             {

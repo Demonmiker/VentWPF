@@ -26,6 +26,7 @@ namespace VentWPF.Tools
         {
             try
             {
+
                 return (T)JsonConvert.DeserializeObject(File.ReadAllText(path), jsonS);
             }
             catch

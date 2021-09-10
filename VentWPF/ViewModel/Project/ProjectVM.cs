@@ -1,4 +1,8 @@
-﻿namespace VentWPF.ViewModel
+﻿using System.Windows.Controls;
+using System.Windows.Documents;
+using VentWPF.Tools;
+
+namespace VentWPF.ViewModel
 {
     internal class ProjectVM : BaseViewModel
     {
@@ -12,6 +16,7 @@
 
         private ProjectVM()
         {
+           
         }
 
         #endregion
@@ -36,6 +41,9 @@
         //отчёт
         //Менеджер ошибок
         public ErrorManagerVM ErrorManager { get; private set; }
+
+
+        
 
         #endregion
 
@@ -69,6 +77,10 @@
             Frame = new(500, ProjectInfo.Width, ProjectInfo.Height);
             Grid.Init(ProjectInfo.Rows);
         }
+
+        
+
+        
 
         #endregion
     }

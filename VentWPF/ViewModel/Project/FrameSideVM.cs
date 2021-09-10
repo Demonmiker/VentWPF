@@ -14,7 +14,7 @@ namespace VentWPF.ViewModel
             CmdSplit = new(Split);
             CmdDelete = new(Delete);
             CmdSupport = new(AddSupport) { predicate = CanAddSupport };
-            Values = new() { new(this),new(this) { Support = 25 } };
+            Values = new() { new(this),new(this)};
             ValuesChanged();
         }
 
@@ -36,9 +36,9 @@ namespace VentWPF.ViewModel
 
         public long Sum { get; set; }
 
-        public double Side { get; set; }
+        public uint Side { get; set; }
 
-        public double Length { get; set; }
+        public uint Length { get; set; }
 
         public Command<Box> CmdSplit { get; init; }
 
@@ -67,7 +67,7 @@ namespace VentWPF.ViewModel
 
         private void AddSupport(Box b)
         {
-            Values.First(x => b == x).Support = 25;
+            Values.First(x => b == x).Support = (uint)Side/2;
         }
 
         private bool CanAddSupport(Box b)

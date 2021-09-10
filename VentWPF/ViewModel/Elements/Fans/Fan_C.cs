@@ -11,12 +11,17 @@ namespace VentWPF.ViewModel
 
         public Fan_C()
         {
-            //public override IList Query => new DllController()
-            //.GetResponce(IOManager.LoadAsJson<DllRequest>("req.json"));
-
+            Query = new FanQuery_C()
+            {
+                Source = new DllRequest()
+                {
+                    PressureDrop = 123,
+                }
+            };
         }
 
         public override string Name => "Вентилятор";
+
 
         protected override List<string> InfoProperties => new()
         {
@@ -24,6 +29,7 @@ namespace VentWPF.ViewModel
             "PressureRaise",
             
         };
+
 
     }
 }

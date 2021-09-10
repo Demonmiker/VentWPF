@@ -11,9 +11,18 @@ namespace VentWPF.ViewModel
 
         protected abstract IList Fill(object q);
 
+        protected bool InProcess { get; set; }
+
         //Здесь можно создать объект регулирующий релоад запроса
 
-        private IList Cache { get; set; }
+        private IList _Cache;
+
+        private IList Cache
+
+        {
+            get => _Cache;
+            set { InProcess = false; _Cache = value; }
+        }
 
         [DependsOn("Cache")]
         public IList Result
@@ -21,11 +30,15 @@ namespace VentWPF.ViewModel
             get
             {
                 if (Cache == null)
-                    ProjectVM.Current.TaskManager.Add(() =>
+                    if(!InProcess)
                     {
-                        if (Cache == null)
-                            Cache = Fill(Source);
-                    });
+                       InProcess = true;
+                       ProjectVM.Current.TaskManager.Add(() =>
+                       {
+                           Cache = Fill(Source);
+                       });
+                    }
+                       
                 return Cache;
             }
         }
