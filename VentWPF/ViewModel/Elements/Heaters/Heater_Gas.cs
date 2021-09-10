@@ -19,6 +19,15 @@ namespace VentWPF.ViewModel
 
         public override string Name => "Нагреватель газовый";
 
+        protected override List<string> InfoProperties => new()
+        {
+            "Performance",
+            "TempIn",
+            "TempOut",
+            "torch",
+        };
+
+
         [Category(Data)]
         #region Данные
 

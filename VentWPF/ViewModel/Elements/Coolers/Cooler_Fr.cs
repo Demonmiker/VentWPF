@@ -28,7 +28,22 @@ namespace VentWPF.ViewModel
 
         public override string Name => $"Фреоновый охладитель {(DeviceData as ФреонХолод)?.Типоряд}";
 
-
+        protected override List<string> InfoProperties => new()
+        {
+            "TempIn",
+            "TempOut",
+            "HumidityIn",
+            "Power",
+            "HumidOutAbs",
+            "HumidOutRel",            
+            "DeviceData.LВозд",
+            "DeviceData.NКвт",
+            "DeviceData.Скорость",
+            "DeviceData.КолВоКонтуров",
+            "DeviceData.ВысотаГабарит",
+            "DeviceData.ШиринаГабарит",
+            "Fr",
+        };
 
 
         [Category(Data)]

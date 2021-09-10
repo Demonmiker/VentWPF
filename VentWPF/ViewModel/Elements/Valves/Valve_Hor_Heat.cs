@@ -21,6 +21,13 @@ namespace VentWPF.ViewModel
         }
         public override string Name => $"Клапан воздушный утеплённый горизонтальный {(DeviceData as Тэны)?.Маркировка}";
 
+        protected override List<string> InfoProperties => new()
+        {
+            "DeviceData.Маркировка",
+            "DeviceData.КолВоПоШирине",
+            "TEN_count",
+        };
+
 
         [Category(Data)]
         [DisplayName("Количество ТЭНов")]

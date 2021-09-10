@@ -25,6 +25,25 @@ namespace VentWPF.ViewModel
         }
         public override string Name => $"Охладитель жидкостный {(DeviceData as ВодаХолод)?.Типоряд}";
 
+
+        protected override List<string> InfoProperties => new()
+        {
+            "TempIn",
+            "TempOut",
+            "TempBegin",
+            "TempEnd",           
+            "HumidityIn",
+            "Power",
+            "HumidOutAbs",
+            "HumidOutRel",
+            "DeviceData.LВозд",
+            "DeviceData.NКвт",
+            "DeviceData.Скорость",
+            "DeviceData.ВысотаГабарит",
+            "DeviceData.ШиринаГабарит",
+            "Fr",
+        };
+
         [Category(Data)]
         #region Данные
 
@@ -36,10 +55,14 @@ namespace VentWPF.ViewModel
 
         #endregion Данные
 
-        //[Category(Info)]
+        [Category(Info)]
         #region Информация
+        [Browsable(false)]
+        [DisplayName("Расход теплоносителя")]
+        [FormatString(MasFr)]
+        public float Consumption => (float)(((Power * 1000) / (4198 * Math.Abs(TempBegin - TempEnd)))) * 3600;
 
-        
+
 
         #endregion Информация
 

@@ -25,11 +25,12 @@ namespace VentWPF.ViewModel
 
         public const string fT = "{0:0.0}°C";
         
-        public const string fkW = "{0:0.00} kВт";
-        public const string fkPa = "{0:0.00} kПа";
+        public const string fkW = "{0:0.00} кВт";
+        public const string fkPa = "{0:0.00} кПа";
         public const string fPa = "{0:0.00} Па";
         public const string fper = "{0:0.00} %";
         public const string fm3 = "{0:0.00} м³";
+        public const string MasFr = "{0:0.00} Кг/Час";
 
         public const string fDate = "{0:dd/MM/yyyy}";
         

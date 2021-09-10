@@ -37,9 +37,6 @@ namespace VentWPF.ViewModel
             "Consumption",
             "Coolant",
             "CoolantPressureDrop",
-
-
-
         };
 
         
@@ -62,8 +59,8 @@ namespace VentWPF.ViewModel
         #region Информация
 
         [DisplayName("Расход теплоносителя")]
-        [FormatString(fNull)]
-        public float Consumption => (float)(Power * 1000 / (4200 * Math.Abs(TempIn - TempOut)) * 3600);
+        [FormatString(MasFr)]
+        public float Consumption => (float)(((Power * 1000) / (4198 * (TempBegin - TempEnd)))) * 3600;
 
 
         [DisplayName("Падение давл. теплоносителя")]
