@@ -26,7 +26,7 @@ namespace VentWPF.ViewModel
         protected override List<string> InfoProperties => new()
         {
             "FC",
-            "GeneratedPressureDrop",                       
+            "GeneratedPressureDrop",                   
         };
     }
 }
