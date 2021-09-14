@@ -1,22 +1,27 @@
 ﻿using System;
-using System.Windows.Data;
-
 
 namespace VentWPF.Tools
 {
-    public class Condition<T> : IValueConverter
+    /// <summary>
+    /// Класс накладывающий ограничения на значения
+    /// @@warn Убрать и заменить везде напрямую на Predicate
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class Condition<T>
     {
-        public Predicate<T> Predicate { get; set; }
+        #region Constructors
 
         public Condition(Predicate<T> predicate)
         {
             Predicate = predicate;
         }
 
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-            => Predicate((T)value);
+        #endregion
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-            => throw new NotImplementedException();
+        #region Properties
+
+        public Predicate<T> Predicate { get; set; }
+
+        #endregion
     }
 }
