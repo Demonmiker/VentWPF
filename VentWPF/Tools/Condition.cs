@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Data;
 
+
 namespace VentWPF.Tools
 {
     public class Condition<T> : IValueConverter
