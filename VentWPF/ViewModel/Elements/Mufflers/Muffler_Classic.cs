@@ -1,27 +1,30 @@
-﻿using PropertyTools.DataAnnotations;
-using static VentWPF.ViewModel.Strings;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using VentWPF.Model;
-using VentWPF.Tools;
-using PropertyChanged;
+﻿using System.Collections.Generic;
 
 namespace VentWPF.ViewModel
 {
+    /// <summary>
+    /// Шумоглушитель
+    /// </summary>
     internal class Muffler_Classic : Muffler
     {
+        #region Constructors
+
         public Muffler_Classic()
         {
             image = "Mufflers/Muffler.png";
         }
 
+        #endregion
+
+        #region Properties
+
         public override string Name => "Шумоглушитель";
 
         protected override List<string> InfoProperties => new()
         {
-            "FC",            
+            "FC",
         };
-        }
+
+        #endregion
+    }
 }

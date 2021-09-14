@@ -1,21 +1,22 @@
-﻿using PropertyTools.DataAnnotations;
-using static VentWPF.ViewModel.Strings;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using VentWPF.Model;
-using VentWPF.Tools;
-using PropertyChanged;
+﻿using System.Collections.Generic;
 
 namespace VentWPF.ViewModel
 {
+    /// <summary>
+    /// Увлажнитель паровой
+    /// </summary>
     internal class Humid_Steam : Humid
     {
+        #region Constructors
+
         public Humid_Steam()
         {
             image = "Humidifiers/Humid_Steam.png";
         }
+
+        #endregion
+
+        #region Properties
 
         public override string Name => "Увлажнитель паровой";
 
@@ -25,5 +26,7 @@ namespace VentWPF.ViewModel
             "AirSoftOut",
             "WaterConsumption",
         };
+
+        #endregion
     }
 }

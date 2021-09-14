@@ -5,6 +5,9 @@ using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
 {
+    /// <summary>
+    /// Нагреватель газовый
+    /// </summary>
     internal class Heater_Gas : Heater
     {
         #region Constructors

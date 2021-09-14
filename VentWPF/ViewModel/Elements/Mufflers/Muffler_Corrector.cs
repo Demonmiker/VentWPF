@@ -1,21 +1,22 @@
-﻿using PropertyTools.DataAnnotations;
-using static VentWPF.ViewModel.Strings;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using VentWPF.Model;
-using VentWPF.Tools;
-using PropertyChanged;
+﻿using System.Collections.Generic;
 
 namespace VentWPF.ViewModel
 {
+    /// <summary>
+    /// Шумаглушитель с выравниванием
+    /// </summary>
     internal class Muffler_Corrector : Muffler
     {
+        #region Constructors
+
         public Muffler_Corrector()
         {
             image = "Mufflers/Muffler_Corrector.png";
         }
+
+        #endregion
+
+        #region Properties
 
         public override string Name => "Шумоглушитель с выравниванием";
 
@@ -23,5 +24,7 @@ namespace VentWPF.ViewModel
         {
             "FC",
         };
+
+        #endregion
     }
 }
