@@ -5,51 +5,163 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Media;
+using VentWPF.Tools;
 using VentWPF.ViewModel.Elements;
 using static VentWPF.ViewModel.Strings;
-using valid = System.ComponentModel.DataAnnotations;
 
 namespace VentWPF.ViewModel
 {
+    /// <summary>
+    /// Базовый класс элемента вентиляции
+    /// </summary>
     internal class Element : ValidViewModel
     {
         #region Properties
 
+        /// <summary>
+        /// Ссылка на Проект которому принадлежит элемент
+        /// </summary>
         public static ProjectInfoVM Project { get; set; } = ProjectVM.Current?.ProjectInfo;
 
         /// <summary>
-        /// Наименование элемента системы вентиляции
+        /// Название элемента системы вентиляции
         /// </summary>
         [Browsable(false)]
         [DependsOn("DeviceIndex")]
         public virtual string Name => "";
 
+        #region Мощность
+
+        /// <summary>
+        /// Определяет нужно ли показывать Мощность пользователю
+        /// </summary>
+        [Browsable(false)]
+        public bool ShowPR { get; init; } = false;
+
+        [Category(Data)]
+        [VisibleBy(nameof(ShowPR))]
+        [SortIndex(-3)]
+        [DisplayName("Производительность")]
+        public virtual float Performance { get; set; } = Project.VFlow;
+
+        #endregion
+
+        #region Падение давления
+
+        private float pressureDrop = 0;
+
+        /// <summary>
+        /// Падение давления
+        /// </summary>
+        [Category(Info)]
+        [VisibleBy("ShowPD")]
+        [SortIndex(-2)]
+        [Optional("ManualPD")]
+        [DisplayName("Падение давления")]
+        [FormatString(fkPa)]
+        public virtual float PressureDrop
+        {
+            get => !ManualPD ? (pressureDrop = GeneratedPressureDrop) : pressureDrop;
+            set => pressureDrop = value;
+        }
+
+        /// <summary>
+        /// Определяет вводится ли Падение давления вручную
+        /// </summary>
+        [VisibleBy("ShowPD")]
+        [Browsable(false)]
+        public bool ManualPD { get; set; } = false;
+
+        /// <summary>
+        /// Определяет нужно ли показывать Падения давления пользователю
+        /// </summary>
+        [Browsable(false)]
+        protected bool ShowPD { get; init; } = false;
+
+        /// <summary>
+        /// Свойство для получения Падения давления по формуле
+        /// </summary>
+        [Browsable(false)]
+        protected virtual float GeneratedPressureDrop => 0;
+
+        #endregion Падение давления
+
+        #region Модель
+
+        /// <summary>
+        /// Тип модели реализации класса
+        /// </summary>
+        protected Type DeviceType = null;
+
+        /// <summary>
+        /// Индекс выбранной модели в коллекции запроса
+        /// </summary>
+        [Browsable(false)]
+        public int DeviceIndex { get; set; }
+
+        /// <summary>
+        /// Информация о выбраной модели
+        /// </summary>
+        [Browsable(false)]
+        public object DeviceData => DeviceIndex >= 0 ? Query.Result[DeviceIndex] : null;
+
+        #endregion Модель
+
+        #region Запрос
+
+        /// <summary>
+        /// Содержит данные о форматировании этого элемента @@warn Можно убрать
+        /// </summary>
+        [Browsable(false)]
+        [JsonIgnore]
+        public Dictionary<string, BaseCondition> Format => Conditions.Get(this.GetType());
+
+        /// <summary>
+        /// Запрос моделей для этого элемента
+        /// </summary>
+        [Browsable(false)]
+        [JsonIgnore]
+        public Query Query { get; init; }
+
+        #endregion Запрос
+
         #endregion
 
         #region Генерация документации
 
-        protected virtual List<string> InfoProperties => new() { };
-
+        /// <summary>
+        /// Скрытое поле для свойства InfoTable (для кэширования)
+        /// </summary>
         private Table _InfoTable = null;
 
+        /// <summary>
+        /// Свойство содержащее информацию о элементе в виде таблицы
+        /// </summary>
         [Browsable(false)]
         public Table InfoTable
         {
             get
             {
                 if (_InfoTable is null)
-                    _InfoTable = GetTable(2,true);
+                    _InfoTable = GetTable(2, true);
                 return _InfoTable;
             }
         }
 
+        /// <summary>
+        /// Лист для определение полей информации а также их положения
+        /// </summary>
+        protected virtual List<string> InfoProperties => new() { };
 
-        public Table GetTable(int columns = 1,bool isDynamic=false)
+        /// <summary>
+        /// Метод генерирующий таблицу для вывода в документ
+        /// </summary>
+        /// <param name="columns">Сколько в таблице будет столбцов</param>
+        /// <param name="isDynamic">Будет ли информация в таблице обновлятся автоматически</param>
+        /// <returns>Таблицу с данными</returns>
+        public Table GetTable(int columns = 1, bool isDynamic = false)
         {
-            
             List<TableRow> rowList = new();
             var header = new TableRow();
             header.Cells.Add(new(new Paragraph(new Run(this.Name)) { FontSize = 20 }));
@@ -86,117 +198,32 @@ namespace VentWPF.ViewModel
 
         #region Управление изображением
 
+        /// <summary>
+        /// Поле с изображением по умолчанию
+        /// </summary>
         protected string image = "Empty.png";
 
+        /// <summary>
+        /// Свойство с изображением этого элемента в конструкторе
+        /// </summary>
         [Browsable(false)]
         [DependsOn("SubType")]
         public virtual string Image => Path.GetFullPath("Assets/Images/" + image);
 
+        /// <summary>
+        /// Свойство под типа элемента
+        /// </summary>
         [Browsable(false)]
         public int SubType { get; set; } = 0;
 
         #endregion Управление изображением
-
-        #region Отображением полей
-
-        [SortIndex(-1)]
-        [Category(Debug)]
-        [VisibleBy("ShowDebug")]
-        public bool ShowDebug { get; set; } = true;
-
-        [Browsable(false)]
-        public bool ShowPD { get; init; } = false;
-
-        [Browsable(false)]
-        public bool ShowPR { get; init; } = false;
-
-        #endregion Отображением полей
-
-        #region Общие свойства элементов
-
-        [Category(Data)]
-        [VisibleBy("ShowPR")]
-        [SortIndex(-3)]
-        [DisplayName("Производительность")]
-        public virtual float Performance { get; set; } = Project.VFlow;
-
-        #region Падение давления
-
-        protected float pressureDrop = 0;
-
-        [Browsable(false)]
-        public virtual float GeneratedPressureDrop => 0;
-
-        [Category(Info)]
-        [VisibleBy("ShowPD")]
-        [SortIndex(-2)]
-        [Optional("ManualPD")]
-        [DisplayName("Падение давления")]
-        [FormatString(fkPa)]
-        public virtual float PressureDrop
-        {
-            get
-            {
-                if (!ManualPD)
-                    pressureDrop = GeneratedPressureDrop;
-                return pressureDrop;
-            }
-            set
-            {
-                pressureDrop = value;
-            }
-        }
-
-        [VisibleBy("ShowPD")]
-        [Browsable(false)]
-        public bool ManualPD { get; set; } = false;
-
-        #endregion Падение давления
-
-        #endregion Общие свойства элементов
-
-        #region Модель
-
-        protected Type DeviceType = null;
-
-
-        private int _DeviceIndex = -1;
-        [Category(Debug)]
-        [VisibleBy("ShowDebug")]
-        public int DeviceIndex
-        {
-            get => _DeviceIndex;
-            set { if(value >= 0) _DeviceIndex = value; }
-        }
-
-        [Browsable(false)]
-        public object DeviceData => DeviceIndex >= 0 ? Query.Result[DeviceIndex] : null;
-
-        #endregion Модель
-
-        #region Запрос
-
-        [Browsable(false)]
-        [JsonIgnore]
-        public Dictionary<string, IValueConverter> Format => Conditions.Get(this.GetType());
-
-        [Browsable(false)]
-        [JsonIgnore]
-        public Query Query { get; init; }
-
-        #endregion Запрос
 
         #region Methods
 
         public static T GetInstance<T>(T o) => (T)Activator.CreateInstance(o.GetType());
 
         protected override string OnValidation()
-        {
-            if (DeviceType != null && DeviceData == null)
-                return "Не выбрана модель устройства";
-            else
-                return "";
-        }
+            => DeviceType != null && DeviceData == null ? "Не выбрана модель устройства" : "";
 
         #endregion
     }

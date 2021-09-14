@@ -7,7 +7,7 @@ namespace VentWPF.Tools
     /// @@warn Убрать и заменить везде напрямую на Predicate
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class Condition<T>
+    public class Condition<T> : BaseCondition
     {
         #region Constructors
 

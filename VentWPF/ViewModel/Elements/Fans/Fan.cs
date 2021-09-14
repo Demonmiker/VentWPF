@@ -11,7 +11,7 @@ namespace VentWPF.ViewModel
             ShowPD = false; ;
         }
 
-        public override float GeneratedPressureDrop => -500;
+        protected override float GeneratedPressureDrop => -500;
 
 
         [Browsable(false)]

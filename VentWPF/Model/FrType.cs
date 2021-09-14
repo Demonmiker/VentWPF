@@ -1,7 +1,7 @@
 ﻿namespace VentWPF.Model
 {
     /// <summary>
-    /// Тип Фриона
+    /// Тип Фреона
     /// </summary>
     public enum FrType
     {

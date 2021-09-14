@@ -23,8 +23,6 @@ namespace VentWPF.Tools
 
         #endregion
 
-#
-
         #region Events
 
 #pragma warning disable 67
