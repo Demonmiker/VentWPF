@@ -39,7 +39,7 @@
             <Grid>
               <TextBox
                 BorderBrush="Black"
-                BorderThickness="1 0 1 1.5"
+                BorderThickness="1.5 0 1.5 1.5"
                 Text="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
               <Polygon
                 Margin="0 -3"

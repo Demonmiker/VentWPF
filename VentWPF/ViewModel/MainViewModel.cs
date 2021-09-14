@@ -39,6 +39,7 @@ namespace VentWPF.ViewModel
             CmdConfig = new(OpenConfig);
             CmdUpdateReport = new Command<object>(UpdateReport);
             CmdSaveReport = new Command<object>(SaveReport);
+            ReportViewer.Document = ReportDocument;
         }
 
         #endregion
@@ -50,10 +51,10 @@ namespace VentWPF.ViewModel
         public DllRequest Request { get; set; } = new();
 
         public FlowDocumentScrollViewer ReportViewer { get; private set; }
-            = new FlowDocumentScrollViewer() 
-            { 
-                Document = new(),
-            };
+            = new FlowDocumentScrollViewer();
+
+
+        public FlowDocument ReportDocument { get; init; } = new FlowDocument();
 
 
         #endregion
@@ -150,14 +151,13 @@ namespace VentWPF.ViewModel
         public void UpdateReport(object _)
         {
 
-            var doc = ReportViewer.Document;
-            doc.Blocks.Clear();
+            ReportDocument.Blocks.Clear();
             foreach (var item in Project.Grid.Elements)
             {
                 if (item.Name!="")
                 {
-                    doc.Blocks.Add(item.GetTable(2, false));
-                    doc.Blocks.Add(new Paragraph());
+                    ReportDocument.Blocks.Add(item.GetTable(2, false));
+                    ReportDocument.Blocks.Add(new Paragraph());
                 }    
                    
             }
@@ -169,8 +169,8 @@ namespace VentWPF.ViewModel
             var cfd = new SaveFileDialog() { DefaultExt = "rtf", AddExtension = true };
             if(cfd.ShowDialog()==true)
             {
-                using FileStream fs = new FileStream(cfd.FileName, FileMode.Create, FileAccess.Write);
-                TextRange textRange = new TextRange(ReportViewer.Document.ContentStart, ReportViewer.Document.ContentEnd);
+                using FileStream fs = new FileStream(cfd.FileName, FileMode.Create, FileAccess.ReadWrite);
+                TextRange textRange = new TextRange(ReportDocument.ContentStart, ReportDocument.ContentEnd);
                 textRange.Save(fs, DataFormats.Rtf);
             }
 
@@ -204,4 +204,6 @@ namespace VentWPF.ViewModel
 
         public ProjectVM Project { get; set; } = ProjectVM.Current;
     }
+
+    
 }

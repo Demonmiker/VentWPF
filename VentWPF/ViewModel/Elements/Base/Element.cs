@@ -71,7 +71,7 @@ namespace VentWPF.ViewModel
             }
             var table = new Table();
             for (int i = 0; i < columns; i++)
-                table.Columns.Add(new TableColumn() { Width=new System.Windows.GridLength(720/columns) });
+                table.Columns.Add(new TableColumn() { Width = new System.Windows.GridLength(600 / columns) });
             if (ProjectVM.Current.Grid.Selected is not null)
             {
                 TableRowGroup tg = new();
