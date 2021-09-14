@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Globalization;
-using System.Windows;
 using System.Windows.Data;
 
 namespace VentWPF.Tools
 {
     /// <summary>
-    /// Конвертирует [bool,uint,string,object] => Visibility
+    /// Конвертирует число умножая его на заранее заданный коэфицент
     /// </summary>
-    internal class VisibilityConverter : IValueConverter
+    internal class MulConverter : IValueConverter
     {
         #region Properties
 
         /// <summary>
-        /// Параметр позволяющий обратить значения
+        /// Коэфицент для умножения
         /// </summary>
-        public bool Reverse { get; init; }
+        public double K { get; init; }
 
         #endregion
 
@@ -24,12 +23,13 @@ namespace VentWPF.Tools
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
             => value switch
             {
-                null => false,
-                bool => (bool)value,
-                uint => ((uint)value) > 0,
-                string => (value as string).Length > 0,
-                object => (value as object) != null,
-            } ^ Reverse ? Visibility.Visible : Visibility.Collapsed;
+                null => 0,
+                int v => K * v,
+                uint v => K * v,
+                double v => K * v,
+                float v => K * v,
+                _ => throw new ArgumentException("Данный тип неподдерживается"),
+            };
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => throw new NotImplementedException();

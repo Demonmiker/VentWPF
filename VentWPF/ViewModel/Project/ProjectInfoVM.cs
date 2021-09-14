@@ -58,13 +58,13 @@ namespace VentWPF.ViewModel
         public float PFlow { get; set; } = 0;
 
         [Category("Настройки|")]
-        [EnableBy("Rows", Rows.Двуярусный)]
+        [EnableBy("Rows", Rows.Двухярусный)]
         [DisplayName("Объём вытяжки/резерва")]
         [FormatString(fm3)]
         public int VReserv { get; set; } = 6000;
 
         [Category("Настройки|")]
-        [EnableBy("Rows", Rows.Двуярусный)]
+        [EnableBy("Rows", Rows.Двухярусный)]
         [DisplayName("Сопр. сети вытяжки")]
         [FormatString(fPa)]
         public float PReserv { get; set; } = 0;
@@ -92,7 +92,7 @@ namespace VentWPF.ViewModel
         [Category("Вид|")]
         [DisplayName("Кол-во рядов")]
         [FormatString(fkPa)]
-        public Rows Rows { get; set; } = Rows.Двуярусный;
+        public Rows Rows { get; set; } = Rows.Двухярусный;
 
         [Category("Вид|")]
         [DisplayName("Исполнение")]

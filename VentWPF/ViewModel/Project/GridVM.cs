@@ -48,7 +48,7 @@ namespace VentWPF.ViewModel
 
         public void Init(Rows rows)
         {
-            if (rows == Rows.Одиноярусный)
+            if (rows == Rows.Одноярусный)
             {
                 Elements = new ObservableCollection<Element>()
                 {
