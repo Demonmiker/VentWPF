@@ -1,21 +1,22 @@
-﻿using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;
-using System;
+﻿using PropertyTools.DataAnnotations;
 using System.Collections.Generic;
-using System.Linq;
 using VentWPF.Model;
-using VentWPF.Tools;
+using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
 {
     internal class Heater_Gas : Heater
     {
+        #region Constructors
 
-
-       
         public Heater_Gas()
         {
             image = "Heaters/Heater_Gas.png";
         }
+
+        #endregion
+
+        #region Properties
 
         public override string Name => "Нагреватель газовый";
 
@@ -27,18 +28,17 @@ namespace VentWPF.ViewModel
             "torch",
         };
 
-
-        [Category(Data)]
         #region Данные
 
-
+        /// <summary>
+        /// Тип горелки
+        /// </summary>
+        [Category(Data)]
         [DisplayName("Горелка")]
-        public TorchType torch { get; set; }
+        public TorchType Torch { get; set; }
 
         #endregion Данные
 
-      
-
-    
+        #endregion
     }
 }

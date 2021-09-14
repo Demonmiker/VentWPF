@@ -1,12 +1,4 @@
-﻿using PropertyTools.DataAnnotations;
-using static VentWPF.ViewModel.Strings;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using VentWPF.Model;
-using VentWPF.Tools;
-using PropertyChanged;
+﻿using System.Collections.Generic;
 
 namespace VentWPF.ViewModel
 {
@@ -15,18 +7,19 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Filter_Section : Filter
     {
+        #region Constructors
+
         public Filter_Section()
         {
             image = "Filters/Filter_Section.png";
         }
 
+        #endregion
+
+        #region Properties
+
         public override string Name => $"Фильтр секционный";
 
-
-        protected override List<string> InfoProperties => new()
-        {
-            "FC",
-            "GeneratedPressureDrop",                   
-        };
+        #endregion
     }
 }

@@ -4,11 +4,14 @@ using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
 {
+    /// <summary>
+    /// Общий класс Вентиляторов
+    /// </summary>
     internal class Fan : Element
     {
         public Fan()
         {
-            ShowPD = false; ;
+            ShowPD = false; 
         }
 
         protected override float GeneratedPressureDrop => -500;
