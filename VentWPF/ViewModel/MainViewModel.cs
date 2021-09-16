@@ -151,6 +151,8 @@ namespace VentWPF.ViewModel
         public void UpdateReport(object _)
         {
 
+            DocX.DocX_Main test = new DocX.DocX_Main();
+            test.CreateDocument();
             ReportDocument.Blocks.Clear();
             foreach (var item in Project.Grid.Elements)
             {
