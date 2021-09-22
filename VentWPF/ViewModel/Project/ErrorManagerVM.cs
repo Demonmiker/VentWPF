@@ -43,13 +43,13 @@ namespace VentWPF.ViewModel
 
         public void AddRange(IEnumerable<(string name, ValidViewModel model)> arr)
         {
-            foreach (var o in arr)
+            foreach ((string name, ValidViewModel model) o in arr)
                 Add(o.model, o.name);
         }
 
         public void Update()
         {
-            foreach (var item in ValidModels)
+            foreach (ValidViewModel item in ValidModels)
             {
                 Update(item, null);
             }

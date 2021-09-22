@@ -18,7 +18,7 @@ namespace VentWPF.Tools
 
         public static void SaveAsJson<T>(T o, string path)
         {
-            File.WriteAllTextAsync(path, JsonConvert.SerializeObject(o, typeof(T), jsonS));
+            _ = File.WriteAllTextAsync(path, JsonConvert.SerializeObject(o, typeof(T), jsonS));
         }
 
         public static T LoadAsJson<T>(string path) where T : new()

@@ -18,7 +18,9 @@ namespace VentWPF.Fans.K3G
 
         private string Reqest = "[";
 
-        private string path = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+        //TODO не используется
+        private readonly string path = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public static ProjectInfoVM Project { get; set; } = ProjectVM.Current?.ProjectInfo;
 
@@ -69,7 +71,7 @@ namespace VentWPF.Fans.K3G
 
                 if (path[l - 1] != (';'))
                 {
-                    path = path + (';');
+                    path += (';');
                     n = SET_XML_PATH_PC(path);
                     //errors.Text = Convert.ToString(n);
                     //show_Results(n, path);
@@ -89,10 +91,10 @@ namespace VentWPF.Fans.K3G
         public void FanCollection()
         {
             int n;
-            string fanStringChar = new string(new Char(), 4000);
+            string fanStringChar = new(new Char(), 4000);
 
-            GC.GetTotalMemory(false);
-            GC.GetTotalMemory(true);
+            _ = GC.GetTotalMemory(false);
+            _ = GC.GetTotalMemory(true);
 
             n = GET_PRODUCTS_PC(ref fanStringChar);
             if (n < 0)
@@ -142,7 +144,7 @@ namespace VentWPF.Fans.K3G
                     }
                     else
                     {
-                        temp = temp + thecopy[j];
+                        temp += thecopy[j];
                         j++;
                     }
                 }
@@ -164,7 +166,7 @@ namespace VentWPF.Fans.K3G
                     }
                     else
                     {
-                        temp = temp + thecopy[j];
+                        temp += thecopy[j];
                         j++;
                     }
                 }
@@ -184,13 +186,13 @@ namespace VentWPF.Fans.K3G
         //НАЧАЛО ЗАПРОСА РАСЧЁТА
         public void FanCalcData()
         {
-            string buffer = new string(new Char(), 4000);
+            string buffer = new(new Char(), 4000);
             string Input_Data = "";
             int n;
             Input_Data = Get_Input_Value(Input_Data);
 
-            GC.GetTotalMemory(false);
-            GC.GetTotalMemory(true);
+            _ = GC.GetTotalMemory(false);
+            _ = GC.GetTotalMemory(true);
             n = GET_CCSI_DATA(Input_Data, ref buffer);
             CalcData(n, buffer);
             //lbInfo.Items.Add(data);
@@ -226,7 +228,7 @@ namespace VentWPF.Fans.K3G
                     }
                     else
                     {
-                        tmpDescript = tmpDescript + fandescription[j];
+                        tmpDescript += fandescription[j];
                     }
                     j++;
                 }

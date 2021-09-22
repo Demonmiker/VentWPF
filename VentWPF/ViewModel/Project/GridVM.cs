@@ -14,7 +14,7 @@ namespace VentWPF.ViewModel
     internal class GridVM : BaseViewModel
     {
 
-        private Element _Selected = new Element();
+        private Element _Selected = new();
 
         /// <summary>
         /// Менеджер ошибок
@@ -33,7 +33,11 @@ namespace VentWPF.ViewModel
         public Element Selected
         {
             get => _Selected;
-            set { _Selected = value; ChangeInfo(); }
+            set
+            {
+                _Selected = value;
+                ChangeInfo();
+            }
         }
 
         /// <summary>
@@ -73,7 +77,7 @@ namespace VentWPF.ViewModel
         /// <param name="el">добавляемый элементы</param>
         public void AddElement(Element el)
         {
-            var ind = Index;
+            int ind = Index;
             if (Index >= 0 && Index < Elements.Count)
             {
                 Elements[Index] = Element.GetInstance(el);

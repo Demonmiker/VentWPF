@@ -32,19 +32,31 @@
         public uint Height
         {
             get { return height; }
-            set { height = value; UpdateSides(); }
+            set
+            {
+                height = value;
+                UpdateSides();
+            }
         }
 
         public uint Width
         {
             get { return width; }
-            set { width = value; UpdateSides(); }
+            set
+            {
+                width = value;
+                UpdateSides();
+            }
         }
 
         public uint Length
         {
             get { return length; }
-            set { length = value; UpdateSides(); }
+            set
+            {
+                length = value;
+                UpdateSides();
+            }
         }
 
         private void UpdateSides()

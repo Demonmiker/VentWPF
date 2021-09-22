@@ -11,7 +11,7 @@ namespace VentWPF.ViewModel
     /// </summary>
     public class TaskManagerVM : BaseViewModel
     {
-        private Stopwatch Sw = new Stopwatch();
+        private Stopwatch Sw = new();
 
         private bool IsWorking = false;
 
@@ -29,7 +29,7 @@ namespace VentWPF.ViewModel
             if (!IsWorking)
             {
                 IsWorking = true;
-                Task.Run(() => DoTasks());
+                _ = Task.Run(() => DoTasks());
             }
         }
 
@@ -40,7 +40,7 @@ namespace VentWPF.ViewModel
             while (Tasks.Count > 0)
             {
                 Debug.WriteLine($"TM: {Tasks.Count}");
-                var action = Tasks[0];
+                Action action = Tasks[0];
                 Tasks.RemoveAt(0);
                 action.Invoke();
             }

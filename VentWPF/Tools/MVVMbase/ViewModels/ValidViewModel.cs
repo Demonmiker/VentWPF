@@ -23,28 +23,29 @@ namespace VentWPF.ViewModel
         {
             get
             {
-                var sb = new StringBuilder();
-                var props = this.GetType().GetProperties().Select(x => x.Name).Where(x => x != "Error");
-                var error = this.OnValidation();
+                StringBuilder sb = new();
+                IEnumerable<string> props = this.GetType().GetProperties().Select(x => x.Name).Where(x => x != "Error");
+                string error = this.OnValidation();
                 if (error != "")
-                    sb.Append(this.OnValidation() + "\n");
-                foreach (var pr in props)
+                    _ = sb.Append(this.OnValidation() + "\n");
+                foreach (string pr in props)
                 {
                     error = this[pr];
                     if (error != null)
                     {
-                        sb.Append(
+
+                        _ = sb.Append(
                             (this.GetType()
                             .GetProperty(pr)
                             .GetCustomAttributes(typeof(pt.DisplayNameAttribute), true)
                             .FirstOrDefault() as pt.DisplayNameAttribute)?.DisplayName ?? pr);
-                        sb.Append(": ");
-                        sb.Append(this[pr]);
-                        sb.Append('\n');
+                        _ = sb.Append(": ");
+                        _ = sb.Append(this[pr]);
+                        _ = sb.Append('\n');
                     }
                 }
                 if (sb.Length > 0)
-                    sb.Remove(sb.Length - 1, 1);
+                    _ = sb.Remove(sb.Length - 1, 1);
                 HasErrors = sb.Length > 0;
                 return sb.ToString();
             }
@@ -63,13 +64,13 @@ namespace VentWPF.ViewModel
         {
             try
             {
-                var prop = this.GetType().GetProperty(propertyName);
+                System.Reflection.PropertyInfo prop = this.GetType().GetProperty(propertyName);
                 if (prop.GetCustomAttributes(true)
-                    .Any(x => x is t.RequiredAttribute || x is t.RangeAttribute))
+                    .Any(x => x is t.RequiredAttribute or t.RangeAttribute))
                 {
-                    var value = this.GetType().GetProperty(propertyName).GetValue(this);
-                    var results = new List<ValidationResult>();
-                    var result = Validator.TryValidateProperty(
+                    object value = this.GetType().GetProperty(propertyName).GetValue(this);
+                    List<ValidationResult> results = new();
+                    bool result = Validator.TryValidateProperty(
                         value,
                         new ValidationContext(this, null, null) { MemberName = propertyName },
                         results);

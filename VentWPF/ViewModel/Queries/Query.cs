@@ -15,6 +15,7 @@ namespace VentWPF.ViewModel
             get
             {
                 if (Cache == null)
+                {
                     if (!InProcess)
                     {
                         InProcess = true;
@@ -23,6 +24,7 @@ namespace VentWPF.ViewModel
                             Cache = Fill(Source);
                         });
                     }
+                }
 
                 return Cache;
             }
@@ -35,7 +37,11 @@ namespace VentWPF.ViewModel
 
         {
             get => _Cache;
-            set { InProcess = false; _Cache = value; }
+            set
+            {
+                InProcess = false;
+                _Cache = value;
+            }
         }
 
         protected abstract IList Fill(object q);

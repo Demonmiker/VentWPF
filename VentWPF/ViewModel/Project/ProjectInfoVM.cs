@@ -155,7 +155,7 @@ namespace VentWPF.ViewModel
         [Category("Вид|")]
         [DisplayName("Типоряд не сделано")]
         public ObservableCollection<string> Types
-            => new ObservableCollection<string>() { $"{Realization}1", $"{Realization}2" };
+            => new() { $"{Realization}1", $"{Realization}2" };
 
         /// <summary>
         /// Сторона обслуживания

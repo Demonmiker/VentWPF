@@ -19,7 +19,7 @@ namespace VentWPF.ViewModel
         public MainViewModel()
         {
             Request = IOManager.LoadAsJson<DllRequest>("req.json");
-            ProjectVM.Current?.TaskManager.Add(() => { var l = VentContext.Instance.ВодаХолодs; });
+            ProjectVM.Current?.TaskManager.Add(() => { Microsoft.EntityFrameworkCore.DbSet<ВодаХолод> l = VentContext.Instance.ВодаХолодs; });
             CmdAddElement = new(ProjectVM.Current.Grid.AddElement);
             CmdAutoColumns = new(AutoColumns);
             CmdOpenPopup = new(OpenPopup);
@@ -66,7 +66,7 @@ namespace VentWPF.ViewModel
         public void UpdateReport(object _)
         {
             ReportDocument.Blocks.Clear();
-            foreach (var item in Project.Grid.Elements)
+            foreach (Element item in Project.Grid.Elements)
             {
                 if (item.Name != "")
                 {
@@ -78,30 +78,32 @@ namespace VentWPF.ViewModel
 
         public void SaveReport(object _)
         {
-            var cfd = new SaveFileDialog() { DefaultExt = "rtf", AddExtension = true };
+            SaveFileDialog cfd = new() { DefaultExt = "rtf", AddExtension = true };
             if (cfd.ShowDialog() == true)
             {
-                using FileStream fs = new FileStream(cfd.FileName, FileMode.Create, FileAccess.ReadWrite);
-                TextRange textRange = new TextRange(ReportDocument.ContentStart, ReportDocument.ContentEnd);
+                using FileStream fs = new(cfd.FileName, FileMode.Create, FileAccess.ReadWrite);
+                TextRange textRange = new(ReportDocument.ContentStart, ReportDocument.ContentEnd);
                 textRange.Save(fs, DataFormats.Rtf);
             }
         }
 
         private void AutoColumns(DataGridAutoGeneratingColumnEventArgs e)
         {
-            var header = e.Column.Header.ToString();
+            string header = e.Column.Header.ToString();
             // Получчение имени из тэга
-            var atrs = ProjectVM.Current.Grid.Selected.Query.Result[0].GetType()
+            object[] atrs = ProjectVM.Current.Grid.Selected.Query.Result[0].GetType()
                     .GetProperty(header).GetCustomAttributes(typeof(DisplayNameAttribute), true);
             if (atrs.Length > 0)
+            {
                 e.Column.Header = (atrs[0] as DisplayNameAttribute).DisplayName ?? e.Column.Header;
+            }
             else
             {
                 e.Cancel = true;
                 return;
             }
             //Получение форматирования из тэга
-            var atrs2 = ProjectVM.Current.Grid.Selected.Query.Result[0].GetType()
+            object[] atrs2 = ProjectVM.Current.Grid.Selected.Query.Result[0].GetType()
                 .GetProperty(header).GetCustomAttributes(typeof(FormatStringAttribute), true);
             if (atrs2.Length > 0 && e.Column is DataGridTextColumn)
             {
@@ -109,10 +111,11 @@ namespace VentWPF.ViewModel
                 col.Binding.StringFormat = (atrs2[0] as FormatStringAttribute).FormatString;
             }
 
-            if (ProjectVM.Current.Grid.Selected.Format == null) return;
+            if (ProjectVM.Current.Grid.Selected.Format == null)
+                return;
             if (ProjectVM.Current.Grid.Selected.Format.ContainsKey(header))
             {
-                var format = ProjectVM.Current.Grid.Selected.Format[header];
+                IValueConverter format = ProjectVM.Current.Grid.Selected.Format[header];
                 if (format != null)
                 {
                     Style defaultStyle = Application.Current.TryFindResource(typeof(DataGridCell)) as Style;
@@ -155,7 +158,7 @@ namespace VentWPF.ViewModel
 
         private void OpenConfig(string s)
         {
-            var dlg = new PropertyDialog() { Owner = Application.Current.MainWindow };
+            PropertyDialog dlg = new() { Owner = Application.Current.MainWindow };
             dlg.DataContext = Request;
             dlg.Title = "Настройки";
             dlg.PropertyControl.TabVisibility = TabVisibility.Collapsed;

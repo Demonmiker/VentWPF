@@ -16,7 +16,7 @@ namespace VentWPF.ViewModel.Elements
                     { "LВозд", new Condition<double>(x => x >= Project.VFlow) },
                     { "ШиринаГабарит", new Condition<double>(x => x <= Project.Width) },
                     { "ВысотаГабарит", new Condition<double>(x => x <= Project.Height) },
-                    { "Скорость", new Condition<double>(x => x > 2.5 && x < 4.5) },
+                    { "Скорость", new Condition<double>(x => x is > 2.5 and < 4.5) },
                 }
             },
             {
@@ -26,7 +26,7 @@ namespace VentWPF.ViewModel.Elements
                     { "LВозд", new Condition<double>(x => x >= Project.VFlow) },
                     { "ШиринаГабарит", new Condition<double>(x => x <= Project.Width) },
                     { "ВысотаГабарит", new Condition<double>(x => x <= Project.Height) },
-                    { "Скорость", new Condition<double>(x => x > 2.5 && x < 4.5) },
+                    { "Скорость", new Condition<double>(x => x is > 2.5 and < 4.5) },
                 }
             },
             {
@@ -36,7 +36,7 @@ namespace VentWPF.ViewModel.Elements
                     { "LВозд", new Condition<double>(x => x >= Project.VFlow) },
                     { "ШиринаГабарит", new Condition<double>(x => x <= Project.Width) },
                     { "ВысотаГабарит", new Condition<double>(x => x <= Project.Height) },
-                    { "Скорость", new Condition<double>(x => x > 2.5 && x < 4.5) },
+                    { "Скорость", new Condition<double>(x => x is > 2.5 and < 4.5) },
                 }
             },
         };

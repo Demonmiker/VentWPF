@@ -44,8 +44,8 @@ namespace VentWPF.ViewModel
         private void Split(Box b)
         {
             int index = Values.IndexOf(b);
-            var val = Values[index].Value / 2;
-            var mod = Values[index].Value % 2;
+            uint val = Values[index].Value / 2;
+            uint mod = Values[index].Value % 2;
             Values.RemoveAt(index);
             Values.Insert(index, new Box(this, val));
             Values.Insert(index, new Box(this, val + mod));
@@ -53,7 +53,7 @@ namespace VentWPF.ViewModel
 
         private void Delete(Box b)
         {
-            Values.Remove(b);
+            _ = Values.Remove(b);
         }
 
         private void AddSupport(Box b)
@@ -63,7 +63,8 @@ namespace VentWPF.ViewModel
 
         private bool CanAddSupport(Box b)
         {
-            if (b == null) return true;
+            if (b == null)
+                return true;
             return Values.First(x => b == x).Support == 0;
         }
 

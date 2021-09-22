@@ -9,9 +9,9 @@ namespace VentWPF.Fans.FanSelect
     {
         public string GetResponce(DllRequest request)
         {
-            var session = "temp";
+            string session = "temp";
             //Найти Session Id
-            WebRequest webRequest = new WebRequest(request, session);
+            WebRequest webRequest = new(request, session);
             throw new NotImplementedException();
         }
     }

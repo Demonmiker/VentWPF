@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 
 #nullable disable
+#pragma warning disable IDE0058
 
 namespace VentWPF
 {
@@ -1076,7 +1077,6 @@ namespace VentWPF
 
                 entity.Property(e => e._4).HasColumnName("№4");
             });
-            #endregion
 
             modelBuilder.Entity<Тэнры>(entity =>
             {
@@ -4029,3 +4029,5 @@ namespace VentWPF
 
     }
 }
+
+#pragma warning restore IDE0058

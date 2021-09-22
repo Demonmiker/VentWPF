@@ -160,31 +160,31 @@ namespace VentWPF.ViewModel
         public Table GetTable(int columns = 1, bool isDynamic = false)
         {
             List<TableRow> rowList = new();
-            var header = new TableRow();
+            TableRow header = new();
             header.Cells.Add(new(new Paragraph(new Run(this.Name)) { FontSize = 20 }));
             rowList.Add(header);
-            var infos = InfoLine.GenerateInfoLines(this, DeviceType, InfoProperties).ToList();
+            List<InfoLine> infos = InfoLine.GenerateInfoLines(this, DeviceType, InfoProperties).ToList();
             while (infos.Count % columns > 0)
                 infos.Add(null);
             int rows = infos.Count / columns;
             for (int i = 0; i < rows; i++)
             {
-                var row = new TableRow();
+                TableRow row = new();
                 for (int j = 0; j < columns; j++)
                 {
-                    var par = infos?[i + j * rows]?.ToParagraph(isDynamic);
+                    Paragraph par = infos?[i + j * rows]?.ToParagraph(isDynamic);
                     if (par is not null)
                         row.Cells.Add(new TableCell(par));
                 }
                 rowList.Add(row);
             }
-            var table = new Table();
+            Table table = new();
             for (int i = 0; i < columns; i++)
                 table.Columns.Add(new TableColumn() { Width = new System.Windows.GridLength(600 / columns) });
             if (ProjectVM.Current.Grid.Selected is not null)
             {
                 TableRowGroup tg = new();
-                foreach (var item in rowList)
+                foreach (TableRow item in rowList)
                     tg.Rows.Add(item);
                 table.RowGroups.Add(tg);
             }

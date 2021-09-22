@@ -33,7 +33,11 @@
         public uint Value
         {
             get { return value; }
-            set { this.value = value; parent.ValuesChanged(); }
+            set
+            {
+                this.value = value;
+                parent.ValuesChanged();
+            }
         }
 
     }

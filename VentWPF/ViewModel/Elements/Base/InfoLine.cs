@@ -27,8 +27,9 @@ namespace VentWPF.ViewModel
             MainObject = mainType;
             ExpectedType = type;
             Path = propPath;
-            var prop = FindProperty(propPath, out _);
-            if (prop == null) return;
+            PropertyInfo prop = FindProperty(propPath, out _);
+            if (prop == null)
+                return;
             Header = prop.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName;
             Format = prop.GetCustomAttribute<FormatStringAttribute>()?.FormatString;
         }
@@ -79,8 +80,8 @@ namespace VentWPF.ViewModel
             parent = MainObject;
             while (path.Contains('.'))
             {
-                var dot = path.IndexOf('.');
-                var prop = path.Substring(0, dot);
+                int dot = path.IndexOf('.');
+                string prop = path.Substring(0, dot);
                 path = path.Substring(dot + 1, path.Length - dot - 1);
                 parent = parent.GetType().GetProperty(prop).GetValue(parent);
             }
@@ -97,20 +98,22 @@ namespace VentWPF.ViewModel
         /// <returns>Параграф с информацией</returns>
         public Paragraph ToParagraph(bool isDynamic = false)
         {
-            var runH = new Run(Header);
-            var runV = new Run();
+            Run runH = new(Header);
+            Run runV = new();
             if (isDynamic)
-                runV.SetBinding(Run.TextProperty, new Binding() { Mode = BindingMode.OneWay, Source = MainObject, Path = new PropertyPath(Path), StringFormat = Format });
+            {
+                _ = runV.SetBinding(Run.TextProperty, new Binding() { Mode = BindingMode.OneWay, Source = MainObject, Path = new PropertyPath(Path), StringFormat = Format });
+            }
             else
             {
-                var prop = FindProperty(Path, out var parent);
+                PropertyInfo prop = FindProperty(Path, out object parent);
                 if (parent is not null)
                     runV.Text = String.Format(Format ?? "{0}", prop.GetValue(parent));
                 else
                     runV.Text = "";
             }
 
-            var res = new Paragraph();
+            Paragraph res = new();
             res.Inlines.AddRange(new[] { runH, new Run(": "), runV });
             return res;
         }
