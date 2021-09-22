@@ -9,7 +9,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal abstract class Muffler : Element
     {
-        #region Constructors
 
         public Muffler()
         {
@@ -17,10 +16,6 @@ namespace VentWPF.ViewModel
             ShowPR = true;
             ShowPD = true;
         }
-
-        #endregion
-
-        #region Properties
 
         [Category(Data)]
         [DisplayName("Длинна секции")]
@@ -33,6 +28,5 @@ namespace VentWPF.ViewModel
             _ => 60,
         };
 
-        #endregion
     }
 }

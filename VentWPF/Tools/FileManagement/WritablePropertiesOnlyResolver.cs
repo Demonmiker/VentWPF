@@ -11,7 +11,6 @@ namespace VentWPF.Tools
     /// </summary>
     internal class WritablePropertiesOnlyResolver : DefaultContractResolver
     {
-        #region Methods
 
         protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
         {
@@ -19,6 +18,5 @@ namespace VentWPF.Tools
             return props.Where(p => p.Writable).ToList();
         }
 
-        #endregion
     }
 }

@@ -9,14 +9,9 @@ namespace VentWPF.Tools
     /// </summary>
     internal class RangeAttribute : da.RangeAttribute
     {
-        #region Constructors
 
         public RangeAttribute(double minimum = double.MinValue, double maximum = double.MaxValue)
             : base(minimum, maximum) { }
-
-        #endregion
-
-        #region Methods
 
         public override string FormatErrorMessage(string name) =>
                 ((double)Minimum != double.MinValue,
@@ -28,6 +23,5 @@ namespace VentWPF.Tools
                     (false, false) => throw new Exception("Ошибка атрибута отрезка"),
                 };
 
-        #endregion
     }
 }

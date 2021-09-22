@@ -9,7 +9,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class FrameSideVM : BaseViewModel
     {
-        #region Constructors
 
         public FrameSideVM(FrameVM parent, bool top = false)
         {
@@ -26,10 +25,6 @@ namespace VentWPF.ViewModel
             RightSize = Sum == Length;
         }
 
-        #endregion
-
-        #region Properties
-
         public bool RightSize { get; set; }
 
         public ObservableCollection<Box> Values { get; private set; }
@@ -45,10 +40,6 @@ namespace VentWPF.ViewModel
         public Command<Box> CmdDelete { get; init; }
 
         public Command<Box> CmdSupport { get; init; }
-
-        #endregion
-
-        #region Methods
 
         private void Split(Box b)
         {
@@ -76,6 +67,5 @@ namespace VentWPF.ViewModel
             return Values.First(x => b == x).Support == 0;
         }
 
-        #endregion
     }
 }

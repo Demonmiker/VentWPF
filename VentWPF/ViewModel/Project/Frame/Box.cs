@@ -5,17 +5,12 @@
     /// </summary>
     internal class Box : BaseViewModel
     {
-        #region Constructors
 
         public Box(FrameSideVM parent, uint value = 300)
         {
             this.parent = parent;
             this.value = value;
         }
-
-        #endregion
-
-        #region Properties
 
         private FrameSideVM parent;
 
@@ -41,6 +36,5 @@
             set { this.value = value; parent.ValuesChanged(); }
         }
 
-        #endregion
     }
 }

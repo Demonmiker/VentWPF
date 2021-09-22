@@ -13,7 +13,6 @@ namespace VentWPF.ViewModel
 {
     public abstract class ValidViewModel : BaseViewModel, IDataErrorInfo
     {
-        #region Properties
 
         [pt.Browsable(false)]
         public bool HasErrors { get; private set; } = false;
@@ -51,17 +50,9 @@ namespace VentWPF.ViewModel
             }
         }
 
-        #endregion
-
-        #region Indexers
-
         [NotMapped]
         [Browsable(false)]
         public string this[string columnName] => OnPropertyValidation(columnName);
-
-        #endregion
-
-        #region Methods
 
         protected virtual string OnValidation()
         {
@@ -93,6 +84,5 @@ namespace VentWPF.ViewModel
             }
         }
 
-        #endregion
     }
 }

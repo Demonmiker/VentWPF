@@ -8,7 +8,6 @@ namespace VentWPF.Tools
     /// </summary>
     public static class IOManager
     {
-        #region Fields
 
         private static JsonSerializerSettings jsonS = new()
         {
@@ -16,10 +15,6 @@ namespace VentWPF.Tools
             TypeNameHandling = TypeNameHandling.All,
             Formatting = Formatting.Indented,
         };
-
-        #endregion
-
-        #region Methods
 
         public static void SaveAsJson<T>(T o, string path)
         {
@@ -38,6 +33,5 @@ namespace VentWPF.Tools
             }
         }
 
-        #endregion
     }
 }

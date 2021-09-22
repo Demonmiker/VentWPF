@@ -10,7 +10,6 @@ namespace VentWPF.Tools
     /// <typeparam name="T"></typeparam>
     public class Command<T> : ICommand
     {
-        #region Constructors
 
         public Command(Action<T> action)
         {
@@ -21,27 +20,15 @@ namespace VentWPF.Tools
         {
         }
 
-        #endregion
-
-        #region Events
-
 #pragma warning disable 67
 
         public event EventHandler CanExecuteChanged;
 
 #pragma warning restore 67
 
-        #endregion
-
-        #region Properties
-
         public Action<T> action { get; init; }
 
         public Predicate<T> predicate { get; init; }
-
-        #endregion
-
-        #region Methods
 
         public bool CanExecute(object parameter) => predicate == null ? true : predicate((T)parameter);
 
@@ -49,6 +36,5 @@ namespace VentWPF.Tools
 
         public void RaiseCanExecuteChanged() => CommandManager.InvalidateRequerySuggested();
 
-        #endregion
     }
 }

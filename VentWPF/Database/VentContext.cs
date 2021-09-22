@@ -329,7 +329,6 @@ namespace VentWPF
                 entity.Property(e => e.Типоряд).HasMaxLength(255);
             });
 
-            #region[K3G]
 
             modelBuilder.Entity<K3g>(entity =>
             {

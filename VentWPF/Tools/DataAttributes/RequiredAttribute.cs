@@ -7,10 +7,8 @@ namespace VentWPF.Tools
     /// </summary>
     internal class RequiredAttribute : da.RequiredAttribute
     {
-        #region Methods
 
         public override string FormatErrorMessage(string name) => "Обязательное поле";
 
-        #endregion
     }
 }

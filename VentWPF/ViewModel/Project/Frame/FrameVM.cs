@@ -5,7 +5,6 @@
     /// </summary>
     internal class FrameVM : BaseViewModel
     {
-        #region Constructors
 
         public FrameVM(int frameLength, int frameWidth, int frameHeight)
         {
@@ -18,19 +17,11 @@
             UpdateSides();
         }
 
-        #endregion
-
-        #region Fields
-
         private uint height;
 
         private uint width;
 
         private uint length;
-
-        #endregion
-
-        #region Properties
 
         public FrameSideVM Top { get; init; }
 
@@ -67,6 +58,5 @@
             Right.Length = length;
         }
 
-        #endregion
     }
 }

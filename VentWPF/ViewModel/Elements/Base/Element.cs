@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows.Data;
 using System.Windows.Documents;
 using VentWPF.ViewModel.Elements;
 using static VentWPF.ViewModel.Strings;
@@ -87,7 +88,7 @@ namespace VentWPF.ViewModel
         /// </summary>
         [Browsable(false)]
         [JsonIgnore]
-        public Dictionary<string, BaseCondition> Format => Conditions.Get(this.GetType());
+        public Dictionary<string, IValueConverter> Format => Conditions.Get(this.GetType());
 
         /// <summary>
         /// Запрос моделей для этого элемента
