@@ -1,9 +1,4 @@
-﻿using PropertyTools.DataAnnotations;
-using static VentWPF.ViewModel.Strings;
-using System.Collections;
-using System.Collections.Generic;
-using VentWPF.Tools;
-using VentWPF.Fans.FanSelect;
+﻿using System.Collections.Generic;
 
 namespace VentWPF.ViewModel
 {
@@ -19,7 +14,6 @@ namespace VentWPF.ViewModel
         {
             "PressureDropSystem",
             "PressureRaise",
-
         };
     }
 }

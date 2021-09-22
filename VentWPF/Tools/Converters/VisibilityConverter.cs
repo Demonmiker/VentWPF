@@ -10,16 +10,10 @@ namespace VentWPF.Tools
     /// </summary>
     internal class VisibilityConverter : IValueConverter
     {
-        #region Properties
-
         /// <summary>
         /// Параметр позволяющий обратить значения
         /// </summary>
         public bool Reverse { get; init; }
-
-        #endregion
-
-        #region Methods
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
             => value switch
@@ -33,7 +27,5 @@ namespace VentWPF.Tools
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => throw new NotImplementedException();
-
-        #endregion
     }
 }

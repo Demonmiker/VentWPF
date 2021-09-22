@@ -1,10 +1,12 @@
 ﻿using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Linq;
 using VentWPF.Tools;
 
 namespace VentWPF.ViewModel
 {
+    /// <summary>
+    /// Данные для графического представления Стороны каркаса
+    /// </summary>
     internal class FrameSideVM : BaseViewModel
     {
         #region Constructors
@@ -14,7 +16,7 @@ namespace VentWPF.ViewModel
             CmdSplit = new(Split);
             CmdDelete = new(Delete);
             CmdSupport = new(AddSupport) { predicate = CanAddSupport };
-            Values = new() { new(this),new(this)};
+            Values = new() { new(this), new(this) };
             ValuesChanged();
         }
 
@@ -29,8 +31,6 @@ namespace VentWPF.ViewModel
         #region Properties
 
         public bool RightSize { get; set; }
-
-        
 
         public ObservableCollection<Box> Values { get; private set; }
 
@@ -67,7 +67,7 @@ namespace VentWPF.ViewModel
 
         private void AddSupport(Box b)
         {
-            Values.First(x => b == x).Support = (uint)Side/2;
+            Values.First(x => b == x).Support = (uint)Side / 2;
         }
 
         private bool CanAddSupport(Box b)

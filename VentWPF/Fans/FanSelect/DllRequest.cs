@@ -1,14 +1,15 @@
-﻿using System.Text.Json;
-using System.Text.Json.Serialization;
-using VentWPF.Tools;
-using VentWPF.ViewModel;
-using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;
+﻿using PropertyTools.DataAnnotations;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using VentWPF.ViewModel;
 
 namespace VentWPF.Fans.FanSelect
 {
-    
-    internal class DllRequest : BaseViewModel , IRequest<string>
+    /// <summary>
+    /// Класс запроса для FanSelect
+    /// </summary>
+    internal class DllRequest : BaseViewModel, IRequest<string>
     {
         [Category("Запрос")]
         [JsonPropertyName("insert_geo_data")]
@@ -43,6 +44,5 @@ namespace VentWPF.Fans.FanSelect
         public double VFlow { get; set; } = 6000;
 
         public string GetRequest() => JsonSerializer.Serialize(this);
-
     }
 }

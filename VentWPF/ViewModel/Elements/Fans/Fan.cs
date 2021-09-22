@@ -11,11 +11,8 @@ namespace VentWPF.ViewModel
     {
         public Fan()
         {
-            ShowPD = false; 
+            ShowPD = false;
         }
-
-        protected override float GeneratedPressureDrop => -500;
-
 
         [Browsable(false)]
         public Fan_Direction Direction
@@ -32,13 +29,13 @@ namespace VentWPF.ViewModel
 
         [Category(Info)]
         [DisplayName("Падение давления системы")]
-        public float PressureDropSystem => 999; // тут типо вычисляяю всё
-
-        
+        public float PressureDropSystem => 999;
 
         [DisplayName("Повышение давления")]
         public float PressureRaise => -PressureDrop;
 
+        protected override float GeneratedPressureDrop => -500;
 
+        // тут типо вычисляяю всё
     }
 }

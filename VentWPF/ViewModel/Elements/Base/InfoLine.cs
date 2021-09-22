@@ -14,7 +14,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     public class InfoLine
     {
-        #region Constructors
 
         /// <summary>
         /// Создает информационную строку
@@ -33,10 +32,6 @@ namespace VentWPF.ViewModel
             Header = prop.GetCustomAttribute<DisplayNameAttribute>()?.DisplayName;
             Format = prop.GetCustomAttribute<FormatStringAttribute>()?.FormatString;
         }
-
-        #endregion
-
-        #region Properties
 
         /// <summary>
         /// Путь по которому было найдено свойство
@@ -62,10 +57,6 @@ namespace VentWPF.ViewModel
         /// Родитель свойства
         /// </summary>
         private object MainObject { get; set; }
-
-        #endregion
-
-        #region Methods
 
         /// <summary>
         /// Метод создающий список Информационных строк
@@ -124,6 +115,5 @@ namespace VentWPF.ViewModel
             return res;
         }
 
-        #endregion
     }
 }

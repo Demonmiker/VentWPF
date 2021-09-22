@@ -1,7 +1,4 @@
-﻿using PropertyTools.DataAnnotations;
-using static VentWPF.ViewModel.Strings;
-
-namespace VentWPF.ViewModel
+﻿namespace VentWPF.ViewModel
 {
     /// <summary>
     /// Общий класс Клапан
@@ -16,6 +13,5 @@ namespace VentWPF.ViewModel
         }
 
         protected override float GeneratedPressureDrop => 15;
-
     }
 }

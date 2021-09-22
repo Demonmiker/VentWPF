@@ -1,47 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text.Json;
 using VentWPF.ViewModel;
 
-
 namespace VentWPF.Fans.K3G
 {
-    class K3GController : IController<K3GRequest, List<K3GFanList>>
-    {        
-        public static ProjectInfoVM Project { get; set; } = ProjectVM.Current?.ProjectInfo;
+    internal class K3GController : IController<K3GRequest, List<K3GFanList>>
+    {
         public static string ID;
-        bool connect = false;
-        string Reqest = "[";
-        string path = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
         public string data;
+
+        private bool connect = false;
+
+        private string Reqest = "[";
+
+        private string path = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+        public static ProjectInfoVM Project { get; set; } = ProjectVM.Current?.ProjectInfo;
 
         [DllImport(@"EbmPapstFan.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public static extern int SET_XML_PATH_PC([MarshalAsAttribute(UnmanagedType.AnsiBStr)] string pfad);
 
-
         [DllImport(@"EbmPapstFan.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public static extern int GET_PRODUCTS_PC([MarshalAsAttribute(UnmanagedType.AnsiBStr)] ref string pfad);
 
-
         [DllImport(@"EbmPapstFan.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public static extern int GET_CCSI_DATA([MarshalAsAttribute(UnmanagedType.AnsiBStr)] string fanDescription, ref string buffer);
-
 
         public List<K3GFanList> GetResponce(K3GRequest request)
         {
             string response = Response();
             Reqest = "[";
             return response[0] != '[' ? null : JsonSerializer.Deserialize<List<K3GFanList>>(response);
-
         }
 
         public string Response()
         {
-            
             if (connect == false)
             {
                 try
@@ -57,7 +55,6 @@ namespace VentWPF.Fans.K3G
             Reqest += "]";
             return Reqest;
         }
-        
 
         //ПОДКЛЮЧЕНИЕ К ДЛЛ(НУЖНО ВЫПОЛНИТЬ ОДИН РАЗ, ЕСЛИ ЧТО)
         public void connection()
@@ -69,14 +66,13 @@ namespace VentWPF.Fans.K3G
             if (File.Exists(path + @"\Data.sqlite"))
             {
                 l = path.Length;
-                
 
                 if (path[l - 1] != (';'))
                 {
                     path = path + (';');
                     n = SET_XML_PATH_PC(path);
                     //errors.Text = Convert.ToString(n);
-                    //show_Results(n, path);            
+                    //show_Results(n, path);
                 }
                 else
                 {
@@ -88,7 +84,6 @@ namespace VentWPF.Fans.K3G
                 errors = true;
             }
         }
-
 
         //ЗАПРОС К ПОДКЛЮЧЕНИЮ
         public void FanCollection()
@@ -110,7 +105,6 @@ namespace VentWPF.Fans.K3G
                 FanCollectShow(n, fanStringChar);
             }
         }
-        
 
         //ПОКАЗАТЬ ВЕНТИЛЯТОРЫ
         public void FanCollectShow(int n, string FanList)
@@ -129,7 +123,7 @@ namespace VentWPF.Fans.K3G
 
             FanList = FanList.Replace(';', '|');
 
-           //lbInfo.Items.Add("number of existing ventilators:" + Convert.ToString(n));
+            //lbInfo.Items.Add("number of existing ventilators:" + Convert.ToString(n));
 
             n = 1;
             while (FanList.Length > 0)
@@ -185,7 +179,6 @@ namespace VentWPF.Fans.K3G
                 FanCalcData();
                 n++;
             }
-
         }
 
         //НАЧАЛО ЗАПРОСА РАСЧЁТА
@@ -203,32 +196,15 @@ namespace VentWPF.Fans.K3G
             //lbInfo.Items.Add(data);
             //lbInfo.Items.Add("\n");
         }
-        //НАСТРОЙКА ЗАПРОСА К ДЛЛ
-        private string Get_Input_Value(string Input_Data)
-        {
-            double Volumenstrom = Project.VFlow / 3600;        //VFlow    
-
-            Input_Data = ID + ';' + // the ID // die ID                    // Setze alle Informationen in den String und fülle es mit Semikolon um weitere Informationen zu bekommen
-                         "0" + ';' +                          // 0 = static Pressure 1 = total pressure
-                         "0:DIDO" + ';' +                                 // InstallationType(0:DIDO,1:FIDO,2:DIFO,3:FIFO) 
-                         "1.14" + ';' +                                            // AirDensity(kg/m³) 
-                         "0" + ';' +                                          // The altitude 
-                         "24" + ';' +                                             // AirTemperature(°C) 
-                         Project.PFlow + ';' +                                        // requiredPressure(Pa)
-                         Convert.ToString(Volumenstrom) + ';' +                         // flowRate(m³/h) 
-                         "0" + ';';                                               // Voltage (U) 
-
-            return Input_Data;
-        }
 
         //РАСЧЁТ ВЕНТИЛЯТОРА
         public void CalcData(int n, string buffer)
         {
             double Volumenstrom = Convert.ToDouble(Project.VFlow) / 3600;
             string tmpDescript;                                                         // Declaration of the variable tmpDescript for copying the values into the array // Deklaration der Variable tmpDescript um die Werte in das Array rein zu kopieren
-            int m = 0;                                                                  // m: number of signs till the next semikolon was found // m: Anzahl der Zeichen bis das nächste Semikolon gefunden wurde 
+            int m = 0;                                                                  // m: number of signs till the next semikolon was found // m: Anzahl der Zeichen bis das nächste Semikolon gefunden wurde
             int k;                                                                      // k: counter variable to delete the information of the char array fandescription // K: Zählvariable um die Information zu löschen die in dem char Array fandescription steht
-            int j = 0;                                                                  // j: counter variable to fill the information into the string tmpDescript // j: counter variable um die Information in dem string tmp Descript zu füllen 
+            int j = 0;                                                                  // j: counter variable to fill the information into the string tmpDescript // j: counter variable um die Information in dem string tmp Descript zu füllen
             int zahl = 0;
             string[] Descripts = new string[4000];
             tmpDescript = "";
@@ -244,22 +220,21 @@ namespace VentWPF.Fans.K3G
                 buffer.CopyTo(0, fandescription, 0, m);                                 // Copy one Information into the char array // Kopiere eine Information in das char Array
                 while (true)
                 {
-                    if (fandescription[j] == '\0')                                      // If there is still information(signs) copy it to the string tmp Descript // Wenn immer noch informationen(signs) vorhanden sind, dann füge sie dem string tmpDescript hinzu  
+                    if (fandescription[j] == '\0')                                      // If there is still information(signs) copy it to the string tmp Descript // Wenn immer noch informationen(signs) vorhanden sind, dann füge sie dem string tmpDescript hinzu
                     {
                         break;
                     }
                     else
                     {
                         tmpDescript = tmpDescript + fandescription[j];
-
                     }
                     j++;
                 }
                 buffer = buffer.Remove(0, m + 1);
-                Descripts[zahl] = tmpDescript;                                          // Save the Information in the array 
-                tmpDescript = "";                                                       // Delete the Information in tmpDescript to get a new Information 
+                Descripts[zahl] = tmpDescript;                                          // Save the Information in the array
+                tmpDescript = "";                                                       // Delete the Information in tmpDescript to get a new Information
                 zahl++;
-                j = 0;                                                                  // j = 0 because you have to count from the beginning 
+                j = 0;                                                                  // j = 0 because you have to count from the beginning
             }
 
             Reqest += "{";
@@ -333,7 +308,24 @@ namespace VentWPF.Fans.K3G
             textBox29.Text = Descripts[57];
             textBox28.Text = Descripts[58];
             */
+        }
 
+        //НАСТРОЙКА ЗАПРОСА К ДЛЛ
+        private string Get_Input_Value(string Input_Data)
+        {
+            double Volumenstrom = Project.VFlow / 3600;        //VFlow
+
+            Input_Data = ID + ';' + // the ID // die ID                    // Setze alle Informationen in den String und fülle es mit Semikolon um weitere Informationen zu bekommen
+                         "0" + ';' +                          // 0 = static Pressure 1 = total pressure
+                         "0:DIDO" + ';' +                                 // InstallationType(0:DIDO,1:FIDO,2:DIFO,3:FIFO)
+                         "1.14" + ';' +                                            // AirDensity(kg/m³)
+                         "0" + ';' +                                          // The altitude
+                         "24" + ';' +                                             // AirTemperature(°C)
+                         Project.PFlow + ';' +                                        // requiredPressure(Pa)
+                         Convert.ToString(Volumenstrom) + ';' +                         // flowRate(m³/h)
+                         "0" + ';';                                               // Voltage (U)
+
+            return Input_Data;
         }
     }
 }

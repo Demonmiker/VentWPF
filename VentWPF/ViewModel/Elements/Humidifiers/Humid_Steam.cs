@@ -7,16 +7,11 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Humid_Steam : Humid
     {
-        #region Constructors
 
         public Humid_Steam()
         {
             image = "Humidifiers/Humid_Steam.png";
         }
-
-        #endregion
-
-        #region Properties
 
         public override string Name => "Увлажнитель паровой";
 
@@ -27,6 +22,5 @@ namespace VentWPF.ViewModel
             "WaterConsumption",
         };
 
-        #endregion
     }
 }

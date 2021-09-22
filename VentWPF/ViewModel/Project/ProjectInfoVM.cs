@@ -13,7 +13,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     public class ProjectInfoVM : ValidViewModel
     {
-        #region Properties
 
         /// <summary>
         /// Дата начала проекта
@@ -22,7 +21,6 @@ namespace VentWPF.ViewModel
         [DisplayName("Дата")]
         [FormatString(fDate)]
         public DateTime Date { get; set; } = DateTime.Now;
-
 
         /// <summary>
         /// Исполнитель
@@ -39,7 +37,6 @@ namespace VentWPF.ViewModel
         [DisplayName("Заказ")]
         [valid.Required]
         public string OrderName { get; set; }
-
 
         /// <summary>
         /// Обозначение установки
@@ -139,7 +136,6 @@ namespace VentWPF.ViewModel
         [FormatString(fper)]
         public int Humid { get; set; } = 85;
 
-
         /// <summary>
         /// Количество рядов
         /// </summary>
@@ -204,6 +200,5 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         public int Temp { get; set; } = -30;
 
-        #endregion
     }
 }

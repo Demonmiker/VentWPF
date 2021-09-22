@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Documents;
-using VentWPF.Tools;
 using VentWPF.ViewModel.Elements;
 using static VentWPF.ViewModel.Strings;
 
@@ -17,7 +16,13 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Element : ValidViewModel
     {
-        #region Properties
+
+        /// <summary>
+        /// Тип модели реализации класса
+        /// </summary>
+        protected Type DeviceType = null;
+
+        private float pressureDrop = 0;
 
         /// <summary>
         /// Ссылка на Проект которому принадлежит элемент
@@ -31,8 +36,6 @@ namespace VentWPF.ViewModel
         [DependsOn("DeviceIndex")]
         public virtual string Name => "";
 
-        #region Мощность
-
         /// <summary>
         /// Определяет нужно ли показывать Мощность пользователю
         /// </summary>
@@ -44,12 +47,6 @@ namespace VentWPF.ViewModel
         [SortIndex(-3)]
         [DisplayName("Производительность")]
         public virtual float Performance { get; set; } = Project.VFlow;
-
-        #endregion
-
-        #region Падение давления
-
-        private float pressureDrop = 0;
 
         /// <summary>
         /// Падение давления
@@ -74,27 +71,6 @@ namespace VentWPF.ViewModel
         public bool ManualPD { get; set; } = false;
 
         /// <summary>
-        /// Определяет нужно ли показывать Падения давления пользователю
-        /// </summary>
-        [Browsable(false)]
-        protected bool ShowPD { get; init; } = false;
-
-        /// <summary>
-        /// Свойство для получения Падения давления по формуле
-        /// </summary>
-        [Browsable(false)]
-        protected virtual float GeneratedPressureDrop => 0;
-
-        #endregion Падение давления
-
-        #region Модель
-
-        /// <summary>
-        /// Тип модели реализации класса
-        /// </summary>
-        protected Type DeviceType = null;
-
-        /// <summary>
         /// Индекс выбранной модели в коллекции запроса
         /// </summary>
         [Browsable(false)]
@@ -105,10 +81,6 @@ namespace VentWPF.ViewModel
         /// </summary>
         [Browsable(false)]
         public object DeviceData => DeviceIndex >= 0 ? Query.Result[DeviceIndex] : null;
-
-        #endregion Модель
-
-        #region Запрос
 
         /// <summary>
         /// Содержит данные о форматировании этого элемента @@warn Можно убрать
@@ -124,11 +96,22 @@ namespace VentWPF.ViewModel
         [JsonIgnore]
         public Query Query { get; init; }
 
-        #endregion Запрос
+        /// <summary>
+        /// Определяет нужно ли показывать Падения давления пользователю
+        /// </summary>
+        [Browsable(false)]
+        protected bool ShowPD { get; init; } = false;
 
-        #endregion
+        /// <summary>
+        /// Свойство для получения Падения давления по формуле
+        /// </summary>
+        [Browsable(false)]
+        protected virtual float GeneratedPressureDrop => 0;
 
-        #region Генерация документации
+        /// <summary>
+        /// Поле с изображением по умолчанию
+        /// </summary>
+        protected string image = "Empty.png";
 
         /// <summary>
         /// Скрытое поле для свойства InfoTable (для кэширования)
@@ -148,6 +131,19 @@ namespace VentWPF.ViewModel
                 return _InfoTable;
             }
         }
+
+        /// <summary>
+        /// Свойство с изображением этого элемента в конструкторе
+        /// </summary>
+        [Browsable(false)]
+        [DependsOn("SubType")]
+        public virtual string Image => Path.GetFullPath("Assets/Images/" + image);
+
+        /// <summary>
+        /// Свойство под типа элемента
+        /// </summary>
+        [Browsable(false)]
+        public int SubType { get; set; } = 0;
 
         /// <summary>
         /// Лист для определение полей информации а также их положения
@@ -194,37 +190,10 @@ namespace VentWPF.ViewModel
             return table;
         }
 
-        #endregion Генерация документации
-
-        #region Управление изображением
-
-        /// <summary>
-        /// Поле с изображением по умолчанию
-        /// </summary>
-        protected string image = "Empty.png";
-
-        /// <summary>
-        /// Свойство с изображением этого элемента в конструкторе
-        /// </summary>
-        [Browsable(false)]
-        [DependsOn("SubType")]
-        public virtual string Image => Path.GetFullPath("Assets/Images/" + image);
-
-        /// <summary>
-        /// Свойство под типа элемента
-        /// </summary>
-        [Browsable(false)]
-        public int SubType { get; set; } = 0;
-
-        #endregion Управление изображением
-
-        #region Methods
-
         public static T GetInstance<T>(T o) => (T)Activator.CreateInstance(o.GetType());
 
         protected override string OnValidation()
             => DeviceType != null && DeviceData == null ? "Не выбрана модель устройства" : "";
 
-        #endregion
     }
 }

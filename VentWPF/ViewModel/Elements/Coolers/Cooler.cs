@@ -10,7 +10,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal abstract class Cooler : Element
     {
-        #region Constructors
 
         public Cooler()
         {
@@ -18,20 +17,9 @@ namespace VentWPF.ViewModel
             ShowPD = true;
         }
 
-        #endregion
-
-        #region Формула для падения давления
-
         protected override float GeneratedPressureDrop => (70f / (4f / ((Project.VFlow / 3600f) / AB)));
 
-        #endregion
-
-        #region Properties
-
         [Category(Data)]
-
-        #region Данные
-
         [SortIndex(-1)]
         [DisplayName("т. на входе")]
         [FormatString(fT)]
@@ -48,10 +36,6 @@ namespace VentWPF.ViewModel
         [Range(0, 100)]
         public float HumidityIn { get; set; } = 42;
 
-        #endregion Данные
-
-        #region Информация
-
         [Category(Info)]
         [DisplayName("Мощность")]
         [FormatString(fkW)]
@@ -65,8 +49,6 @@ namespace VentWPF.ViewModel
         [FormatString(fper)]
         public float HumidOutRel => ((Project.PressOut / pD2 * 1000f / (0.6222f / HumidOutAbs * 1000f + 1)) * 100f);
 
-        #endregion Информация
-
         [Browsable(false)]
         public virtual float AB => (((float)Project.Width / 1000) * ((float)Project.Height / 1000));
 
@@ -75,8 +57,6 @@ namespace VentWPF.ViewModel
 
         [Browsable(false)]
         public virtual float pD2 => (float)(Math.Exp((1500.3 + 23.5 * TempOut) / (234 + TempOut)));
-
-        #endregion
 
     }
 }

@@ -12,7 +12,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Cooler_Fr : Cooler
     {
-        #region Constructors
 
         public Cooler_Fr()
         {
@@ -23,12 +22,15 @@ namespace VentWPF.ViewModel
             };
         }
 
-        #endregion
-
-        #region Properties
-
         [DependsOn(nameof(DeviceData))]
         public override string Name => $"Фреоновый охладитель {(DeviceData as ФреонХолод)?.Типоряд}";
+
+        /// <summary>
+        /// Тип Фреона
+        /// </summary>
+        [Category(Data)]
+        [DisplayName("Тип Фреона")]
+        public FrType Fr { get; set; }
 
         protected override List<string> InfoProperties => new()
         {
@@ -47,19 +49,5 @@ namespace VentWPF.ViewModel
             "Fr",
         };
 
-        #region Данные
-
-        /// <summary>
-        /// Тип Фреона
-        /// </summary>
-        [Category(Data)]
-        [DisplayName("Тип Фреона")]
-        public FrType Fr { get; set; }
-
-        
-
-        #endregion
-
-        #endregion
     }
 }

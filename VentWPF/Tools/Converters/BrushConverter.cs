@@ -10,8 +10,6 @@ namespace VentWPF.Tools
     /// </summary>
     internal class BrushConverter : IValueConverter
     {
-        #region Properties
-
         /// <summary>
         /// Значение кисти которое будет использоватся при false
         /// </summary>
@@ -21,10 +19,6 @@ namespace VentWPF.Tools
         /// Значение кисти которое будет использоватся при true
         /// </summary>
         public Brush TrueBrush { get; init; }
-
-        #endregion
-
-        #region Methods
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => value switch
         {
@@ -36,7 +30,5 @@ namespace VentWPF.Tools
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => throw new NotImplementedException();
-
-        #endregion
     }
 }

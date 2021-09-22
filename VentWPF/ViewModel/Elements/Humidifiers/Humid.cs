@@ -8,21 +8,12 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal abstract class Humid : Element
     {
-        #region Constructors
 
         public Humid()
         {
             image = "Humidifiers/Humid_Cell.png";
             ShowPR = true;
         }
-
-        #endregion
-
-        #region Properties
-
-        
-
-        #region Данные
 
         /// <summary>
         /// Влажность на входе
@@ -41,12 +32,6 @@ namespace VentWPF.ViewModel
         [FormatString(f2)]
         public float AirSoftOut { get; set; } = 0.0015f;
 
-        #endregion Данные
-
-       
-
-        #region Информация
-
         /// <summary>
         /// Расход воды
         /// </summary>
@@ -55,9 +40,5 @@ namespace VentWPF.ViewModel
         [DisplayName("Расход воды")]
         [FormatString(fNull)]
         public float WaterConsumption => (Performance * 1.17f * ((AirSoftOut - AirSoftIn)));
-
-        #endregion Информация
-
-        #endregion
     }
 }

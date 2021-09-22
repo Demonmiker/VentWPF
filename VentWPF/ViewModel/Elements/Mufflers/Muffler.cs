@@ -22,22 +22,16 @@ namespace VentWPF.ViewModel
 
         #region Properties
 
+        [Category(Data)]
+        [DisplayName("Длинна секции")]
+        public Section FC { get; set; }
+
         protected override float GeneratedPressureDrop => FC switch
         {
             Section.секция500 => 25,
             Section.секция1000 => 55,
             _ => 60,
         };
-
-        
-
-        #region Данные
-
-        [Category(Data)]
-        [DisplayName("Длинна секции")]
-        public Section FC { get; set; }
-
-        #endregion Данные
 
         #endregion
     }

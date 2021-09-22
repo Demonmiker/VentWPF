@@ -7,7 +7,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class ProjectVM : BaseViewModel
     {
-        #region Constructors
 
         static ProjectVM()
         {
@@ -18,10 +17,6 @@ namespace VentWPF.ViewModel
         private ProjectVM()
         {
         }
-
-        #endregion
-
-        #region Properties
 
         /// <summary>
         /// Текущий экземпляр проекта
@@ -52,10 +47,6 @@ namespace VentWPF.ViewModel
         /// Менеджер ошибок
         /// </summary>
         public ErrorManagerVM ErrorManager { get; private set; }
-
-        #endregion
-
-        #region Methods
 
         public void LoadProject(object o)
         {
@@ -91,6 +82,5 @@ namespace VentWPF.ViewModel
             Grid.Init(ProjectInfo.Rows);
         }
 
-        #endregion
     }
 }

@@ -7,16 +7,11 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Muffler_Classic : Muffler
     {
-        #region Constructors
 
         public Muffler_Classic()
         {
             image = "Mufflers/Muffler.png";
         }
-
-        #endregion
-
-        #region Properties
 
         public override string Name => "Шумоглушитель";
 
@@ -25,6 +20,5 @@ namespace VentWPF.ViewModel
             "FC",
         };
 
-        #endregion
     }
 }

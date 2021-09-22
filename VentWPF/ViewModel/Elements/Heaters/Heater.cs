@@ -10,7 +10,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal abstract class Heater : Element
     {
-        #region Constructors
 
         public Heater()
         {
@@ -18,14 +17,6 @@ namespace VentWPF.ViewModel
             ShowPR = true;
             ShowPD = true;
         }
-
-        #endregion
-
-        #region Properties
-
-        protected override float GeneratedPressureDrop => 70f / (4f / (Project.VFlow / 3600f / AB));
-
-        #region Данные
 
         /// <summary>
         /// Температура на выходе
@@ -53,10 +44,6 @@ namespace VentWPF.ViewModel
         [valid.Range(0, 100)]
         public float HumidIn { get; set; } = 85;
 
-        #endregion Данные
-
-        #region Информация
-
         /// <summary>
         /// Абсолютная влажность воздуха на выходе
         /// </summary>
@@ -79,7 +66,7 @@ namespace VentWPF.ViewModel
         [FormatString(fkW)]
         public float Power => (float)(Project.VFlow * (353f / (273.15f + TempOut)) / 3600000f * 1030f * Math.Abs(TempIn - TempOut));
 
-        #endregion Информация
+        protected override float GeneratedPressureDrop => 70f / (4f / (Project.VFlow / 3600f / AB));
 
         [Browsable(false)]
         protected float AB => (Project.Width / 1000f) * (Project.Height / 1000f);
@@ -90,6 +77,5 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         protected float pD => (float)Math.Exp((1500.3 + 23.5 * TempIn) / (234 + TempIn));
 
-        #endregion
     }
 }

@@ -1,5 +1,8 @@
 ﻿namespace VentWPF.ViewModel
 {
+    /// <summary>
+    /// Представляет одну секцию стороны каркаса
+    /// </summary>
     internal class Box : BaseViewModel
     {
         #region Constructors
@@ -16,17 +19,15 @@
 
         private FrameSideVM parent;
 
+        private uint value;
+
+        private uint _Support;
 
         public FrameSideVM Parent
         {
             get { return parent; }
             set { parent = value; }
         }
-
-
-        private uint value;
-
-        private uint _Support;
 
         public uint Support
         {

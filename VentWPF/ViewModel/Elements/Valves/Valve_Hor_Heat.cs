@@ -10,7 +10,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Valve_Hor_Heat : Valve
     {
-        #region Constructors
 
         public Valve_Hor_Heat()
         {
@@ -21,11 +20,14 @@ namespace VentWPF.ViewModel
             };
         }
 
-        #endregion
-
-        #region Properties
-
         public override string Name => $"Клапан воздушный утеплённый горизонтальный {(DeviceData as Тэны)?.Маркировка}";
+
+        /// <summary>
+        /// Количество нагревателей
+        /// </summary>
+        [Category(Data)]
+        [DisplayName("Количество ТЭНов")]
+        public int TEN_count { get; set; } = 3;
 
         protected override List<string> InfoProperties => new()
         {
@@ -34,17 +36,5 @@ namespace VentWPF.ViewModel
             "TEN_count",
         };
 
-        #region Данные
-        /// <summary>
-        /// Количество нагревателей
-        /// </summary>
-        [Category(Data)]
-        [DisplayName("Количество ТЭНов")]
-        public int TEN_count { get; set; } = 3;
-
-      
-        #endregion
-
-        #endregion
     }
 }

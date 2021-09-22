@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VentWPF.Fans.FanSelect
 {
-    class WebController : IController<DllRequest, string>
+    /// <summary>
+    /// Выполняет Web запрос к FanSelect API
+    /// </summary>
+    internal class WebController : IController<DllRequest, string>
     {
         public string GetResponce(DllRequest request)
         {

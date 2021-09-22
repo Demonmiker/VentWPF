@@ -1,30 +1,20 @@
-﻿using System.Collections.ObjectModel;
+﻿using Microsoft.Win32;
+using PropertyTools.DataAnnotations;
+using PropertyTools.Wpf;
+using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows;
-using VentWPF.Model;
-using VentWPF.Tools;
 using System.Windows.Data;
-using System.Windows.Media;
-using System.Linq;
-using PropertyTools.Wpf;
-using PropertyTools.DataAnnotations;
-using static VentWPF.ViewModel.Strings;
-using System;
-using System.Collections;
 using System.Windows.Documents;
-using PropertyChanged;
+using System.Windows.Media;
 using VentWPF.Fans.FanSelect;
-using System.IO;
-using Microsoft.Win32;
-using System.Diagnostics;
-using System.Threading.Tasks;
+using VentWPF.Tools;
 
 namespace VentWPF.ViewModel
 {
     internal class MainViewModel : BaseViewModel
     {
-        #region Constructors
 
         public MainViewModel()
         {
@@ -42,10 +32,6 @@ namespace VentWPF.ViewModel
             ReportViewer.Document = ReportDocument;
         }
 
-        #endregion
-
-        #region Properties
-
         public ImageCollection HeaderImages { get; init; } = new ImageCollection();
 
         public DllRequest Request { get; set; } = new();
@@ -53,23 +39,9 @@ namespace VentWPF.ViewModel
         public FlowDocumentScrollViewer ReportViewer { get; private set; }
             = new FlowDocumentScrollViewer();
 
-
         public FlowDocument ReportDocument { get; init; } = new FlowDocument();
 
-
-        #endregion
-
-        #region Главное Меню
-
-
-
         public int DeviceIndex => ProjectVM.Current.Grid.Selected.DeviceIndex;
-
-        #endregion
-
-        #region Комманды
-
-        #region Объявление
 
         public Command<Element> CmdAddElement { get; init; }
 
@@ -89,9 +61,31 @@ namespace VentWPF.ViewModel
 
         public Command<object> CmdSaveReport { get; init; }
 
-        #endregion
+        public ProjectVM Project { get; set; } = ProjectVM.Current;
 
-       
+        public void UpdateReport(object _)
+        {
+            ReportDocument.Blocks.Clear();
+            foreach (var item in Project.Grid.Elements)
+            {
+                if (item.Name != "")
+                {
+                    ReportDocument.Blocks.Add(item.GetTable(2, false));
+                    ReportDocument.Blocks.Add(new Paragraph());
+                }
+            }
+        }
+
+        public void SaveReport(object _)
+        {
+            var cfd = new SaveFileDialog() { DefaultExt = "rtf", AddExtension = true };
+            if (cfd.ShowDialog() == true)
+            {
+                using FileStream fs = new FileStream(cfd.FileName, FileMode.Create, FileAccess.ReadWrite);
+                TextRange textRange = new TextRange(ReportDocument.ContentStart, ReportDocument.ContentEnd);
+                textRange.Save(fs, DataFormats.Rtf);
+            }
+        }
 
         private void AutoColumns(DataGridAutoGeneratingColumnEventArgs e)
         {
@@ -148,35 +142,6 @@ namespace VentWPF.ViewModel
             }
         }
 
-        public void UpdateReport(object _)
-        {
-
-            ReportDocument.Blocks.Clear();
-            foreach (var item in Project.Grid.Elements)
-            {
-                if (item.Name!="")
-                {
-                    ReportDocument.Blocks.Add(item.GetTable(2, false));
-                    ReportDocument.Blocks.Add(new Paragraph());
-                }    
-                   
-            }
-        }
-
-        public void SaveReport(object _)
-        {
-
-            var cfd = new SaveFileDialog() { DefaultExt = "rtf", AddExtension = true };
-            if(cfd.ShowDialog()==true)
-            {
-                using FileStream fs = new FileStream(cfd.FileName, FileMode.Create, FileAccess.ReadWrite);
-                TextRange textRange = new TextRange(ReportDocument.ContentStart, ReportDocument.ContentEnd);
-                textRange.Save(fs, DataFormats.Rtf);
-            }
-
-           
-        }
-
         private void OpenPopup(Popup p)
         {
             p.HorizontalOffset = 1;
@@ -199,11 +164,5 @@ namespace VentWPF.ViewModel
             else
                 Request = IOManager.LoadAsJson<DllRequest>("req.json");
         }
-
-        #endregion Комманды
-
-        public ProjectVM Project { get; set; } = ProjectVM.Current;
     }
-
-    
 }

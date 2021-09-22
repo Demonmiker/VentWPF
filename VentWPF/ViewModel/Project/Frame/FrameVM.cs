@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VentWPF.ViewModel
+﻿namespace VentWPF.ViewModel
 {
+    /// <summary>
+    /// Данные для графического представления каркаса
+    /// </summary>
     internal class FrameVM : BaseViewModel
     {
         #region Constructors

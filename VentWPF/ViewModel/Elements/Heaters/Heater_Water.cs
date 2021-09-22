@@ -11,7 +11,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Heater_Water : Heater
     {
-        #region Constructors
 
         public Heater_Water()
         {
@@ -23,30 +22,7 @@ namespace VentWPF.ViewModel
             };
         }
 
-        #endregion
-
-        #region Properties
-
         public override string Name => $"Нагреватель жидкостный {(DeviceData as ВодаТепло)?.Типоряд}";
-
-        protected override List<string> InfoProperties => new()
-        {
-            "Performance",
-            "TempIn",
-            "TempOut",
-            "tBegin",
-            "tEnd",
-            "HumidIn",
-            "HumidOutRel",
-            "DeviceData.Скорость",
-            "PressureDrop",
-            "Consumption",
-            "Coolant",
-            "CoolantPressureDrop",
-        };
-
-        #region Данные
-
 
         /// <summary>
         /// Тип теплоносителя
@@ -67,10 +43,6 @@ namespace VentWPF.ViewModel
         [DisplayName("т. теплоносителя кон.")]
         public float TempEnd { get; set; } = 70;
 
-        #endregion Данные
-
-        #region Информация
-
         /// <summary>
         /// Расход теплоносителя
         /// </summary>
@@ -86,8 +58,21 @@ namespace VentWPF.ViewModel
         [FormatString(fkPa)]
         public float CoolantPressureDrop => 12.5f;
 
-        #endregion Информация
+        protected override List<string> InfoProperties => new()
+        {
+            "Performance",
+            "TempIn",
+            "TempOut",
+            "tBegin",
+            "tEnd",
+            "HumidIn",
+            "HumidOutRel",
+            "DeviceData.Скорость",
+            "PressureDrop",
+            "Consumption",
+            "Coolant",
+            "CoolantPressureDrop",
+        };
 
-        #endregion
     }
 }

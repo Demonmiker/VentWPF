@@ -1,20 +1,21 @@
 ﻿using PropertyChanged;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Media;
 using VentWPF.Model;
 
 namespace VentWPF.ViewModel
 {
+    /// <summary>
+    /// Представление Сетки конструктора вентиляции
+    /// </summary>
     internal class GridVM : BaseViewModel
     {
-        #region Properties
+
+        private Element _Selected = new Element();
+
         /// <summary>
         /// Менеджер ошибок
         /// </summary>
@@ -25,17 +26,15 @@ namespace VentWPF.ViewModel
         /// </summary>
         public ObservableCollection<Element> Elements { get; set; }
 
-
-        private Element _Selected = new Element();
         /// <summary>
         /// Выбранный элемент в установке
         /// </summary>
         [DependsOn(nameof(Index))]
-        public Element Selected 
-        { 
+        public Element Selected
+        {
             get => _Selected;
-            set { _Selected = value; ChangeInfo(); } 
-        } 
+            set { _Selected = value; ChangeInfo(); }
+        }
 
         /// <summary>
         /// Индекс выбранного элемента
@@ -45,14 +44,7 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Текстовое поле для показа информации
         /// </summary>
-        public RichTextBox InfoBox { get; init; } = new RichTextBox() { Focusable = false, Document=new FlowDocument() };
-
-        
-
-        
-        #endregion
-
-        #region Methods
+        public RichTextBox InfoBox { get; init; } = new RichTextBox() { Focusable = false, Document = new FlowDocument() };
 
         public void Init(Rows rows)
         {
@@ -74,6 +66,7 @@ namespace VentWPF.ViewModel
             ErrorManager.AddRange(Enumerable.Range(0, 20).Select(x => ($"[{x % 10 + 1},{x / 10 + 1}]", new Element() as ValidViewModel)));
             Index = 0;
         }
+
         /// <summary>
         /// Добавить элемент в установку
         /// </summary>
@@ -110,7 +103,5 @@ namespace VentWPF.ViewModel
                 InfoBox.Document.Blocks.Add(_Selected.InfoTable);
         }
 
-
-        #endregion
     }
 }

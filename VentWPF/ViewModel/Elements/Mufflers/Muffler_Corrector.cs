@@ -7,16 +7,11 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Muffler_Corrector : Muffler
     {
-        #region Constructors
 
         public Muffler_Corrector()
         {
             image = "Mufflers/Muffler_Corrector.png";
         }
-
-        #endregion
-
-        #region Properties
 
         public override string Name => "Шумоглушитель с выравниванием";
 
@@ -25,6 +20,5 @@ namespace VentWPF.ViewModel
             "FC",
         };
 
-        #endregion
     }
 }

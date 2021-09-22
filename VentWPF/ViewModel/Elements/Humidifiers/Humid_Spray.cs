@@ -7,16 +7,11 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Humid_Spray : Humid
     {
-        #region Constructors
 
         public Humid_Spray()
         {
             image = "Humidifiers/Humid_Spray.png";
         }
-
-        #endregion
-
-        #region Properties
 
         public override string Name => "Увлажнитель форсуночный";
 
@@ -27,6 +22,5 @@ namespace VentWPF.ViewModel
             "WaterConsumption",
         };
 
-        #endregion
     }
 }

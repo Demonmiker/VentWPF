@@ -13,8 +13,6 @@ namespace VentWPF
     public partial class VentContext : DbContext
     {
 
-        #region Constructors
-
         private VentContext()
         {
             Debug.WriteLine("БД открыта");
@@ -25,21 +23,13 @@ namespace VentWPF
             Debug.WriteLine("БД открыта");
         }
 
-        #endregion
-
-
-        #region Destructors
-
 
         ~VentContext()
         {
             Debug.WriteLine("БД закрыта");
         }
 
-        #endregion
 
-
-        #region Properties
 
         public static VentContext Instance { get; private set; } = new VentContext();
 
@@ -259,12 +249,8 @@ namespace VentWPF
 
         public virtual DbSet<ЭлементыЭксперт> ЭлементыЭкспертs { get; set; }
 
-        #endregion
 
 
-
-
-        #region Methods
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -4041,8 +4027,6 @@ namespace VentWPF
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-
-        #endregion
 
     }
 }

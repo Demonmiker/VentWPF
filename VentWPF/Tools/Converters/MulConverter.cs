@@ -9,16 +9,10 @@ namespace VentWPF.Tools
     /// </summary>
     internal class MulConverter : IValueConverter
     {
-        #region Properties
-
         /// <summary>
         /// Коэфицент для умножения
         /// </summary>
         public double K { get; init; }
-
-        #endregion
-
-        #region Methods
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
             => value switch
@@ -33,7 +27,5 @@ namespace VentWPF.Tools
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => throw new NotImplementedException();
-
-        #endregion
     }
 }

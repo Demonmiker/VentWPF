@@ -8,8 +8,6 @@ namespace VentWPF.Tools
     /// </summary>
     public class RangeConverter : IValueConverter
     {
-        #region Fields
-
         public IComparable min = null;
 
         public IComparable max = null;
@@ -17,10 +15,6 @@ namespace VentWPF.Tools
         public Func<IComparable> GetMin;
 
         public Func<IComparable> GetMax;
-
-        #endregion
-
-        #region Constructors
 
         public RangeConverter()
         {
@@ -39,10 +33,6 @@ namespace VentWPF.Tools
             min = @Min;
             max = @Max;
         }
-
-        #endregion
-
-        #region Properties
 
         public char MinChar { set => min = value; }
 
@@ -64,10 +54,6 @@ namespace VentWPF.Tools
 
         public bool MaxBool { set => max = value; }
 
-        #endregion
-
-        #region Methods
-
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             IComparable val = (IComparable)value;
@@ -84,7 +70,5 @@ namespace VentWPF.Tools
         {
             throw new NotImplementedException();
         }
-
-        #endregion
     }
 }

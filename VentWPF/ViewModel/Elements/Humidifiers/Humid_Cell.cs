@@ -7,16 +7,11 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Humid_Cell : Humid
     {
-        #region Constructors
 
         public Humid_Cell()
         {
             image = "Humidifiers/Humid_Cell.png";
         }
-
-        #endregion
-
-        #region Properties
 
         public override string Name => "Увлажнитель сотовый";
 
@@ -27,6 +22,5 @@ namespace VentWPF.ViewModel
             "WaterConsumption",
         };
 
-        #endregion
     }
 }

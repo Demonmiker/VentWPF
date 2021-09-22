@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using pt = PropertyTools.DataAnnotations;
 using t = VentWPF.Tools;
-using PropertyChanged;
 
 namespace VentWPF.ViewModel
 {
     public abstract class ValidViewModel : BaseViewModel, IDataErrorInfo
     {
         #region Properties
+
         [pt.Browsable(false)]
         public bool HasErrors { get; private set; } = false;
 
@@ -85,7 +85,6 @@ namespace VentWPF.ViewModel
                     return !result ? results.Select(x => x.ErrorMessage).Aggregate((a, b) => $"{a}\n{b}") : null;
                 }
                 return null;
-               
             }
             catch (Exception ex)
             {

@@ -14,7 +14,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Heater_Electric : Heater
     {
-        #region Constructors
 
         public Heater_Electric()
         {
@@ -25,29 +24,8 @@ namespace VentWPF.ViewModel
             };
         }
 
-        #endregion
-
-        #region Properties
-
         [DependsOn(nameof(DeviceData))]
         public override string Name => $"Нагреватель электрический {(DeviceData as Тэнры)?.Маркировка}";
-
-        protected override List<string> InfoProperties => new()
-        {
-            "Performance",
-            "TempIn",
-            "TempOut",
-            "tBegin",
-            "tEnd",
-            "lengthKal",
-            "heatSteps",
-            "TorchType",
-            "DeviceData.Типоряд",
-            "DeviceData.Маркировка",
-            "DeviceData.Мощность",
-        };
-
-        #region Данные
 
         /// <summary>
         /// Температура теплоносителя начальная
@@ -80,10 +58,6 @@ namespace VentWPF.ViewModel
         [DisplayName("Ступеней нагрева")]
         public int heatSteps => 3;
 
-        #endregion Данные
-
-        #region Информация
-
         /// <summary>
         /// Тип горелки
         /// </summary>
@@ -92,8 +66,20 @@ namespace VentWPF.ViewModel
         [DisplayName("Горелка")]
         public TorchType TorchType { get; set; }
 
-        #endregion Информация
+        protected override List<string> InfoProperties => new()
+        {
+            "Performance",
+            "TempIn",
+            "TempOut",
+            "tBegin",
+            "tEnd",
+            "lengthKal",
+            "heatSteps",
+            "TorchType",
+            "DeviceData.Типоряд",
+            "DeviceData.Маркировка",
+            "DeviceData.Мощность",
+        };
 
-        #endregion
     }
 }

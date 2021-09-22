@@ -7,9 +7,7 @@ namespace VentWPF.ViewModel.Elements
 {
     internal static class Conditions
     {
-        #region Fields
-
-        public static Dictionary<Type, Dictionary<string, BaseCondition>> dict = new()
+        public static Dictionary<Type, Dictionary<string, IValueConverter>> dict = new()
         {
             {
                 typeof(Heater_Water),
@@ -45,13 +43,8 @@ namespace VentWPF.ViewModel.Elements
 
         private static ProjectInfoVM Project = ProjectVM.Current?.ProjectInfo;
 
-        #endregion
-
-        #region Methods
-
-        public static Dictionary<string, BaseCondition> Get(Type t)
+        public static Dictionary<string, IValueConverter> Get(Type t)
                             => dict.ContainsKey(t) ? dict[t] : null;
 
-        #endregion
     }
 }

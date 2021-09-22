@@ -1,7 +1,4 @@
-﻿
-using PropertyTools.DataAnnotations;
-using System;
-using System.Collections.Generic;
+﻿using PropertyTools.DataAnnotations;
 
 #nullable disable
 
@@ -19,6 +16,7 @@ namespace VentWPF
         public string КолВоПоШирине { get; set; }
 
         public int? Код { get; set; }
+
         public string Код1с { get; set; }
     }
 }

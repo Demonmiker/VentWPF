@@ -1,6 +1,4 @@
 ﻿using PropertyTools.DataAnnotations;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using VentWPF.ViewModel;
 
@@ -10,7 +8,6 @@ namespace VentWPF
 {
     public partial class ФреонХолод
     {
-
         [DisplayName("Типоряд")]
         public string Типоряд { get; set; }
 
@@ -51,7 +48,9 @@ namespace VentWPF
         public double? Цена { get; set; }
 
         public int Код { get; set; }
+
         public double? КолВоКонтуров { get; set; }
+
         public string Код1с { get; set; }
     }
 }

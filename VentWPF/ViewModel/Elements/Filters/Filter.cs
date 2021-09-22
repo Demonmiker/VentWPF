@@ -11,7 +11,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal abstract class Filter : Element
     {
-        #region Constructors
 
         public Filter()
         {
@@ -19,25 +18,15 @@ namespace VentWPF.ViewModel
             ShowPD = true;
         }
 
-        #endregion
-
-        #region Properties
+        [Category(Data)]
+        [DisplayName("Класс очистки")]
+        public FilterClassType FC { get; set; }
 
         protected override List<string> InfoProperties => new()
         {
             "FC",
             "GeneratedPressureDrop",
         };
-
-        #region Данные
-
-        [Category(Data)]
-        [DisplayName("Класс очистки")]
-        public FilterClassType FC { get; set; }
-
-        #endregion Данные
-
-        #region Информация
 
         [Category(Info)]
         [DisplayName("Падение давления при загряз. 50%")]
@@ -51,8 +40,5 @@ namespace VentWPF.ViewModel
             _ => 0
         };
 
-        #endregion Информация
-
-        #endregion
     }
 }
