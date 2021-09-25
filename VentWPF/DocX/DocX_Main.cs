@@ -13,9 +13,17 @@ namespace VentWPF.DocX
         #region[testStrArea]
         string HdrText = "Заказ №25564-2";
         #endregion
-        public void test()
+
+        public void DocX_Initialization()
         {
-            CreateDocument();
+            winword.ShowAnimation = false;
+            winword.Visible = false;
+            Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
+            CreateDocument(document);
+            document.Save();
+            document = null;
+            winword.Quit(ref missing, ref missing, ref missing);
+            winword = null;
         }
 
         public void HeaderINIT(Document document)
@@ -91,34 +99,20 @@ namespace VentWPF.DocX
                 }
             }
         }
-        public void CreateDocument()
-        {
-            winword.ShowAnimation = false;
-            winword.Visible = false;
-
-            Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
+        public void CreateDocument(Document document)
+        {           
 
             HeaderINIT(document);
             OrderStatistics(document, HdrText);
             Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
             tableINIT(document, para1);
+            
+            
             /*
             document.Content.SetRange(0, 0);
             document.Content.Text = HText + Environment.NewLine;
             */
-
-
-            
-
-            //таблица 5х5 
-
-            //Сохранение            
-            document.Save();/*
-            document.Close(ref missing, ref missing, ref missing);
-            document = null;
-            winword.Quit(ref missing, ref missing, ref missing);
-            winword = null;*/
-
+        
         }
     }
 }
