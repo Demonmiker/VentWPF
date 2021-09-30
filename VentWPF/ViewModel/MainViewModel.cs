@@ -152,7 +152,7 @@ namespace VentWPF.ViewModel
         {
 
             DocX.DocX_Main test = new DocX.DocX_Main();
-            test.CreateDocument();
+            test.DocX_Initialization();
             ReportDocument.Blocks.Clear();
             foreach (var item in Project.Grid.Elements)
             {
