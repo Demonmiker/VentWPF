@@ -135,11 +135,12 @@ namespace VentWPF
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-            {                
+            {       /*         
                 string connection =
-                    $"Data Source=(LocalDB)\\MSSQLLocalDB;" +                
-                    $"AttachDbFilename={ Path.GetFullPath("Database/DataBase.mdf")};" +
-                    $"Integrated Security=True";
+                    $"Data Source=(LocalDB)\\MSSQLLocalDB;" +
+                    $"AttachDbFilename={ Path.GetFullPath("Database/DataBase.mdf")};" +                     
+                    $"Integrated Security=True";*/
+                string connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Environment.CurrentDirectory + @"\Database\Database.mdf;Integrated Security=True;Connect Timeout=30";
                 optionsBuilder.UseSqlServer(connection);
             }
         }
