@@ -1,143 +1,264 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
-
-
 #nullable disable
+#pragma warning disable IDE0058
 
 namespace VentWPF
 {
+    /// <summary>
+    /// Автоматически сгенерированный класс обертка для работы с базой данных через EF6
+    /// Singletone
+    /// </summary>
     public partial class VentContext : DbContext
     {
-        public static VentContext Instance { get; private set; } = new VentContext();
+
+        private VentContext()
+        {
+            Debug.WriteLine("БД открыта");
+        }
+
+        private VentContext(DbContextOptions<VentContext> options) : base(options)
+        {
+            Debug.WriteLine("БД открыта");
+        }
+
 
         ~VentContext()
         {
             Debug.WriteLine("БД закрыта");
         }
 
-        private VentContext() { Debug.WriteLine("БД открыта"); } 
 
-        private VentContext(DbContextOptions<VentContext> options) : base(options) {  Debug.WriteLine("БД открыта"); }
+
+        public static VentContext Instance { get; private set; } = new VentContext();
 
         public virtual DbSet<_1с0> _1с0s { get; set; }
+
         public virtual DbSet<_1с> _1сs { get; set; }
+
         public virtual DbSet<_1сШу> _1сШуs { get; set; }
+
         public virtual DbSet<AвтоматикаДатчики> AвтоматикаДатчикиs { get; set; }
+
         public virtual DbSet<CтепеньЗащитыШу> CтепеньЗащитыШуs { get; set; }
+
         public virtual DbSet<Hаценка> Hаценкаs { get; set; }
+
         public virtual DbSet<K3g250At3972> K3g250At3972s { get; set; }
+
         public virtual DbSet<K3g250Av29B2> K3g250Av29B2s { get; set; }
+
         public virtual DbSet<K3g280At0472> K3g280At0472s { get; set; }
+
         public virtual DbSet<K3g280Au06B2> K3g280Au06B2s { get; set; }
+
         public virtual DbSet<K3g280Au11C2> K3g280Au11C2s { get; set; }
+
         public virtual DbSet<K3g310Ax5202> K3g310Ax5202s { get; set; }
+
         public virtual DbSet<K3g310Ax5422> K3g310Ax5422s { get; set; }
+
         public virtual DbSet<K3g310Az8802> K3g310Az8802s { get; set; }
+
         public virtual DbSet<K3g310Bb4902> K3g310Bb4902s { get; set; }
+
         public virtual DbSet<K3g355Ax5602> K3g355Ax5602s { get; set; }
+
         public virtual DbSet<K3g355Ay4002> K3g355Ay4002s { get; set; }
+
         public virtual DbSet<K3g355Ay4322> K3g355Ay4322s { get; set; }
+
         public virtual DbSet<K3g355Bc9202> K3g355Bc9202s { get; set; }
+
         public virtual DbSet<K3g400Aq2301> K3g400Aq2301s { get; set; }
+
         public virtual DbSet<K3g400Aq2368> K3g400Aq2368s { get; set; }
+
         public virtual DbSet<K3g400Ay8702> K3g400Ay8702s { get; set; }
+
         public virtual DbSet<K3g450Aq2568> K3g450Aq2568s { get; set; }
+
         public virtual DbSet<K3g450Az2468> K3g450Az2468s { get; set; }
+
         public virtual DbSet<K3g500Ap2501> K3g500Ap2501s { get; set; }
+
         public virtual DbSet<K3g500Aq3368> K3g500Aq3368s { get; set; }
+
         public virtual DbSet<K3g560Aq0868> K3g560Aq0868s { get; set; }
+
         public virtual DbSet<K3g560Aр2168> K3g560Aр2168s { get; set; }
+
         public virtual DbSet<K3g> K3gs { get; set; }
+
         public virtual DbSet<K3gЗаготовка> K3gЗаготовкаs { get; set; }
+
         public virtual DbSet<K3gЭконом> K3gЭкономs { get; set; }
+
         public virtual DbSet<Тэнры> Tэнрыs { get; set; }
+
         public virtual DbSet<Тэны> Tэныs { get; set; }
+
         public virtual DbSet<ZiehlAbegg> ZiehlAbeggs { get; set; }
+
         public virtual DbSet<Вентиляторы> Вентиляторыs { get; set; }
+
         public virtual DbSet<ВентиляторыУлитка> ВентиляторыУлиткаs { get; set; }
+
         public virtual DbSet<ВентиляторыШу> ВентиляторыШуs { get; set; }
+
         public virtual DbSet<ВентиляторыШуЭконом> ВентиляторыШуЭкономs { get; set; }
+
         public virtual DbSet<ВентиляторыЭксперт> ВентиляторыЭкспертs { get; set; }
+
         public virtual DbSet<ВодаТепло> ВодаТеплоs { get; set; }
+
         public virtual DbSet<ВодаХолод> ВодаХолодs { get; set; }
+
         public virtual DbSet<Габариты> Габаритыs { get; set; }
+
         public virtual DbSet<ГабаритыЭксперт> ГабаритыЭкспертs { get; set; }
+
         public virtual DbSet<ГазовыйНагреватель> ГазовыйНагревательs { get; set; }
+
         public virtual DbSet<Датчики> Датчикиs { get; set; }
+
         public virtual DbSet<ДатчикиЭконом> ДатчикиЭкономs { get; set; }
+
         public virtual DbSet<Двигатели> Двигателиs { get; set; }
+
         public virtual DbSet<Зип> Зипs { get; set; }
+
         public virtual DbSet<КомплектующиеСу> КомплектующиеСуs { get; set; }
+
         public virtual DbSet<КонтроллерыDanfoss> КонтроллерыDanfosses { get; set; }
+
         public virtual DbSet<КонтроллерыDanfossЭконом> КонтроллерыDanfossЭкономs { get; set; }
+
         public virtual DbSet<Контроллеры> Контроллерыs { get; set; }
+
         public virtual DbSet<КонтроллерыЩитыКод1С> КонтроллерыЩитыКод1Сs { get; set; }
+
         public virtual DbSet<КонтроллерыЭконом> КонтроллерыЭкономs { get; set; }
+
         public virtual DbSet<Коэффициент> Коэффициентs { get; set; }
+
         public virtual DbSet<Массы> Массыs { get; set; }
+
         public virtual DbSet<Материалы> Материалыs { get; set; }
+
         public virtual DbSet<МощНагрОхл> МощНагрОхлs { get; set; }
+
         public virtual DbSet<НагревГаз> НагревГазs { get; set; }
+
         public virtual DbSet<НагревГазЭконом> НагревГазЭкономs { get; set; }
+
         public virtual DbSet<НагревЖидк> НагревЖидкs { get; set; }
+
         public virtual DbSet<НагревЖидкЭконом> НагревЖидкЭкономs { get; set; }
+
         public virtual DbSet<НагревЭл> НагревЭлs { get; set; }
+
         public virtual DbSet<НагревЭлЭконом> НагревЭлЭкономs { get; set; }
+
         public virtual DbSet<НасосУвлажнителя> НасосУвлажнителяs { get; set; }
+
         public virtual DbSet<ОбвязкаОхладителя> ОбвязкаОхладителяs { get; set; }
+
         public virtual DbSet<Опции> Опцииs { get; set; }
+
         public virtual DbSet<Охладители> Охладителиs { get; set; }
+
         public virtual DbSet<ОхладителиЭконом> ОхладителиЭкономs { get; set; }
+
         public virtual DbSet<ОхладительОбвязка> ОхладительОбвязкаs { get; set; }
+
         public virtual DbSet<ОшибкиВставки> ОшибкиВставкиs { get; set; }
+
         public virtual DbSet<ПитаниеШу> ПитаниеШуs { get; set; }
+
         public virtual DbSet<ПитаниеШуЭконом> ПитаниеШуЭкономs { get; set; }
+
         public virtual DbSet<ПластинчатыйРекуператор> ПластинчатыйРекуператорs { get; set; }
+
         public virtual DbSet<Привода> Приводаs { get; set; }
+
         public virtual DbSet<ПриводаКв> ПриводаКвs { get; set; }
+
         public virtual DbSet<ПриводаШу> ПриводаШуs { get; set; }
+
         public virtual DbSet<ПриводаШуЭконом> ПриводаШуЭкономs { get; set; }
+
         public virtual DbSet<Примечание> Примечаниеs { get; set; }
+
         public virtual DbSet<РазмерКлапанаРекуператора> РазмерКлапанаРекуператораs { get; set; }
+
         public virtual DbSet<РазмерыAdh> РазмерыAdhs { get; set; }
+
         public virtual DbSet<РазмерыRdh> РазмерыRdhs { get; set; }
+
         public virtual DbSet<Размеры> Размерыs { get; set; }
+
         public virtual DbSet<РазмерыЭксперт> РазмерыЭкспертs { get; set; }
+
         public virtual DbSet<Рекуператоры> Рекуператорыs { get; set; }
+
         public virtual DbSet<РекуператорыЭконом> РекуператорыЭкономs { get; set; }
+
         public virtual DbSet<РоторныйРегенератор> РоторныйРегенераторs { get; set; }
+
         public virtual DbSet<Служебная> Служебнаяs { get; set; }
+
         public virtual DbSet<СмесительныеУзлы> СмесительныеУзлыs { get; set; }
+
         public virtual DbSet<СмесительныеУзлыТренд> СмесительныеУзлыТрендs { get; set; }
+
         public virtual DbSet<Список0> Список0s { get; set; }
+
         public virtual DbSet<СписокK3g> СписокK3gs { get; set; }
+
         public virtual DbSet<Список> Списокs { get; set; }
+
         public virtual DbSet<СписокШу> СписокШуs { get; set; }
+
         public virtual DbSet<СуВсбореЦена> СуВсбореЦенаs { get; set; }
+
         public virtual DbSet<СуГабариты> СуГабаритыs { get; set; }
+
         public virtual DbSet<СуКомплектующие> СуКомплектующиеs { get; set; }
-        public virtual DbSet<СуКомплектующиеТренд> СуКомплектующиеТрендs { get; set; }       
+
+        public virtual DbSet<СуКомплектующиеТренд> СуКомплектующиеТрендs { get; set; }
+
         public virtual DbSet<ТэныЭконом> ТэныЭкономs { get; set; }
+
         public virtual DbSet<Увлажнители> Увлажнителиs { get; set; }
+
         public virtual DbSet<УвлажнителиЭконом> УвлажнителиЭкономs { get; set; }
+
         public virtual DbSet<Уе> Уеs { get; set; }
+
         public virtual DbSet<УлиткаВыхлоп> УлиткаВыхлопs { get; set; }
+
         public virtual DbSet<Фильтры> Фильтрыs { get; set; }
+
         public virtual DbSet<ФреонХолод> ФреонХолодs { get; set; }
+
         public virtual DbSet<ЧпУпп> ЧпУппs { get; set; }
+
         public virtual DbSet<Элементы> Элементыs { get; set; }
+
         public virtual DbSet<ЭлементыЭксперт> ЭлементыЭкспертs { get; set; }
+
+
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-            {                
+            {
                 string connection =
-                    $"Data Source=(LocalDB)\\MSSQLLocalDB;" +                
+                    $"Data Source=(LocalDB)\\MSSQLLocalDB;" +
                     $"AttachDbFilename={ Path.GetFullPath("Database/DataBase.mdf")};" +
                     $"Integrated Security=True";
                 optionsBuilder.UseSqlServer(connection);
@@ -209,7 +330,6 @@ namespace VentWPF
                 entity.Property(e => e.Типоряд).HasMaxLength(255);
             });
 
-            #region[K3G]
 
             modelBuilder.Entity<K3g>(entity =>
             {
@@ -957,7 +1077,6 @@ namespace VentWPF
 
                 entity.Property(e => e._4).HasColumnName("№4");
             });
-            #endregion
 
             modelBuilder.Entity<Тэнры>(entity =>
             {
@@ -3553,7 +3672,7 @@ namespace VentWPF
                 entity.Property(e => e.ЦенаТрехход)
                     .HasMaxLength(255)
                     .HasColumnName("Цена трехход");
-            });           
+            });
 
             modelBuilder.Entity<ТэныЭконом>(entity =>
             {
@@ -3907,5 +4026,8 @@ namespace VentWPF
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
     }
 }
+
+#pragma warning restore IDE0058

@@ -1,9 +1,5 @@
-﻿using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;
-using System;
-using System.Collections.Generic;
+﻿using PropertyTools.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using VentWPF.Model;
-using VentWPF.Tools;
 using VentWPF.ViewModel;
 
 #nullable disable
@@ -31,7 +27,7 @@ namespace VentWPF
         [DisplayName("Ширина г.")]
         [FormatString("{0} мм")]
         public double? ШиринаГабарит { get; set; }
-        
+
         [DisplayName("Высота г.")]
         [FormatString("{0} мм")]
         public double? ВысотаГабарит { get; set; }
@@ -50,16 +46,23 @@ namespace VentWPF
         [DisplayName("Цена")]
         [FormatString("{0} €")]
         public double? Цена { get; set; }
-     
 
         public double? Код { get; set; }
+
         public string DPConst { get; set; }
+
         public string VDP0 { get; set; }
+
         public string VDP1 { get; set; }
+
         public string VDP2 { get; set; }
+
         public string VDP3 { get; set; }
+
         public string VDP4 { get; set; }
+
         public string VDP5 { get; set; }
+
         public string Код1с { get; set; }
     }
 }

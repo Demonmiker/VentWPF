@@ -1,11 +1,9 @@
-﻿using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;
-using System;
-using System.Collections;
+﻿using PropertyChanged;
+using PropertyTools.DataAnnotations;
 using System.Collections.Generic;
 using System.Linq;
 using VentWPF.Model;
-using VentWPF.Tools;
-
+using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
 {
@@ -14,11 +12,9 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Cooler_Fr : Cooler
     {
-        
-      
+
         public Cooler_Fr()
         {
-            //SELECT Типоряд, [L возд], [Ширина габарит], [Высота габарит], [N Квт], Цена FROM dbo.Фреон_холод"
             image = "Coolers/Cooler_Fr.png";
             Query = new DatabaseQuery<ФреонХолод>
             {
@@ -26,7 +22,15 @@ namespace VentWPF.ViewModel
             };
         }
 
+        [DependsOn(nameof(DeviceData))]
         public override string Name => $"Фреоновый охладитель {(DeviceData as ФреонХолод)?.Типоряд}";
+
+        /// <summary>
+        /// Тип Фреона
+        /// </summary>
+        [Category(Data)]
+        [DisplayName("Тип Фреона")]
+        public FrType Fr { get; set; }
 
         protected override List<string> InfoProperties => new()
         {
@@ -35,7 +39,7 @@ namespace VentWPF.ViewModel
             "HumidityIn",
             "Power",
             "HumidOutAbs",
-            "HumidOutRel",            
+            "HumidOutRel",
             "DeviceData.LВозд",
             "DeviceData.NКвт",
             "DeviceData.Скорость",
@@ -45,21 +49,5 @@ namespace VentWPF.ViewModel
             "Fr",
         };
 
-
-        [Category(Data)]
-        #region Данные
-        [DisplayName("Тип Фреона")]
-        public FrType Fr { get; set; }
-
-        #endregion Данные
-
-
-        //[Category(Info)]
-        #region Информация
-
-       
-        #endregion Информация
-
-       
     }
 }

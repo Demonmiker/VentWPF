@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VentWPF.Fans
+﻿namespace VentWPF.Fans
 {
-    interface IController<Tin,Tout>
+    /// <summary>
+    /// Интерфейс контроллера запросов
+    /// </summary>
+    /// <typeparam name="Tin">Тип запроса</typeparam>
+    /// <typeparam name="Tout">Тип данных ответа</typeparam>
+    internal interface IController<Tin, Tout>
     {
         Tout GetResponce(Tin request);
     }

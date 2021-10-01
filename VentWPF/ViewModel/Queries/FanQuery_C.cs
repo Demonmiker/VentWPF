@@ -8,8 +8,8 @@ namespace VentWPF.ViewModel
     {
         protected override IList Fill(object q)//Request
         {
-            var data = q as DllRequest;
-            var req = IOManager.LoadAsJson<DllRequest>("req.json");
+            DllRequest data = q as DllRequest;
+            DllRequest req = IOManager.LoadAsJson<DllRequest>("req.json");
             //
             req.PressureDrop = data.PressureDrop;
             //

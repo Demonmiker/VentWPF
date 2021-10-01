@@ -1,16 +1,17 @@
-﻿using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;
-using System;
-using System.Collections;
+﻿using PropertyTools.DataAnnotations;
 using System.Collections.Generic;
 using System.Linq;
 using VentWPF.Model;
-using VentWPF.Tools;
-using PropertyChanged;
+using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
 {
+    /// <summary>
+    /// Нагреватель водяной
+    /// </summary>
     internal class Heater_Water : Heater
     {
+
         public Heater_Water()
         {
             image = "Heaters/Heater_Water.png";
@@ -23,7 +24,41 @@ namespace VentWPF.ViewModel
 
         public override string Name => $"Нагреватель жидкостный {(DeviceData as ВодаТепло)?.Типоряд}";
 
-        protected override List<string> InfoProperties => new ()
+        /// <summary>
+        /// Тип теплоносителя
+        /// </summary>
+        [Category(Data)]
+        [DisplayName("Теплоноситель")]
+        public CoolantType Coolant { get; set; }
+
+        /// <summary>
+        /// Температура теплоносителя начальная
+        /// </summary>
+        [DisplayName("т. теплоносителя нач.")]
+        public float TempBegin { get; set; } = 95;
+
+        /// <summary>
+        /// Температура теплоносителя конечная
+        /// </summary>
+        [DisplayName("т. теплоносителя кон.")]
+        public float TempEnd { get; set; } = 70;
+
+        /// <summary>
+        /// Расход теплоносителя
+        /// </summary>
+        [Category(Info)]
+        [DisplayName("Расход теплоносителя")]
+        [FormatString(MasFr)]
+        public float Consumption => (float)(((Power * 1000) / (4198 * (TempBegin - TempEnd)))) * 3600;
+
+        /// <summary>
+        /// Падение давления теплоносителя
+        /// </summary>
+        [DisplayName("Падение давл. теплоносителя")]
+        [FormatString(fkPa)]
+        public float CoolantPressureDrop => 12.5f;
+
+        protected override List<string> InfoProperties => new()
         {
             "Performance",
             "TempIn",
@@ -39,36 +74,5 @@ namespace VentWPF.ViewModel
             "CoolantPressureDrop",
         };
 
-        
-
-        [Category(Data)]
-        #region Данные
-
-        [DisplayName("Теплоноситель")]
-        public CoolantType Coolant { get; set; }
-
-        [DisplayName("т. теплоносителя нач.")]
-        public float TempBegin { get; set; } = 95;
-
-        [DisplayName("т. теплоносителя кон.")]
-        public float TempEnd { get; set; } = 70;
-
-        #endregion Данные
-
-        [Category(Info)]
-        #region Информация
-
-        [DisplayName("Расход теплоносителя")]
-        [FormatString(MasFr)]
-        public float Consumption => (float)(((Power * 1000) / (4198 * (TempBegin - TempEnd)))) * 3600;
-
-
-        [DisplayName("Падение давл. теплоносителя")]
-        [FormatString(fkPa)]
-        public float CoolantPressureDrop => 12.5f;
-
-        #endregion Информация
-
-     
     }
 }

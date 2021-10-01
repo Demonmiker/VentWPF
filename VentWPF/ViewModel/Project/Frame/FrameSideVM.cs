@@ -1,20 +1,21 @@
 ﻿using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Linq;
 using VentWPF.Tools;
 
 namespace VentWPF.ViewModel
 {
+    /// <summary>
+    /// Данные для графического представления Стороны каркаса
+    /// </summary>
     internal class FrameSideVM : BaseViewModel
     {
-        #region Constructors
 
         public FrameSideVM(FrameVM parent, bool top = false)
         {
             CmdSplit = new(Split);
             CmdDelete = new(Delete);
             CmdSupport = new(AddSupport) { predicate = CanAddSupport };
-            Values = new() { new(this),new(this)};
+            Values = new() { new(this), new(this) };
             ValuesChanged();
         }
 
@@ -24,13 +25,7 @@ namespace VentWPF.ViewModel
             RightSize = Sum == Length;
         }
 
-        #endregion
-
-        #region Properties
-
         public bool RightSize { get; set; }
-
-        
 
         public ObservableCollection<Box> Values { get; private set; }
 
@@ -46,15 +41,11 @@ namespace VentWPF.ViewModel
 
         public Command<Box> CmdSupport { get; init; }
 
-        #endregion
-
-        #region Methods
-
         private void Split(Box b)
         {
             int index = Values.IndexOf(b);
-            var val = Values[index].Value / 2;
-            var mod = Values[index].Value % 2;
+            uint val = Values[index].Value / 2;
+            uint mod = Values[index].Value % 2;
             Values.RemoveAt(index);
             Values.Insert(index, new Box(this, val));
             Values.Insert(index, new Box(this, val + mod));
@@ -62,20 +53,20 @@ namespace VentWPF.ViewModel
 
         private void Delete(Box b)
         {
-            Values.Remove(b);
+            _ = Values.Remove(b);
         }
 
         private void AddSupport(Box b)
         {
-            Values.First(x => b == x).Support = (uint)Side/2;
+            Values.First(x => b == x).Support = (uint)Side / 2;
         }
 
         private bool CanAddSupport(Box b)
         {
-            if (b == null) return true;
+            if (b == null)
+                return true;
             return Values.First(x => b == x).Support == 0;
         }
 
-        #endregion
     }
 }

@@ -1,12 +1,12 @@
-﻿using System.Windows.Controls;
-using System.Windows.Documents;
-using VentWPF.Tools;
+﻿using System;
 
 namespace VentWPF.ViewModel
 {
+    /// <summary>
+    /// Проект
+    /// </summary>
     internal class ProjectVM : BaseViewModel
     {
-        #region Constructors
 
         static ProjectVM()
         {
@@ -16,41 +16,41 @@ namespace VentWPF.ViewModel
 
         private ProjectVM()
         {
-           
         }
 
-        #endregion
-
-        #region Properties
-
+        /// <summary>
+        /// Текущий экземпляр проекта
+        /// </summary>
         public static ProjectVM Current { get; private set; }
 
-        //Информация о проекте
+        /// <summary>
+        /// Информация о проекте
+        /// </summary>
         public ProjectInfoVM ProjectInfo { get; private set; }
 
-        //установка
+        /// <summary>
+        /// Установка
+        /// </summary>
         public GridVM Grid { get; private set; }
 
-        //каркас установки
+        /// <summary>
+        /// Каркас установки
+        /// </summary>
         public FrameVM Frame { get; private set; }
 
-        //Менеджер запросов
+        /// <summary>
+        /// Менеджер запросов
+        /// </summary>
         public TaskManagerVM TaskManager { get; private set; }
 
-        //чертеж установки
-        //отчёт
-        //Менеджер ошибок
+        /// <summary>
+        /// Менеджер ошибок
+        /// </summary>
         public ErrorManagerVM ErrorManager { get; private set; }
-
-
-        
-
-        #endregion
-
-        #region Methods
 
         public void LoadProject(object o)
         {
+            throw new NotImplementedException();
             //var sfd = new OpenFileDialog{ DefaultExt = ".prj", Filter = "Projects (.prj)|*.prj" };
             //if (sfd.ShowDialog() == true)
             //{
@@ -62,10 +62,14 @@ namespace VentWPF.ViewModel
 
         public void SaveProject(object o)
         {
+            throw new NotImplementedException();
             //var sfd = new SaveFileDialog{ FileName = "Проект", DefaultExt = ".prj", Filter = "Projects (.prj)|*.prj" };
             //if(sfd.ShowDialog()==true) IOManager.SaveAsJson(new Project(ProjectInfo,Grid.ToList()), sfd.FileName);
         }
 
+        /// <summary>
+        /// Метод инициализации
+        /// </summary>
         protected void Init()
         {
             ProjectInfo = new();
@@ -78,10 +82,5 @@ namespace VentWPF.ViewModel
             Grid.Init(ProjectInfo.Rows);
         }
 
-        
-
-        
-
-        #endregion
     }
 }

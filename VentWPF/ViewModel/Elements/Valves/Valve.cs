@@ -1,8 +1,8 @@
-﻿using PropertyTools.DataAnnotations;
-using static VentWPF.ViewModel.Strings;
-
-namespace VentWPF.ViewModel
+﻿namespace VentWPF.ViewModel
 {
+    /// <summary>
+    /// Общий класс Клапан
+    /// </summary>
     internal abstract class Valve : Element
     {
         public Valve()
@@ -12,21 +12,6 @@ namespace VentWPF.ViewModel
             ShowPD = true;
         }
 
-        public override float GeneratedPressureDrop => 15;
-
-        //[Category(Data)]
-
-        #region Данные
-
-        #endregion Данные
-
-        //[Category(Info)]
-
-        #region Информация
-
-        
-        
-
-        #endregion Информация
+        protected override float GeneratedPressureDrop => 15;
     }
 }

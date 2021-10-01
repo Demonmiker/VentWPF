@@ -4,7 +4,6 @@
     {
         public Section_Down_Reverse()
         {
-
             image = "Sections/Section_Down_Reverse.png";
         }
     }
