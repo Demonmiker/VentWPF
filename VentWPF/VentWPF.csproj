@@ -26,10 +26,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\Images\Vega.webp" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="DocumentFormat.OpenXml" Version="2.13.1" />
     <PackageReference Include="FontAwesome5" Version="2.1.2" />
     <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
@@ -185,6 +181,9 @@
     </None>
     <None Update="Assets\Images\Fans\Directions\RightLeft.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Images\Vega.webp">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="Database\Database.mdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -381,12 +380,6 @@
     <None Update="Fans\K3G\DLL\EbmPapstFan.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <SplashScreen Include="Assets\Images\Vega.webp">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </SplashScreen>
   </ItemGroup>
 
 </Project>
