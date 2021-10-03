@@ -1,17 +1,23 @@
 ﻿using Microsoft.Office.Interop.Word;
+using System.IO;
 using Word = Microsoft.Office.Interop.Word;
+
 
 namespace VentWPF.DocX
 {
-    class DocX_Main
+    class DocX_Main 
     {
         object missing = System.Reflection.Missing.Value;
         Application winword = new Application();
+        public string imageLogo = Path.GetFullPath("Assets/Images/DocXImages/logo.png");
+        public string imageQR = Path.GetFullPath("Assets/Images/DocXImages/qr-code.gif");
+
 
         #region[testStrArea]
         string HdrText = "Заказ №25564-2";
         string[] testData = { "Данные блок 1\nПереход новая строка: есть\nВажные данные: 4кПа", "Данные блок 2\nПереход новая строка: есть\nВажные данные: 4кПа", "Данные блок 3\nПереход новая строка: есть\nВажные данные: 4кПа" };
         #endregion
+
 
         public void DocX_Initialization()
         {
@@ -24,6 +30,7 @@ namespace VentWPF.DocX
             winword.Quit(ref missing, ref missing, ref missing);
             winword = null;
         }
+        
 
         public void HeaderINIT(Document document)
         {
@@ -34,7 +41,7 @@ namespace VentWPF.DocX
                 Table Table = document.Tables.Add(headerRange, 1, 3, ref missing, ref missing);
                 Table.Borders.Enable = 0; //для тестов
 
-
+                
 
 
                 Table.Rows[1].Cells[2].Range.Text = "  170025, Тверская область, г. Тверь \n  ул. Бочкина, д.18, строение 3 офис 3 \n  Тел.: +7(4822)74-42-87 \n  ivv@vega-air.com";
@@ -47,18 +54,13 @@ namespace VentWPF.DocX
                 Table.Rows[1].Cells[1].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphLeft;
                 Table.Rows[1].Cells[2].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
 
-                //Table.Rows[1].Cells[1].Width = 200;
-                //Table.Rows[1].Cells[2].Width = 180;
-
-                //Table.Rows[1].Cells[3].Width = 100;
-                //------                              
-                //Add image
+                
                 object docRange = Table.Rows[1].Cells[1].Range;
-                string imagePath = @"C:\Users\stig1\Desktop\logo.png";
-                document.InlineShapes.AddPicture(imagePath, LinkToFile: true, SaveWithDocument: true, Range: docRange);
+                string imagePath = imageLogo;
+                document.InlineShapes.AddPicture(imageLogo, LinkToFile: true, SaveWithDocument: true, Range: docRange);
                 docRange = Table.Rows[1].Cells[3].Range;
-                imagePath = @"C:\Users\stig1\Desktop\qr-code.gif";
-                document.InlineShapes.AddPicture(imagePath, LinkToFile: true, SaveWithDocument: true, Range: docRange);
+                imagePath = imageQR;
+                document.InlineShapes.AddPicture(imageQR, LinkToFile: true, SaveWithDocument: true, Range: docRange);
 
             }
         }
