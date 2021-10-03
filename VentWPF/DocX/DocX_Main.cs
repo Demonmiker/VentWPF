@@ -83,13 +83,21 @@ namespace VentWPF.DocX
         public void tableINIT(Document document, Paragraph para1, string[] dataText)
         {
             int cnt = dataText.Length;
-            Table firstTable = document.Tables.Add(para1.Range, cnt, 1, ref missing, ref missing);
+            Table firstTable = document.Tables.Add(para1.Range, cnt, 2, ref missing, ref missing);
             int count = 0;
-            firstTable.Borders.Enable = 1;
-
+            //firstTable.Borders.Enable = 1;
+            firstTable.Borders[WdBorderType.wdBorderHorizontal].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.Borders[WdBorderType.wdBorderLeft].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.Borders[WdBorderType.wdBorderRight].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.Borders[WdBorderType.wdBorderTop].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.Borders[WdBorderType.wdBorderBottom].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
             for (int i = 1; i <= cnt; i++)
             {
                 firstTable.Rows[i].Cells[1].Range.Text = dataText[i - 1];
+            }
+            for (int i = 1; i <= cnt; i++)
+            {
+                firstTable.Rows[i].Cells[2].Range.Text = dataText[i - 1];
             }
         }
 
@@ -116,7 +124,7 @@ namespace VentWPF.DocX
             para1.Range.InsertParagraphAfter();
             //таблица данных
             Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
-            tableINIT(document, para1, testData);
+            tableINIT(document, para2, testData);
             para2.Range.InsertParagraphAfter();
             //нижняя информация(?)
             footerInit(document);
