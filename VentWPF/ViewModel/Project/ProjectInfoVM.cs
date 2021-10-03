@@ -13,7 +13,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     public class ProjectInfoVM : ValidViewModel
     {
-
         /// <summary>
         /// Дата начала проекта
         /// </summary>
@@ -139,10 +138,11 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Количество рядов
         /// </summary>
+        private Rows rows = Rows.Двухярусный;
+
         [Category("Вид|")]
         [DisplayName("Кол-во рядов")]
-        [FormatString(fkPa)]
-        public Rows Rows { get; set; } = Rows.Двухярусный;
+        public Rows Rows { get => rows; set { rows = value; ProjectVM.Current.Grid.Init(value); } }
 
         /// <summary>
         /// Реализация
@@ -199,6 +199,5 @@ namespace VentWPF.ViewModel
         //Непонятно @@info
         [Browsable(false)]
         public int Temp { get; set; } = -30;
-
     }
 }

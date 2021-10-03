@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 
 namespace VentWPF.ViewModel
 {
@@ -7,10 +8,10 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Humid_Cell : Humid
     {
-
         public Humid_Cell()
         {
             image = "Humidifiers/Humid_Cell.png";
+            SchemeImage = Path.GetFullPath("Assets/Images/Humidifiers/SH_Humid_Cell.png");
         }
 
         public override string Name => "Увлажнитель сотовый";
@@ -21,6 +22,5 @@ namespace VentWPF.ViewModel
             "AirSoftOut",
             "WaterConsumption",
         };
-
     }
 }

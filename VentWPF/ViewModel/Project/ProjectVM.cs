@@ -7,7 +7,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class ProjectVM : BaseViewModel
     {
-
         static ProjectVM()
         {
             Current = new ProjectVM();
@@ -18,35 +17,19 @@ namespace VentWPF.ViewModel
         {
         }
 
-        /// <summary>
-        /// Текущий экземпляр проекта
-        /// </summary>
         public static ProjectVM Current { get; private set; }
 
-        /// <summary>
-        /// Информация о проекте
-        /// </summary>
         public ProjectInfoVM ProjectInfo { get; private set; }
 
-        /// <summary>
-        /// Установка
-        /// </summary>
         public GridVM Grid { get; private set; }
 
-        /// <summary>
-        /// Каркас установки
-        /// </summary>
         public FrameVM Frame { get; private set; }
 
-        /// <summary>
-        /// Менеджер запросов
-        /// </summary>
         public TaskManagerVM TaskManager { get; private set; }
 
-        /// <summary>
-        /// Менеджер ошибок
-        /// </summary>
         public ErrorManagerVM ErrorManager { get; private set; }
+
+        public SchemeVM Scheme { get; private set; }
 
         public void LoadProject(object o)
         {
@@ -80,7 +63,7 @@ namespace VentWPF.ViewModel
             Grid.ErrorManager = ErrorManager;
             Frame = new(500, ProjectInfo.Width, ProjectInfo.Height);
             Grid.Init(ProjectInfo.Rows);
+            Scheme = new SchemeVM();
         }
-
     }
 }

@@ -8,14 +8,13 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class ImageCollection
     {
-
         public string Empty { get; set; } = Path.GetFullPath("Assets/Images/Empty.png");
 
         public string Valves { get; set; } = Path.GetFullPath("Assets/Images/Valves/Valves.png");
 
         public string Heaters { get; init; } = Path.GetFullPath("Assets/Images/Heaters/Heaters.png");
 
-        public string Coolers { get; set; } = Path.GetFullPath("Assets/Images/Coolers/Coolers.png");
+        public string Coolers { get; set; } = Path.GetFullPath("Assеets/Images/Coolers/Coolers.png");
 
         public string Muffers { get; init; } = Path.GetFullPath("Assets/Images/Mufflers/Mufflers.png");
 
@@ -32,6 +31,5 @@ namespace VentWPF.ViewModel
         public string Fans_P { get; set; } = Path.GetFullPath("Assets/Images/Fans/Fan_P.png");
 
         public string Fans_K3G { get; set; } = Path.GetFullPath("Assets/Images/Fans/Fan_K3G.png");
-
     }
 }

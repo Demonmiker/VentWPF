@@ -1,5 +1,6 @@
 ﻿using PropertyTools.DataAnnotations;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using VentWPF.Model;
 using static VentWPF.ViewModel.Strings;
@@ -11,7 +12,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Heater_Water : Heater
     {
-
         public Heater_Water()
         {
             image = "Heaters/Heater_Water.png";
@@ -20,6 +20,10 @@ namespace VentWPF.ViewModel
             {
                 Source = from h in VentContext.Instance.ВодаТеплоs select h
             };
+            Length = 123;
+            Width = 456;
+            Height = 789;
+            SchemeImage = Path.GetFullPath("Assets/Images/Heaters/SH_Heater_Water.png");
         }
 
         public override string Name => $"Нагреватель жидкостный {(DeviceData as ВодаТепло)?.Типоряд}";
@@ -73,6 +77,5 @@ namespace VentWPF.ViewModel
             "Coolant",
             "CoolantPressureDrop",
         };
-
     }
 }
