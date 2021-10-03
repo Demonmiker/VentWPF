@@ -18,10 +18,8 @@ namespace VentWPF.Tools
 
         public Predicate<T> Predicate { get; set; }
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+             => Predicate((T)value);
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {

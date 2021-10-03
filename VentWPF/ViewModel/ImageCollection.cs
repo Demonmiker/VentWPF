@@ -14,7 +14,7 @@ namespace VentWPF.ViewModel
 
         public string Heaters { get; init; } = Path.GetFullPath("Assets/Images/Heaters/Heaters.png");
 
-        public string Coolers { get; set; } = Path.GetFullPath("Assеets/Images/Coolers/Coolers.png");
+        public string Coolers { get; set; } = Path.GetFullPath("Assets/Images/Coolers/Coolers.png");
 
         public string Muffers { get; init; } = Path.GetFullPath("Assets/Images/Mufflers/Mufflers.png");
 

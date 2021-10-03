@@ -195,12 +195,16 @@ namespace VentWPF.ViewModel
         protected override string OnValidation()
             => DeviceType != null && DeviceData == null ? "Не выбрана модель устройства" : "";
 
+        [Browsable(false)]
         public int Length { get; protected set; } = 100;
 
+        [Browsable(false)]
         public int Width { get; protected set; } = 50;
 
+        [Browsable(false)]
         public int Height { get; protected set; } = 60;
 
+        [Browsable(false)]
         public string SchemeImage { get; protected set; } = Path.GetFullPath("Assets/Images/Empty.png");
     }
 }
