@@ -174,11 +174,13 @@ namespace VentWPF.DocX
             shemeInit(document, para1);
             para1.Range.InsertParagraphAfter();
             //таблица данных
-            
-            
-            Paragraph para2 = document.Content.Paragraphs.Add(ref missing);            
-            tableINIT(document, para2, testData, dataName);            
-            para2.Range.InsertParagraphAfter();
+
+            for (int i = 0; i < 2; i++)
+            {
+                Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
+                tableINIT(document, para2, testData, dataName);
+                para2.Range.InsertParagraphAfter();
+            }
             //нижняя информация(?)
             footerInit(document);
 
