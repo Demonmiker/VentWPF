@@ -13,7 +13,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class GridVM : BaseViewModel
     {
-
         private Element _Selected = new();
 
         /// <summary>
@@ -106,6 +105,5 @@ namespace VentWPF.ViewModel
             if (Selected?.InfoTable is not null)
                 InfoBox.Document.Blocks.Add(_Selected.InfoTable);
         }
-
     }
 }

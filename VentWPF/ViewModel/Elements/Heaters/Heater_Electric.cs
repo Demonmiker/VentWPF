@@ -2,6 +2,7 @@
 using PropertyTools.DataAnnotations;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using VentWPF.Model;
 using VentWPF.Tools;
@@ -14,7 +15,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Heater_Electric : Heater
     {
-
         public Heater_Electric()
         {
             image = "Heaters/Heater_Electric.png";
@@ -22,6 +22,7 @@ namespace VentWPF.ViewModel
             {
                 Source = from o in VentContext.Instance.Tэнрыs select o
             };
+            SchemeImage = Path.GetFullPath("Assets/Images/Heaters/SH_Heater_Electric.png");
         }
 
         [DependsOn(nameof(DeviceData))]
@@ -80,6 +81,5 @@ namespace VentWPF.ViewModel
             "DeviceData.Маркировка",
             "DeviceData.Мощность",
         };
-
     }
 }

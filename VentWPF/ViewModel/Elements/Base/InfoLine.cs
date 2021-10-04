@@ -14,7 +14,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     public class InfoLine
     {
-
         /// <summary>
         /// Создает информационную строку
         /// </summary>
@@ -107,10 +106,7 @@ namespace VentWPF.ViewModel
             else
             {
                 PropertyInfo prop = FindProperty(Path, out object parent);
-                if (parent is not null)
-                    runV.Text = String.Format(Format ?? "{0}", prop.GetValue(parent));
-                else
-                    runV.Text = "";
+                runV.Text = parent is not null ? String.Format(Format ?? "{0}", prop.GetValue(parent)) : "";
             }
 
             Paragraph res = new();
@@ -118,5 +114,10 @@ namespace VentWPF.ViewModel
             return res;
         }
 
+        public (string prop, string value) ToStrings()
+        {
+            PropertyInfo prop = FindProperty(Path, out object parent);
+            return (Header, parent is not null ? String.Format(Format ?? "{0}", prop.GetValue(parent)) : "");
+        }
     }
 }

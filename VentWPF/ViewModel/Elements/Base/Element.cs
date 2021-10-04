@@ -17,7 +17,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Element : ValidViewModel
     {
-
         /// <summary>
         /// Тип модели реализации класса
         /// </summary>
@@ -75,7 +74,7 @@ namespace VentWPF.ViewModel
         /// Индекс выбранной модели в коллекции запроса
         /// </summary>
         [Browsable(false)]
-        public int DeviceIndex { get; set; }
+        public int DeviceIndex { get; set; } = -1;
 
         /// <summary>
         /// Информация о выбраной модели
@@ -196,5 +195,16 @@ namespace VentWPF.ViewModel
         protected override string OnValidation()
             => DeviceType != null && DeviceData == null ? "Не выбрана модель устройства" : "";
 
+        [Browsable(false)]
+        public int Length { get; protected set; } = 0;
+
+        [Browsable(false)]
+        public int Width { get; protected set; } = 0;
+
+        [Browsable(false)]
+        public int Height { get; protected set; } = 0;
+
+        [Browsable(false)]
+        public string SchemeImage { get; protected set; } = "";
     }
 }

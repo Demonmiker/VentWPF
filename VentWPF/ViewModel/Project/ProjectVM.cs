@@ -1,4 +1,5 @@
 ﻿using System;
+using VentWPF.Tools;
 
 namespace VentWPF.ViewModel
 {
@@ -7,7 +8,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class ProjectVM : BaseViewModel
     {
-
         static ProjectVM()
         {
             Current = new ProjectVM();
@@ -16,37 +16,22 @@ namespace VentWPF.ViewModel
 
         private ProjectVM()
         {
+            CmdScheme = new Command<object>(GenearateScheme);
         }
 
-        /// <summary>
-        /// Текущий экземпляр проекта
-        /// </summary>
         public static ProjectVM Current { get; private set; }
 
-        /// <summary>
-        /// Информация о проекте
-        /// </summary>
         public ProjectInfoVM ProjectInfo { get; private set; }
 
-        /// <summary>
-        /// Установка
-        /// </summary>
         public GridVM Grid { get; private set; }
 
-        /// <summary>
-        /// Каркас установки
-        /// </summary>
         public FrameVM Frame { get; private set; }
 
-        /// <summary>
-        /// Менеджер запросов
-        /// </summary>
         public TaskManagerVM TaskManager { get; private set; }
 
-        /// <summary>
-        /// Менеджер ошибок
-        /// </summary>
         public ErrorManagerVM ErrorManager { get; private set; }
+
+        public SchemeVM Scheme { get; private set; }
 
         public void LoadProject(object o)
         {
@@ -82,5 +67,41 @@ namespace VentWPF.ViewModel
             Grid.Init(ProjectInfo.Rows);
         }
 
+        public Command<object> CmdScheme { get; init; }
+
+        public void GenearateScheme(object o)
+        {
+            var result = new SchemeVM();
+            result.TwoRows = ProjectInfo.Rows == Model.Rows.Двухярусный;
+            result.WidthBottom = ProjectInfo.Height;
+            result.WidthTop = ProjectInfo.Height + 100; //TODO Исправить на нормальное значение
+            result.Elements.Clear();
+            for (int i = 0; i < 10; i++)
+            {
+                if (result.TwoRows)
+                {
+                    if (Grid.Elements[i].GetType().Name == "Element" && Grid.Elements[i+10].GetType().Name == "Element")
+                        break;
+                    result.Elements.Add(new ElementPair()
+                    {
+                        TwoRows = true,
+                        Top = Grid.Elements[i],
+                        Bottom = Grid.Elements[i + 10],
+                    });
+                }
+                else
+                {
+                    if (Grid.Elements[i].GetType().Name == "Element")
+                        break;
+                    result.Elements.Add(new ElementPair()
+                    {
+                        TwoRows = false,
+                        Bottom = Grid.Elements[i],
+                    });
+                }
+            }
+            result.Init();
+            Scheme = result;
+        }
     }
 }
