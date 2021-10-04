@@ -85,9 +85,9 @@ namespace VentWPF.DocX
 
         public void tableINIT(Document document, Paragraph para1, string[] dataText, string[] dataName)
         {
-            int cnt = testData.Length * 2;
+            int cnt = testData.Length;
             Table firstTable = document.Tables.Add(para1.Range, cnt, 4, ref missing, ref missing);
-            Table secondTable = document.Tables.Add(firstTable.Range, cnt, 4, ref missing, ref missing);
+            
             int count = 0;
             //firstTable.Borders.Enable = 1;
             firstTable.Borders[WdBorderType.wdBorderHorizontal].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
@@ -97,26 +97,26 @@ namespace VentWPF.DocX
             firstTable.Borders[WdBorderType.wdBorderBottom].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
             //firstTable.Rows[1].Cells[2].Range.Font.Bold = 1;
             int stepper = 0;
-            //firstTable.AllowAutoFit = true;
-            //firstTable.AutoFitBehavior(WdAutoFitBehavior.wdAutoFitContent);
-            /*
+            firstTable.AllowAutoFit = true;
+            firstTable.AutoFitBehavior(WdAutoFitBehavior.wdAutoFitContent);
+            
             for (int i = 1; i < cnt+1; i++)
             {
 
-                firstTable.Rows[i].Cells[1].Range.Text = dataName[i-1] + "\n" + dataText[i-1];
+                firstTable.Rows[i].Cells[1].Range.Text = dataName[i-1] + "\n" + dataText[i-1] + "     123.45kPa" + "\n" + dataText[i - 1] + "     123.45kPa";
 
 
 
-                firstTable.Rows[i].Cells[2].Range.Text = "\n" + "123.45kPa";
+               // firstTable.Rows[i].Cells[2].Range.Text = "\n" + "123.45kPa";
 
 
-                firstTable.Rows[i].Cells[3].Range.Text = "\n" + dataText[i-1];
+                firstTable.Rows[i].Cells[2].Range.Text = "\n" + dataText[i-1] + "     123.45kPa" + "\n" + dataText[i - 1] + "     123.45kPa";
 
 
-                firstTable.Rows[i].Cells[4].Range.Text = "\n" + "123.45kPa";
-            }*/
+               // firstTable.Rows[i].Cells[4].Range.Text = "\n" + "123.45kPa";
+            }
 
-            
+            /*
             for (int i = 2; i < cnt+1; i += 2)
             {
                 //firstTable.Rows[i].Cells[1].Width = TBWith / 100 * 40;
@@ -149,7 +149,7 @@ namespace VentWPF.DocX
 
                 stepper++;
             }
-            
+            */
         }
 
         public void footerInit(Document document)
