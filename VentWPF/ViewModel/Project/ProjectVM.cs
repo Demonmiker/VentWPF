@@ -1,4 +1,5 @@
 ﻿using System;
+using VentWPF.Tools;
 
 namespace VentWPF.ViewModel
 {
@@ -15,6 +16,7 @@ namespace VentWPF.ViewModel
 
         private ProjectVM()
         {
+            CmdScheme = new Command<object>(GenearateScheme);
         }
 
         public static ProjectVM Current { get; private set; }
@@ -63,7 +65,43 @@ namespace VentWPF.ViewModel
             Grid.ErrorManager = ErrorManager;
             Frame = new(500, ProjectInfo.Width, ProjectInfo.Height);
             Grid.Init(ProjectInfo.Rows);
-            Scheme = new SchemeVM();
+        }
+
+        public Command<object> CmdScheme { get; init; }
+
+        public void GenearateScheme(object o)
+        {
+            var result = new SchemeVM();
+            result.TwoRows = ProjectInfo.Rows == Model.Rows.Двухярусный;
+            result.WidthBottom = ProjectInfo.Height;
+            result.WidthTop = ProjectInfo.Height + 100; //TODO Исправить на нормальное значение
+            result.Elements.Clear();
+            for (int i = 0; i < 10; i++)
+            {
+                if (result.TwoRows)
+                {
+                    if (Grid.Elements[i].GetType().Name == "Element" && Grid.Elements[i+10].GetType().Name == "Element")
+                        break;
+                    result.Elements.Add(new ElementPair()
+                    {
+                        TwoRows = true,
+                        Top = Grid.Elements[i],
+                        Bottom = Grid.Elements[i + 10],
+                    });
+                }
+                else
+                {
+                    if (Grid.Elements[i].GetType().Name == "Element")
+                        break;
+                    result.Elements.Add(new ElementPair()
+                    {
+                        TwoRows = false,
+                        Bottom = Grid.Elements[i],
+                    });
+                }
+            }
+            result.Init();
+            Scheme = result;
         }
     }
 }
