@@ -19,6 +19,7 @@ namespace VentWPF.ViewModel
 
         [Category(Data)]
         [DisplayName("Длинна секции")]
+        [FormatString(fmm)]
         public Section FC { get; set; }
 
         protected override float GeneratedPressureDrop => FC switch

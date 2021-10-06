@@ -1,5 +1,7 @@
 ﻿using Microsoft.Office.Interop.Word;
 using System.IO;
+using System.Linq;
+using VentWPF.ViewModel;
 using Word = Microsoft.Office.Interop.Word;
 
 
@@ -84,45 +86,87 @@ namespace VentWPF.DocX
         }
 
         //создаёт таблицы
-        public void CreateTables(Document document, string[] data, string[] numeric)
+        public void CreateTables(Document document)
         {
-            int count = data.Length;
-            for (int i = 0; i < count; i++)
+            foreach (Element i in ProjectVM.Current.Grid.Elements)
             {
-                Paragraph name = document.Content.Paragraphs.Add(ref missing);
-                name.Range.Text = "заголовок";
-                name.Range.InsertParagraphAfter();
-                Paragraph table = document.Content.Paragraphs.Add(ref missing);
-                TableStructor(document, table, data[i], numeric[i]);
-                table.Range.InsertParagraphAfter();
+                var list = InfoLine.GenerateInfoLines(i, i.DeviceType, i.InfoProperties).ToList();
+                int count = list.Count;
+
+                
+                if (i.Name != "" && count != 0)
+                {
+                    Paragraph para0 = document.Content.Paragraphs.Add(ref missing);
+                    para0.Range.Text = i.Name;
+                    para0.Range.InsertParagraphAfter();
+                    TableStructor(document, i);
+                }
             }
+
+
+            //var el = ProjectVM.Current.Grid.Elements[0];
+            //TableStructor(document, el);
+
         }
 
         //заполняет одну таблицу
-        public void TableStructor(Document document, Paragraph para1, string data, string numeric)
+        public void TableStructor(Document document, Element el)
         {
-            Table firstTable = document.Tables.Add(para1.Range, 1, 4, ref missing, ref missing);
+
+            var list = InfoLine.GenerateInfoLines(el, el.DeviceType, el.InfoProperties).ToList();
+            int count = list.Count;
+            int target;
+            if (count % 2 == 1)
+            {
+                target = (count / 2) + 1;
+            }
+            else
+            {
+                target = (count / 2);
+            }
+
+            
+            Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
+            Table firstTable = document.Tables.Add(para1.Range, target, 4, ref missing, ref missing);
             firstTable.Borders[WdBorderType.wdBorderLeft].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
             firstTable.Borders[WdBorderType.wdBorderRight].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
             firstTable.Borders[WdBorderType.wdBorderTop].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
             firstTable.Borders[WdBorderType.wdBorderBottom].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
-            
-            //размеры ячеек
-            firstTable.Rows[1].Cells[1].Width = 170;
-            firstTable.Rows[1].Cells[2].Width = 60;
-            firstTable.Rows[1].Cells[3].Width = 170;
-            firstTable.Rows[1].Cells[4].Width = 60;
 
-            //заполнение
-            firstTable.Rows[1].Cells[1].Range.Text = data;
-            firstTable.Rows[1].Cells[2].Range.Text = numeric;
+            int target2 = count - target;
+            for (int i = 0; i < target; i++)
+            {
+                firstTable.Rows[i + 1].Cells[1].Width = 170;
+                firstTable.Rows[i + 1].Cells[2].Width = 60;
+                firstTable.Rows[i + 1].Cells[3].Width = 170;
+                firstTable.Rows[i + 1].Cells[4].Width = 60;
+                var korteg = list[i].ToStrings();
+                var data = korteg.prop;
+                var val = korteg.value;
+                firstTable.Rows[i + 1].Cells[1].Range.Text = data;
+                firstTable.Rows[i + 1].Cells[2].Range.Text = val;
+            }
+            for (int i = 0; i < target2; i++)
+            {
+                firstTable.Rows[i + 1].Cells[3].Width = 170;
+                firstTable.Rows[i + 1].Cells[4].Width = 60;
+                var korteg = list[i + target].ToStrings();
+                var data = korteg.prop;
+                var val = korteg.value;
+                firstTable.Rows[i + 1].Cells[3].Range.Text = data;
+                firstTable.Rows[i + 1].Cells[4].Range.Text = val;
+            }
+
+
+
+            para1.Range.InsertParagraphAfter();
         }
 
         public void tableINIT(Document document, Paragraph para1, string[] dataText, string[] dataName)
         {
             int cnt = testData.Length;
             Table firstTable = document.Tables.Add(para1.Range, cnt, 4, ref missing, ref missing);
-            
+
             int count = 0;
             //firstTable.Borders.Enable = 1;
             firstTable.Borders[WdBorderType.wdBorderHorizontal].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
@@ -134,38 +178,24 @@ namespace VentWPF.DocX
             int stepper = 0;
             firstTable.AllowAutoFit = true;
             firstTable.AutoFitBehavior(WdAutoFitBehavior.wdAutoFitContent);
-            
-            for (int i = 1; i < cnt+1; i++)
+
+            for (int i = 1; i < cnt + 1; i++)
             {
 
-                firstTable.Rows[i].Cells[1].Range.Text = dataName[i-1] + "\n" + dataText[i-1] + "     123.45kPa" + "\n" + dataText[i - 1] + "     123.45kPa";
+                firstTable.Rows[i].Cells[1].Range.Text = dataName[i - 1] + "\n" + dataText[i - 1] + "     123.45kPa" + "\n" + dataText[i - 1] + "     123.45kPa";
 
 
 
-               // firstTable.Rows[i].Cells[2].Range.Text = "\n" + "123.45kPa";
+                // firstTable.Rows[i].Cells[2].Range.Text = "\n" + "123.45kPa";
 
 
-                firstTable.Rows[i].Cells[2].Range.Text = "\n" + dataText[i-1] + "     123.45kPa" + "\n" + dataText[i - 1] + "     123.45kPa";
+                firstTable.Rows[i].Cells[2].Range.Text = "\n" + dataText[i - 1] + "     123.45kPa" + "\n" + dataText[i - 1] + "     123.45kPa";
 
 
-               // firstTable.Rows[i].Cells[4].Range.Text = "\n" + "123.45kPa";
+                // firstTable.Rows[i].Cells[4].Range.Text = "\n" + "123.45kPa";
             }
 
             /*
-            for (int i = 2; i < cnt+1; i += 2)
-            {
-                //firstTable.Rows[i].Cells[1].Width = TBWith / 100 * 40;
-                firstTable.Rows[i].Cells[1].Range.Text = dataText[stepper] + "\n" + dataText[stepper];
-                firstTable.Rows[i].Cells[1].Width = 170;
-                //firstTable.Rows[i].Cells[2].Width = TBWith / 100 * 10;
-                firstTable.Rows[i].Cells[2].Range.Text = "123.45kPa\n123456";
-                firstTable.Rows[i].Cells[2].Width = 70;
-                //firstTable.Rows[i].Cells[3].Width = TBWith / 100 * 40;
-                firstTable.Rows[i].Cells[3].Range.Text = dataText[stepper] + "\n" + dataText[stepper];
-                firstTable.Rows[i].Cells[3].Width = 170;
-                //firstTable.Rows[i].Cells[4].Width = TBWith / 100 * 10;
-                firstTable.Rows[i].Cells[4].Range.Text = "123.45kPa\n123456";
-                firstTable.Rows[i].Cells[4].Width = 70;
                 stepper++;
             }
             stepper = 0;
@@ -205,16 +235,16 @@ namespace VentWPF.DocX
             OrderStatistics(document, para0, HdrText);
             para0.Range.InsertParagraphAfter();
             //схема
-            Paragraph para1 = document.Content.Paragraphs.Add(ref missing);            
+            Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
             shemeInit(document, para1);
             para1.Range.InsertParagraphAfter();
             //таблица данных
-            CreateTables(document, DATA, NUM);
-            
+            CreateTables(document);
+
             //нижняя информация(?)
             footerInit(document);
 
-           
+
         }
     }
 }

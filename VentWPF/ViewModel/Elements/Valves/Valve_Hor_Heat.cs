@@ -29,11 +29,12 @@ namespace VentWPF.ViewModel
         [DisplayName("Количество ТЭНов")]
         public int TEN_count { get; set; } = 3;
 
-        protected override List<string> InfoProperties => new()
+        [Browsable(false)]
+        public override List<string> InfoProperties => new()
         {
             "DeviceData.Маркировка",
             "DeviceData.КолВоПоШирине",
-            "TEN_count",
+            "TEN_count",            
         };
 
     }

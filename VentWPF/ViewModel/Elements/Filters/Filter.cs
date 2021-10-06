@@ -22,7 +22,8 @@ namespace VentWPF.ViewModel
         [DisplayName("Класс очистки")]
         public FilterClassType FC { get; set; }
 
-        protected override List<string> InfoProperties => new()
+        [Browsable(false)]
+        public override List<string> InfoProperties => new()
         {
             "FC",
             "GeneratedPressureDrop",

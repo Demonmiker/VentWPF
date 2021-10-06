@@ -10,7 +10,8 @@ namespace VentWPF.ViewModel
 
         public override string Name => "Вентилятор поточный";
 
-        protected override List<string> InfoProperties => new()
+        
+        public override List<string> InfoProperties => new()
         {
             "PressureDropSystem",
             "PressureRaise",

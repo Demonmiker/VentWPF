@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using PropertyTools.DataAnnotations;
 
 namespace VentWPF.ViewModel
 {
@@ -16,7 +17,8 @@ namespace VentWPF.ViewModel
 
         public override string Name => "Увлажнитель сотовый";
 
-        protected override List<string> InfoProperties => new()
+        [Browsable(false)]
+        public override List<string> InfoProperties => new()
         {
             "AirSoftIn",
             "AirSoftOut",

@@ -2,7 +2,7 @@
 
 namespace VentWPF.Fans.K3G
 {
-    public class K3GFanList
+    public class K3GFanData
     {
         public string Descripts2;
 

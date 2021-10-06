@@ -8,7 +8,7 @@ using VentWPF.ViewModel;
 
 namespace VentWPF.Fans.K3G
 {
-    internal class K3GController : IController<K3GRequest, List<K3GFanList>>
+    internal class K3GController : IController<K3GRequest, List<K3GFanData>>
     {
         public static string ID;
 
@@ -33,11 +33,15 @@ namespace VentWPF.Fans.K3G
         [DllImport(@"EbmPapstFan.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public static extern int GET_CCSI_DATA([MarshalAsAttribute(UnmanagedType.AnsiBStr)] string fanDescription, ref string buffer);
 
-        public List<K3GFanList> GetResponce(K3GRequest request)
+        public List<K3GFanData> GetResponce(K3GRequest request)
         {
-            string response = Response();
-            Reqest = "[";
-            return response[0] != '[' ? null : JsonSerializer.Deserialize<List<K3GFanList>>(response);
+            string response = Request(request.GetRequest());
+            return response[0] != '[' ? null : JsonSerializer.Deserialize<List<K3GFanData>>(response);
+        }
+
+        private static string Request(String req)
+        {
+            return Marshal.PtrToStringUni(GET_CCSI_DATA(req));
         }
 
         public string Response()
@@ -194,13 +198,16 @@ namespace VentWPF.Fans.K3G
             _ = GC.GetTotalMemory(false);
             _ = GC.GetTotalMemory(true);
             n = GET_CCSI_DATA(Input_Data, ref buffer);
-            CalcData(n, buffer);
+            CalcData(buffer);
+
             //lbInfo.Items.Add(data);
             //lbInfo.Items.Add("\n");
         }
 
+        
+        
         //РАСЧЁТ ВЕНТИЛЯТОРА
-        public void CalcData(int n, string buffer)
+        public void CalcData(string buffer)
         {
             double Volumenstrom = Convert.ToDouble(Project.VFlow) / 3600;
             string tmpDescript;                                                         // Declaration of the variable tmpDescript for copying the values into the array // Deklaration der Variable tmpDescript um die Werte in das Array rein zu kopieren
@@ -239,14 +246,9 @@ namespace VentWPF.Fans.K3G
                 j = 0;                                                                  // j = 0 because you have to count from the beginning
             }
 
-            Reqest += "{";
+                                    
 
-            for (int i = 0; i < 58; i++)
-            {
-                Reqest += "\"Descripts" + i + "\"" + ":" + "\"" + Descripts[i] + "\"" + "," + "\n";
-            }
-
-            Reqest += "},\n";
+            
             /*
             tb_nSoll.Text = Descripts[0];                                               //
             tb_P1Soll.Text = Descripts[1];                                              //

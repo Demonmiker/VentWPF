@@ -63,7 +63,7 @@ namespace VentWPF.ViewModel
 
         public ProjectVM Project { get; set; } = ProjectVM.Current;
 
-        public void SaveReport(object _)
+        /*public void SaveReport(object _)
         {
             SaveFileDialog cfd = new() { DefaultExt = "rtf", AddExtension = true };
             if (cfd.ShowDialog() == true)
@@ -72,7 +72,7 @@ namespace VentWPF.ViewModel
                 TextRange textRange = new(ReportDocument.ContentStart, ReportDocument.ContentEnd);
                 textRange.Save(fs, DataFormats.Rtf);
             }
-        }
+        }*/
 
         private void AutoColumns(DataGridAutoGeneratingColumnEventArgs e)
         {
@@ -145,8 +145,7 @@ namespace VentWPF.ViewModel
                 }
             }*/
 
-            DocX.DocX_Main test = new DocX.DocX_Main();
-            test.DocX_Initialization();
+            
             ReportDocument.Blocks.Clear();
             foreach (var item in Project.Grid.Elements)
             {
@@ -161,14 +160,16 @@ namespace VentWPF.ViewModel
 
         public void SaveReport(object _)
         {
-
+            DocX.DocX_Main test = new DocX.DocX_Main();
+            test.DocX_Initialization();
+            /*
             var cfd = new SaveFileDialog() { DefaultExt = "rtf", AddExtension = true };
             if(cfd.ShowDialog()==true)
             {
                 using FileStream fs = new FileStream(cfd.FileName, FileMode.Create, FileAccess.ReadWrite);
                 TextRange textRange = new TextRange(ReportDocument.ContentStart, ReportDocument.ContentEnd);
                 textRange.Save(fs, DataFormats.Rtf);
-            }
+            }*/
 
            
         }
