@@ -1,6 +1,4 @@
 ﻿using PropertyTools.DataAnnotations;
-using System;
-using System.Collections.Generic;
 
 #nullable disable
 
@@ -19,6 +17,7 @@ namespace VentWPF
         public double? Мощность { get; set; }
 
         public int? Код { get; set; }
+
         public string Код1с { get; set; }
     }
 }

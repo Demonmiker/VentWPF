@@ -1,15 +1,16 @@
-﻿using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;
-using System;
-using System.Collections;
+﻿using PropertyTools.DataAnnotations;
 using System.Collections.Generic;
 using System.Linq;
-using VentWPF.Model;
-using VentWPF.Tools;
+using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
 {
+    /// <summary>
+    /// Клапан воздушный утеплённый вертикальный
+    /// </summary>
     internal class Valve_Ver_Heat : Valve
     {
+
         public Valve_Ver_Heat()
         {
             image = "Valves/Valve_Ver_Heat.png";

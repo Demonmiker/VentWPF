@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace VentWPF.Fans.FanSelect
 {
-    class WebRequest : DllRequest
+    /// <summary>
+    /// Веб запрос к FanSelect API
+    /// </summary>
+    internal class WebRequest : DllRequest
     {
-        [JsonPropertyName("SESSION_ID")]
-        public string SessionID { get; set; }
-
-        public WebRequest(DllRequest req,string id)
+        public WebRequest(DllRequest req, string id)
         {
             this.SessionID = id;
             this.Password = req.Password;
@@ -24,8 +19,9 @@ namespace VentWPF.Fans.FanSelect
             this.InsertGeoData = req.InsertGeoData;
             this.InsertMotorData = req.InsertMotorData;
             this.InsertNominalValues = req.InsertNominalValues;
-                
         }
 
+        [JsonPropertyName("SESSION_ID")]
+        public string SessionID { get; set; }
     }
 }

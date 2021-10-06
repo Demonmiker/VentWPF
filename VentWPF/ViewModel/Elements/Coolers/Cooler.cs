@@ -1,30 +1,25 @@
-﻿using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;
+﻿using PropertyTools.DataAnnotations;
 using System;
-using VentWPF.Model;
 using VentWPF.Tools;
+using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
 {
     /// <summary>
-    /// Представление Охладитель фреоновый
+    /// Представление общий класс охладителя
     /// </summary>
     internal abstract class Cooler : Element
     {
+
         public Cooler()
         {
             ShowPR = true;
             ShowPD = true;
         }
 
-        public override float GeneratedPressureDrop => (70f / (4f / ((Project.VFlow / 3600f) / AB)));
-       
+        protected override float GeneratedPressureDrop => (70f / (4f / ((Project.VFlow / 3600f) / AB)));
 
-
-       
         [Category(Data)]
-        #region Данные
-
-        
         [SortIndex(-1)]
         [DisplayName("т. на входе")]
         [FormatString(fT)]
@@ -38,23 +33,13 @@ namespace VentWPF.ViewModel
         [SortIndex(-1)]
         [DisplayName("Влажность воздуха")]
         [FormatString(f2)]
-        [Range(0,100)]
+        [Range(0, 100)]
         public float HumidityIn { get; set; } = 42;
-
-        #endregion Данные
-
-
-
-        #region Информация
-
-
-
 
         [Category(Info)]
         [DisplayName("Мощность")]
         [FormatString(fkW)]
         public float Power => (Project.VFlow * (353f / (273.15f + TempOut)) / 3600000f * 1009f * Math.Abs(TempIn - TempOut));
-
 
         [DisplayName("Абс. влажность на выходе")]
         [FormatString(f2)]
@@ -64,21 +49,14 @@ namespace VentWPF.ViewModel
         [FormatString(fper)]
         public float HumidOutRel => ((Project.PressOut / pD2 * 1000f / (0.6222f / HumidOutAbs * 1000f + 1)) * 100f);
 
-        #endregion Информация
-
-        [Category(Debug)]
-        #region Debug
-        [VisibleBy("ShowDebug")]
+        [Browsable(false)]
         public virtual float AB => (((float)Project.Width / 1000) * ((float)Project.Height / 1000));
 
-        [VisibleBy("ShowDebug")]
+        [Browsable(false)]
         public virtual float pD => (float)(Math.Exp((1500.3 + 23.5 * TempIn) / (234 + TempIn)));
 
-        [VisibleBy("ShowDebug")]
+        [Browsable(false)]
         public virtual float pD2 => (float)(Math.Exp((1500.3 + 23.5 * TempOut) / (234 + TempOut)));
-        #endregion
-
-
 
     }
 }

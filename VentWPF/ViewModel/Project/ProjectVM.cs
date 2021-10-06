@@ -1,13 +1,13 @@
-﻿using System.Windows.Controls;
-using System.Windows.Documents;
+﻿using System;
 using VentWPF.Tools;
 
 namespace VentWPF.ViewModel
 {
+    /// <summary>
+    /// Проект
+    /// </summary>
     internal class ProjectVM : BaseViewModel
     {
-        #region Constructors
-
         static ProjectVM()
         {
             Current = new ProjectVM();
@@ -16,41 +16,26 @@ namespace VentWPF.ViewModel
 
         private ProjectVM()
         {
-           
+            CmdScheme = new Command<object>(GenearateScheme);
         }
-
-        #endregion
-
-        #region Properties
 
         public static ProjectVM Current { get; private set; }
 
-        //Информация о проекте
         public ProjectInfoVM ProjectInfo { get; private set; }
 
-        //установка
         public GridVM Grid { get; private set; }
 
-        //каркас установки
         public FrameVM Frame { get; private set; }
 
-        //Менеджер запросов
         public TaskManagerVM TaskManager { get; private set; }
 
-        //чертеж установки
-        //отчёт
-        //Менеджер ошибок
         public ErrorManagerVM ErrorManager { get; private set; }
 
-
-        
-
-        #endregion
-
-        #region Methods
+        public SchemeVM Scheme { get; private set; }
 
         public void LoadProject(object o)
         {
+            throw new NotImplementedException();
             //var sfd = new OpenFileDialog{ DefaultExt = ".prj", Filter = "Projects (.prj)|*.prj" };
             //if (sfd.ShowDialog() == true)
             //{
@@ -62,10 +47,14 @@ namespace VentWPF.ViewModel
 
         public void SaveProject(object o)
         {
+            throw new NotImplementedException();
             //var sfd = new SaveFileDialog{ FileName = "Проект", DefaultExt = ".prj", Filter = "Projects (.prj)|*.prj" };
             //if(sfd.ShowDialog()==true) IOManager.SaveAsJson(new Project(ProjectInfo,Grid.ToList()), sfd.FileName);
         }
 
+        /// <summary>
+        /// Метод инициализации
+        /// </summary>
         protected void Init()
         {
             ProjectInfo = new();
@@ -78,10 +67,41 @@ namespace VentWPF.ViewModel
             Grid.Init(ProjectInfo.Rows);
         }
 
-        
+        public Command<object> CmdScheme { get; init; }
 
-        
-
-        #endregion
+        public void GenearateScheme(object o)
+        {
+            var result = new SchemeVM();
+            result.TwoRows = ProjectInfo.Rows == Model.Rows.Двухярусный;
+            result.WidthBottom = ProjectInfo.Height;
+            result.WidthTop = ProjectInfo.Height + 100; //TODO Исправить на нормальное значение
+            result.Elements.Clear();
+            for (int i = 0; i < 10; i++)
+            {
+                if (result.TwoRows)
+                {
+                    if (Grid.Elements[i].GetType().Name == "Element" && Grid.Elements[i+10].GetType().Name == "Element")
+                        break;
+                    result.Elements.Add(new ElementPair()
+                    {
+                        TwoRows = true,
+                        Top = Grid.Elements[i],
+                        Bottom = Grid.Elements[i + 10],
+                    });
+                }
+                else
+                {
+                    if (Grid.Elements[i].GetType().Name == "Element")
+                        break;
+                    result.Elements.Add(new ElementPair()
+                    {
+                        TwoRows = false,
+                        Bottom = Grid.Elements[i],
+                    });
+                }
+            }
+            result.Init();
+            Scheme = result;
+        }
     }
 }

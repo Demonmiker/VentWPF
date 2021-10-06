@@ -1,35 +1,25 @@
-﻿using System.Collections.ObjectModel;
+﻿using Microsoft.Win32;
+using PropertyTools.DataAnnotations;
+using PropertyTools.Wpf;
+using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows;
-using VentWPF.Model;
-using VentWPF.Tools;
 using System.Windows.Data;
-using System.Windows.Media;
-using System.Linq;
-using PropertyTools.Wpf;
-using PropertyTools.DataAnnotations;
-using static VentWPF.ViewModel.Strings;
-using System;
-using System.Collections;
 using System.Windows.Documents;
-using PropertyChanged;
+using System.Windows.Media;
 using VentWPF.Fans.FanSelect;
-using System.IO;
-using Microsoft.Win32;
-using System.Diagnostics;
-using System.Threading.Tasks;
+using VentWPF.Tools;
 
 namespace VentWPF.ViewModel
 {
     internal class MainViewModel : BaseViewModel
     {
-        #region Constructors
 
         public MainViewModel()
         {
             Request = IOManager.LoadAsJson<DllRequest>("req.json");
-            ProjectVM.Current?.TaskManager.Add(() => { var l = VentContext.Instance.ВодаХолодs; });
+            ProjectVM.Current?.TaskManager.Add(() => { Microsoft.EntityFrameworkCore.DbSet<ВодаХолод> l = VentContext.Instance.ВодаХолодs; });
             CmdAddElement = new(ProjectVM.Current.Grid.AddElement);
             CmdAutoColumns = new(AutoColumns);
             CmdOpenPopup = new(OpenPopup);
@@ -42,10 +32,6 @@ namespace VentWPF.ViewModel
             ReportViewer.Document = ReportDocument;
         }
 
-        #endregion
-
-        #region Properties
-
         public ImageCollection HeaderImages { get; init; } = new ImageCollection();
 
         public DllRequest Request { get; set; } = new();
@@ -53,23 +39,9 @@ namespace VentWPF.ViewModel
         public FlowDocumentScrollViewer ReportViewer { get; private set; }
             = new FlowDocumentScrollViewer();
 
-
         public FlowDocument ReportDocument { get; init; } = new FlowDocument();
 
-
-        #endregion
-
-        #region Главное Меню
-
-
-
         public int DeviceIndex => ProjectVM.Current.Grid.Selected.DeviceIndex;
-
-        #endregion
-
-        #region Комманды
-
-        #region Объявление
 
         public Command<Element> CmdAddElement { get; init; }
 
@@ -89,25 +61,36 @@ namespace VentWPF.ViewModel
 
         public Command<object> CmdSaveReport { get; init; }
 
-        #endregion
+        public ProjectVM Project { get; set; } = ProjectVM.Current;
 
-       
+        public void SaveReport(object _)
+        {
+            SaveFileDialog cfd = new() { DefaultExt = "rtf", AddExtension = true };
+            if (cfd.ShowDialog() == true)
+            {
+                using FileStream fs = new(cfd.FileName, FileMode.Create, FileAccess.ReadWrite);
+                TextRange textRange = new(ReportDocument.ContentStart, ReportDocument.ContentEnd);
+                textRange.Save(fs, DataFormats.Rtf);
+            }
+        }
 
         private void AutoColumns(DataGridAutoGeneratingColumnEventArgs e)
         {
-            var header = e.Column.Header.ToString();
+            string header = e.Column.Header.ToString();
             // Получчение имени из тэга
-            var atrs = ProjectVM.Current.Grid.Selected.Query.Result[0].GetType()
+            object[] atrs = ProjectVM.Current.Grid.Selected.Query.Result[0].GetType()
                     .GetProperty(header).GetCustomAttributes(typeof(DisplayNameAttribute), true);
             if (atrs.Length > 0)
+            {
                 e.Column.Header = (atrs[0] as DisplayNameAttribute).DisplayName ?? e.Column.Header;
+            }
             else
             {
                 e.Cancel = true;
                 return;
             }
             //Получение форматирования из тэга
-            var atrs2 = ProjectVM.Current.Grid.Selected.Query.Result[0].GetType()
+            object[] atrs2 = ProjectVM.Current.Grid.Selected.Query.Result[0].GetType()
                 .GetProperty(header).GetCustomAttributes(typeof(FormatStringAttribute), true);
             if (atrs2.Length > 0 && e.Column is DataGridTextColumn)
             {
@@ -115,10 +98,11 @@ namespace VentWPF.ViewModel
                 col.Binding.StringFormat = (atrs2[0] as FormatStringAttribute).FormatString;
             }
 
-            if (ProjectVM.Current.Grid.Selected.Format == null) return;
+            if (ProjectVM.Current.Grid.Selected.Format == null)
+                return;
             if (ProjectVM.Current.Grid.Selected.Format.ContainsKey(header))
             {
-                var format = ProjectVM.Current.Grid.Selected.Format[header];
+                IValueConverter format = ProjectVM.Current.Grid.Selected.Format[header];
                 if (format != null)
                 {
                     Style defaultStyle = Application.Current.TryFindResource(typeof(DataGridCell)) as Style;
@@ -150,6 +134,16 @@ namespace VentWPF.ViewModel
 
         public void UpdateReport(object _)
         {
+            // TODO Это нам нужно?
+            /*ReportDocument.Blocks.Clear();
+              foreach (Element item in Project.Grid.Elements)
+              {
+                if (item.Name != "")
+                {
+                    ReportDocument.Blocks.Add(item.GetTable(2, false));
+                    ReportDocument.Blocks.Add(new Paragraph());
+                }
+            }*/
 
             DocX.DocX_Main test = new DocX.DocX_Main();
             test.DocX_Initialization();
@@ -179,6 +173,7 @@ namespace VentWPF.ViewModel
            
         }
 
+
         private void OpenPopup(Popup p)
         {
             p.HorizontalOffset = 1;
@@ -192,7 +187,7 @@ namespace VentWPF.ViewModel
 
         private void OpenConfig(string s)
         {
-            var dlg = new PropertyDialog() { Owner = Application.Current.MainWindow };
+            PropertyDialog dlg = new() { Owner = Application.Current.MainWindow };
             dlg.DataContext = Request;
             dlg.Title = "Настройки";
             dlg.PropertyControl.TabVisibility = TabVisibility.Collapsed;
@@ -201,11 +196,5 @@ namespace VentWPF.ViewModel
             else
                 Request = IOManager.LoadAsJson<DllRequest>("req.json");
         }
-
-        #endregion Комманды
-
-        public ProjectVM Project { get; set; } = ProjectVM.Current;
     }
-
-    
 }

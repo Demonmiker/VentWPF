@@ -1,6 +1,4 @@
 ﻿using PropertyTools.DataAnnotations;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using VentWPF.ViewModel;
 
@@ -10,8 +8,6 @@ namespace VentWPF
 {
     public partial class ВодаХолод
     {
-
-
         [DisplayName("Типоряд")]
         public string Типоряд { get; set; }
 
@@ -50,7 +46,9 @@ namespace VentWPF
         [DisplayName("Цена")]
         [FormatString("{0} €")]
         public double? Цена { get; set; }
+
         public int Код { get; set; }
+
         public string Код1с { get; set; }
     }
 }

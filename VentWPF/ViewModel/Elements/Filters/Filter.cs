@@ -1,13 +1,17 @@
-﻿using PropertyTools.DataAnnotations; using static VentWPF.ViewModel.Strings;
+﻿using PropertyChanged;
+using PropertyTools.DataAnnotations;
+using System.Collections.Generic;
 using VentWPF.Model;
+using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
 {
     /// <summary>
-    /// Представление Фильтр секционный
+    /// Общий класс Фильтр
     /// </summary>
     internal abstract class Filter : Element
     {
+
         public Filter()
         {
             image = "Filters/Filters.png";
@@ -15,19 +19,20 @@ namespace VentWPF.ViewModel
         }
 
         [Category(Data)]
-        #region Данные
-
         [DisplayName("Класс очистки")]
         public FilterClassType FC { get; set; }
 
-        #endregion Данные
+        protected override List<string> InfoProperties => new()
+        {
+            "FC",
+            "GeneratedPressureDrop",
+        };
 
         [Category(Info)]
-        #region Информация
-
         [DisplayName("Падение давления при загряз. 50%")]
         [FormatString(fkPa)]
-        public override float GeneratedPressureDrop => FC switch
+        [DependsOn(nameof(FC))]
+        protected override float GeneratedPressureDrop => FC switch
         {
             FilterClassType.G4 => 175,
             FilterClassType.F5 => 225,
@@ -35,6 +40,5 @@ namespace VentWPF.ViewModel
             _ => 0
         };
 
-        #endregion Информация
     }
 }

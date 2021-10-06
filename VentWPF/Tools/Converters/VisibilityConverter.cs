@@ -5,31 +5,27 @@ using System.Windows.Data;
 
 namespace VentWPF.Tools
 {
-    class VisibilityConverter : IValueConverter
+    /// <summary>
+    /// Конвертирует [bool,uint,string,object] => Visibility
+    /// </summary>
+    internal class VisibilityConverter : IValueConverter
     {
+        /// <summary>
+        /// Параметр позволяющий обратить значения
+        /// </summary>
         public bool Reverse { get; init; }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            bool val = value switch
+            => value switch
             {
                 null => false,
                 bool => (bool)value,
-                uint => ((uint)value)>0,
+                uint => ((uint)value) > 0,
                 string => (value as string).Length > 0,
                 object => (value as object) != null,
-            } ^ Reverse;
-            return val ? Visibility.Visible : Visibility.Collapsed;
-          
-            
-                
-           
-
-        }
+            } ^ Reverse ? Visibility.Visible : Visibility.Collapsed;
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new Exception();
-        }
+            => throw new NotImplementedException();
     }
 }

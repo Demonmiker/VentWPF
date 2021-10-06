@@ -1,15 +1,18 @@
-﻿using PropertyTools.DataAnnotations; 
-using static VentWPF.ViewModel.Strings;
+﻿using PropertyChanged;
+using PropertyTools.DataAnnotations;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using VentWPF.Tools;
+using System.IO;
 using System.Linq;
 using VentWPF.Model;
-
+using VentWPF.Tools;
+using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
 {
+    /// <summary>
+    /// Нагреватель электрический
+    /// </summary>
     internal class Heater_Electric : Heater
     {
         public Heater_Electric()
@@ -19,9 +22,50 @@ namespace VentWPF.ViewModel
             {
                 Source = from o in VentContext.Instance.Tэнрыs select o
             };
+            SchemeImage = Path.GetFullPath("Assets/Images/Heaters/SH_Heater_Electric.png");
         }
 
+        [DependsOn(nameof(DeviceData))]
         public override string Name => $"Нагреватель электрический {(DeviceData as Тэнры)?.Маркировка}";
+
+        /// <summary>
+        /// Температура теплоносителя начальная
+        /// </summary>
+        [Category(Data)]
+        [Browsable(false)]
+        [DisplayName("т. теплоносителя начальная")]
+        [FormatString(fT)]
+        [Range(maximum: 100)]
+        public float tBegin { get; set; } = 95;
+
+        /// <summary>
+        /// Температура теплоносителя конечная
+        /// </summary>
+        [Browsable(false)]
+        [DisplayName("т. теплоносителя конечная")]
+        [FormatString(fT)]
+        [Range(minimum: 0)]
+        public float tEnd { get; set; } = 70;
+
+        /// <summary>
+        /// Длина калорифера
+        /// </summary>
+        [DisplayName("Длина калорифера")]
+        public int lengthKal => 50;
+
+        /// <summary>
+        /// Количество ступеней нагрева
+        /// </summary>
+        [DisplayName("Ступеней нагрева")]
+        public int heatSteps => 3;
+
+        /// <summary>
+        /// Тип горелки
+        /// </summary>
+        [Category(Info)]
+        [Browsable(false)]
+        [DisplayName("Горелка")]
+        public TorchType TorchType { get; set; }
 
         protected override List<string> InfoProperties => new()
         {
@@ -37,38 +81,5 @@ namespace VentWPF.ViewModel
             "DeviceData.Маркировка",
             "DeviceData.Мощность",
         };
-
-        [Category(Data)]
-        #region Данные
-        [Browsable(false)]
-        [DisplayName("т. теплоносителя начальная")]
-        [FormatString(fT)]
-        [Range(maximum: 100)]
-        public float tBegin { get; set; } = 95;
-
-        [Browsable(false)]
-        [DisplayName("т. теплоносителя конечная")]
-        [FormatString(fT)]
-        [Range(minimum: 0)]
-        public float tEnd { get;  set;} = 70;
-
-        [DisplayName("Длина калорифера")]
-        
-        public int lengthKal => 50;
-
-        [DisplayName("Ступеней нагрева")]
-        public int heatSteps => 3;
-
-        #endregion Данные
-
-        [Category(Info)]
-        #region Информация
-        [Browsable(false)]
-        [DisplayName("Горелка")]
-        public TorchType TorchType { get; set; }
-
-        #endregion Информация
-
-    
     }
 }

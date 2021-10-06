@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 
 namespace VentWPF.ViewModel
 {
-    class ImageCollection
+    /// <summary>
+    /// Класс для более удобного получения изображений
+    ///  #TODO Сделать лучше и убрать его
+    /// </summary>
+    internal class ImageCollection
     {
         public string Empty { get; set; } = Path.GetFullPath("Assets/Images/Empty.png");
 
@@ -32,6 +31,5 @@ namespace VentWPF.ViewModel
         public string Fans_P { get; set; } = Path.GetFullPath("Assets/Images/Fans/Fan_P.png");
 
         public string Fans_K3G { get; set; } = Path.GetFullPath("Assets/Images/Fans/Fan_K3G.png");
-
     }
 }

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VentWPF.ViewModel
+﻿namespace VentWPF.ViewModel
 {
+    /// <summary>
+    /// Данные для графического представления каркаса
+    /// </summary>
     internal class FrameVM : BaseViewModel
     {
-        #region Constructors
 
         public FrameVM(int frameLength, int frameWidth, int frameHeight)
         {
@@ -21,19 +17,11 @@ namespace VentWPF.ViewModel
             UpdateSides();
         }
 
-        #endregion
-
-        #region Fields
-
         private uint height;
 
         private uint width;
 
         private uint length;
-
-        #endregion
-
-        #region Properties
 
         public FrameSideVM Top { get; init; }
 
@@ -44,19 +32,31 @@ namespace VentWPF.ViewModel
         public uint Height
         {
             get { return height; }
-            set { height = value; UpdateSides(); }
+            set
+            {
+                height = value;
+                UpdateSides();
+            }
         }
 
         public uint Width
         {
             get { return width; }
-            set { width = value; UpdateSides(); }
+            set
+            {
+                width = value;
+                UpdateSides();
+            }
         }
 
         public uint Length
         {
             get { return length; }
-            set { length = value; UpdateSides(); }
+            set
+            {
+                length = value;
+                UpdateSides();
+            }
         }
 
         private void UpdateSides()
@@ -70,6 +70,5 @@ namespace VentWPF.ViewModel
             Right.Length = length;
         }
 
-        #endregion
     }
 }

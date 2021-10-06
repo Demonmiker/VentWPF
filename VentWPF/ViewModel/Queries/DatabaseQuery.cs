@@ -1,8 +1,5 @@
-﻿using PropertyChanged;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.Linq;
-using VentWPF.Tools;
 
 namespace VentWPF.ViewModel
 {

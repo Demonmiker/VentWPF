@@ -1,32 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VentWPF.Fans.K3G
+﻿namespace VentWPF.Fans.K3G
 {
-    class K3G_temp  //Временное хранилище кода
+    internal class K3G_temp  //Временное хранилище кода
     {
         /*
 namespace K3G_DLL
 {
     public partial class Form1 : Form
-    {        
-
-             
-        
-
-       
-
+    {
         //РАСЧЁТ ВЕНТИЛЯТОРА
         public void CalcData(int n, string buffer)
         {
             double Volumenstrom = Convert.ToDouble(VFlow.Text) / 3600;
             string tmpDescript;                                                         // Declaration of the variable tmpDescript for copying the values into the array // Deklaration der Variable tmpDescript um die Werte in das Array rein zu kopieren
-            int m = 0;                                                                  // m: number of signs till the next semikolon was found // m: Anzahl der Zeichen bis das nächste Semikolon gefunden wurde 
+            int m = 0;                                                                  // m: number of signs till the next semikolon was found // m: Anzahl der Zeichen bis das nächste Semikolon gefunden wurde
             int k;                                                                      // k: counter variable to delete the information of the char array fandescription // K: Zählvariable um die Information zu löschen die in dem char Array fandescription steht
-            int j = 0;                                                                  // j: counter variable to fill the information into the string tmpDescript // j: counter variable um die Information in dem string tmp Descript zu füllen 
+            int j = 0;                                                                  // j: counter variable to fill the information into the string tmpDescript // j: counter variable um die Information in dem string tmp Descript zu füllen
             int zahl = 0;
             string[] Descripts = new string[4000];
             tmpDescript = "";
@@ -42,31 +30,28 @@ namespace K3G_DLL
                 buffer.CopyTo(0, fandescription, 0, m);                                 // Copy one Information into the char array // Kopiere eine Information in das char Array
                 while (true)
                 {
-                    if (fandescription[j] == '\0')                                      // If there is still information(signs) copy it to the string tmp Descript // Wenn immer noch informationen(signs) vorhanden sind, dann füge sie dem string tmpDescript hinzu  
+                    if (fandescription[j] == '\0')                                      // If there is still information(signs) copy it to the string tmp Descript // Wenn immer noch informationen(signs) vorhanden sind, dann füge sie dem string tmpDescript hinzu
                     {
                         break;
                     }
                     else
                     {
                         tmpDescript = tmpDescript + fandescription[j];
-
                     }
                     j++;
                 }
-                buffer = buffer.Remove(0, m + 1);                                       
-                Descripts[zahl] = tmpDescript;                                          // Save the Information in the array 
-                tmpDescript = "";                                                       // Delete the Information in tmpDescript to get a new Information 
+                buffer = buffer.Remove(0, m + 1);
+                Descripts[zahl] = tmpDescript;                                          // Save the Information in the array
+                tmpDescript = "";                                                       // Delete the Information in tmpDescript to get a new Information
                 zahl++;
-                j = 0;                                                                  // j = 0 because you have to count from the beginning 
+                j = 0;                                                                  // j = 0 because you have to count from the beginning
             }
 
-            
             for (int i=0;i < 58; i++)
-            {                
+            {
                 data += Descripts[i] + " | ";
             }
 
-            
             /*
             tb_nSoll.Text = Descripts[0];                                               //
             tb_P1Soll.Text = Descripts[1];                                              //
@@ -129,12 +114,8 @@ namespace K3G_DLL
             textBox27.Text = Descripts[56];
             textBox29.Text = Descripts[57];
             textBox28.Text = Descripts[58];
-
-
     }
 
-
-    
     private void button1_Click(object sender, EventArgs e)
     {
         connection();
