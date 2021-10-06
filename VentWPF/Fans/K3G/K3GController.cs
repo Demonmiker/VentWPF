@@ -35,32 +35,36 @@ namespace VentWPF.Fans.K3G
 
         public List<K3GFanData> GetResponce(K3GRequest request)
         {
-            string response = Request(request.GetRequest());
+            if (connect == false)
+            {
+                connection();
+            }
+            int n;
+            string fanStringChar = new(new Char(), 4000);
+            _ = GC.GetTotalMemory(false);
+            _ = GC.GetTotalMemory(true);
+            string response = null;
+            n = GET_PRODUCTS_PC(ref fanStringChar);
+            string[] IdNo = new string[n + 1];
+
+            List<string> Nos = FanCollectShow(n, fanStringChar);
+
+            for (int i = 0; i < n; i++)
+            {
+                ID = Nos[i];
+                response += Request(request.GetRequest()) + ";";                
+            }
+
             return response[0] != '[' ? null : JsonSerializer.Deserialize<List<K3GFanData>>(response);
         }
 
         private static string Request(String req)
         {
-            return Marshal.PtrToStringUni(GET_CCSI_DATA(req));
+            string buffer = new(new Char(), 4000);
+
+            return Marshal.PtrToStringUni((IntPtr)GET_CCSI_DATA(req, ref buffer));
         }
 
-        public string Response()
-        {
-            if (connect == false)
-            {
-                try
-                {
-                    connection();
-                }
-                catch (FileNotFoundException e)
-                {
-                    return "!";
-                }
-            }
-            FanCollection();
-            Reqest += "]";
-            return Reqest;
-        }
 
         //ПОДКЛЮЧЕНИЕ К ДЛЛ(НУЖНО ВЫПОЛНИТЬ ОДИН РАЗ, ЕСЛИ ЧТО)
         public void connection()
@@ -91,6 +95,8 @@ namespace VentWPF.Fans.K3G
             }
         }
 
+
+        #region[OldData]
         //ЗАПРОС К ПОДКЛЮЧЕНИЮ
         public void FanCollection()
         {
@@ -113,23 +119,25 @@ namespace VentWPF.Fans.K3G
         }
 
         //ПОКАЗАТЬ ВЕНТИЛЯТОРЫ
-        public void FanCollectShow(int n, string FanList)
+        public List<string> FanCollectShow(int n, string FanList)
         {
             string[] Typen = new string[n + 1];
 
             string[] IdNo = new string[n + 1];
 
+            List<string> IDNo = new List<string>();
+
             int m;
             string temp = "";
             int j = 0;
             int k;
-            //errors.Text = Convert.ToString(n);
+            
 
             char[] thecopy = new char[FanList.Length];
 
             FanList = FanList.Replace(';', '|');
 
-            //lbInfo.Items.Add("number of existing ventilators:" + Convert.ToString(n));
+            
 
             n = 1;
             while (FanList.Length > 0)
@@ -178,13 +186,12 @@ namespace VentWPF.Fans.K3G
                 FanList = FanList.Remove(0, m + 1);
                 temp = "";
                 j = 0;
-
-                ID = IdNo[n];
-
-                //lbInfo.Items.Add("No:  " + Convert.ToString(n) + "  " + IdNo[n] + "  " + Typen[n] + "  "); --
-                FanCalcData();
+                IDNo.Add(IdNo[n]);                
+                //FanCalcData();
                 n++;
+                
             }
+            return IDNo;
         }
 
         //НАЧАЛО ЗАПРОСА РАСЧЁТА
@@ -204,8 +211,6 @@ namespace VentWPF.Fans.K3G
             //lbInfo.Items.Add("\n");
         }
 
-        
-        
         //РАСЧЁТ ВЕНТИЛЯТОРА
         public void CalcData(string buffer)
         {
@@ -246,9 +251,9 @@ namespace VentWPF.Fans.K3G
                 j = 0;                                                                  // j = 0 because you have to count from the beginning
             }
 
-                                    
 
-            
+
+
             /*
             tb_nSoll.Text = Descripts[0];                                               //
             tb_P1Soll.Text = Descripts[1];                                              //
@@ -331,5 +336,7 @@ namespace VentWPF.Fans.K3G
 
             return Input_Data;
         }
+
+        #endregion
     }
 }

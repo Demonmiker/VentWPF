@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using VentWPF.Fans.K3G;
+using PropertyTools.DataAnnotations;
 
 namespace VentWPF.ViewModel
 {
@@ -6,6 +8,13 @@ namespace VentWPF.ViewModel
     {
         private Fan_K3G()
         {
+            Query = new FanQuery_K3G()
+            {
+                Source = new K3GRequest()
+                {
+                    ID = "123",
+                }
+            };
         }
 
         public override string Name => "Вентилятор поточный";
