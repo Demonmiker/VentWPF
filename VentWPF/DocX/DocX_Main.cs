@@ -16,7 +16,7 @@ namespace VentWPF.DocX
         #region[testStrArea]
         string HdrText = "Заказ №25564-2";
         string[] testData = { "Падение давления:", "Падение супер крутого давления:", "Падение ещё большего упадка самого давления:" };
-        string[] dataName = { "Нагреватель жидкостный Cu-Al", "Нагреватель жидкостный Cu-Al", "Нагреватель жидкостный Cu-Al" };
+        string[] dataName = { "123", "123", "123" };
         #endregion
 
 
@@ -25,7 +25,7 @@ namespace VentWPF.DocX
             winword.ShowAnimation = false;
             winword.Visible = false;
             Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
-            CreateDocument(document);
+            CreateDocument(document, HdrText, testData, dataName);
             document.Save();
             document = null;
             winword.Quit(ref missing, ref missing, ref missing);
@@ -81,6 +81,41 @@ namespace VentWPF.DocX
             object docRange = Table.Rows[1].Cells[1].Range;
             string imagePath = @"C:\Users\stig1\Desktop\testShema.jpg";
             document.InlineShapes.AddPicture(imagePath, LinkToFile: true, SaveWithDocument: true, Range: docRange);
+        }
+
+        //создаёт таблицы
+        public void CreateTables(Document document, string[] data, string[] numeric)
+        {
+            int count = data.Length;
+            for (int i = 0; i < count; i++)
+            {
+                Paragraph name = document.Content.Paragraphs.Add(ref missing);
+                name.Range.Text = "заголовок";
+                name.Range.InsertParagraphAfter();
+                Paragraph table = document.Content.Paragraphs.Add(ref missing);
+                TableStructor(document, table, data[i], numeric[i]);
+                table.Range.InsertParagraphAfter();
+            }
+        }
+
+        //заполняет одну таблицу
+        public void TableStructor(Document document, Paragraph para1, string data, string numeric)
+        {
+            Table firstTable = document.Tables.Add(para1.Range, 1, 4, ref missing, ref missing);
+            firstTable.Borders[WdBorderType.wdBorderLeft].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.Borders[WdBorderType.wdBorderRight].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.Borders[WdBorderType.wdBorderTop].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.Borders[WdBorderType.wdBorderBottom].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            
+            //размеры ячеек
+            firstTable.Rows[1].Cells[1].Width = 170;
+            firstTable.Rows[1].Cells[2].Width = 60;
+            firstTable.Rows[1].Cells[3].Width = 170;
+            firstTable.Rows[1].Cells[4].Width = 60;
+
+            //заполнение
+            firstTable.Rows[1].Cells[1].Range.Text = data;
+            firstTable.Rows[1].Cells[2].Range.Text = numeric;
         }
 
         public void tableINIT(Document document, Paragraph para1, string[] dataText, string[] dataName)
@@ -161,7 +196,7 @@ namespace VentWPF.DocX
             }
         }
 
-        public void CreateDocument(Document document)
+        public void CreateDocument(Document document, string HdrText, string[] DATA, string[] NUM)
         {
             //Шапка
             HeaderINIT(document);
@@ -174,21 +209,12 @@ namespace VentWPF.DocX
             shemeInit(document, para1);
             para1.Range.InsertParagraphAfter();
             //таблица данных
-
-            for (int i = 0; i < 2; i++)
-            {
-                Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
-                tableINIT(document, para2, testData, dataName);
-                para2.Range.InsertParagraphAfter();
-            }
+            CreateTables(document, DATA, NUM);
+            
             //нижняя информация(?)
             footerInit(document);
 
-            /*
-            document.Content.SetRange(0, 0);
-            document.Content.Text = HText + Environment.NewLine;
-            */
-
+           
         }
     }
 }
