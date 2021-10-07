@@ -8,7 +8,7 @@ using VentWPF.ViewModel;
 
 namespace VentWPF.Fans.K3G
 {
-    internal class K3GController : IController<K3GRequest, List<K3GFanList>>
+    internal class K3GController : IController<K3GRequest, List<K3GFanData>>
     {
         public static string ID;
 
@@ -33,30 +33,38 @@ namespace VentWPF.Fans.K3G
         [DllImport(@"EbmPapstFan.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public static extern int GET_CCSI_DATA([MarshalAsAttribute(UnmanagedType.AnsiBStr)] string fanDescription, ref string buffer);
 
-        public List<K3GFanList> GetResponce(K3GRequest request)
-        {
-            string response = Response();
-            Reqest = "[";
-            return response[0] != '[' ? null : JsonSerializer.Deserialize<List<K3GFanList>>(response);
-        }
-
-        public string Response()
+        public List<K3GFanData> GetResponce(K3GRequest request)
         {
             if (connect == false)
             {
-                try
-                {
-                    connection();
-                }
-                catch (FileNotFoundException e)
-                {
-                    return "!";
-                }
+                connection();
             }
-            FanCollection();
-            Reqest += "]";
-            return Reqest;
+            int n;
+            string fanStringChar = new(new Char(), 4000);
+            _ = GC.GetTotalMemory(false);
+            _ = GC.GetTotalMemory(true);
+            string response = null;
+            n = GET_PRODUCTS_PC(ref fanStringChar);
+            string[] IdNo = new string[n + 1];
+
+            List<string> Nos = FanCollectShow(n, fanStringChar);
+
+            for (int i = 0; i < n; i++)
+            {
+                ID = Nos[i];
+                response += Request(request.GetRequest()) + ";";                
+            }
+
+            return response[0] != '[' ? null : JsonSerializer.Deserialize<List<K3GFanData>>(response);
         }
+
+        private static string Request(String req)
+        {
+            string buffer = new(new Char(), 4000);
+
+            return Marshal.PtrToStringUni((IntPtr)GET_CCSI_DATA(req, ref buffer));
+        }
+
 
         //ПОДКЛЮЧЕНИЕ К ДЛЛ(НУЖНО ВЫПОЛНИТЬ ОДИН РАЗ, ЕСЛИ ЧТО)
         public void connection()
@@ -87,6 +95,8 @@ namespace VentWPF.Fans.K3G
             }
         }
 
+
+        #region[OldData]
         //ЗАПРОС К ПОДКЛЮЧЕНИЮ
         public void FanCollection()
         {
@@ -109,23 +119,25 @@ namespace VentWPF.Fans.K3G
         }
 
         //ПОКАЗАТЬ ВЕНТИЛЯТОРЫ
-        public void FanCollectShow(int n, string FanList)
+        public List<string> FanCollectShow(int n, string FanList)
         {
             string[] Typen = new string[n + 1];
 
             string[] IdNo = new string[n + 1];
 
+            List<string> IDNo = new List<string>();
+
             int m;
             string temp = "";
             int j = 0;
             int k;
-            //errors.Text = Convert.ToString(n);
+            
 
             char[] thecopy = new char[FanList.Length];
 
             FanList = FanList.Replace(';', '|');
 
-            //lbInfo.Items.Add("number of existing ventilators:" + Convert.ToString(n));
+            
 
             n = 1;
             while (FanList.Length > 0)
@@ -174,13 +186,12 @@ namespace VentWPF.Fans.K3G
                 FanList = FanList.Remove(0, m + 1);
                 temp = "";
                 j = 0;
-
-                ID = IdNo[n];
-
-                //lbInfo.Items.Add("No:  " + Convert.ToString(n) + "  " + IdNo[n] + "  " + Typen[n] + "  "); --
-                FanCalcData();
+                IDNo.Add(IdNo[n]);                
+                //FanCalcData();
                 n++;
+                
             }
+            return IDNo;
         }
 
         //НАЧАЛО ЗАПРОСА РАСЧЁТА
@@ -194,13 +205,14 @@ namespace VentWPF.Fans.K3G
             _ = GC.GetTotalMemory(false);
             _ = GC.GetTotalMemory(true);
             n = GET_CCSI_DATA(Input_Data, ref buffer);
-            CalcData(n, buffer);
+            CalcData(buffer);
+
             //lbInfo.Items.Add(data);
             //lbInfo.Items.Add("\n");
         }
 
         //РАСЧЁТ ВЕНТИЛЯТОРА
-        public void CalcData(int n, string buffer)
+        public void CalcData(string buffer)
         {
             double Volumenstrom = Convert.ToDouble(Project.VFlow) / 3600;
             string tmpDescript;                                                         // Declaration of the variable tmpDescript for copying the values into the array // Deklaration der Variable tmpDescript um die Werte in das Array rein zu kopieren
@@ -239,14 +251,9 @@ namespace VentWPF.Fans.K3G
                 j = 0;                                                                  // j = 0 because you have to count from the beginning
             }
 
-            Reqest += "{";
 
-            for (int i = 0; i < 58; i++)
-            {
-                Reqest += "\"Descripts" + i + "\"" + ":" + "\"" + Descripts[i] + "\"" + "," + "\n";
-            }
 
-            Reqest += "},\n";
+
             /*
             tb_nSoll.Text = Descripts[0];                                               //
             tb_P1Soll.Text = Descripts[1];                                              //
@@ -329,5 +336,7 @@ namespace VentWPF.Fans.K3G
 
             return Input_Data;
         }
+
+        #endregion
     }
 }

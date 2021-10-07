@@ -25,6 +25,7 @@ namespace VentWPF.ViewModel
             SchemeImage = Path.GetFullPath("Assets/Images/Heaters/SH_Heater_Electric.png");
         }
 
+
         [DependsOn(nameof(DeviceData))]
         public override string Name => $"Нагреватель электрический {(DeviceData as Тэнры)?.Маркировка}";
 
@@ -67,7 +68,8 @@ namespace VentWPF.ViewModel
         [DisplayName("Горелка")]
         public TorchType TorchType { get; set; }
 
-        protected override List<string> InfoProperties => new()
+        [Browsable(false)]
+        public override List<string> InfoProperties => new()
         {
             "Performance",
             "TempIn",

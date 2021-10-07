@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using VentWPF.Fans.FanSelect;
+using PropertyTools.DataAnnotations;
 
 namespace VentWPF.ViewModel
 {
@@ -18,7 +19,8 @@ namespace VentWPF.ViewModel
 
         public override string Name => "Вентилятор";
 
-        protected override List<string> InfoProperties => new()
+        [Browsable(false)]
+        public override List<string> InfoProperties => new()
         {
             "PressureDropSystem",
             "PressureRaise",

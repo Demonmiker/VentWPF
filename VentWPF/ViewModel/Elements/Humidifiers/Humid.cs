@@ -38,7 +38,7 @@ namespace VentWPF.ViewModel
         [Category(Info)]
         [SortIndex(-1)]
         [DisplayName("Расход воды")]
-        [FormatString(fNull)]
+        [FormatString(MasFr)]
         public float WaterConsumption => (Performance * 1.17f * ((AirSoftOut - AirSoftIn)));
     }
 }

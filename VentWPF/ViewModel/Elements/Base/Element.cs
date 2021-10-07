@@ -20,7 +20,7 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Тип модели реализации класса
         /// </summary>
-        protected Type DeviceType = null;
+        public Type DeviceType { get; protected set;}
 
         private float pressureDrop = 0;
 
@@ -148,7 +148,7 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Лист для определение полей информации а также их положения
         /// </summary>
-        protected virtual List<string> InfoProperties => new() { };
+        public virtual List<string> InfoProperties => new() { };
 
         /// <summary>
         /// Метод генерирующий таблицу для вывода в документ

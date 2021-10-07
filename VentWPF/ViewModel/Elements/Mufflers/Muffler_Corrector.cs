@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using PropertyTools.DataAnnotations;
 
 namespace VentWPF.ViewModel
 {
@@ -15,7 +16,8 @@ namespace VentWPF.ViewModel
 
         public override string Name => "Шумоглушитель с выравниванием";
 
-        protected override List<string> InfoProperties => new()
+        [Browsable(false)]
+        public override List<string> InfoProperties => new()
         {
             "FC",
         };

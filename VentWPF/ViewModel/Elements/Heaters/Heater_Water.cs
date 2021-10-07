@@ -62,7 +62,8 @@ namespace VentWPF.ViewModel
         [FormatString(fkPa)]
         public float CoolantPressureDrop => 12.5f;
 
-        protected override List<string> InfoProperties => new()
+        [Browsable(false)]
+        public override List<string> InfoProperties => new()
         {
             "Performance",
             "TempIn",
