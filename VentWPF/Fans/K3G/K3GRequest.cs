@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using VentWPF.ViewModel;
 
 namespace VentWPF.Fans.K3G
@@ -10,17 +9,35 @@ namespace VentWPF.Fans.K3G
     {
 
         public static ProjectInfoVM Project { get; set; } = ProjectVM.Current?.ProjectInfo;
-        
+
 
         [JsonPropertyName("ID")]
         public string ID { get; set; } = K3GController.ID;
 
-        [JsonPropertyName("PFlow")]
-        public float PFlow { get; set; } = Project.PFlow;
-
-        [JsonPropertyName("PFlow")]
+        [JsonPropertyName("Volumenstrom")]
         public float Volumenstrom { get; set; } = Project.VFlow / 3600;
 
-        public string GetRequest() => $"{ID};{0};0:DIDO;{0};{1.14};{0};{24};{PFlow};{Volumenstrom};{0};";
+        [JsonPropertyName("DIDO")] //InstallationType(0:DIDO,1:FIDO,2:DIFO,3:FIFO)
+        public int DIDO { get; set; } = 0;
+
+        [JsonPropertyName("Pressure")]// 0 = static Pressure 1 = total pressure
+        public int Pressure { get; set; } = 0;
+
+        [JsonPropertyName("AirDens")]
+        public float AirDens { get; set; } = 1.14f;
+
+        [JsonPropertyName("Altitude")]// The altitude 
+        public float Altitude { get; set; } = 0;
+
+        [JsonPropertyName("AirTemperature")]// AirTemperature(°C) 
+        public float AirTemperature { get; set; } = 24;
+
+        [JsonPropertyName("RequiredPressure")]// RequiredPressure(Pa)
+        public float RequiredPressure { get; set; } = Project.PReserv;
+
+        [JsonPropertyName("V")]// Required Voltage 0 - all
+        public int V { get; set; } = 0;
+
+        public string GetRequest() => $"{ID};{Pressure};{DIDO};{AirDens};{Altitude};{RequiredPressure};{AirTemperature};{Volumenstrom};{V};";
     }
 }

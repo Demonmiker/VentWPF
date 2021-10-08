@@ -41,6 +41,7 @@ namespace VentWPF.Fans.K3G
             }
             int n;
             string fanStringChar = new(new Char(), 4000);
+            //TODO выяснить действие методов GetTotalMemory
             _ = GC.GetTotalMemory(false);
             _ = GC.GetTotalMemory(true);
             string response = null;
