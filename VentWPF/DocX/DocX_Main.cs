@@ -35,7 +35,7 @@ namespace VentWPF.DocX
             winword = null;
         }
 
-
+        public static ProjectInfoVM pjct { get; set; } = ProjectVM.Current?.ProjectInfo;
         public void HeaderINIT(Document document)
         {
             foreach (Section section in document.Sections)
@@ -70,7 +70,7 @@ namespace VentWPF.DocX
         }
         public void OrderStatistics(Document document, Paragraph para1, string HText)
         {
-            ProjectInfoVM pjct = new ProjectInfoVM();
+
             string Datastat = null;
             string Datastat2 = null;
 
@@ -113,7 +113,7 @@ namespace VentWPF.DocX
                 var list = InfoLine.GenerateInfoLines(i, i.DeviceType, i.InfoProperties).ToList();
                 int count = list.Count;
 
-                
+
                 if (i.Name != "" && count != 0)
                 {
                     Paragraph para0 = document.Content.Paragraphs.Add(ref missing);
@@ -145,7 +145,7 @@ namespace VentWPF.DocX
                 target = (count / 2);
             }
 
-            
+
             Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
             Table firstTable = document.Tables.Add(para1.Range, target, 4, ref missing, ref missing);
             firstTable.Borders[WdBorderType.wdBorderLeft].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
