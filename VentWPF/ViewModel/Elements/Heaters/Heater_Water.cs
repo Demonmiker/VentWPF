@@ -20,7 +20,7 @@ namespace VentWPF.ViewModel
             {
                 Source = from h in VentContext.Instance.ВодаТеплоs select h
             };
-            Length = 123;
+            Length = 400;
             Width = 456;
             Height = 789;
             SchemeImage = Path.GetFullPath("Assets/Images/Heaters/SH_Heater_Water.png");

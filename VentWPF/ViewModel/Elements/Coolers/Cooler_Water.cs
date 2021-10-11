@@ -20,6 +20,7 @@ namespace VentWPF.ViewModel
             {
                 Source = from o in VentContext.Instance.ВодаХолодs select o
             };
+            Length = 500;
         }
 
         [DependsOn(nameof(DeviceData))]
