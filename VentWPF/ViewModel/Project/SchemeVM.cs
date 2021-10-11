@@ -1,12 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using VentWPF.Tools;
 
 namespace VentWPF.ViewModel
 {
     internal class SchemeVM : BaseViewModel
     {
-        public List<ElementPair> Elements { get; init; } = new List<ElementPair>();
+        public bool Visible { get; set; } = false;
+
+        public ObservableCollection<ElementPair> Elements { get; init; } = new ObservableCollection<ElementPair>();
 
         public bool TwoRows { get; set; } = true;
 

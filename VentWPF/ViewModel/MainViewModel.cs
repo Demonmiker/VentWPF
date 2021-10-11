@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using PropertyTools.DataAnnotations;
+﻿using PropertyTools.DataAnnotations;
 using PropertyTools.Wpf;
 using System.IO;
 using System.Windows;
@@ -8,6 +7,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using VentWPF.Fans.FanSelect;
 using VentWPF.Tools;
 
@@ -15,7 +15,6 @@ namespace VentWPF.ViewModel
 {
     internal class MainViewModel : BaseViewModel
     {
-
         public MainViewModel()
         {
             Request = IOManager.LoadAsJson<DllRequest>("req.json");
@@ -29,6 +28,8 @@ namespace VentWPF.ViewModel
             CmdConfig = new(OpenConfig);
             CmdUpdateReport = new Command<object>(UpdateReport);
             CmdSaveReport = new Command<object>(SaveReport);
+            CmdLinkFrame = new Command<FrameworkElement>((el) => SetLink(el, "frame"));
+            CmdLinkScheme = new Command<FrameworkElement>((el) => SetLink(el, "scheme"));
             ReportViewer.Document = ReportDocument;
         }
 
@@ -134,28 +135,20 @@ namespace VentWPF.ViewModel
 
         public void UpdateReport(object _)
         {
-            // TODO Это нам нужно?
-            /*ReportDocument.Blocks.Clear();
-              foreach (Element item in Project.Grid.Elements)
-              {
+            ReportDocument.Blocks.Clear();
+            foreach (var item in Project.Grid.Elements)
+            {
                 if (item.Name != "")
                 {
                     ReportDocument.Blocks.Add(item.GetTable(2, false));
                     ReportDocument.Blocks.Add(new Paragraph());
                 }
-            }*/
-
-            
-            ReportDocument.Blocks.Clear();
-            foreach (var item in Project.Grid.Elements)
-            {
-                if (item.Name!="")
-                {
-                    ReportDocument.Blocks.Add(item.GetTable(2, false));
-                    ReportDocument.Blocks.Add(new Paragraph());
-                }    
-                   
             }
+
+            // TODO этого здесь не должно быть
+            SaveImage("lol.png", SchemeGui);
+
+            //
         }
 
         public void SaveReport(object _)
@@ -170,10 +163,7 @@ namespace VentWPF.ViewModel
                 TextRange textRange = new TextRange(ReportDocument.ContentStart, ReportDocument.ContentEnd);
                 textRange.Save(fs, DataFormats.Rtf);
             }*/
-
-           
         }
-
 
         private void OpenPopup(Popup p)
         {
@@ -196,6 +186,33 @@ namespace VentWPF.ViewModel
                 IOManager.SaveAsJson(Request, "req.json");
             else
                 Request = IOManager.LoadAsJson<DllRequest>("req.json");
+        }
+
+        public Command<FrameworkElement> CmdLinkScheme { get; set; }
+
+        public Command<FrameworkElement> CmdLinkFrame { get; set; }
+
+        private void SetLink(FrameworkElement el, string prop)
+        {
+            if (prop == "scheme")
+                SchemeGui = el;
+            else
+                FrameGui = el;
+        }
+
+        private FrameworkElement SchemeGui;
+
+        private FrameworkElement FrameGui;
+
+        private void SaveImage(string path, FrameworkElement gui)
+        {
+            RenderTargetBitmap bmp = new RenderTargetBitmap((int)gui.ActualWidth, (int)gui.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+            bmp.Render(gui);
+            PngBitmapEncoder encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bmp));
+            FileStream fs = new FileStream(path, FileMode.Create);
+            encoder.Save(fs);
+            fs.Close();
         }
     }
 }

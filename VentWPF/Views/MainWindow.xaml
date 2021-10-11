@@ -829,7 +829,13 @@
                         </TabItem.Header>
                     </TabItem>
                     <!--  Вкладка каркас  -->
-                    <TabItem Content="{Binding Project.Frame}">
+                    <TabItem>
+                        <ContentControl Name="tc" Content="{Binding Project.Frame}"/>
+                        <b:Interaction.Triggers>
+                            <b:EventTrigger EventName="Loaded">
+                                <b:InvokeCommandAction Command="{Binding CmdLinkFrame}" CommandParameter="{Binding ElementName=tc}"/>
+                            </b:EventTrigger>
+                        </b:Interaction.Triggers>
                         <TabItem.Header>
                             <StackPanel>
                                 <fa5:SvgAwesome Icon="Solid_BorderAll"/>
@@ -846,7 +852,13 @@
                             </StackPanel>
                         </TabItem.Header>
                         <Grid>
-                            <ContentControl Content="{Binding Project.Scheme, Mode=OneWay}"/>
+                            <ContentControl x:Name="crc" Content="{Binding Project.Scheme, Mode=OneWay}">
+                                <b:Interaction.Triggers>
+                                    <b:EventTrigger EventName="Loaded">
+                                        <b:InvokeCommandAction Command="{Binding CmdLinkScheme}" CommandParameter="{Binding ElementName=crc}"/>
+                                    </b:EventTrigger>
+                                </b:Interaction.Triggers>
+                            </ContentControl>
                             <md:Card DockPanel.Dock="Top"
                                 Width="auto"
                                 Height="auto"

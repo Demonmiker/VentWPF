@@ -47,9 +47,6 @@ namespace VentWPF.ViewModel
 
         public void SaveProject(object o)
         {
-            throw new NotImplementedException();
-            //var sfd = new SaveFileDialog{ FileName = "Проект", DefaultExt = ".prj", Filter = "Projects (.prj)|*.prj" };
-            //if(sfd.ShowDialog()==true) IOManager.SaveAsJson(new Project(ProjectInfo,Grid.ToList()), sfd.FileName);
         }
 
         /// <summary>
@@ -71,7 +68,8 @@ namespace VentWPF.ViewModel
 
         public void GenearateScheme(object o)
         {
-            var result = new SchemeVM();
+            if (Scheme is null) Scheme = new SchemeVM();
+            var result = Scheme;
             result.TwoRows = ProjectInfo.Rows == Model.Rows.Двухярусный;
             result.WidthBottom = ProjectInfo.Height;
             result.WidthTop = ProjectInfo.Height + 100; //TODO Исправить на нормальное значение
@@ -80,7 +78,7 @@ namespace VentWPF.ViewModel
             {
                 if (result.TwoRows)
                 {
-                    if (Grid.Elements[i].GetType().Name == "Element" && Grid.Elements[i+10].GetType().Name == "Element")
+                    if (Grid.Elements[i].GetType().Name == "Element" && Grid.Elements[i + 10].GetType().Name == "Element")
                         break;
                     result.Elements.Add(new ElementPair()
                     {
