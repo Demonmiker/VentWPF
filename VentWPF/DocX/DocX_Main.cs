@@ -1,4 +1,5 @@
 ﻿using Microsoft.Office.Interop.Word;
+using System;
 using System.IO;
 using System.Linq;
 using VentWPF.ViewModel;
@@ -69,10 +70,29 @@ namespace VentWPF.DocX
         }
         public void OrderStatistics(Document document, Paragraph para1, string HText)
         {
+            ProjectInfoVM pjct = new ProjectInfoVM();
+            string Datastat = null;
+            string Datastat2 = null;
 
-            para1.Range.Text = HText;
+            string Date = "Время заказа: " + Convert.ToString(pjct.Date) + "\n";
+            string Worker = "Исполнитель: " + pjct.Worker + "\n";
+            string OrderName = "Заказ: " + pjct.OrderName + "\n";
+            string Foots = "Ножки: " + "???" + "\n";
+            string Realization = "Исполнение: " + pjct.Realization + "\n";
+            string Maintenance = "Сторона обслуживания: " + Convert.ToString(pjct.Maintenance);
 
+            string BuildName = "Обозначение установки: " + pjct.BuildName + "\n";
+            string Customer = "Заказчик: " + pjct.Customer + "\n";
+            string Object = "Объект: " + pjct.Object + "\n";
+            string Number = "Телефон заказчика: " + pjct.Number + "\n";
 
+            Datastat = Date + Worker + OrderName + Foots + Realization + Maintenance;
+            Datastat2 = BuildName + Customer + Object + Number;
+
+            Table OredrTable = document.Tables.Add(para1.Range, 1, 2, ref missing, ref missing);
+            OredrTable.Borders.Enable = 0;
+            OredrTable.Rows[1].Cells[1].Range.Text = Datastat;
+            OredrTable.Rows[1].Cells[2].Range.Text = Datastat2;
         }
 
         public void shemeInit(Document document, Paragraph para1)
