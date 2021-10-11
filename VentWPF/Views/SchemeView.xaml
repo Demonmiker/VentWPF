@@ -1,0 +1,110 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:vm="clr-namespace:VentWPF.ViewModel"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DataTemplate DataType="{x:Type vm:SchemeVM}">
+        <ContentControl>
+            <Grid
+                Margin="30"
+                VerticalAlignment="Center"
+                ShowGridLines="false">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <ItemsControl Grid.RowSpan="2" Grid.Column="2"
+                    ItemsSource="{Binding Elements}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel
+                                Width="auto"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+
+                <Canvas Grid.Row="0" Grid.Column="1"
+                    Width="30"
+                    Margin="0 28 0 0"
+                    Visibility="{Binding TwoRows, Mode=OneWay, Converter={StaticResource visConv}}">
+                    <TextBox
+                        Width="150"
+                        Height="25"
+                        Margin="30 0 0 0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        ClipToBounds="False"
+                        IsHitTestVisible="False"
+                        Style="{StaticResource under}"
+                        Text="{Binding WidthTop, Mode=OneWay}"
+                        TextAlignment="Center">
+                        <TextBox.RenderTransform>
+                            <RotateTransform Angle="90"/>
+                        </TextBox.RenderTransform>
+                    </TextBox>
+                </Canvas>
+                <Canvas Grid.Row="1" Grid.Column="1"
+                    Width="30"
+                    Margin="0 -12 0 0"
+                    Visibility="{Binding TwoRows, Mode=OneWay, Converter={StaticResource visConv}}">
+                    <TextBox
+                        Width="150"
+                        Height="25"
+                        Margin="30 0 0 0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        ClipToBounds="False"
+                        IsHitTestVisible="False"
+                        Style="{StaticResource under}"
+                        Text="{Binding WidthBottom, Mode=OneWay}"
+                        TextAlignment="Center">
+                        <TextBox.RenderTransform>
+                            <RotateTransform Angle="90"/>
+                        </TextBox.RenderTransform>
+                    </TextBox>
+                </Canvas>
+                <Canvas Grid.RowSpan="2"
+                    Width="30"
+                    Margin="0 25 -3 0">
+                    <TextBox
+                        Height="25"
+                        Margin="27 0 0 0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        ClipToBounds="False"
+                        IsHitTestVisible="False"
+                        Text="{Binding WidthSum, Mode=OneWay}"
+                        TextAlignment="Center">
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource under}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding TwoRows}" Value="true">
+                                        <Setter Property="Width" Value="300"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                                <Setter Property="Width" Value="150"/>
+                            </Style>
+                        </TextBox.Style>
+                        <TextBox.RenderTransform>
+                            <RotateTransform Angle="90"/>
+                        </TextBox.RenderTransform>
+                    </TextBox>
+                </Canvas>
+                <TextBox Grid.Row="2" Grid.Column="2"
+                    Text="{Binding Sum, Mode=OneWay}"
+                    Style="{StaticResource under}"/>
+
+
+            </Grid>
+
+        </ContentControl>
+
+    </DataTemplate>
+</ResourceDictionary>

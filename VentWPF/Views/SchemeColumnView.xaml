@@ -1,0 +1,50 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:vm="clr-namespace:VentWPF.ViewModel"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DataTemplate DataType="{x:Type vm:ElementPair}">
+        <StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBox
+                    RenderTransformOrigin="0.5, 0.5"
+                    Text=""
+                    Style="{StaticResource under}"
+                    Visibility="{Binding TwoRows, Converter={StaticResource visConv}}"
+                    IsHitTestVisible="false">
+                    <TextBox.RenderTransform>
+                        <RotateTransform Angle="180"/>
+                    </TextBox.RenderTransform>
+                </TextBox>
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Text="{Binding Top.Length, Mode=OneWay}"/>
+                <Border Grid.Row="1"
+                    Margin="-2 0 0 -2"
+                    Visibility="{Binding TwoRows, Converter={StaticResource visConv}}"
+                    BorderThickness="2"
+                    BorderBrush="Black">
+                    <Image Height="150" Source="{Binding Top.SchemeImage}"/>
+                </Border>
+
+            </Grid>
+            <Border Grid.Row="1"
+                Margin="-2 0 0 -2"
+                BorderThickness="2"
+                BorderBrush="Black">
+                <Image Height="150" Source="{Binding Bottom.SchemeImage}"/>
+            </Border>
+
+
+            <TextBox
+                HorizontalAlignment="Stretch"
+                Text="{Binding Bottom.Length, Mode=OneWay}"
+                Style="{StaticResource under}"
+                IsHitTestVisible="False"/>
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

@@ -1,0 +1,39 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:vm="clr-namespace:VentWPF.ViewModel"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DataTemplate DataType="{x:Type vm:FrameVM}">
+        <ScrollViewer>
+            <StackPanel Orientation="Vertical">
+                <StackPanel Margin="2 2" Orientation="Horizontal">
+                    <TextBox
+                        MinWidth="40"
+                        Text="{Binding Width}"
+                        TextAlignment="Center"/>
+                    <TextBlock Margin="0 4 0 0" Text="x"/>
+                    <TextBox
+                        MinWidth="40"
+                        Text="{Binding Height}"
+                        TextAlignment="Center"/>
+                    <TextBlock Margin="0 4 0 0" Text="x"/>
+                    <TextBox
+                        MinWidth="40"
+                        Text="{Binding Length}"
+                        TextAlignment="Center"/>
+                </StackPanel>
+                <GroupBox
+                    Content="{Binding Top}"
+                    Header="Верхняя"
+                    Style="{x:Null}"/>
+                <GroupBox
+                    Content="{Binding Left}"
+                    Header="Левая"
+                    Style="{x:Null}"/>
+                <GroupBox
+                    Content="{Binding Right}"
+                    Header="Правая"
+                    Style="{x:Null}"/>
+            </StackPanel>
+        </ScrollViewer>
+    </DataTemplate>
+</ResourceDictionary>
