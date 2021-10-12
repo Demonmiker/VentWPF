@@ -1,4 +1,5 @@
 ﻿using Microsoft.Office.Interop.Word;
+using System;
 using System.IO;
 using System.Linq;
 using VentWPF.ViewModel;
@@ -7,12 +8,13 @@ using Word = Microsoft.Office.Interop.Word;
 
 namespace VentWPF.DocX
 {
-    class DocX_Main
+    class DocX_Main : MainViewModel
     {
         object missing = System.Reflection.Missing.Value;
         Application winword = new Application();
         public string imageLogo = Path.GetFullPath("Assets/Images/DocXImages/logo.png");
         public string imageQR = Path.GetFullPath("Assets/Images/DocXImages/qr-code.gif");
+        public static ProjectVM Project { get; set; } = ProjectVM.Current;
 
 
         #region[testStrArea]
@@ -20,6 +22,80 @@ namespace VentWPF.DocX
         string[] testData = { "Падение давления:", "Падение супер крутого давления:", "Падение ещё большего упадка самого давления:" };
         string[] dataName = { "123", "123", "123" };
         #endregion
+
+
+        public void DocX_Frame()
+        {
+            winword.ShowAnimation = false;
+            winword.Visible = false;
+            Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
+            document.PageSetup.Orientation = WdOrientation.wdOrientLandscape;
+
+            FrameCreate(document);
+            document.Save();
+            document = null;
+            //winword.Quit(ref missing, ref missing, ref missing);
+            //winword = null;
+        }
+
+        public void FrameCreate(Document document)
+        {
+            FrameScheme(document);
+
+        }
+
+        public void FrameScheme(Document document)
+        {
+            
+            string[] path = { Environment.CurrentDirectory + @"\\frame_top.png", Environment.CurrentDirectory + @"\\frame_left.png", Environment.CurrentDirectory + @"\\frame_right.png" };
+            string[] name = { "frame_top", "frame_left", "frame_right" };
+            for (int i = 0; i < name.Length; i++)
+            {
+                var valid = Project.Elements.ContainsKey(name[i]);
+                if (!valid)
+                {
+                    //SaveImage(path[i], Project.Elements[name[i]]);
+                    if (name[i] == "frame_top")
+                    {
+                        Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
+                        para1.Range.Text = "Каркас вид сверху";
+                        para1.Range.InsertParagraphAfter();
+                    }
+                    if (name[i] == "frame_left")
+                    {
+                        Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
+                        para1.Range.Text = "Каркас вид слева";
+                        para1.Range.InsertParagraphAfter();
+                    }
+                    if (name[i] == "frame_right")
+                    {
+                        Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
+                        para1.Range.Text = "Каркас вид справа";
+                        para1.Range.InsertParagraphAfter();
+                    }
+                    Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
+                    SaveFrame(document, path[i], para2);
+                    para2.Range.InsertParagraphAfter();
+                }
+                else
+                {
+                    Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
+                    para2.Range.Text = "Нет схемы каркаса " + name[i] + " для текущего проекта";
+                    para2.Range.InsertParagraphAfter();
+                }
+            }
+
+                        
+
+
+        }
+
+        public void SaveFrame(Document document, string path, Paragraph para1)
+        {
+            object docRange = para1.Range;
+            document.InlineShapes.AddPicture(path, LinkToFile: true, SaveWithDocument: true, Range: docRange);            
+            para1.Range.InsertParagraphAfter();
+        }
 
 
         public void DocX_Initialization()
@@ -75,14 +151,25 @@ namespace VentWPF.DocX
 
         }
 
+
         public void shemeInit(Document document, Paragraph para1)
         {
-            Table Table = document.Tables.Add(para1.Range, 1, 1, ref missing, ref missing);
-            Table.Borders.Enable = 0;
-            //object docRange = para1.Range;
-            object docRange = Table.Rows[1].Cells[1].Range;
-            string imagePath = @"C:\Users\stig1\Desktop\testShema.jpg";
-            document.InlineShapes.AddPicture(imagePath, LinkToFile: true, SaveWithDocument: true, Range: docRange);
+            string path = Environment.CurrentDirectory + @"\\scheme.png";
+            var existed = Project.Elements.ContainsKey("scheme");
+            if (existed)
+            {
+                SaveImage(path, Project.Elements["scheme"]);
+                //object docRange = para1.Range;
+                object docRange = para1.Range;
+                string imagePath = path;//@"C:\Users\stig1\Desktop\testShema.jpg";
+                document.InlineShapes.AddPicture(imagePath, LinkToFile: true, SaveWithDocument: true, Range: docRange);
+            }
+            else
+            {
+                para1.Range.Text = "Нет схемы для текущего проекта";
+            }
+
+
         }
 
         //создаёт таблицы
@@ -93,7 +180,7 @@ namespace VentWPF.DocX
                 var list = InfoLine.GenerateInfoLines(i, i.DeviceType, i.InfoProperties).ToList();
                 int count = list.Count;
 
-                
+
                 if (i.Name != "" && count != 0)
                 {
                     Paragraph para0 = document.Content.Paragraphs.Add(ref missing);
@@ -125,7 +212,7 @@ namespace VentWPF.DocX
                 target = (count / 2);
             }
 
-            
+
             Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
             Table firstTable = document.Tables.Add(para1.Range, target, 4, ref missing, ref missing);
             firstTable.Borders[WdBorderType.wdBorderLeft].LineStyle = Word.WdLineStyle.wdLineStyleSingle;

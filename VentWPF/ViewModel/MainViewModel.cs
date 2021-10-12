@@ -152,8 +152,9 @@ namespace VentWPF.ViewModel
 
         public void SaveReport(object _)
         {
-            DocX.DocX_Main test = new DocX.DocX_Main();
-            test.DocX_Initialization();
+            DocX.DocX_Main export = new DocX.DocX_Main();
+            //export.DocX_Initialization();
+            export.DocX_Frame();
             /*
             var cfd = new SaveFileDialog() { DefaultExt = "rtf", AddExtension = true };
             if(cfd.ShowDialog()==true)
@@ -187,7 +188,7 @@ namespace VentWPF.ViewModel
                 Request = IOManager.LoadAsJson<DllRequest>("req.json");
         }
 
-        private void SaveImage(string path, FrameworkElement gui)
+        public void SaveImage(string path, FrameworkElement gui)
         {
             RenderTargetBitmap bmp = new RenderTargetBitmap((int)gui.ActualWidth + 10, (int)gui.ActualHeight + 10, 96, 96, PixelFormats.Pbgra32);
             bmp.Render(gui);
