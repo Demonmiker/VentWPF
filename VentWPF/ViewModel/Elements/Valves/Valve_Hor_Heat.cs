@@ -10,10 +10,10 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Valve_Hor_Heat : Valve
     {
-
         public Valve_Hor_Heat()
         {
             image = "Valves/Valve_Hor_Heat.png";
+            DeviceType = typeof(Тэны);
             Query = new DatabaseQuery<Тэны>
             {
                 Source = from o in VentContext.Instance.Tэныs select o
@@ -34,8 +34,7 @@ namespace VentWPF.ViewModel
         {
             "DeviceData.Маркировка",
             "DeviceData.КолВоПоШирине",
-            "TEN_count",            
+            "TEN_count",
         };
-
     }
 }
