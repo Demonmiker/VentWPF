@@ -10,7 +10,7 @@ using System.Windows.Media;
 
 namespace VentWPF.DocX
 {
-    class DocX_Main : MainViewModel
+    class DocX_Main
     {
         object missing = System.Reflection.Missing.Value;
         Application winword = new Application();
