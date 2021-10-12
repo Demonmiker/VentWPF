@@ -12,10 +12,10 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Cooler_Water : Cooler
     {
-
         public Cooler_Water()
         {
             image = "Coolers/Cooler_Water.png";
+            DeviceType = typeof(ВодаХолод);
             Query = new DatabaseQuery<ВодаХолод>
             {
                 Source = from o in VentContext.Instance.ВодаХолодs select o
@@ -65,6 +65,5 @@ namespace VentWPF.ViewModel
             "DeviceData.ШиринаГабарит",
             "Fr",
         };
-
     }
 }

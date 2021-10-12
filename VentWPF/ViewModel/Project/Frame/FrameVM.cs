@@ -5,6 +5,7 @@
     /// </summary>
     internal class FrameVM : BaseViewModel
     {
+        public ProjectVM Parent { get; set; }
 
         public FrameVM(int frameLength, int frameWidth, int frameHeight)
         {
@@ -69,6 +70,5 @@
             Left.Length = length;
             Right.Length = length;
         }
-
     }
 }

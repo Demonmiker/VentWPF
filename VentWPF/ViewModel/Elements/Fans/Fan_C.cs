@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using VentWPF.Fans.FanSelect;
 using PropertyTools.DataAnnotations;
+using VentWPF.Fans;
 
 namespace VentWPF.ViewModel
 {
@@ -8,6 +9,7 @@ namespace VentWPF.ViewModel
     {
         public Fan_C()
         {
+            DeviceType = typeof(FanData);
             Query = new FanQuery_C()
             {
                 Source = new DllRequest()

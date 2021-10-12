@@ -10,10 +10,10 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Valve_Ver_Heat : Valve
     {
-
         public Valve_Ver_Heat()
         {
             image = "Valves/Valve_Ver_Heat.png";
+            DeviceType = typeof(Тэны);
             Query = new DatabaseQuery<Тэны>
             {
                 Source = from o in VentContext.Instance.Tэныs select o,

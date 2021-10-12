@@ -1,6 +1,6 @@
-﻿using Microsoft.Win32;
-using PropertyTools.DataAnnotations;
+﻿using PropertyTools.DataAnnotations;
 using PropertyTools.Wpf;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,6 +8,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using VentWPF.Fans.FanSelect;
 using VentWPF.Tools;
 
@@ -15,7 +16,6 @@ namespace VentWPF.ViewModel
 {
     internal class MainViewModel : BaseViewModel
     {
-
         public MainViewModel()
         {
             Request = IOManager.LoadAsJson<DllRequest>("req.json");
@@ -62,17 +62,6 @@ namespace VentWPF.ViewModel
         public Command<object> CmdSaveReport { get; init; }
 
         public ProjectVM Project { get; set; } = ProjectVM.Current;
-
-        /*public void SaveReport(object _)
-        {
-            SaveFileDialog cfd = new() { DefaultExt = "rtf", AddExtension = true };
-            if (cfd.ShowDialog() == true)
-            {
-                using FileStream fs = new(cfd.FileName, FileMode.Create, FileAccess.ReadWrite);
-                TextRange textRange = new(ReportDocument.ContentStart, ReportDocument.ContentEnd);
-                textRange.Save(fs, DataFormats.Rtf);
-            }
-        }*/
 
         private void AutoColumns(DataGridAutoGeneratingColumnEventArgs e)
         {
@@ -134,28 +123,31 @@ namespace VentWPF.ViewModel
 
         public void UpdateReport(object _)
         {
-            // TODO Это нам нужно?
-            /*ReportDocument.Blocks.Clear();
-              foreach (Element item in Project.Grid.Elements)
-              {
+            ReportDocument.Blocks.Clear();
+            foreach (var item in Project.Grid.Elements)
+            {
                 if (item.Name != "")
                 {
                     ReportDocument.Blocks.Add(item.GetTable(2, false));
                     ReportDocument.Blocks.Add(new Paragraph());
                 }
-            }*/
-
-            
-            ReportDocument.Blocks.Clear();
-            foreach (var item in Project.Grid.Elements)
-            {
-                if (item.Name!="")
-                {
-                    ReportDocument.Blocks.Add(item.GetTable(2, false));
-                    ReportDocument.Blocks.Add(new Paragraph());
-                }    
-                   
             }
+
+            // TODO этого здесь не должно быть
+            try
+            {
+            SaveImage("scheme.png", Project.Elements["scheme"]);
+            SaveImage("frame_top.png", Project.Elements["frame_top"]);
+            SaveImage("frame_left.png", Project.Elements["frame_left"]);
+            SaveImage("frame_right.png", Project.Elements["frame_right"]);
+
+            }
+            catch
+            {
+
+            }
+
+            //
         }
 
         public void SaveReport(object _)
@@ -170,10 +162,7 @@ namespace VentWPF.ViewModel
                 TextRange textRange = new TextRange(ReportDocument.ContentStart, ReportDocument.ContentEnd);
                 textRange.Save(fs, DataFormats.Rtf);
             }*/
-
-           
         }
-
 
         private void OpenPopup(Popup p)
         {
@@ -196,6 +185,17 @@ namespace VentWPF.ViewModel
                 IOManager.SaveAsJson(Request, "req.json");
             else
                 Request = IOManager.LoadAsJson<DllRequest>("req.json");
+        }
+
+        private void SaveImage(string path, FrameworkElement gui)
+        {
+            RenderTargetBitmap bmp = new RenderTargetBitmap((int)gui.ActualWidth + 10, (int)gui.ActualHeight + 10, 96, 96, PixelFormats.Pbgra32);
+            bmp.Render(gui);
+            PngBitmapEncoder encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bmp));
+            FileStream fs = new FileStream(path, FileMode.Create);
+            encoder.Save(fs);
+            fs.Close();
         }
     }
 }

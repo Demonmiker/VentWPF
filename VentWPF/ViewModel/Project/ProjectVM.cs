@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Windows;
 using VentWPF.Tools;
 
 namespace VentWPF.ViewModel
@@ -14,9 +16,19 @@ namespace VentWPF.ViewModel
             Current.Init();
         }
 
+        public Command<FrameworkElement> CmdLinkGui { get; set; }
+
+        private void SetLink(FrameworkElement el)
+        {
+            Elements[el.Name] = el;
+        }
+
+        public Dictionary<string, FrameworkElement> Elements = new();
+
         private ProjectVM()
         {
             CmdScheme = new Command<object>(GenearateScheme);
+            CmdLinkGui = new Command<FrameworkElement>(SetLink);
         }
 
         public static ProjectVM Current { get; private set; }
@@ -48,8 +60,6 @@ namespace VentWPF.ViewModel
         public void SaveProject(object o)
         {
             throw new NotImplementedException();
-            //var sfd = new SaveFileDialog{ FileName = "Проект", DefaultExt = ".prj", Filter = "Projects (.prj)|*.prj" };
-            //if(sfd.ShowDialog()==true) IOManager.SaveAsJson(new Project(ProjectInfo,Grid.ToList()), sfd.FileName);
         }
 
         /// <summary>
@@ -64,6 +74,7 @@ namespace VentWPF.ViewModel
             Grid = new();
             Grid.ErrorManager = ErrorManager;
             Frame = new(500, ProjectInfo.Width, ProjectInfo.Height);
+            Frame.Parent = this;
             Grid.Init(ProjectInfo.Rows);
         }
 
@@ -71,7 +82,8 @@ namespace VentWPF.ViewModel
 
         public void GenearateScheme(object o)
         {
-            var result = new SchemeVM();
+            if (Scheme is null) { Scheme = new SchemeVM(); Scheme.Parent = this; }
+            var result = Scheme;
             result.TwoRows = ProjectInfo.Rows == Model.Rows.Двухярусный;
             result.WidthBottom = ProjectInfo.Height;
             result.WidthTop = ProjectInfo.Height + 100; //TODO Исправить на нормальное значение
@@ -80,7 +92,7 @@ namespace VentWPF.ViewModel
             {
                 if (result.TwoRows)
                 {
-                    if (Grid.Elements[i].GetType().Name == "Element" && Grid.Elements[i+10].GetType().Name == "Element")
+                    if (Grid.Elements[i].GetType().Name == "Element" && Grid.Elements[i + 10].GetType().Name == "Element")
                         break;
                     result.Elements.Add(new ElementPair()
                     {

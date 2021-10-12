@@ -18,13 +18,13 @@ namespace VentWPF.ViewModel
         public Heater_Electric()
         {
             image = "Heaters/Heater_Electric.png";
+            DeviceType = typeof(Тэнры);
             Query = new DatabaseQuery<Тэнры>
             {
                 Source = from o in VentContext.Instance.Tэнрыs select o
             };
             SchemeImage = Path.GetFullPath("Assets/Images/Heaters/SH_Heater_Electric.png");
         }
-
 
         [DependsOn(nameof(DeviceData))]
         public override string Name => $"Нагреватель электрический {(DeviceData as Тэнры)?.Маркировка}";
