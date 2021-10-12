@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using VentWPF.ViewModel;
 using Word = Microsoft.Office.Interop.Word;
-
+using System.Windows.Media.Imaging;
+using SYS = System.Windows;
+using System.Windows.Media;
 
 namespace VentWPF.DocX
 {
@@ -22,6 +24,17 @@ namespace VentWPF.DocX
         string[] testData = { "Падение давления:", "Падение супер крутого давления:", "Падение ещё большего упадка самого давления:" };
         string[] dataName = { "123", "123", "123" };
         #endregion
+
+        public void SaveImage(string path, SYS.FrameworkElement gui)
+        {
+            RenderTargetBitmap bmp = new RenderTargetBitmap((int)gui.ActualWidth + 10, (int)gui.ActualHeight + 10, 96, 96, PixelFormats.Pbgra32);
+            bmp.Render(gui);
+            PngBitmapEncoder encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bmp));
+            FileStream fs = new FileStream(path, FileMode.Create);
+            encoder.Save(fs);
+            fs.Close();
+        }
 
 
         public void DocX_Frame()

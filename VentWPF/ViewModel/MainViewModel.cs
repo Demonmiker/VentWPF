@@ -131,23 +131,7 @@ namespace VentWPF.ViewModel
                     ReportDocument.Blocks.Add(item.GetTable(2, false));
                     ReportDocument.Blocks.Add(new Paragraph());
                 }
-            }
-
-            // TODO этого здесь не должно быть
-            try
-            {
-            SaveImage("scheme.png", Project.Elements["scheme"]);
-            SaveImage("frame_top.png", Project.Elements["frame_top"]);
-            SaveImage("frame_left.png", Project.Elements["frame_left"]);
-            SaveImage("frame_right.png", Project.Elements["frame_right"]);
-
-            }
-            catch
-            {
-
-            }
-
-            //
+            }            
         }
 
         public void SaveReport(object _)
@@ -188,15 +172,6 @@ namespace VentWPF.ViewModel
                 Request = IOManager.LoadAsJson<DllRequest>("req.json");
         }
 
-        public void SaveImage(string path, FrameworkElement gui)
-        {
-            RenderTargetBitmap bmp = new RenderTargetBitmap((int)gui.ActualWidth + 10, (int)gui.ActualHeight + 10, 96, 96, PixelFormats.Pbgra32);
-            bmp.Render(gui);
-            PngBitmapEncoder encoder = new PngBitmapEncoder();
-            encoder.Frames.Add(BitmapFrame.Create(bmp));
-            FileStream fs = new FileStream(path, FileMode.Create);
-            encoder.Save(fs);
-            fs.Close();
-        }
+        
     }
 }
