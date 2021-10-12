@@ -12,7 +12,14 @@ namespace VentWPF.ViewModel
             {
                 Source = new K3GRequest()
                 {
-                    ID = "123",
+                    AirDens = 1.14f,
+                    AirTemperature = 24,
+                    Altitude = 0,
+                    Installation = InstallationType.DIDO,
+                    Pressure = PressureType.Static,
+                    RequiredPressure = Project.PReserv,
+                    V = 0,
+                    Volumenstrom = Project.VFlow / 3600.0f,
                 }
             };
         }

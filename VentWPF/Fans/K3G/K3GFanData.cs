@@ -1,12 +1,15 @@
 ﻿using PropertyTools.DataAnnotations;
+using System.Collections.Generic;
+using System.Linq;
 using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.Fans.K3G
 {
     public class K3GFanData
     {
-        public K3GFanData(string id, string[] details)
+        public K3GFanData(string id, IEnumerable<string> info)
         {
+            var details = info.ToArray();
             Id = id;
             nSoll = details[0];
             P1Soll = details[1];
@@ -22,6 +25,7 @@ namespace VentWPF.Fans.K3G
         }
 
         [DisplayName("ID")]
+        [FormatString(fNull)]
         public string Id { get; set; }
 
         [DisplayName("нечто0")]

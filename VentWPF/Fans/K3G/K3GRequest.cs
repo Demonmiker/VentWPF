@@ -5,25 +5,25 @@ namespace VentWPF.Fans.K3G
 {
     internal class K3GRequest : IRequest<string>
     {
-        public string ID { get; set; } // K3GController.ID;
+        public string ID { get; set; }
 
-        public float Volumenstrom { get; set; } = 0; // Project.VFlow / 3600;
+        public float Volumenstrom { get; set; } = 0;
 
-        public InstallationType Installation { get; set; } = InstallationType.DIDO; //InstallationType(0:DIDO,1:FIDO,2:DIFO,3:FIFO)
+        public InstallationType Installation { get; set; } = InstallationType.DIDO;
 
-        public PressureType Pressure { get; set; } = PressureType.Static;  // 0 = static Pressure 1 = total pressure
+        public PressureType Pressure { get; set; } = PressureType.Static;
 
-        public float AirDens { get; set; } = 1.14f;
+        public float AirDens { get; set; }
 
-        public float Altitude { get; set; } = 0;
+        public float Altitude { get; set; }
 
-        public float AirTemperature { get; set; } = 24;
+        public float AirTemperature { get; set; }
 
-        public float RequiredPressure { get; set; } = 0; //Project.PReserv;
+        public float RequiredPressure { get; set; } = 0;
 
         public int V { get; set; } = 0;
 
-        public string GetRequest() => $"{ID};{(int)Pressure};{(int)Installation};{AirDens};{Altitude};{RequiredPressure};{AirTemperature};{Volumenstrom};{V};";
+        public string GetRequest() => $"{ID};{(int)Pressure};{(int)Installation};{AirDens};{Altitude};{AirTemperature};{RequiredPressure};{Volumenstrom};{V};";
     }
 
     internal enum InstallationType

@@ -17,15 +17,15 @@ namespace VentWPF.Fans.K3G
         private bool connect;
 
         //Подключение
-        [DllImport(@"EbmPapstFan.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        [DllImport(@"Fans/K3G/DLL/EbmPapstFan.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public static extern int SET_XML_PATH_PC([MarshalAsAttribute(UnmanagedType.AnsiBStr)] string pfad);
 
         //получение списка ID
-        [DllImport(@"EbmPapstFan.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        [DllImport(@"Fans/K3G/DLL/EbmPapstFan.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public static extern int GET_PRODUCTS_PC([MarshalAsAttribute(UnmanagedType.AnsiBStr)] ref string pfad);
 
         //получение по ID информации по вентилятору
-        [DllImport(@"EbmPapstFan.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        [DllImport(@"Fans/K3G/DLL/EbmPapstFan.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public static extern int GET_CCSI_DATA([MarshalAsAttribute(UnmanagedType.AnsiBStr)] string fanDescription, ref string buffer);
 
         public List<K3GFanData> GetResponce(K3GRequest request)
@@ -33,7 +33,14 @@ namespace VentWPF.Fans.K3G
             if (!connect)
                 Connection();
             var ids = GetIDs();
-            return new List<K3GFanData>();
+            List<K3GFanData> res = new();
+            foreach (var id in ids)
+            {
+                var list = GetFanInfo(id, request);
+                K3GFanData data = new K3GFanData(id, list);
+                res.Add(data);
+            }
+            return res;
         }
 
         public void Connection()
@@ -42,7 +49,7 @@ namespace VentWPF.Fans.K3G
             path += @"\Fans\K3G\DLL";
             if (File.Exists(path + @"\Data.sqlite") && File.Exists(path + @"\EbmPapstFan.dll"))
             {
-                path += ';';
+                path += ";";
                 _ = SET_XML_PATH_PC(path);
             }
             else
@@ -56,15 +63,16 @@ namespace VentWPF.Fans.K3G
             var bufferIDs = new string(new Char(), 4000);
             int n = GET_PRODUCTS_PC(ref bufferIDs);
             var str = bufferIDs.ToString();
-            return str.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            return str.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Where(x => !x.StartsWith("K3G"));
         }
 
-        public IEnumerable<string> GetFan(string id, K3GRequest req)
+        public IEnumerable<string> GetFanInfo(string id, K3GRequest req)
         {
             req.ID = id;
             var bufferInfo = new string(new Char(), 4000);
-            var str = Marshal.PtrToStringUni((IntPtr)GET_CCSI_DATA(req.GetRequest(), ref bufferInfo));
-            return str.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            var r = req.GetRequest();
+            GET_CCSI_DATA(r, ref bufferInfo);
+            return bufferInfo.Split(new[] { ';' });
         }
     }
 }

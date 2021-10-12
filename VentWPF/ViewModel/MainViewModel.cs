@@ -67,6 +67,7 @@ namespace VentWPF.ViewModel
         {
             string header = e.Column.Header.ToString();
             // Получчение имени из тэга
+            // TODO при запросе в 0 элементов вылетает
             object[] atrs = ProjectVM.Current.Grid.Selected.Query.Result[0].GetType()
                     .GetProperty(header).GetCustomAttributes(typeof(DisplayNameAttribute), true);
             if (atrs.Length > 0)
@@ -136,15 +137,13 @@ namespace VentWPF.ViewModel
             // TODO этого здесь не должно быть
             try
             {
-            SaveImage("scheme.png", Project.Elements["scheme"]);
-            SaveImage("frame_top.png", Project.Elements["frame_top"]);
-            SaveImage("frame_left.png", Project.Elements["frame_left"]);
-            SaveImage("frame_right.png", Project.Elements["frame_right"]);
-
+                SaveImage("scheme.png", Project.Elements["scheme"]);
+                SaveImage("frame_top.png", Project.Elements["frame_top"]);
+                SaveImage("frame_left.png", Project.Elements["frame_left"]);
+                SaveImage("frame_right.png", Project.Elements["frame_right"]);
             }
             catch
             {
-
             }
 
             //
