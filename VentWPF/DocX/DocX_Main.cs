@@ -7,6 +7,7 @@ using Word = Microsoft.Office.Interop.Word;
 using System.Windows.Media.Imaging;
 using SYS = System.Windows;
 using System.Windows.Media;
+using VentWPF.Model.Calculations;
 
 namespace VentWPF.DocX
 {
@@ -108,6 +109,21 @@ namespace VentWPF.DocX
             object docRange = para1.Range;
             document.InlineShapes.AddPicture(path, LinkToFile: true, SaveWithDocument: true, Range: docRange);            
             para1.Range.InsertParagraphAfter();
+        }
+
+        public void DataTableFrame(Document document)
+        {
+            Calculations Calc = new Calculations();
+
+            Paragraph para0 = document.Content.Paragraphs.Add(ref missing);
+            para0.Range.Text = "1";
+            para0.Range.InsertParagraphAfter();
+
+            Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
+
+
+            Table firstTable = document.Tables.Add(para1.Range, 1, 4, ref missing, ref missing);
+            para0.Range.InsertParagraphAfter();
         }
 
 
