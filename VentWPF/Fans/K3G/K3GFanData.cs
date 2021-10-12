@@ -4,121 +4,64 @@ namespace VentWPF.Fans.K3G
 {
     public class K3GFanData
     {
-        public string Descripts2;
+        public string nSoll; //0 n/1/min
 
-        public string Descripts3;
+        public string P1Soll; //1 Pe/W
 
-        public string Descripts4;
+        public string ISoll; //2 I/A
 
-        public string Descripts5;
+        public string EtaSoll;//3 nu o/%
 
-        public string Descripts6;
+        public string UstSoll;//4 Voltage
 
-        public string Descripts7;
+        public string MdSoll;//5 Md/Ncm
 
-        public string Descripts8;
+        public string EtaMSoll;//6  nu o/% Motor
 
-        public string Descripts9;
+        public string LwASoll;//7  (in+out) m^3/s
 
-        public string Descripts10;
+        public string LwAssSoll;//8   dB in
 
-        public string Descripts11;
+        public string LwAdsSoll;//9 dB Out
 
-        public string Descripts12;
+        #region[Noize] 
+        //Lwss - in N Hz Lwds - out N Hz
+        public string Lwss62_5_Soll;//10
 
-        public string Descripts13;
+        public string Lwss125_Soll;//11
 
-        public string Descripts14;
+        public string Lwss250_Soll;//12
 
-        public string Descripts15;
+        public string Lwss500_Soll;//13
 
-        public string Descripts16;
+        public string Lwss1000_Soll;//14
 
-        public string Descripts17;
+        public string Lwss2000_Soll;//15
 
-        public string Descripts18;
+        public string Lwss4000_Soll;//16
 
-        public string Descripts19;
+        public string Lwss8000_Soll;//17
 
-        public string Descripts20;
+        public string Lwds62_5_Soll;//18
 
-        public string Descripts21;
+        public string Lwds125_Soll;//19
 
-        public string Descripts22;
+        public string Lwds250_Soll;//20
 
-        public string Descripts23;
+        public string Lwds500_Soll;//21
 
-        public string Descripts24;
+        public string Lwds1000_Soll;//22
 
-        public string Descripts25;
+        public string Lwds2000_Soll;//23
 
-        public string Descripts26;
+        public string Lwds4000_Soll;//24
 
-        public string Descripts27;
+        public string Lwds8000_Soll;//25
+        #endregion
+        public string PtotSoll;//26 pf/Pa
 
-        public string Descripts28;
-
-        public string Descripts29;
-
-        public string Descripts30;
-
-        public string Descripts31;
-
-        public string Descripts32;
-
-        public string Descripts33;
-
-        public string Descripts34;
-
-        public string Descripts35;
-
-        public string Descripts36;
-
-        public string Descripts37;
-
-        public string Descripts38;
-
-        public string Descripts39;
-
-        public string Descripts40;
-
-        public string Descripts41;
-
-        public string Descripts42;
-
-        public string Descripts43;
-
-        public string Descripts44;
-
-        public string Descripts45;
-
-        public string Descripts46;
-
-        public string Descripts47;
-
-        public string Descripts48;
-
-        public string Descripts49;
-
-        public string Descripts50;
-
-        public string Descripts51;
-
-        public string Descripts52;
-
-        public string Descripts53;
-
-        public string Descripts54;
-
-        public string Descripts55;
-
-        public string Descripts56;
-
-        public string Descripts57;
-
-        public string Descripts58;
-
-        [DisplayName("ID")]
-        public string Descripts1 { get; set; }
+        //TODO не содержится в ответе, но выводить нужно
+        //[DisplayName("ID")]
+        //public string Descripts1 { get; set; }
     }
 }
