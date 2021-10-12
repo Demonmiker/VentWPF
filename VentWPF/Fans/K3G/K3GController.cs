@@ -12,9 +12,7 @@ namespace VentWPF.Fans.K3G
 {
     internal class K3GController : IController<K3GRequest, List<K3GFanData>>
     {
-        public string data;
-
-        private bool connect;
+#pragma warning disable CS0618
 
         //Подключение
         [DllImport(@"Fans/K3G/DLL/EbmPapstFan.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
@@ -28,10 +26,11 @@ namespace VentWPF.Fans.K3G
         [DllImport(@"Fans/K3G/DLL/EbmPapstFan.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public static extern int GET_CCSI_DATA([MarshalAsAttribute(UnmanagedType.AnsiBStr)] string fanDescription, ref string buffer);
 
+#pragma warning restore CS0618
+
         public List<K3GFanData> GetResponce(K3GRequest request)
         {
-            if (!connect)
-                Connection();
+            Connection();
             var ids = GetIDs();
             List<K3GFanData> res = new();
             foreach (var id in ids)
