@@ -17,6 +17,7 @@ namespace VentWPF.ViewModel
                     PressureDrop = 123,
                 }
             };
+            Length = 980;
         }
 
         public override string Name => "Вентилятор";

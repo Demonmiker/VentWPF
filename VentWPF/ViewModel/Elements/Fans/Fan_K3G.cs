@@ -15,6 +15,7 @@ namespace VentWPF.ViewModel
                     ID = "123",
                 }
             };
+            Length = 980;
         }
 
         public override string Name => "Вентилятор поточный";

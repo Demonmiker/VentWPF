@@ -6,6 +6,7 @@ namespace VentWPF.ViewModel
     {
         public Fan_P()
         {
+            Length = 980;
         }
 
         public override string Name => "Вентилятор улиточный";

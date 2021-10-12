@@ -14,6 +14,7 @@ namespace VentWPF.ViewModel
         public Heater_Gas()
         {
             image = "Heaters/Heater_Gas.png";
+            Length = 400;
         }
 
         public override string Name => "Нагреватель газовый";
