@@ -129,6 +129,8 @@
                                 <vm:Fan_C x:Key="FanC_LU" Direction="LeftUp"/>
                                 <vm:Fan_C x:Key="FanC_UL" Direction="UpLeft"/>
 
+                                <vm:Fan_K3G x:Key="FanK3G_LR" Direction="LeftRight"/>
+
                                 <Style TargetType="Grid">
                                     <Setter Property="Margin" Value="3 5 2 5"/>
                                 </Style>
@@ -247,8 +249,8 @@
                             <Grid ToolTip="Вентиляторы улиточные">
                                 <Popup x:Name="Fans_P" Style="{StaticResource PopupMenu}">
                                     <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}" Rows="1">
-                                        <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource FanC_LR}">
-                                            <Image DataContext="{StaticResource FanC_LR}" Source="{Binding Image}"/>
+                                        <Button Command="{Binding CmdAddElement}" CommandParameter="{StaticResource FanK3G_LR}">
+                                            <Image DataContext="{StaticResource FanK3G_LR}" Source="{Binding Image}"/>
                                         </Button>
                                     </UniformGrid>
                                 </Popup>

@@ -3,41 +3,40 @@ using VentWPF.ViewModel;
 
 namespace VentWPF.Fans.K3G
 {
-
-
-    internal class K3GRequest : BaseViewModel, IRequest<string>
+    internal class K3GRequest : IRequest<string>
     {
+        public string ID { get; set; } // K3GController.ID;
 
-        public static ProjectInfoVM Project { get; set; } = ProjectVM.Current?.ProjectInfo;
+        public float Volumenstrom { get; set; } = 0; // Project.VFlow / 3600;
 
+        public InstallationType Installation { get; set; } = InstallationType.DIDO; //InstallationType(0:DIDO,1:FIDO,2:DIFO,3:FIFO)
 
-        [JsonPropertyName("ID")]
-        public string ID { get; set; } = K3GController.ID;
+        public PressureType Pressure { get; set; } = PressureType.Static;  // 0 = static Pressure 1 = total pressure
 
-        [JsonPropertyName("Volumenstrom")]
-        public float Volumenstrom { get; set; } = Project.VFlow / 3600;
-
-        [JsonPropertyName("DIDO")] //InstallationType(0:DIDO,1:FIDO,2:DIFO,3:FIFO)
-        public int DIDO { get; set; } = 0;
-
-        [JsonPropertyName("Pressure")]// 0 = static Pressure 1 = total pressure
-        public int Pressure { get; set; } = 0;
-
-        [JsonPropertyName("AirDens")]
         public float AirDens { get; set; } = 1.14f;
 
-        [JsonPropertyName("Altitude")]// The altitude 
         public float Altitude { get; set; } = 0;
 
-        [JsonPropertyName("AirTemperature")]// AirTemperature(°C) 
         public float AirTemperature { get; set; } = 24;
 
-        [JsonPropertyName("RequiredPressure")]// RequiredPressure(Pa)
-        public float RequiredPressure { get; set; } = Project.PReserv;
+        public float RequiredPressure { get; set; } = 0; //Project.PReserv;
 
-        [JsonPropertyName("V")]// Required Voltage 0 - all
         public int V { get; set; } = 0;
 
-        public string GetRequest() => $"{ID};{Pressure};{DIDO};{AirDens};{Altitude};{RequiredPressure};{AirTemperature};{Volumenstrom};{V};";
+        public string GetRequest() => $"{ID};{(int)Pressure};{(int)Installation};{AirDens};{Altitude};{RequiredPressure};{AirTemperature};{Volumenstrom};{V};";
+    }
+
+    internal enum InstallationType
+    {
+        DIDO,
+        FIDO,
+        DIFO,
+        FIFO,
+    }
+
+    internal enum PressureType
+    {
+        Static,
+        Total,
     }
 }

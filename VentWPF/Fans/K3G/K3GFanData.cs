@@ -1,30 +1,71 @@
 ﻿using PropertyTools.DataAnnotations;
+using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.Fans.K3G
 {
     public class K3GFanData
     {
-        public string nSoll; //0 n/1/min
+        public K3GFanData(string id, string[] details)
+        {
+            Id = id;
+            nSoll = details[0];
+            P1Soll = details[1];
+            ISoll = details[2];
+            EtaSoll = details[3];
+            UstSoll = details[4];
+            MdSoll = details[5];
+            EtaMSoll = details[6];
+            LwASoll = details[7];
+            LwAssSoll = details[8];
+            LwAdsSoll = details[9];
+            PtotSoll = details[26];
+        }
 
-        public string P1Soll; //1 Pe/W
+        [DisplayName("ID")]
+        public string Id { get; set; }
 
-        public string ISoll; //2 I/A
+        [DisplayName("нечто0")]
+        [FormatString(fNull)]
+        public string nSoll { get; set; } //0 n/1/min
 
-        public string EtaSoll;//3 nu o/%
+        [DisplayName("нечто1")]
+        [FormatString(fNull)]
+        public string P1Soll { get; set; } //1 Pe/W
 
-        public string UstSoll;//4 Voltage
+        [DisplayName("нечто2")]
+        [FormatString(fNull)]
+        public string ISoll { get; set; } //2 I/A
 
-        public string MdSoll;//5 Md/Ncm
+        [DisplayName("нечто3")]
+        [FormatString(fNull)]
+        public string EtaSoll { get; set; }//3 nu o/%
 
-        public string EtaMSoll;//6  nu o/% Motor
+        [DisplayName("нечто4")]
+        [FormatString(fNull)]
+        public string UstSoll { get; set; }//4 Voltage
 
-        public string LwASoll;//7  (in+out) m^3/s
+        [DisplayName("нечто5")]
+        [FormatString(fNull)]
+        public string MdSoll { get; set; }//5 Md/Ncm
 
-        public string LwAssSoll;//8   dB in
+        [DisplayName("нечто6")]
+        [FormatString(fNull)]
+        public string EtaMSoll { get; set; }//6  nu o/% Motor
 
-        public string LwAdsSoll;//9 dB Out
+        [DisplayName("нечто7")]
+        [FormatString(fNull)]
+        public string LwASoll { get; set; }//7  (in+out) m^3/s
 
-        #region[Noize] 
+        [DisplayName("нечто8")]
+        [FormatString(fNull)]
+        public string LwAssSoll { get; set; }//8   dB in
+
+        [DisplayName("нечто9")]
+        [FormatString(fNull)]
+        public string LwAdsSoll { get; set; }//9 dB Out
+
+        #region[Noize]
+
         //Lwss - in N Hz Lwds - out N Hz
         public string Lwss62_5_Soll;//10
 
@@ -58,10 +99,9 @@ namespace VentWPF.Fans.K3G
 
         public string Lwds8000_Soll;//25
         #endregion
-        public string PtotSoll;//26 pf/Pa
 
-        //TODO не содержится в ответе, но выводить нужно
-        //[DisplayName("ID")]
-        //public string Descripts1 { get; set; }
+        [DisplayName("нечто26")]
+        [FormatString(fNull)]
+        public string PtotSoll { get; set; }//26 pf/Pa
     }
 }

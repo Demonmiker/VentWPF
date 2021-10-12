@@ -2,11 +2,15 @@
 {
     internal static class Strings
     {
+        #region Категории
+
         public const string Data = "Данные";
 
         public const string Info = "Информация";
 
         public const string Debug = "Отладка";
+
+        #endregion
 
         public const string f1 = "{0:0.0}";
 

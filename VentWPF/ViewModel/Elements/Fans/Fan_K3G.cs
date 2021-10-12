@@ -6,7 +6,7 @@ namespace VentWPF.ViewModel
 {
     internal class Fan_K3G : Fan
     {
-        private Fan_K3G()
+        public Fan_K3G()
         {
             Query = new FanQuery_K3G()
             {
@@ -19,7 +19,6 @@ namespace VentWPF.ViewModel
 
         public override string Name => "Вентилятор поточный";
 
-        
         public override List<string> InfoProperties => new()
         {
             "PressureDropSystem",
