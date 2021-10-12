@@ -27,13 +27,6 @@
             <b:InvokeCommandAction Command="{Binding CmdWindowClosed}" PassEventArgsToCommand="True"/>
         </b:EventTrigger>
     </b:Interaction.Triggers>
-    <Window.Resources>
-                <!--  Шаблоны данных  -->
-        
-        
-        
-        
-    </Window.Resources>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Файл">
@@ -112,7 +105,6 @@
                                 <vm:Heater_Water x:Key="Heater_Water"/>
                                 <vm:Heater_Gas x:Key="Heater_Gas"/>
                                 <vm:Heater_Electric x:Key="Heater_Elec"/>
-
                                 <vm:Cooler_Fr x:Key="Cooler_Fr"/>
                                 <vm:Cooler_Water x:Key="Cooler_Water"/>
 
@@ -460,10 +452,10 @@
                     </TabItem>
                     <!--  Вкладка каркас  -->
                     <TabItem>
-                        <ContentControl Name="tc" Content="{Binding Project.Frame}"/>
+                        <ContentControl x:Name="frame" Content="{Binding Project.Frame}"/>
                         <b:Interaction.Triggers>
                             <b:EventTrigger EventName="Loaded">
-                                <b:InvokeCommandAction Command="{Binding CmdLinkFrame}" CommandParameter="{Binding ElementName=tc}"/>
+                                <b:InvokeCommandAction Command="{Binding CmdLinkGui}" CommandParameter="{Binding ElementName=frame}"/>
                             </b:EventTrigger>
                         </b:Interaction.Triggers>
                         <TabItem.Header>
@@ -481,28 +473,24 @@
                                 <TextBlock Text="Схема"/>
                             </StackPanel>
                         </TabItem.Header>
-                        <Grid>
-                            <ContentControl x:Name="crc" Content="{Binding Project.Scheme, Mode=OneWay}">
-                                <b:Interaction.Triggers>
-                                    <b:EventTrigger EventName="Loaded">
-                                        <b:InvokeCommandAction Command="{Binding CmdLinkScheme}" CommandParameter="{Binding ElementName=crc}"/>
-                                    </b:EventTrigger>
-                                </b:Interaction.Triggers>
-                            </ContentControl>
-                            <md:Card DockPanel.Dock="Top"
-                                Width="auto"
-                                Height="auto"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Top">
-                                <Button
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                            <Grid>
+                                <ContentControl Content="{Binding Project.Scheme, Mode=OneWay}"/>
+                                <md:Card
                                     Width="auto"
                                     Height="auto"
-                                    Padding="10"
-                                    Command="{Binding Project.CmdScheme}">
-                                    <fa5:SvgAwesome Icon="Solid_Sync"/>
-                                </Button>
-                            </md:Card>
-                        </Grid>
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top">
+                                    <Button
+                                        Width="auto"
+                                        Height="auto"
+                                        Padding="10"
+                                        Command="{Binding Project.CmdScheme}">
+                                        <fa5:SvgAwesome Icon="Solid_Sync"/>
+                                    </Button>
+                                </md:Card>
+                            </Grid>
+                        </ScrollViewer>
                     </TabItem>
                     <!--  Вкладка отчет  -->
                     <TabItem>

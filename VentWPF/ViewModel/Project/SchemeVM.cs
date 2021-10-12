@@ -12,6 +12,8 @@ namespace VentWPF.ViewModel
 {
     internal class SchemeVM : BaseViewModel
     {
+        public ProjectVM Parent { get; set; }
+
         public bool Visible { get; set; } = false;
 
         public ObservableCollection<ElementPair> Elements { get; init; } = new ObservableCollection<ElementPair>();

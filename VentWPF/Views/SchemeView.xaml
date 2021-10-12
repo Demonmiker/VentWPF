@@ -1,13 +1,24 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:vm="clr-namespace:VentWPF.ViewModel"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:vm="clr-namespace:VentWPF.ViewModel">
     <DataTemplate DataType="{x:Type vm:SchemeVM}">
-        <ContentControl>
-            <Grid
-                Margin="30"
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0"
+                x:Name="scheme"
+                Width="auto"
                 VerticalAlignment="Center"
-                ShowGridLines="false">
+                ShowGridLines="False">
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="Loaded">
+                        <b:InvokeCommandAction Command="{Binding Parent.CmdLinkGui}" CommandParameter="{Binding ElementName=scheme}"/>
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
@@ -103,8 +114,9 @@
 
 
             </Grid>
+        </Grid>
 
-        </ContentControl>
+
 
     </DataTemplate>
 </ResourceDictionary>

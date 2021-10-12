@@ -1,5 +1,6 @@
 ﻿using PropertyTools.DataAnnotations;
 using PropertyTools.Wpf;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,8 +29,6 @@ namespace VentWPF.ViewModel
             CmdConfig = new(OpenConfig);
             CmdUpdateReport = new Command<object>(UpdateReport);
             CmdSaveReport = new Command<object>(SaveReport);
-            CmdLinkFrame = new Command<FrameworkElement>((el) => SetLink(el, "frame"));
-            CmdLinkScheme = new Command<FrameworkElement>((el) => SetLink(el, "scheme"));
             ReportViewer.Document = ReportDocument;
         }
 
@@ -63,17 +62,6 @@ namespace VentWPF.ViewModel
         public Command<object> CmdSaveReport { get; init; }
 
         public ProjectVM Project { get; set; } = ProjectVM.Current;
-
-        /*public void SaveReport(object _)
-        {
-            SaveFileDialog cfd = new() { DefaultExt = "rtf", AddExtension = true };
-            if (cfd.ShowDialog() == true)
-            {
-                using FileStream fs = new(cfd.FileName, FileMode.Create, FileAccess.ReadWrite);
-                TextRange textRange = new(ReportDocument.ContentStart, ReportDocument.ContentEnd);
-                textRange.Save(fs, DataFormats.Rtf);
-            }
-        }*/
 
         private void AutoColumns(DataGridAutoGeneratingColumnEventArgs e)
         {
@@ -146,7 +134,18 @@ namespace VentWPF.ViewModel
             }
 
             // TODO этого здесь не должно быть
-            SaveImage("lol.png", SchemeGui);
+            try
+            {
+            SaveImage("scheme.png", Project.Elements["scheme"]);
+            SaveImage("frame_top.png", Project.Elements["frame_top"]);
+            SaveImage("frame_left.png", Project.Elements["frame_left"]);
+            SaveImage("frame_right.png", Project.Elements["frame_right"]);
+
+            }
+            catch
+            {
+
+            }
 
             //
         }
@@ -188,25 +187,9 @@ namespace VentWPF.ViewModel
                 Request = IOManager.LoadAsJson<DllRequest>("req.json");
         }
 
-        public Command<FrameworkElement> CmdLinkScheme { get; set; }
-
-        public Command<FrameworkElement> CmdLinkFrame { get; set; }
-
-        private void SetLink(FrameworkElement el, string prop)
-        {
-            if (prop == "scheme")
-                SchemeGui = el;
-            else
-                FrameGui = el;
-        }
-
-        private FrameworkElement SchemeGui;
-
-        private FrameworkElement FrameGui;
-
         private void SaveImage(string path, FrameworkElement gui)
         {
-            RenderTargetBitmap bmp = new RenderTargetBitmap((int)gui.ActualWidth, (int)gui.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+            RenderTargetBitmap bmp = new RenderTargetBitmap((int)gui.ActualWidth + 10, (int)gui.ActualHeight + 10, 96, 96, PixelFormats.Pbgra32);
             bmp.Render(gui);
             PngBitmapEncoder encoder = new PngBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(bmp));

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Windows;
 using VentWPF.Tools;
 
 namespace VentWPF.ViewModel
@@ -14,9 +16,19 @@ namespace VentWPF.ViewModel
             Current.Init();
         }
 
+        public Command<FrameworkElement> CmdLinkGui { get; set; }
+
+        private void SetLink(FrameworkElement el)
+        {
+            Elements[el.Name] = el;
+        }
+
+        public Dictionary<string, FrameworkElement> Elements = new();
+
         private ProjectVM()
         {
             CmdScheme = new Command<object>(GenearateScheme);
+            CmdLinkGui = new Command<FrameworkElement>(SetLink);
         }
 
         public static ProjectVM Current { get; private set; }
@@ -47,6 +59,7 @@ namespace VentWPF.ViewModel
 
         public void SaveProject(object o)
         {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -61,6 +74,7 @@ namespace VentWPF.ViewModel
             Grid = new();
             Grid.ErrorManager = ErrorManager;
             Frame = new(500, ProjectInfo.Width, ProjectInfo.Height);
+            Frame.Parent = this;
             Grid.Init(ProjectInfo.Rows);
         }
 
@@ -68,7 +82,7 @@ namespace VentWPF.ViewModel
 
         public void GenearateScheme(object o)
         {
-            if (Scheme is null) Scheme = new SchemeVM();
+            if (Scheme is null) { Scheme = new SchemeVM(); Scheme.Parent = this; }
             var result = Scheme;
             result.TwoRows = ProjectInfo.Rows == Model.Rows.Двухярусный;
             result.WidthBottom = ProjectInfo.Height;
