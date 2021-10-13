@@ -346,67 +346,7 @@
                     </ScrollViewer>
                 </md:Card>
                 <!--  Нижняя панель для констурирования системы  -->
-                <md:Card Background="LightGray" DockPanel.Dock="Bottom">
-                    <StackPanel Orientation="Horizontal">
-                        <md:Card
-                            Width="auto"
-                            VerticalAlignment="Stretch"
-                            HorizontalAlignment="Left">
-                            <Button
-                                Width="auto"
-                                Height="auto"
-                                Padding="10"
-                                Command="{Binding Project.CmdScheme}">
-                                <fa5:SvgAwesome Icon="Solid_Trash"/>
-                            </Button>
-                        </md:Card>
-                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-                            <ListBox
-                                Width="750"
-                                HorizontalAlignment="Left"
-                                Foreground="{StaticResource PrimaryHueLightBrush}"
-                                ItemsSource="{Binding Project.Grid.Elements}"
-                                SelectedIndex="{Binding Project.Grid.Index}"
-                                SelectedItem="{Binding Project.Grid.Selected}">
-                                <ListBox.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <UniformGrid Columns="10" Rows="{Binding Project.ProjectInfo.Rows}"/>
-                                    </ItemsPanelTemplate>
-                                </ListBox.ItemsPanel>
-                                <ListBox.ItemContainerStyle>
-                                    <Style BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="{x:Type ListBoxItem}">
-                                        <Style.Triggers>
-                                            <Trigger Property="IsSelected" Value="True">
-                                                <Setter Property="Background" Value="{DynamicResource PrimaryHueLightBrush}"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </ListBox.ItemContainerStyle>
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate DataType="ElementVM">
-                                        <Grid Margin="-6">
-                                            <Image Source="{Binding Image}" ToolTip="{Binding Name}"/>
-                                            <Border
-                                                Width="auto"
-                                                Background="Transparent"
-                                                ToolTip="{Binding Error}"
-                                                Visibility="{Binding HasErrors, Converter={StaticResource visConv}}">
-                                                <fa5:SvgAwesome
-                                                    Height="12"
-                                                    Margin="4.5 5"
-                                                    HorizontalAlignment="Left"
-                                                    VerticalAlignment="Bottom"
-                                                    Foreground="Red"
-                                                    Icon="Solid_ExclamationCircle"/>
-                                            </Border>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                        </ScrollViewer>
-                    </StackPanel>
-
-                </md:Card>
+                <ContentControl Content="{Binding Project.Grid}" DockPanel.Dock="Bottom"/>
                 <Rectangle DockPanel.Dock="Bottom"
                     Height="3"
                     HorizontalAlignment="Stretch"
