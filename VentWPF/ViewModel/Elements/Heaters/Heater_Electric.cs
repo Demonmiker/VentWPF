@@ -23,6 +23,7 @@ namespace VentWPF.ViewModel
             {
                 Source = from o in VentContext.Instance.Tэнрыs select o
             };
+            Length = 400;
             SchemeImage = Path.GetFullPath("Assets/Images/Heaters/SH_Heater_Electric.png");
         }
 

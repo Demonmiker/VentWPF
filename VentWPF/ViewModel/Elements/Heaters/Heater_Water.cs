@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using VentWPF.Model;
+using VentWPF.Model.Calculations;
 using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
@@ -20,13 +21,13 @@ namespace VentWPF.ViewModel
             {
                 Source = from h in VentContext.Instance.ВодаТеплоs select h
             };
-            Length = 123;
+            Length = 400;
             Width = 456;
             Height = 789;
             SchemeImage = Path.GetFullPath("Assets/Images/Heaters/SH_Heater_Water.png");
-        }
-
+        }        
         public override string Name => $"Нагреватель жидкостный {(DeviceData as ВодаТепло)?.Типоряд}";
+        
 
         /// <summary>
         /// Тип теплоносителя
@@ -47,13 +48,14 @@ namespace VentWPF.ViewModel
         [DisplayName("т. теплоносителя кон.")]
         public float TempEnd { get; set; } = 70;
 
+        
         /// <summary>
         /// Расход теплоносителя
         /// </summary>
         [Category(Info)]
         [DisplayName("Расход теплоносителя")]
-        [FormatString(MasFr)]
-        public float Consumption => (float)(((Power * 1000) / (4198 * (TempBegin - TempEnd)))) * 3600;
+        [FormatString(MasFr)]        
+        public float Consumption => Calculations.heaterConsumption(Power, TempBegin, TempEnd);
 
         /// <summary>
         /// Падение давления теплоносителя

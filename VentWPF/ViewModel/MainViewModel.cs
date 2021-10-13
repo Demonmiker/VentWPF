@@ -132,27 +132,15 @@ namespace VentWPF.ViewModel
                     ReportDocument.Blocks.Add(item.GetTable(2, false));
                     ReportDocument.Blocks.Add(new Paragraph());
                 }
-            }
 
-            // TODO этого здесь не должно быть
-            try
-            {
-                SaveImage("scheme.png", Project.Elements["scheme"]);
-                SaveImage("frame_top.png", Project.Elements["frame_top"]);
-                SaveImage("frame_left.png", Project.Elements["frame_left"]);
-                SaveImage("frame_right.png", Project.Elements["frame_right"]);
-            }
-            catch
-            {
-            }
-
-            //
+            }            
         }
 
         public void SaveReport(object _)
         {
-            DocX.DocX_Main test = new DocX.DocX_Main();
-            test.DocX_Initialization();
+            DocX.DocX_Main export = new DocX.DocX_Main();
+            //export.DocX_Initialization();
+            export.DocX_Frame();
             /*
             var cfd = new SaveFileDialog() { DefaultExt = "rtf", AddExtension = true };
             if(cfd.ShowDialog()==true)
@@ -186,15 +174,6 @@ namespace VentWPF.ViewModel
                 Request = IOManager.LoadAsJson<DllRequest>("req.json");
         }
 
-        private void SaveImage(string path, FrameworkElement gui)
-        {
-            RenderTargetBitmap bmp = new RenderTargetBitmap((int)gui.ActualWidth + 10, (int)gui.ActualHeight + 10, 96, 96, PixelFormats.Pbgra32);
-            bmp.Render(gui);
-            PngBitmapEncoder encoder = new PngBitmapEncoder();
-            encoder.Frames.Add(BitmapFrame.Create(bmp));
-            FileStream fs = new FileStream(path, FileMode.Create);
-            encoder.Save(fs);
-            fs.Close();
-        }
+        
     }
 }
