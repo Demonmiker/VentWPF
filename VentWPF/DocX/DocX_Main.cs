@@ -47,7 +47,7 @@ namespace VentWPF.DocX
             winword.Visible = false;
             Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
             document.PageSetup.Orientation = WdOrientation.wdOrientLandscape;
-
+            HeaderFrame(document);
             FrameScheme(document);
             DataTableFrame(document);
             DataTableStandFrame(document);
@@ -74,16 +74,19 @@ namespace VentWPF.DocX
                     {
                         Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
                         para1.Range.Text = "Каркас вид сверху";
+                        para1.Range.InsertParagraphAfter();
                     }
                     if (name[i] == "frame_left")
                     {
                         Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
                         para1.Range.Text = "Каркас вид слева";
+                        para1.Range.InsertParagraphAfter();
                     }
                     if (name[i] == "frame_right")
                     {
                         Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
                         para1.Range.Text = "Каркас вид справа";
+                        para1.Range.InsertParagraphAfter();
                     }
                     Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
                     SaveFrame(document, path[i], para2);
@@ -236,6 +239,36 @@ namespace VentWPF.DocX
             }
         }
 
+        public void HeaderFrame(Document document)
+        {
+            foreach (Section section in document.Sections)
+            {
+
+                Word.Range headerRange = section.Headers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                Table Table = document.Tables.Add(headerRange, 1, 3, ref missing, ref missing);
+                Table.Borders.Enable = 0; //для тестов
+                Table.Rows[1].Cells[2].Range.Text = "Техническая документация\nДля сотрудников ООО \"ВЕГА\"";
+                Table.Rows[1].Cells[2].Range.Font.Bold = 1;
+                Table.Rows[1].Cells[2].Range.Font.Size = 10;
+                Table.Rows[1].Cells[2].Range.Font.Name = "verdana";
+                Table.Rows[1].Cells[1].Range.Frames.Add(headerRange);
+                //настройки отображения
+                Table.Rows[1].Cells[3].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+                Table.Rows[1].Cells[1].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphLeft;
+                Table.Rows[1].Cells[2].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+
+
+                object docRange = Table.Rows[1].Cells[1].Range;
+                string imagePath = imageLogo;
+                document.InlineShapes.AddPicture(imageLogo, LinkToFile: true, SaveWithDocument: true, Range: docRange);
+                docRange = Table.Rows[1].Cells[3].Range;
+                imagePath = imageQR;
+                document.InlineShapes.AddPicture(imageQR, LinkToFile: true, SaveWithDocument: true, Range: docRange);
+
+            }
+        }
+
+
         #endregion
 
         #region DocX
@@ -260,10 +293,6 @@ namespace VentWPF.DocX
                 Word.Range headerRange = section.Headers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
                 Table Table = document.Tables.Add(headerRange, 1, 3, ref missing, ref missing);
                 Table.Borders.Enable = 0; //для тестов
-
-
-
-
                 Table.Rows[1].Cells[2].Range.Text = "  170025, Тверская область, г. Тверь \n  ул. Бочкина, д.18, строение 3 офис 3 \n  Тел.: +7(4822)74-42-87 \n  ivv@vega-air.com";
                 Table.Rows[1].Cells[2].Range.Font.Bold = 1;
                 Table.Rows[1].Cells[2].Range.Font.Size = 10;
@@ -318,10 +347,9 @@ namespace VentWPF.DocX
             var existed = Project.Elements.ContainsKey("scheme");
             if (existed)
             {
-                SaveImage(path, Project.Elements["scheme"]);
-                //object docRange = para1.Range;
+                SaveImage(path, Project.Elements["scheme"]);                
                 object docRange = para1.Range;
-                string imagePath = path;//@"C:\Users\stig1\Desktop\testShema.jpg";
+                string imagePath = path;
                 document.InlineShapes.AddPicture(imagePath, LinkToFile: true, SaveWithDocument: true, Range: docRange);
             }
             else
@@ -407,62 +435,7 @@ namespace VentWPF.DocX
 
 
             para1.Range.InsertParagraphAfter();
-        }
-
-        public void tableINIT(Document document, Paragraph para1, string[] dataText, string[] dataName)
-        {
-            int cnt = testData.Length;
-            Table firstTable = document.Tables.Add(para1.Range, cnt, 4, ref missing, ref missing);
-
-            int count = 0;
-            //firstTable.Borders.Enable = 1;
-            firstTable.Borders[WdBorderType.wdBorderHorizontal].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
-            firstTable.Borders[WdBorderType.wdBorderLeft].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
-            firstTable.Borders[WdBorderType.wdBorderRight].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
-            firstTable.Borders[WdBorderType.wdBorderTop].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
-            firstTable.Borders[WdBorderType.wdBorderBottom].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
-            //firstTable.Rows[1].Cells[2].Range.Font.Bold = 1;
-            int stepper = 0;
-            firstTable.AllowAutoFit = true;
-            firstTable.AutoFitBehavior(WdAutoFitBehavior.wdAutoFitContent);
-
-            for (int i = 1; i < cnt + 1; i++)
-            {
-
-                firstTable.Rows[i].Cells[1].Range.Text = dataName[i - 1] + "\n" + dataText[i - 1] + "     123.45kPa" + "\n" + dataText[i - 1] + "     123.45kPa";
-
-
-
-                // firstTable.Rows[i].Cells[2].Range.Text = "\n" + "123.45kPa";
-
-
-                firstTable.Rows[i].Cells[2].Range.Text = "\n" + dataText[i - 1] + "     123.45kPa" + "\n" + dataText[i - 1] + "     123.45kPa";
-
-
-                // firstTable.Rows[i].Cells[4].Range.Text = "\n" + "123.45kPa";
-            }
-
-            /*
-                stepper++;
-            }
-            stepper = 0;
-            for (int i = 1; i < cnt; i += 2)
-            {
-                firstTable.Rows[i].Cells[2].Range.Text = " ";
-                firstTable.Rows[i].Cells[1].Range.Font.Bold = 1;                
-                firstTable.Rows[i].Cells[1].Range.Text = dataName[stepper];
-                firstTable.Rows[i].Cells[1].Height = 20;
-                firstTable.Rows[i].Cells[1].Width = 170;
-                firstTable.Rows[i].Cells[2].Width = 70;
-                firstTable.Rows[i].Cells[3].Width = 170;
-                firstTable.Rows[i].Cells[4].Width = 70;
-                firstTable.Rows[i].Cells[1].Merge(firstTable.Rows[i].Cells[2]);
-                //document.Range(firstTable.Rows[i].Cells[1].Range.Start, firstTable.Rows[i].Cells[4].Range.End).Cells.Merge();
-
-                stepper++;
-            }
-            */
-        }
+        }       
 
         public void footerInit(Document document)
         {
