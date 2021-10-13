@@ -215,7 +215,7 @@ namespace VentWPF.DocX
         public void FrameTableSum(Document document)
         {
             Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
-            Table firstTable = document.Tables.Add(para1.Range, 4, 4, ref missing, ref missing);
+            Table firstTable = document.Tables.Add(para1.Range, 5, 4, ref missing, ref missing);
             firstTable.Borders[WdBorderType.wdBorderLeft].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
             firstTable.Borders[WdBorderType.wdBorderRight].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
             firstTable.Borders[WdBorderType.wdBorderTop].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
@@ -237,6 +237,9 @@ namespace VentWPF.DocX
                 firstTable.Rows[3].Cells[i + 1].Range.Text = dataS[i];
                 firstTable.Rows[4].Cells[i + 1].Range.Text = dataC[i];
             }
+            int sum = Convert.ToInt32(dataB[4]) + Convert.ToInt32(dataS[4]) + Convert.ToInt32(dataC[4]);
+            firstTable.Rows[5].Cells[1].Range.Text = "Итого:";
+            firstTable.Rows[5].Cells[4].Range.Text = Convert.ToString(sum);
         }
 
         public void HeaderFrame(Document document)
