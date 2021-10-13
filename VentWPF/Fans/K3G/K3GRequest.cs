@@ -1,7 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using VentWPF.ViewModel;
-
-namespace VentWPF.Fans.K3G
+﻿namespace VentWPF.Fans.K3G
 {
     internal class K3GRequest : IRequest<string>
     {
@@ -23,7 +20,10 @@ namespace VentWPF.Fans.K3G
 
         public int V { get; set; } = 0;
 
-        public string GetRequest() => $"{ID};{(int)Pressure};{(int)Installation};{AirDens};{Altitude};{AirTemperature};{RequiredPressure};{Volumenstrom};{V};";
+        public string GetRequest()
+        {
+            return $"{ID};{(int)Pressure};{(int)Installation};{AirDens};{Altitude};{AirTemperature};{RequiredPressure};{Volumenstrom};{V};";
+        }
     }
 
     internal enum InstallationType

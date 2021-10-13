@@ -5,12 +5,12 @@ using System.Text.Json;
 
 namespace VentWPF.Fans.FanSelect
 {
-    internal class DllController : IController<DllRequest, List<FanData>>
+    internal class DllController : IController<DllRequest, List<FanCData>>
     {
-        public List<FanData> GetResponce(DllRequest request)
+        public List<FanCData> GetResponce(DllRequest request)
         {
             string response = Request(request.GetRequest());
-            return response[0] != '[' ? null : JsonSerializer.Deserialize<List<FanData>>(response);
+            return response[0] != '[' ? null : JsonSerializer.Deserialize<List<FanCData>>(response);
         }
 
         [DllImport(
