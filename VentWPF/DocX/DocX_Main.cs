@@ -2,12 +2,13 @@
 using System;
 using System.IO;
 using System.Linq;
-using VentWPF.ViewModel;
-using Word = Microsoft.Office.Interop.Word;
-using System.Windows.Media.Imaging;
-using SYS = System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using VentWPF.Model.Calculations;
+using VentWPF.ViewModel;
+using SYS = System.Windows;
+using Word = Microsoft.Office.Interop.Word;
+
 
 namespace VentWPF.DocX
 {
@@ -18,7 +19,9 @@ namespace VentWPF.DocX
         public string imageLogo = Path.GetFullPath("Assets/Images/DocXImages/logo.png");
         public string imageQR = Path.GetFullPath("Assets/Images/DocXImages/qr-code.gif");
         public static ProjectVM Project { get; set; } = ProjectVM.Current;
-
+        public float currentSumFrame;
+        public float currentSumStand;
+        public float currentSumCorner;
 
         #region[testStrArea]
         string HdrText = "Заказ №25564-2";
@@ -37,7 +40,7 @@ namespace VentWPF.DocX
             fs.Close();
         }
 
-
+        #region Frame
         public void DocX_Frame()
         {
             winword.ShowAnimation = false;
@@ -45,61 +48,54 @@ namespace VentWPF.DocX
             Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
             document.PageSetup.Orientation = WdOrientation.wdOrientLandscape;
 
-            FrameCreate(document);
+            FrameScheme(document);
+            DataTableFrame(document);
+            DataTableStandFrame(document);
+            DataTableCornerFrame(document);
+            FrameTableSum(document);
             document.Save();
             document = null;
             //winword.Quit(ref missing, ref missing, ref missing);
             //winword = null;
         }
 
-        public void FrameCreate(Document document)
-        {
-            FrameScheme(document);
-
-        }
-
         public void FrameScheme(Document document)
         {
-            
+
             string[] path = { Environment.CurrentDirectory + @"\\frame_top.png", Environment.CurrentDirectory + @"\\frame_left.png", Environment.CurrentDirectory + @"\\frame_right.png" };
             string[] name = { "frame_top", "frame_left", "frame_right" };
             for (int i = 0; i < name.Length; i++)
             {
                 var valid = Project.Elements.ContainsKey(name[i]);
-                if (!valid)
+                if (valid)
                 {
-                    //SaveImage(path[i], Project.Elements[name[i]]);
+                    SaveImage(path[i], Project.Elements[name[i]]);
                     if (name[i] == "frame_top")
                     {
                         Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
                         para1.Range.Text = "Каркас вид сверху";
-                        para1.Range.InsertParagraphAfter();
                     }
                     if (name[i] == "frame_left")
                     {
                         Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
                         para1.Range.Text = "Каркас вид слева";
-                        para1.Range.InsertParagraphAfter();
                     }
                     if (name[i] == "frame_right")
                     {
                         Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
                         para1.Range.Text = "Каркас вид справа";
-                        para1.Range.InsertParagraphAfter();
                     }
                     Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
                     SaveFrame(document, path[i], para2);
-                    para2.Range.InsertParagraphAfter();
                 }
                 else
                 {
                     Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
                     para2.Range.Text = "Нет схемы каркаса " + name[i] + " для текущего проекта";
-                    para2.Range.InsertParagraphAfter();
                 }
             }
 
-                        
+
 
 
         }
@@ -107,26 +103,142 @@ namespace VentWPF.DocX
         public void SaveFrame(Document document, string path, Paragraph para1)
         {
             object docRange = para1.Range;
-            document.InlineShapes.AddPicture(path, LinkToFile: true, SaveWithDocument: true, Range: docRange);            
-            para1.Range.InsertParagraphAfter();
+            document.InlineShapes.AddPicture(path, LinkToFile: true, SaveWithDocument: true, Range: docRange);
         }
 
         public void DataTableFrame(Document document)
         {
-            Calculations Calc = new Calculations();
 
             Paragraph para0 = document.Content.Paragraphs.Add(ref missing);
-            para0.Range.Text = "1";
+            para0.Range.Text = "Профиль каркаса";
             para0.Range.InsertParagraphAfter();
-
             Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
 
+            string[] dataW = Calculations.FrameOutCalcWitdh(Convert.ToInt32(Project.Frame.Width));
+            string[] dataL = Calculations.FrameOutCalcLenght(Convert.ToInt32(Project.Frame.Length));
+            string[] dataH = Calculations.FrameOutCalcHeight(Convert.ToInt32(Project.Frame.Height));
 
-            Table firstTable = document.Tables.Add(para1.Range, 1, 4, ref missing, ref missing);
+            Table firstTable = document.Tables.Add(para1.Range, 4, dataW.Length, ref missing, ref missing);
+
+            firstTable.Borders[WdBorderType.wdBorderLeft].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.Borders[WdBorderType.wdBorderRight].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.Borders[WdBorderType.wdBorderTop].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.Borders[WdBorderType.wdBorderBottom].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.Borders[WdBorderType.wdBorderVertical].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+
+            firstTable.AllowAutoFit = true;
+            firstTable.AutoFitBehavior(WdAutoFitBehavior.wdAutoFitContent);
+
+            for (int i = 0; i < dataW.Length; i++)
+            {
+                firstTable.Rows[1].Cells[i + 1].Range.Text = dataW[i];
+
+                firstTable.Rows[2].Cells[i + 1].Range.Text = dataL[i];
+
+                firstTable.Rows[3].Cells[i + 1].Range.Text = dataH[i];
+            }
+            firstTable.Rows[4].Cells[1].Range.Text = "Итого:";
+            int sum = Convert.ToInt32(dataW[4]) + Convert.ToInt32(dataH[4]) + Convert.ToInt32(dataL[4]);
+            firstTable.Rows[4].Cells[5].Range.Text = Convert.ToString(sum);
             para0.Range.InsertParagraphAfter();
+            currentSumFrame = (float)Convert.ToDouble(sum);
         }
 
+        public void DataTableStandFrame(Document document)
+        {
+            Paragraph para0 = document.Content.Paragraphs.Add(ref missing);
+            para0.Range.Text = "Перегородки каркаса";
+            para0.Range.InsertParagraphAfter();
 
+
+            Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
+            string[] dataT = Calculations.FrameStandCalcTop(Convert.ToInt32(Project.Frame.Width), Project.Frame.Top.Values.Count - 1);
+            string[] dataS = Calculations.FrameStandCalcServ(Convert.ToInt32(Project.Frame.Height), Project.Frame.Left.Values.Count - 1);
+            string[] dataB = Calculations.FrameStandCalcBack(Convert.ToInt32(Project.Frame.Height), Project.Frame.Right.Values.Count - 1);
+            string[] dataU = Calculations.FrameStandCalcUnder(Convert.ToInt32(Project.Frame.Width), 0);
+            Table firstTable = document.Tables.Add(para1.Range, 5, dataT.Length, ref missing, ref missing);
+            firstTable.Borders[WdBorderType.wdBorderLeft].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.Borders[WdBorderType.wdBorderRight].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.Borders[WdBorderType.wdBorderTop].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.Borders[WdBorderType.wdBorderBottom].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.Borders[WdBorderType.wdBorderVertical].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.AllowAutoFit = true;
+            firstTable.AutoFitBehavior(WdAutoFitBehavior.wdAutoFitContent);
+
+            for (int i = 0; i < dataT.Length; i++)
+            {
+                firstTable.Rows[1].Cells[i + 1].Range.Text = dataT[i];
+
+                firstTable.Rows[2].Cells[i + 1].Range.Text = dataS[i];
+
+                firstTable.Rows[3].Cells[i + 1].Range.Text = dataB[i];
+
+                firstTable.Rows[4].Cells[i + 1].Range.Text = dataU[i];
+            }
+            firstTable.Rows[5].Cells[1].Range.Text = "Итого:";
+            int sum = Convert.ToInt32(dataT[4]) + Convert.ToInt32(dataS[4]) + Convert.ToInt32(dataB[4]) + Convert.ToInt32(dataU[4]);
+            firstTable.Rows[5].Cells[5].Range.Text = Convert.ToString(sum);
+            para0.Range.InsertParagraphAfter();
+            currentSumStand = (float)Convert.ToDouble(sum);
+        }
+
+        public void DataTableCornerFrame(Document document)
+        {
+            Paragraph para0 = document.Content.Paragraphs.Add(ref missing);
+            para0.Range.Text = "Фитинги";
+            para0.Range.InsertParagraphAfter();
+
+
+            Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
+            string[] dataT = Calculations.FrameCorner(8);
+            Table firstTable = document.Tables.Add(para1.Range, 2, 2, ref missing, ref missing);
+            firstTable.Borders[WdBorderType.wdBorderLeft].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.Borders[WdBorderType.wdBorderRight].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.Borders[WdBorderType.wdBorderTop].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.Borders[WdBorderType.wdBorderBottom].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.Borders[WdBorderType.wdBorderVertical].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.AllowAutoFit = true;
+            firstTable.AutoFitBehavior(WdAutoFitBehavior.wdAutoFitContent);
+
+            firstTable.Rows[1].Cells[1].Range.Text = dataT[0];
+            firstTable.Rows[1].Cells[2].Range.Text = dataT[1];
+            firstTable.Rows[2].Cells[1].Range.Text = dataT[2];
+            firstTable.Rows[2].Cells[2].Range.Text = dataT[3];
+
+            para1.Range.InsertParagraphAfter();
+            currentSumCorner = (float)Convert.ToDouble(dataT[1]);
+        }
+
+        public void FrameTableSum(Document document)
+        {
+            Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
+            Table firstTable = document.Tables.Add(para1.Range, 4, 4, ref missing, ref missing);
+            firstTable.Borders[WdBorderType.wdBorderLeft].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.Borders[WdBorderType.wdBorderRight].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.Borders[WdBorderType.wdBorderTop].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.Borders[WdBorderType.wdBorderBottom].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.Borders[WdBorderType.wdBorderVertical].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+            firstTable.AllowAutoFit = true;
+            firstTable.AutoFitBehavior(WdAutoFitBehavior.wdAutoFitContent);
+
+            firstTable.Rows[1].Cells[1].Range.Text = "Наименование";
+            firstTable.Rows[1].Cells[2].Range.Text = "Цена за еденицу";
+            firstTable.Rows[1].Cells[3].Range.Text = "Всего";
+            firstTable.Rows[1].Cells[4].Range.Text = "Итог";
+            string[] dataB = Calculations.FrameBorderPrice(currentSumFrame);
+            string[] dataS = Calculations.FrameStandPrice(currentSumStand);
+            string[] dataC = Calculations.FrameCornerPrice(currentSumCorner);
+            for (int i = 0; i < dataB.Length; i++)
+            {
+                firstTable.Rows[2].Cells[i + 1].Range.Text = dataB[i];
+                firstTable.Rows[3].Cells[i + 1].Range.Text = dataS[i];
+                firstTable.Rows[4].Cells[i + 1].Range.Text = dataC[i];
+            }
+        }
+
+        #endregion
+
+        #region DocX
         public void DocX_Initialization()
         {
             winword.ShowAnimation = false;
@@ -381,5 +493,7 @@ namespace VentWPF.DocX
 
 
         }
+
+        #endregion
     }
 }

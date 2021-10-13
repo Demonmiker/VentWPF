@@ -25,6 +25,15 @@ namespace VentWPF.Model.Calculations
         [DisplayName("Имя уголка")]
         static string frameCorner { get; set; } = " АВР 330 ";
 
+        [DisplayName("Цена профиля")]
+        static int frameBorderPrice { get; set; } = 313;
+
+        [DisplayName("Цена перегородки")]
+        static int frameStandPrice { get; set; } = 290;
+
+        [DisplayName("Цена уголка")]
+        static int frameCornerPrice { get; set; } = 120;
+
         #endregion
 
         public static ProjectInfoVM Project { get; set; } = ProjectVM.Current?.ProjectInfo;
@@ -124,7 +133,7 @@ namespace VentWPF.Model.Calculations
             int count = top - error;
             string[] outData = new string[5];
             outData[0] = "Профиль стойки" + frameStandType;
-            outData[1] = "верх";
+            outData[1] = "обратная";
             outData[2] = Convert.ToString(count);
             outData[3] = Convert.ToString(nums);
             outData[4] = Convert.ToString(count * nums);
@@ -136,12 +145,53 @@ namespace VentWPF.Model.Calculations
             int count = top - error;
             string[] outData = new string[5];
             outData[0] = "Профиль стойки" + frameStandType;
-            outData[1] = "верх";
+            outData[1] = "низ";
             outData[2] = Convert.ToString(count);
             outData[3] = Convert.ToString(nums);
             outData[4] = Convert.ToString(count * nums);
             return outData;
         }
+
+        static public string[] FrameCorner(int nums)
+        {
+            string[] outData = new string[4];
+            outData[0] = "Уголок " + frameCorner;
+            outData[1] = "8";
+            outData[2] = "Винты";
+            outData[3] = "24";
+            return outData;
+        }
+
+        static public string[] FrameBorderPrice(float nums)
+        {
+            string[] Out = new string[4];
+            Out[0] = "Профиль" + frameType;
+            Out[1] = Convert.ToString(frameBorderPrice);
+            Out[2] = Convert.ToString(nums);
+            Out[3] = Convert.ToString(nums * frameBorderPrice);
+            return Out;
+        }
+
+        static public string[] FrameStandPrice(float nums)
+        {
+            string[] Out = new string[4];
+            Out[0] = "Перегородка" + frameStandType;
+            Out[1] = Convert.ToString(frameStandPrice);
+            Out[2] = Convert.ToString(nums);
+            Out[3] = Convert.ToString(nums * frameStandPrice);
+            return Out;
+        }
+
+        static public string[] FrameCornerPrice(float nums)
+        {
+            string[] Out = new string[4];
+            Out[0] = "Фитинги" + frameCorner;
+            Out[1] = Convert.ToString(frameCornerPrice);
+            Out[2] = Convert.ToString(nums);
+            Out[3] = Convert.ToString(nums * frameCornerPrice);
+            return Out;
+        }
+
         #endregion
 
     }
