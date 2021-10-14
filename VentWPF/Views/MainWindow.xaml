@@ -28,6 +28,7 @@
         </b:EventTrigger>
     </b:Interaction.Triggers>
     <DockPanel>
+        <!--  Верхнее контексттное меню  -->
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Файл">
                 <MenuItem Command="{Binding CmdSave}" Header="Сохранить"/>
@@ -39,6 +40,7 @@
                 <MenuItem Command="{Binding CmdLoad}" Header="Интерфейс"/>
             </MenuItem>
         </Menu>
+        <!--  Статус бар внизу  -->
         <StatusBar DockPanel.Dock="Bottom">
             <TextBlock>
                 <Run Text="Очередь запросов"/>
@@ -86,6 +88,7 @@
                 Panel.ZIndex="2"
                 Background="Transparent"
                 Visibility="{Binding Project.Grid.Selected.Name, Converter={StaticResource visConv}}"/>
+            <!--  Основная панель  -->
             <DockPanel>
                 <!--  Верхняя панель для содания элементов  -->
                 <md:Card Background="LightGray" DockPanel.Dock="Top">
@@ -367,7 +370,7 @@
                             <Setter Property="Margin" Value="2 0 2 0"/>
                         </Style>
                     </TabControl.Resources>
-                    <!--  Вкладка проект  -->
+                    <!--  Проект  -->
                     <TabItem>
                         <TabItem.Header>
                             <StackPanel ToolTip="{Binding Project.ProjectInfo.Error}">
@@ -386,7 +389,7 @@
                             SelectedObject="{Binding Project.ProjectInfo}"
                             ShowDeclaredOnly="True"/>
                     </TabItem>
-                    <!--  Вкладка информация  -->
+                    <!--  Информация  -->
                     <TabItem>
                         <TabItem.Header>
                             <StackPanel>
@@ -396,16 +399,21 @@
                         </TabItem.Header>
                         <ContentControl Content="{Binding Project.Grid.InfoBox}"/>
                     </TabItem>
-                    <!--  Вкладка графики  -->
-                    <TabItem Visibility="Collapsed">
+                    <!--  Графики  -->
+                    <TabItem Visibility="Visible">
                         <TabItem.Header>
                             <StackPanel>
                                 <fa5:SvgAwesome Icon="Solid_ChartLine"/>
                                 <TextBlock Text="График"/>
                             </StackPanel>
                         </TabItem.Header>
+                        <ContentControl>
+                            <ContentControl.Content>
+                                <vm:CreateViewModel/>
+                            </ContentControl.Content>
+                        </ContentControl>
                     </TabItem>
-                    <!--  Вкладка каркас  -->
+                    <!--  Каркас  -->
                     <TabItem>
                         <ContentControl x:Name="frame" Content="{Binding Project.Frame}"/>
                         <b:Interaction.Triggers>
@@ -420,7 +428,7 @@
                             </StackPanel>
                         </TabItem.Header>
                     </TabItem>
-                    <!--  Вкладка Схема  -->
+                    <!--  Схема  -->
                     <TabItem>
                         <TabItem.Header>
                             <StackPanel>
@@ -447,7 +455,7 @@
                             </Grid>
                         </ScrollViewer>
                     </TabItem>
-                    <!--  Вкладка отчет  -->
+                    <!--  Отчет  -->
                     <TabItem>
                         <TabItem.Header>
                             <StackPanel>
@@ -477,7 +485,7 @@
                             <ContentControl Content="{Binding ReportViewer, Mode=OneWay}"/>
                         </DockPanel>
                     </TabItem>
-                    <!--  Вкладка электроника  -->
+                    <!--  Электроника  -->
                     <TabItem Visibility="Collapsed">
                         <TabItem.Header>
                             <StackPanel>
@@ -495,7 +503,7 @@
                             </StackPanel>
                         </TabItem.Header>
                     </TabItem>
-                    <!--  Вкладка debug  -->
+                    <!--  Debug  -->
                     <TabItem>
                         <TabItem.Header>
                             <StackPanel>
