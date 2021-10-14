@@ -1,0 +1,71 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:vm="clr-namespace:VentWPF.ViewModel"
+    xmlns:fa5="http://schemas.fontawesome.com/icons/">
+    <DataTemplate DataType="{x:Type vm:GridVM }">
+        <md:Card Background="LightGray" >
+            <StackPanel Orientation="Horizontal">
+                <md:Card
+                    Width="auto"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Stretch">
+                    <Button
+                        Width="auto"
+                        Height="auto"
+                        Padding="10"
+                        Command="">
+                        <fa5:SvgAwesome Icon="Solid_Trash"/>
+                    </Button>
+                </md:Card>
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                    <ListBox
+                        Width="750"
+                        HorizontalAlignment="Left"
+                        Foreground="{StaticResource PrimaryHueLightBrush}"
+                        ItemsSource="{Binding Elements}"
+                        SelectedIndex="{Binding Index}"
+                        SelectedItem="{Binding Selected}">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="10" Rows="{Binding Project.ProjectInfo.Rows}"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemContainerStyle>
+                            <Style BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="{x:Type ListBoxItem}">
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="{DynamicResource PrimaryHueLightBrush}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="ElementVM">
+                                <Grid Margin="-6">
+                                    <Image Source="{Binding Image}" ToolTip="{Binding Name}"/>
+                                    <Border
+                                        Width="auto"
+                                        Background="Transparent"
+                                        ToolTip="{Binding Error}"
+                                        Visibility="{Binding HasErrors, Converter={StaticResource visConv}}">
+                                        <fa5:SvgAwesome
+                                            Height="12"
+                                            Margin="4.5 5"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Bottom"
+                                            Foreground="Red"
+                                            Icon="Solid_ExclamationCircle"/>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
+            </StackPanel>
+
+        </md:Card>
+    </DataTemplate>
+
+</ResourceDictionary>
