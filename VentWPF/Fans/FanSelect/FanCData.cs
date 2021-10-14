@@ -5,7 +5,7 @@ namespace VentWPF.Fans
     /// <summary>
     /// Информация по вентиляторам
     /// </summary>
-    public class FanData
+    public class FanCData
     {
         public double CALC_AIR_DENSITY;
 
@@ -187,13 +187,12 @@ namespace VentWPF.Fans
         public double INSTALLATION_HEIGHT_MM { get; set; }
 
         [DisplayName("Ширина установки")]
-        public double INSTALLATION_WIDTH_MM { get; set; }        
+        public double INSTALLATION_WIDTH_MM { get; set; }
 
         [DisplayName("Размер")]
         public double ZA_BG { get; set; }
 
         [DisplayName("Подключение")]
         public string ZA_MAINS_SUPPLY { get; set; }
-
     }
 }
