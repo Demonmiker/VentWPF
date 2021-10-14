@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Media;
+using System.Windows;
 using System.Windows.Media.Imaging;
 using VentWPF.Model.Calculations;
 using VentWPF.ViewModel;
@@ -15,7 +16,7 @@ namespace VentWPF.DocX
     class DocX_Main
     {
         object missing = System.Reflection.Missing.Value;
-        Application winword = new Application();
+        Word.Application winword = new Word.Application();
         public string imageLogo = Path.GetFullPath("Assets/Images/DocXImages/logo.png");
         public string imageQR = Path.GetFullPath("Assets/Images/DocXImages/qr-code.gif");
         public static ProjectVM Project { get; set; } = ProjectVM.Current;
@@ -53,7 +54,14 @@ namespace VentWPF.DocX
             DataTableStandFrame(document);
             DataTableCornerFrame(document);
             FrameTableSum(document);
-            document.Save();
+            try
+            {
+                document.Save();
+            }
+            catch (System.Runtime.InteropServices.COMException)
+            {
+                MessageBox.Show("Сохранение было отменено");
+            }
             document = null;
             //winword.Quit(ref missing, ref missing, ref missing);
             //winword = null;
@@ -281,7 +289,14 @@ namespace VentWPF.DocX
             winword.Visible = false;
             Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
             CreateDocument(document, HdrText, testData, dataName);
-            document.Save();
+            try
+            {
+                document.Save();
+            }
+            catch (System.Runtime.InteropServices.COMException)
+            {
+                MessageBox.Show("Сохранение было отменено");
+            }
             document = null;
             winword.Quit(ref missing, ref missing, ref missing);
             winword = null;
