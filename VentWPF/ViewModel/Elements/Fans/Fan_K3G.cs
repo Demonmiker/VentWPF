@@ -6,13 +6,20 @@ namespace VentWPF.ViewModel
 {
     internal class Fan_K3G : Fan
     {
-        private Fan_K3G()
+        public Fan_K3G()
         {
             Query = new FanQuery_K3G()
             {
                 Source = new K3GRequest()
                 {
-                    ID = "123",
+                    AirDens = 1.14f,
+                    AirTemperature = 24,
+                    Altitude = 0,
+                    Installation = InstallationType.DIDO,
+                    Pressure = PressureType.Static,
+                    RequiredPressure = Project.PReserv,
+                    V = 0,
+                    Volumenstrom = Project.VFlow / 3600.0f,
                 }
             };
             Length = 980;
@@ -20,7 +27,6 @@ namespace VentWPF.ViewModel
 
         public override string Name => "Вентилятор поточный";
 
-        
         public override List<string> InfoProperties => new()
         {
             "PressureDropSystem",

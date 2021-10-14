@@ -67,6 +67,7 @@ namespace VentWPF.ViewModel
         {
             string header = e.Column.Header.ToString();
             // Получчение имени из тэга
+            // TODO при запросе в 0 элементов вылетает
             object[] atrs = ProjectVM.Current.Grid.Selected.Query.Result[0].GetType()
                     .GetProperty(header).GetCustomAttributes(typeof(DisplayNameAttribute), true);
             if (atrs.Length > 0)
@@ -131,6 +132,7 @@ namespace VentWPF.ViewModel
                     ReportDocument.Blocks.Add(item.GetTable(2, false));
                     ReportDocument.Blocks.Add(new Paragraph());
                 }
+
             }            
         }
 
