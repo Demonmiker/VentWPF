@@ -15,12 +15,17 @@ namespace VentWPF.ViewModel
         {
             Menus = new()
             {
-                new("Нагреватели", "Heaters/Heaters.png",
-                new()
-                {
-                    new() { Element = new Heater_Water() }
-                }
-                )
+                new("Клапан", "Valves/Valves.png", new Valve_Hor(), new Valve_Hor_Heat(), new Valve_Ver(), new Valve_Ver_Heat()),
+                new("Фильтр", "Filters/Filters.png", new Filter_Section(), new Filter_Short(), new Filter_Valve()),
+                new("Нагревателm", "Heaters/Heaters.png", new Heater_Water(), new Heater_Gas(), new Heater_Electric()),
+                new("Охладитель", "Coolers/Coolers.png", new Cooler_Fr(), new Cooler_Water()),
+                new("Вентилятор", "Fans/Fan_C.png"),
+                new("Вентилятор улиточный", "Fans/Fan_P.png"),
+                new("Вентилятор потоковый", "Fans/Fan_K3G.png"),
+                new("Секция", "Sections/Sections.png"),
+                new("Шумоглушитель", "Mufflers/Mufflers.png", new Muffler_Classic(), new Muffler_Corrector()),
+                new("Увлажнитель", "Humidifiers/Humidifiers.png", new Humid_Cell(), new Humid_Spray(), new Humid_Steam()),
+                new("Рекуператор", "Recuperators/Recuperators.png"),
             };
         }
 
@@ -29,11 +34,11 @@ namespace VentWPF.ViewModel
 
     internal class CreateMenu
     {
-        public CreateMenu(string name, string image, List<CreateButton> elements)
+        public CreateMenu(string name, string image, params Element[] elements)
         {
             Name = name;
             Image = Path.GetFullPath($"Assets/Images/{image}");
-            Elements = elements;
+            Elements = elements.Select(x => new CreateButton(x)).ToList();
             CmdOpenPopup = new Command<Popup>(OpenPopup);
         }
 
@@ -54,9 +59,10 @@ namespace VentWPF.ViewModel
 
     internal class CreateButton
     {
-        public CreateButton()
+        public CreateButton(Element el)
         {
             CmdAdd = new Command<object>((x) => Add());
+            Element = el;
         }
 
         public Element Element { get; set; }

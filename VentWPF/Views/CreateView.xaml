@@ -15,7 +15,7 @@
     <!--  Кнопка для показа элементов этой категории  -->
     <DataTemplate DataType="{x:Type vm:CreateMenu}">
         <DataTemplate.Resources>
-            <Style x:Key="PopupMenu" TargetType="Popup">
+            <Style x:Key="PopupMenu" TargetType="{x:Type Popup}">
                 <Setter Property="AllowsTransparency" Value="True"/>
                 <Setter Property="Placement" Value="Relative"/>
                 <Setter Property="StaysOpen" Value="False"/>
@@ -38,7 +38,7 @@
                 <ItemsControl ItemsSource="{Binding Elements}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <UniformGrid Background="{DynamicResource MaterialDesignLightBackground}"/>
+                            <UniformGrid/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
@@ -53,7 +53,7 @@
         <DataTemplate.Resources>
             <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="{x:Type Button}">
                 <Setter Property="Height" Value="80"/>
-                <Setter Property="Margin" Value="1"/>
+                <Setter Property="Margin" Value="3"/>
                 <Setter Property="VerticalAlignment" Value="Top"/>
                 <Setter Property="Width" Value="80"/>
             </Style>
@@ -62,9 +62,12 @@
             </Style>
 
         </DataTemplate.Resources>
-        <Button Command="{Binding CmdAdd}">
-            <Image Source="{Binding Element.Image}"/>
-        </Button>
+        <Grid Margin="-1" Background="{StaticResource MaterialDesignToolBackground}">
+            <Button Command="{Binding CmdAdd}">
+                <Image Source="{Binding Element.Image}"/>
+            </Button>
+
+        </Grid>
     </DataTemplate>
 
 </ResourceDictionary>
