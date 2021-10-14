@@ -70,6 +70,15 @@
     <None Update="Assets\Images\Empty.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\Images\Fans\Directions\LeftUpLeft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Images\Fans\Directions\LeftUpRight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Images\Fans\Directions\RightUpLeft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\Images\Fans\Fan_C.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
