@@ -9,7 +9,7 @@ namespace VentWPF.ViewModel
     {
         public Fan_C()
         {
-            DeviceType = typeof(FanData);
+            DeviceType = typeof(FanCData);
             Query = new FanQuery_C()
             {
                 Source = new DllRequest()
