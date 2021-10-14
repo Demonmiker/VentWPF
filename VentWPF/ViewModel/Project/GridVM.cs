@@ -13,6 +13,8 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class GridVM : BaseViewModel
     {
+        public ProjectVM Project { get; set; } = ProjectVM.Current;
+
         private Element _Selected = new();
 
         /// <summary>
