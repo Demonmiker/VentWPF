@@ -9,6 +9,7 @@
         public Filter_Section()
         {
             image = "Filters/Filter_Section.png";
+            Length = 680;
         }
 
         public override string Name => $"Фильтр секционный";

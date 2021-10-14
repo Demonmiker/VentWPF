@@ -12,6 +12,7 @@ namespace VentWPF.ViewModel
         public Humid_Steam()
         {
             image = "Humidifiers/Humid_Steam.png";
+            Length = 650;
         }
 
         public override string Name => "Увлажнитель паровой";
