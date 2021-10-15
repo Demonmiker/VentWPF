@@ -1,4 +1,5 @@
 ﻿using PropertyTools.DataAnnotations;
+using System.Collections.Generic;
 using VentWPF.Model;
 using static VentWPF.ViewModel.Strings;
 
@@ -9,7 +10,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal abstract class Muffler : Element
     {
-
         public Muffler()
         {
             image = "Mufflers/Muffler.png";
@@ -29,5 +29,9 @@ namespace VentWPF.ViewModel
             _ => 60,
         };
 
+        public override List<string> InfoProperties => new()
+        {
+            "FC",
+        };
     }
 }

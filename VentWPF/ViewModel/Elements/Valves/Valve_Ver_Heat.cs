@@ -23,7 +23,6 @@ namespace VentWPF.ViewModel
 
         public override string Name => $"Клапан воздушный утеплённый вертикальный {(DeviceData as Тэны)?.Маркировка}";
 
-        [Browsable(false)]
         public override List<string> InfoProperties => new()
         {
             "DeviceData.Маркировка",

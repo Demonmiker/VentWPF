@@ -69,7 +69,6 @@ namespace VentWPF.ViewModel
         [DisplayName("Горелка")]
         public TorchType TorchType { get; set; }
 
-        [Browsable(false)]
         public override List<string> InfoProperties => new()
         {
             "Performance",

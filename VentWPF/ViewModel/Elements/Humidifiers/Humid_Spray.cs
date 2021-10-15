@@ -8,7 +8,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Humid_Spray : Humid
     {
-
         public Humid_Spray()
         {
             image = "Humidifiers/Humid_Spray.png";
@@ -16,14 +15,5 @@ namespace VentWPF.ViewModel
         }
 
         public override string Name => "Увлажнитель форсуночный";
-
-        [Browsable(false)]
-        public override List<string> InfoProperties => new()
-        {
-            "AirSoftIn",
-            "AirSoftOut",
-            "WaterConsumption",
-        };
-
     }
 }

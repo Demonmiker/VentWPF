@@ -5,9 +5,9 @@ using System.Text.Json;
 
 namespace VentWPF.Fans.FanSelect
 {
-    internal class DllController : IController<DllRequest, List<FanCData>>
+    internal class DllController : IController<FanCRequest, List<FanCData>>
     {
-        public List<FanCData> GetResponce(DllRequest request)
+        public List<FanCData> GetResponce(FanCRequest request)
         {
             string response = Request(request.GetRequest());
             return response[0] != '[' ? null : JsonSerializer.Deserialize<List<FanCData>>(response);

@@ -5,9 +5,9 @@ namespace VentWPF.Fans.FanSelect
     /// <summary>
     /// Выполняет Web запрос к FanSelect API
     /// </summary>
-    internal class WebController : IController<DllRequest, string>
+    internal class WebController : IController<FanCRequest, string>
     {
-        public string GetResponce(DllRequest request)
+        public string GetResponce(FanCRequest request)
         {
             string session = "temp";
             //Найти Session Id

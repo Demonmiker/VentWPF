@@ -10,7 +10,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Valve_Ver : Valve
     {
-
         public Valve_Ver()
         {
             image = "Valves/Valve_Ver.png";
@@ -19,8 +18,6 @@ namespace VentWPF.ViewModel
 
         public override string Name => "Клапан воздушный вертикальный";
 
-        
-        [Browsable(false)]
         public override List<string> InfoProperties => new()
         {
             nameof(WidthValve),
