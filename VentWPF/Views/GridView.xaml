@@ -4,8 +4,8 @@
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:vm="clr-namespace:VentWPF.ViewModel"
     xmlns:fa5="http://schemas.fontawesome.com/icons/">
-    <DataTemplate DataType="{x:Type vm:GridVM }">
-        <md:Card Background="LightGray" >
+    <DataTemplate DataType="{x:Type vm:GridVM}">
+        <md:Card Background="LightGray">
             <StackPanel Orientation="Horizontal">
                 <md:Card
                     Width="auto"
@@ -15,7 +15,7 @@
                         Width="auto"
                         Height="auto"
                         Padding="10"
-                        Command="">
+                        Command="{Binding CmdRemove}">
                         <fa5:SvgAwesome Icon="Solid_Trash"/>
                     </Button>
                 </md:Card>
