@@ -3,7 +3,7 @@
     /// <summary>
     /// Длина секции в мм
     /// </summary>
-    public enum Section
+    public enum SectionLength
     {
         секция500,
 
