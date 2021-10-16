@@ -6,7 +6,7 @@
         <DataTemplate.Resources>
             <Style TargetType="{x:Type Border}">
                 <Setter Property="Margin" Value="-2 0 0 -2"/>
-                <Setter Property="BorderThickness" Value="1"/>
+                <!--<Setter Property="BorderThickness" Value="1"/>-->
                 <Setter Property="BorderBrush" Value="Black"/>
             </Style>
         </DataTemplate.Resources>
@@ -54,7 +54,6 @@
                 <!--  Квадрат и изображение верх  -->
                 <Border Grid.Row="1" MinHeight="150">
                     <Image Height="150" Source="{Binding Top.SchemeImage}"/>
-
                 </Border>
             </Grid>
             <Grid>
@@ -62,11 +61,8 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-
-
                 <!--  Квадрат и изображение низ  -->
                 <Border MinHeight="150">
-
                     <Image Height="150" Source="{Binding Bottom.SchemeImage}"/>
                 </Border>
                 <!--  Нижний текстбокс  -->
