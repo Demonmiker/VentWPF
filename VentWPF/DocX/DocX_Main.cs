@@ -2,27 +2,29 @@
 using System;
 using System.IO;
 using System.Linq;
-using VentWPF.ViewModel;
+using vm = VentWPF.ViewModel;
+
 using Word = Microsoft.Office.Interop.Word;
+
 using System.Windows.Media.Imaging;
 using SYS = System.Windows;
 using System.Windows.Media;
 
 namespace VentWPF.DocX
 {
-    class DocX_Main
+    internal class DocX_Main
     {
-        object missing = System.Reflection.Missing.Value;
-        Application winword = new Application();
+        private object missing = System.Reflection.Missing.Value;
+        private Application winword = new Application();
         public string imageLogo = Path.GetFullPath("Assets/Images/DocXImages/logo.png");
         public string imageQR = Path.GetFullPath("Assets/Images/DocXImages/qr-code.gif");
-        public static ProjectVM Project { get; set; } = ProjectVM.Current;
 
+        public static vm.ProjectVM Project { get; set; } = vm.ProjectVM.Current;
 
         #region[testStrArea]
-        string HdrText = "Заказ №25564-2";
-        string[] testData = { "Падение давления:", "Падение супер крутого давления:", "Падение ещё большего упадка самого давления:" };
-        string[] dataName = { "123", "123", "123" };
+        private string HdrText = "Заказ №25564-2";
+        private string[] testData = { "Падение давления:", "Падение супер крутого давления:", "Падение ещё большего упадка самого давления:" };
+        private string[] dataName = { "123", "123", "123" };
         #endregion
 
         public void SaveImage(string path, SYS.FrameworkElement gui)
@@ -35,7 +37,6 @@ namespace VentWPF.DocX
             encoder.Save(fs);
             fs.Close();
         }
-
 
         public void DocX_Frame()
         {
@@ -54,12 +55,10 @@ namespace VentWPF.DocX
         public void FrameCreate(Document document)
         {
             FrameScheme(document);
-
         }
 
         public void FrameScheme(Document document)
         {
-            
             string[] path = { Environment.CurrentDirectory + @"\\frame_top.png", Environment.CurrentDirectory + @"\\frame_left.png", Environment.CurrentDirectory + @"\\frame_right.png" };
             string[] name = { "frame_top", "frame_left", "frame_right" };
             for (int i = 0; i < name.Length; i++)
@@ -97,19 +96,14 @@ namespace VentWPF.DocX
                     para2.Range.InsertParagraphAfter();
                 }
             }
-
-                        
-
-
         }
 
         public void SaveFrame(Document document, string path, Paragraph para1)
         {
             object docRange = para1.Range;
-            document.InlineShapes.AddPicture(path, LinkToFile: true, SaveWithDocument: true, Range: docRange);            
+            document.InlineShapes.AddPicture(path, LinkToFile: true, SaveWithDocument: true, Range: docRange);
             para1.Range.InsertParagraphAfter();
         }
-
 
         public void DocX_Initialization()
         {
@@ -123,18 +117,15 @@ namespace VentWPF.DocX
             winword = null;
         }
 
-        public static ProjectInfoVM pjct { get; set; } = ProjectVM.Current?.ProjectInfo;
+        public static vm.ProjectInfoVM pjct { get; set; } = vm.ProjectVM.Current?.ProjectInfo;
+
         public void HeaderINIT(Document document)
         {
             foreach (Section section in document.Sections)
             {
-
                 Word.Range headerRange = section.Headers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
                 Table Table = document.Tables.Add(headerRange, 1, 3, ref missing, ref missing);
                 Table.Borders.Enable = 0; //для тестов
-
-
-
 
                 Table.Rows[1].Cells[2].Range.Text = "  170025, Тверская область, г. Тверь \n  ул. Бочкина, д.18, строение 3 офис 3 \n  Тел.: +7(4822)74-42-87 \n  ivv@vega-air.com";
                 Table.Rows[1].Cells[2].Range.Font.Bold = 1;
@@ -146,19 +137,17 @@ namespace VentWPF.DocX
                 Table.Rows[1].Cells[1].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphLeft;
                 Table.Rows[1].Cells[2].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
 
-
                 object docRange = Table.Rows[1].Cells[1].Range;
                 string imagePath = imageLogo;
                 document.InlineShapes.AddPicture(imageLogo, LinkToFile: true, SaveWithDocument: true, Range: docRange);
                 docRange = Table.Rows[1].Cells[3].Range;
                 imagePath = imageQR;
                 document.InlineShapes.AddPicture(imageQR, LinkToFile: true, SaveWithDocument: true, Range: docRange);
-
             }
         }
+
         public void OrderStatistics(Document document, Paragraph para1, string HText)
         {
-
             string Datastat = null;
             string Datastat2 = null;
 
@@ -183,7 +172,6 @@ namespace VentWPF.DocX
             OredrTable.Rows[1].Cells[2].Range.Text = Datastat2;
         }
 
-
         public void shemeInit(Document document, Paragraph para1)
         {
             string path = Environment.CurrentDirectory + @"\\scheme.png";
@@ -200,18 +188,15 @@ namespace VentWPF.DocX
             {
                 para1.Range.Text = "Нет схемы для текущего проекта";
             }
-
-
         }
 
         //создаёт таблицы
         public void CreateTables(Document document)
         {
-            foreach (Element i in ProjectVM.Current.Grid.Elements)
+            foreach (vm.Element i in vm.ProjectVM.Current.Grid.Elements)
             {
-                var list = InfoLine.GenerateInfoLines(i, i.DeviceType, i.InfoProperties).ToList();
+                var list = vm.InfoLine.GenerateInfoLines(i, i.DeviceType, i.InfoProperties).ToList();
                 int count = list.Count;
-
 
                 if (i.Name != "" && count != 0)
                 {
@@ -222,17 +207,14 @@ namespace VentWPF.DocX
                 }
             }
 
-
             //var el = ProjectVM.Current.Grid.Elements[0];
             //TableStructor(document, el);
-
         }
 
         //заполняет одну таблицу
-        public void TableStructor(Document document, Element el)
+        public void TableStructor(Document document, vm.Element el)
         {
-
-            var list = InfoLine.GenerateInfoLines(el, el.DeviceType, el.InfoProperties).ToList();
+            var list = vm.InfoLine.GenerateInfoLines(el, el.DeviceType, el.InfoProperties).ToList();
             int count = list.Count;
             int target;
             if (count % 2 == 1)
@@ -243,7 +225,6 @@ namespace VentWPF.DocX
             {
                 target = (count / 2);
             }
-
 
             Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
             Table firstTable = document.Tables.Add(para1.Range, target, 4, ref missing, ref missing);
@@ -276,8 +257,6 @@ namespace VentWPF.DocX
                 firstTable.Rows[i + 1].Cells[4].Range.Text = val;
             }
 
-
-
             para1.Range.InsertParagraphAfter();
         }
 
@@ -300,16 +279,11 @@ namespace VentWPF.DocX
 
             for (int i = 1; i < cnt + 1; i++)
             {
-
                 firstTable.Rows[i].Cells[1].Range.Text = dataName[i - 1] + "\n" + dataText[i - 1] + "     123.45kPa" + "\n" + dataText[i - 1] + "     123.45kPa";
-
-
 
                 // firstTable.Rows[i].Cells[2].Range.Text = "\n" + "123.45kPa";
 
-
                 firstTable.Rows[i].Cells[2].Range.Text = "\n" + dataText[i - 1] + "     123.45kPa" + "\n" + dataText[i - 1] + "     123.45kPa";
-
 
                 // firstTable.Rows[i].Cells[4].Range.Text = "\n" + "123.45kPa";
             }
@@ -321,7 +295,7 @@ namespace VentWPF.DocX
             for (int i = 1; i < cnt; i += 2)
             {
                 firstTable.Rows[i].Cells[2].Range.Text = " ";
-                firstTable.Rows[i].Cells[1].Range.Font.Bold = 1;                
+                firstTable.Rows[i].Cells[1].Range.Font.Bold = 1;
                 firstTable.Rows[i].Cells[1].Range.Text = dataName[stepper];
                 firstTable.Rows[i].Cells[1].Height = 20;
                 firstTable.Rows[i].Cells[1].Width = 170;
@@ -362,8 +336,6 @@ namespace VentWPF.DocX
 
             //нижняя информация(?)
             footerInit(document);
-
-
         }
     }
 }

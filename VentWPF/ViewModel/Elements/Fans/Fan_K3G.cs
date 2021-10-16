@@ -8,6 +8,7 @@ namespace VentWPF.ViewModel
     {
         public Fan_K3G()
         {
+            DeviceType = typeof(K3GFanData);
             Query = new FanQuery_K3G()
             {
                 Source = new K3GRequest()

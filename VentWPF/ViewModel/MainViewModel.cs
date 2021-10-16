@@ -18,32 +18,19 @@ namespace VentWPF.ViewModel
     {
         public MainViewModel()
         {
-            Request = IOManager.LoadAsJson<DllRequest>("req.json");
             ProjectVM.Current?.TaskManager.Add(() => { Microsoft.EntityFrameworkCore.DbSet<ВодаХолод> l = VentContext.Instance.ВодаХолодs; });
-            CmdAddElement = new(ProjectVM.Current.Grid.AddElement);
             CmdAutoColumns = new(AutoColumns);
-            CmdOpenPopup = new(OpenPopup);
             CmdWindowClosed = new(OnWindowClosed);
-            CmdSave = new(ProjectVM.Current.SaveProject);
-            CmdLoad = new(ProjectVM.Current.LoadProject);
-            CmdConfig = new(OpenConfig);
             CmdUpdateReport = new Command<object>(UpdateReport);
             CmdSaveReport = new Command<object>(SaveReport);
             ReportViewer.Document = ReportDocument;
         }
 
-        public ImageCollection HeaderImages { get; init; } = new ImageCollection();
-
-        public DllRequest Request { get; set; } = new();
-
-        public FlowDocumentScrollViewer ReportViewer { get; private set; }
-            = new FlowDocumentScrollViewer();
+        public FlowDocumentScrollViewer ReportViewer { get; private set; } = new FlowDocumentScrollViewer();
 
         public FlowDocument ReportDocument { get; init; } = new FlowDocument();
 
         public int DeviceIndex => ProjectVM.Current.Grid.Selected.DeviceIndex;
-
-        public Command<Element> CmdAddElement { get; init; }
 
         public Command<DataGridAutoGeneratingColumnEventArgs> CmdAutoColumns { get; init; }
 
@@ -132,8 +119,7 @@ namespace VentWPF.ViewModel
                     ReportDocument.Blocks.Add(item.GetTable(2, false));
                     ReportDocument.Blocks.Add(new Paragraph());
                 }
-
-            }            
+            }
         }
 
         public void SaveReport(object _)
@@ -151,29 +137,9 @@ namespace VentWPF.ViewModel
             }*/
         }
 
-        private void OpenPopup(Popup p)
-        {
-            p.HorizontalOffset = 1;
-            p.IsOpen = true;
-        }
-
         private void OnWindowClosed(object e)
         {
             App.Current.Shutdown();
         }
-
-        private void OpenConfig(string s)
-        {
-            PropertyDialog dlg = new() { Owner = Application.Current.MainWindow };
-            dlg.DataContext = Request;
-            dlg.Title = "Настройки";
-            dlg.PropertyControl.TabVisibility = TabVisibility.Collapsed;
-            if (dlg.ShowDialog().Value)
-                IOManager.SaveAsJson(Request, "req.json");
-            else
-                Request = IOManager.LoadAsJson<DllRequest>("req.json");
-        }
-
-        
     }
 }
