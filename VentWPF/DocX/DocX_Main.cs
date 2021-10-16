@@ -16,6 +16,7 @@ namespace VentWPF.DocX
     class DocX_Main
     {
         object missing = System.Reflection.Missing.Value;
+        object varFalse = false;
         Word.Application winword = new Word.Application();
         public string imageLogo = Path.GetFullPath("Assets/Images/DocXImages/logo.png");
         public string imageQR = Path.GetFullPath("Assets/Images/DocXImages/qr-code.gif");
@@ -62,9 +63,10 @@ namespace VentWPF.DocX
             {
                 MessageBox.Show("Сохранение было отменено");
             }
+            document.Close(varFalse, ref missing, ref missing);
             document = null;
-            //winword.Quit(ref missing, ref missing, ref missing);
-            //winword = null;
+            winword.Quit(ref varFalse, ref missing, ref missing);
+            winword = null;
         }
 
         public void FrameScheme(Document document)
@@ -297,8 +299,9 @@ namespace VentWPF.DocX
             {
                 MessageBox.Show("Сохранение было отменено");
             }
+            document.Close(varFalse, ref missing, ref missing);
             document = null;
-            winword.Quit(ref missing, ref missing, ref missing);
+            winword.Quit(ref varFalse, ref missing, ref missing);
             winword = null;
         }
 
