@@ -7,7 +7,6 @@ using Word = Microsoft.Office.Interop.Word;
 using System.Windows.Media.Imaging;
 using SYS = System.Windows;
 using System.Windows.Media;
-using VentWPF.Model.Calculations;
 using vm = VentWPF.ViewModel;
 
 namespace VentWPF.DocX
@@ -18,7 +17,7 @@ namespace VentWPF.DocX
         Application winword = new Application();
         public string imageLogo = Path.GetFullPath("Assets/Images/DocXImages/logo.png");
         public string imageQR = Path.GetFullPath("Assets/Images/DocXImages/qr-code.gif");
-        public static ProjectVM Project { get; set; } = ProjectVM.Current;
+        public static vm.ProjectVM Project { get; set; } = vm.ProjectVM.Current;
 
 
         #region[testStrArea]
@@ -113,8 +112,7 @@ namespace VentWPF.DocX
         }
 
         public void DataTableFrame(Document document)
-        {
-            Calculations Calc = new Calculations();
+        {            
 
             Paragraph para0 = document.Content.Paragraphs.Add(ref missing);
             para0.Range.Text = "1";
@@ -143,7 +141,7 @@ namespace VentWPF.DocX
         public static ProjectInfoVM pjct { get; set; } = ProjectVM.Current?.ProjectInfo;
         public void HeaderINIT(Document document)
         {
-            foreach (Section section in document.Sections)
+            foreach (Word.Section section in document.Sections)
             {
 
                 Word.Range headerRange = section.Headers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
@@ -355,7 +353,7 @@ namespace VentWPF.DocX
 
         public void footerInit(Document document)
         {
-            foreach (Section section in document.Sections)
+            foreach (Word.Section section in document.Sections)
             {
                 Word.Range footerRange = section.Footers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
                 footerRange.Text = "Компания вправе изменить конечную конфигурацию установки без предупреждения заказчика.\nООО \"Вега\" ";
