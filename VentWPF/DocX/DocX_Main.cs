@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 using SYS = System.Windows;
 using System.Windows.Media;
 using VentWPF.Model.Calculations;
+using vm = VentWPF.ViewModel;
 
 namespace VentWPF.DocX
 {

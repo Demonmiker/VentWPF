@@ -3,10 +3,9 @@ namespace VentWPF.Fans.Nicotra
 {
     internal class NICOTRARequest : IRequest<string>
     {
-        public string ID { get; set; }
+        public string KEY { get; set; }
 
-        public float Volumenstrom { get; set; } = 0;
-                
+        public float Volumenstrom { get; set; } = 0;                
 
         public float AirDens { get; set; }
 
@@ -17,10 +16,6 @@ namespace VentWPF.Fans.Nicotra
         public float RequiredPressure { get; set; } = 0;
 
         public int V { get; set; } = 0;
-
-        public string GetRequest()
-        {
-            return $"{ID};{AirDens};{Altitude};{AirTemperature};{RequiredPressure};{Volumenstrom};{V};";
-        }
+        
     }
 }

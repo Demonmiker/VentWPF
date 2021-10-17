@@ -34,11 +34,21 @@
 
         public const string fm3 = "{0:0.00} м³";
 
+        public const string fm3Ps = "{0:0.00} м³/сек";
+
+        public const string fdB = "{0:0.00} дБ";
+
+        public const string fRotate = "{0:0.00} 1/Мин";
+
+        public const string fV = "{0:0.00}В";
+
         public const string MasFr = "{0:0.00} Кг/Час";
 
         public const string fDate = "{0:dd/MM/yyyy}";
 
         public const string fNull = "{0:0.00} [X]";
+
+        public const string fEmpty = "{0:0.00} ";
 
         public const string errorRange = "Значение должно быть между {1} и {2}";
 
