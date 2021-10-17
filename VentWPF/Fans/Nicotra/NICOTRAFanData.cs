@@ -7,11 +7,10 @@ namespace VentWPF.Fans.Nicotra
 {
     class NICOTRAFanData
     {
-        public NICOTRAFanData(string id, IEnumerable<string> info)
-        {
-            var details = info.ToArray();
+        public NICOTRAFanData(string id, IEnumerable<double[]> OUT)
+        {            
             Id = id;
-            nSoll = details[0];
+            nSoll = OUT[0];
             P1Soll = details[1];
             ISoll = details[2];
             EtaSoll = details[3];
