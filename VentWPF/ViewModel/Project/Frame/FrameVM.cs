@@ -1,4 +1,6 @@
-﻿namespace VentWPF.ViewModel
+﻿using VentWPF.Tools;
+
+namespace VentWPF.ViewModel
 {
     /// <summary>
     /// Данные для графического представления каркаса
@@ -16,6 +18,7 @@
             Right = new(this);
             Left = new(this);
             UpdateSides();
+            CmdCreateReport = new((x) => CreateReport());
         }
 
         private uint height;
@@ -69,6 +72,12 @@
             Top.Length = length;
             Left.Length = length;
             Right.Length = length;
+        }
+
+        public Command<object> CmdCreateReport { get; set; }
+
+        private void CreateReport()
+        {
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using PropertyTools.DataAnnotations;
+using System.Collections.Generic;
 using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
@@ -8,12 +9,18 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal abstract class Humid : Element
     {
-
         public Humid()
         {
             image = "Humidifiers/Humid_Cell.png";
             ShowPR = true;
         }
+
+        public override List<string> InfoProperties => new()
+        {
+            "AirSoftIn",
+            "AirSoftOut",
+            "WaterConsumption",
+        };
 
         /// <summary>
         /// Влажность на входе

@@ -13,7 +13,7 @@ using Word = Microsoft.Office.Interop.Word;
 
 namespace VentWPF.DocX
 {
-    class DocX_Main
+    internal class DocX_Main
     {
         object missing = System.Reflection.Missing.Value;
         object varFalse = false;
@@ -26,9 +26,9 @@ namespace VentWPF.DocX
         public float currentSumCorner;
 
         #region[testStrArea]
-        string HdrText = "Заказ №25564-2";
-        string[] testData = { "Падение давления:", "Падение супер крутого давления:", "Падение ещё большего упадка самого давления:" };
-        string[] dataName = { "123", "123", "123" };
+        private string HdrText = "Заказ №25564-2";
+        private string[] testData = { "Падение давления:", "Падение супер крутого давления:", "Падение ещё большего упадка самого давления:" };
+        private string[] dataName = { "123", "123", "123" };
         #endregion
 
         public void SaveImage(string path, SYS.FrameworkElement gui)
@@ -43,6 +43,7 @@ namespace VentWPF.DocX
         }
 
         #region Frame
+
         public void DocX_Frame()
         {
             winword.ShowAnimation = false;
@@ -71,7 +72,6 @@ namespace VentWPF.DocX
 
         public void FrameScheme(Document document)
         {
-
             string[] path = { Environment.CurrentDirectory + @"\\frame_top.png", Environment.CurrentDirectory + @"\\frame_left.png", Environment.CurrentDirectory + @"\\frame_right.png" };
             string[] name = { "frame_top", "frame_left", "frame_right" };
             for (int i = 0; i < name.Length; i++)
@@ -107,10 +107,6 @@ namespace VentWPF.DocX
                     para2.Range.Text = "Нет схемы каркаса " + name[i] + " для текущего проекта";
                 }
             }
-
-
-
-
         }
 
         public void SaveFrame(Document document, string path, Paragraph para1)
@@ -306,11 +302,11 @@ namespace VentWPF.DocX
         }
 
         public static vm.ProjectInfoVM pjct { get; set; } = vm.ProjectVM.Current?.ProjectInfo;
+
         public void HeaderINIT(Document document)
         {
             foreach (Section section in document.Sections)
             {
-
                 Word.Range headerRange = section.Headers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
                 Table Table = document.Tables.Add(headerRange, 1, 3, ref missing, ref missing);
                 Table.Borders.Enable = 0; //для тестов
@@ -324,19 +320,17 @@ namespace VentWPF.DocX
                 Table.Rows[1].Cells[1].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphLeft;
                 Table.Rows[1].Cells[2].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
 
-
                 object docRange = Table.Rows[1].Cells[1].Range;
                 string imagePath = imageLogo;
                 document.InlineShapes.AddPicture(imageLogo, LinkToFile: true, SaveWithDocument: true, Range: docRange);
                 docRange = Table.Rows[1].Cells[3].Range;
                 imagePath = imageQR;
                 document.InlineShapes.AddPicture(imageQR, LinkToFile: true, SaveWithDocument: true, Range: docRange);
-
             }
         }
+
         public void OrderStatistics(Document document, Paragraph para1, string HText)
         {
-
             string Datastat = null;
             string Datastat2 = null;
 
@@ -361,7 +355,6 @@ namespace VentWPF.DocX
             OredrTable.Rows[1].Cells[2].Range.Text = Datastat2;
         }
 
-
         public void shemeInit(Document document, Paragraph para1)
         {
             string path = Environment.CurrentDirectory + @"\\scheme.png";
@@ -377,8 +370,6 @@ namespace VentWPF.DocX
             {
                 para1.Range.Text = "Нет схемы для текущего проекта";
             }
-
-
         }
 
         //создаёт таблицы
@@ -389,7 +380,6 @@ namespace VentWPF.DocX
                 var list = vm.InfoLine.GenerateInfoLines(i, i.DeviceType, i.InfoProperties).ToList();
                 int count = list.Count;
 
-
                 if (i.Name != "" && count != 0)
                 {
                     Paragraph para0 = document.Content.Paragraphs.Add(ref missing);
@@ -399,16 +389,13 @@ namespace VentWPF.DocX
                 }
             }
 
-
             //var el = ProjectVM.Current.Grid.Elements[0];
             //TableStructor(document, el);
-
         }
 
         //заполняет одну таблицу
         public void TableStructor(Document document, vm.Element el)
         {
-
             var list = vm.InfoLine.GenerateInfoLines(el, el.DeviceType, el.InfoProperties).ToList();
             int count = list.Count;
             int target;
@@ -420,7 +407,6 @@ namespace VentWPF.DocX
             {
                 target = (count / 2);
             }
-
 
             Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
             Table firstTable = document.Tables.Add(para1.Range, target, 4, ref missing, ref missing);
@@ -453,11 +439,8 @@ namespace VentWPF.DocX
                 firstTable.Rows[i + 1].Cells[4].Range.Text = val;
             }
 
-
-
             para1.Range.InsertParagraphAfter();
         }       
-
         public void footerInit(Document document)
         {
             foreach (Section section in document.Sections)
@@ -484,8 +467,6 @@ namespace VentWPF.DocX
 
             //нижняя информация(?)
             footerInit(document);
-
-
         }
 
         #endregion

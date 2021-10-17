@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using VentWPF.Model;
+using VentWPF.Tools;
 
 namespace VentWPF.ViewModel
 {
@@ -13,7 +14,14 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class GridVM : BaseViewModel
     {
+        public ProjectVM Project { get; set; } = ProjectVM.Current;
+
         private Element _Selected = new();
+
+        public GridVM()
+        {
+            CmdRemove = new(x => RemoveElement());
+        }
 
         /// <summary>
         /// Менеджер ошибок
@@ -87,13 +95,16 @@ namespace VentWPF.ViewModel
             ErrorManager.Add(Elements[Index], $"[{Index % 10 + 1},{Index / 10 + 1}]");
         }
 
+        public Command<object> CmdRemove { get; set; }
+
         /// <summary>
         /// Удалить элемент
         /// </summary>
         /// <param name="el">удаляемый элемент</param>
-        public void RemoveElement(Element el)
+        public void RemoveElement()
         {
-            throw new NotImplementedException("Удаление не реализованно");
+            if (Index >= 0 && Index < Elements.Count)
+                Elements[Index] = new Element();
         }
 
         /// <summary>

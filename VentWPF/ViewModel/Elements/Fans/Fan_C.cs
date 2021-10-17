@@ -9,10 +9,10 @@ namespace VentWPF.ViewModel
     {
         public Fan_C()
         {
-            DeviceType = typeof(FanData);
+            DeviceType = typeof(FanCData);
             Query = new FanQuery_C()
             {
-                Source = new DllRequest()
+                Source = new FanCRequest()
                 {
                     PressureDrop = 123,
                 }
@@ -22,7 +22,6 @@ namespace VentWPF.ViewModel
 
         public override string Name => "Вентилятор";
 
-        [Browsable(false)]
         public override List<string> InfoProperties => new()
         {
             "PressureDropSystem",

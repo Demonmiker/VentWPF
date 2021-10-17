@@ -70,6 +70,15 @@
     <None Update="Assets\Images\Empty.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\Images\Fans\Directions\LeftUpLeft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Images\Fans\Directions\LeftUpRight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Images\Fans\Directions\RightUpLeft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\Images\Fans\Fan_C.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -121,25 +130,25 @@
     <None Update="Assets\Images\Recuperators\Recuperators.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Sections\Sections_LCR.png">
+    <None Update="Assets\Images\Sections\Section_LR_Valve.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Sections\Sections_DCU.png">
+    <None Update="Assets\Images\Sections\Section_LUR_Valve.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Sections\Section_LDR.png">
+    <None Update="Assets\Images\Sections\Section_LRD.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Sections\Section_LUR.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Sections\Section_LDU.png">
+    <None Update="Assets\Images\Sections\Section_LUD.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Sections\Section_DR.png">
+    <None Update="Assets\Images\Sections\Section_RD.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Sections\Section_Short.png">
+    <None Update="Assets\Images\Sections\Section_LR_Short.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Valves\Valves.png">
@@ -190,7 +199,7 @@
     <None Update="Assets\Images\Sections\Sections.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Sections\Section_Straight.png">
+    <None Update="Assets\Images\Sections\Section_LR.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Sections\Section_LD.png">

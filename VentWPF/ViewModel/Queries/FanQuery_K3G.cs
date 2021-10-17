@@ -8,12 +8,7 @@ namespace VentWPF.ViewModel
     {
         protected override IList Fill(object q)//Request
         {
-            K3GRequest data = q as K3GRequest;
-            K3GRequest req = IOManager.LoadAsJson<K3GRequest>("reqK3G.json");
-            //
-            req.ID = data.ID;
-            //
-            return new K3GController().GetResponce(req);
+            return new K3GController().GetResponce(q as K3GRequest);
         }
     }
 }
