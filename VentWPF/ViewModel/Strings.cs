@@ -22,6 +22,8 @@
 
         public const string fmm = "{0} мм";
 
+        public const string fm = "{0} М";
+
         public const string fT = "{0:0.0}°C";
 
         public const string fkW = "{0:0.00} кВт";
@@ -34,7 +36,11 @@
 
         public const string fm3 = "{0:0.00} м³";
 
+        public const string fkgm3 = "{0:0.00} кг/м³";
+
         public const string fm3Ps = "{0:0.00} м³/сек";
+
+        public const string fm3Ph = "{0:0.00} м³/час";
 
         public const string fdB = "{0:0.00} дБ";
 

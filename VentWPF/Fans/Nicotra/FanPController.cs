@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace VentWPF.Fans.Nicotra
 {
-    class NICOTRAController : IController<NICOTRARequest, List<NICOTRAFanData>>
+    class FanPController : IController<FanPRequest, List<FanPData>>
     {
         //Получение расчёта по одному вентилятору
         [DllImport(@"C:\Users\stig1\source\repos\3type\3type\bin\x86\Nicotra.dll", CallingConvention = CallingConvention.StdCall)]
@@ -18,14 +18,14 @@ namespace VentWPF.Fans.Nicotra
 
 
 
-        public List<NICOTRAFanData> GetResponce(NICOTRARequest request)
+        public List<FanPData> GetResponce(FanPRequest request)
         {
             var KEY = GetKEYs();
-            List<NICOTRAFanData> res = new();
+            List<FanPData> res = new();
             foreach (var id in KEY)
             {
                 var list = GetFanInfo(id, request);
-                NICOTRAFanData data = new NICOTRAFanData(id, list);
+                FanPData data = new NICOTRAFanData(id, list);
                 res.Add(data);
             }
             return res;
@@ -39,7 +39,7 @@ namespace VentWPF.Fans.Nicotra
             return str.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Where(x => !x.StartsWith("K3G")); //исправить
         }
 
-        public IEnumerable<string> GetFanInfo(string id, NICOTRARequest req)
+        public IEnumerable<string> GetFanInfo(string id, FanPRequest req)
         {
             var bufferInfo = new string(new Char(), 4000);
             var r = req.GetRequest();

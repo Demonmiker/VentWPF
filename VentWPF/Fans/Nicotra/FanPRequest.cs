@@ -1,7 +1,9 @@
-﻿
+﻿using valid = VentWPF.Tools;
+using PropertyTools.DataAnnotations;
+
 namespace VentWPF.Fans.Nicotra
 {
-    internal class NICOTRARequest : IRequest<string>
+    internal class FanPRequest : IRequest<string>
     {
         public string KEY { get; set; }
 
@@ -29,7 +31,28 @@ namespace VentWPF.Fans.Nicotra
 
         public double SoundPowerLevel { get; set; } = 0;//оставить 0
 
+        [valid.Range(1, 2)]
         public double PowerCorrection { get; set; } = 0;  //оставить 0     
 
     }
 }
+/* порядок в массиве IN[]:
+
+Option
+InstType
+AirDensity
+AirTemperature
+Height
+FlowRate
+StaticPressure
+TotalPressure
+Speed
+ShaftPower
+Efficiency
+SoundPowerLevel
+PowerCorrection
+
+
+
+
+*/
