@@ -6,7 +6,7 @@ using System.Windows.Media;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using VentWPF.Model.Calculations;
-using VentWPF.ViewModel;
+using vm = VentWPF.ViewModel;
 using SYS = System.Windows;
 using Word = Microsoft.Office.Interop.Word;
 
@@ -20,7 +20,7 @@ namespace VentWPF.DocX
         Word.Application winword = new Word.Application();
         public string imageLogo = Path.GetFullPath("Assets/Images/DocXImages/logo.png");
         public string imageQR = Path.GetFullPath("Assets/Images/DocXImages/qr-code.gif");
-        public static ProjectVM Project { get; set; } = ProjectVM.Current;
+        public static vm.ProjectVM Project { get; set; } = vm.ProjectVM.Current;
         public float currentSumFrame;
         public float currentSumStand;
         public float currentSumCorner;
@@ -305,7 +305,7 @@ namespace VentWPF.DocX
             winword = null;
         }
 
-        public static ProjectInfoVM pjct { get; set; } = ProjectVM.Current?.ProjectInfo;
+        public static vm.ProjectInfoVM pjct { get; set; } = vm.ProjectVM.Current?.ProjectInfo;
         public void HeaderINIT(Document document)
         {
             foreach (Section section in document.Sections)
@@ -384,9 +384,9 @@ namespace VentWPF.DocX
         //создаёт таблицы
         public void CreateTables(Document document)
         {
-            foreach (Element i in ProjectVM.Current.Grid.Elements)
+            foreach (vm.Element i in vm.ProjectVM.Current.Grid.Elements)
             {
-                var list = InfoLine.GenerateInfoLines(i, i.DeviceType, i.InfoProperties).ToList();
+                var list = vm.InfoLine.GenerateInfoLines(i, i.DeviceType, i.InfoProperties).ToList();
                 int count = list.Count;
 
 
@@ -406,10 +406,10 @@ namespace VentWPF.DocX
         }
 
         //заполняет одну таблицу
-        public void TableStructor(Document document, Element el)
+        public void TableStructor(Document document, vm.Element el)
         {
 
-            var list = InfoLine.GenerateInfoLines(el, el.DeviceType, el.InfoProperties).ToList();
+            var list = vm.InfoLine.GenerateInfoLines(el, el.DeviceType, el.InfoProperties).ToList();
             int count = list.Count;
             int target;
             if (count % 2 == 1)
