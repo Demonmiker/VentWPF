@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using VentWPF.Fans.Nicotra;
 
 namespace VentWPF.ViewModel
 {
@@ -6,6 +7,11 @@ namespace VentWPF.ViewModel
     {
         public Fan_P()
         {
+            DeviceType = typeof(NicotraData);
+            Query = new NicotraQuery()
+            {
+                Source = new NicotraRequest()
+            };
             Length = 980;
         }
 

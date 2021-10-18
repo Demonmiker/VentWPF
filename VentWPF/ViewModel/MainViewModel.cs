@@ -110,7 +110,7 @@ namespace VentWPF.ViewModel
         }
 
         public void UpdateReport(object _)
-        {           
+        {
             ReportDocument.Blocks.Clear();
             foreach (var item in Project.Grid.Elements)
             {
@@ -122,7 +122,6 @@ namespace VentWPF.ViewModel
             }
         }
 
-        
         public void SaveReport(object _)
         {
             DocX.DocX_Main export = new DocX.DocX_Main();

@@ -14,7 +14,17 @@ namespace VentWPF.ViewModel
             {
                 Source = new FanCRequest()
                 {
-                    PressureDrop = 123,
+                    InsertGeoData = true,
+                    InsertMotorData = true,
+                    InsertNominalValues = true,
+                    Language = "RU",
+                    Password = "bnexg5",
+                    Username = "ZAFS19946",
+                    PressureDrop = 500,
+                    SearchTolerance = 10,
+                    UnitSystem = "m",
+                    VFlow = 6000.0,
+                    FanType = "ER"
                 }
             };
             Length = 980;
