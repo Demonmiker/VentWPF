@@ -149,6 +149,7 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Лист для определение полей информации а также их положения
         /// </summary>
+        [Browsable(false)]
         public virtual List<string> InfoProperties => new() { };
 
         /// <summary>

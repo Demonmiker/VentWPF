@@ -25,9 +25,9 @@ namespace VentWPF.ViewModel
             Width = 456;
             Height = 789;
             SchemeImage = Path.GetFullPath("Assets/Images/Heaters/SH_Heater_Water.png");
-        }        
+        }
+
         public override string Name => $"Нагреватель жидкостный {(DeviceData as ВодаТепло)?.Типоряд}";
-        
 
         /// <summary>
         /// Тип теплоносителя
@@ -48,13 +48,12 @@ namespace VentWPF.ViewModel
         [DisplayName("т. теплоносителя кон.")]
         public float TempEnd { get; set; } = 70;
 
-        
         /// <summary>
         /// Расход теплоносителя
         /// </summary>
         [Category(Info)]
         [DisplayName("Расход теплоносителя")]
-        [FormatString(MasFr)]        
+        [FormatString(MasFr)]
         public float Consumption => Calculations.heaterConsumption(Power, TempBegin, TempEnd);
 
         /// <summary>
@@ -64,7 +63,6 @@ namespace VentWPF.ViewModel
         [FormatString(fkPa)]
         public float CoolantPressureDrop => 12.5f;
 
-        [Browsable(false)]
         public override List<string> InfoProperties => new()
         {
             "Performance",

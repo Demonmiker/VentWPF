@@ -48,7 +48,6 @@ namespace VentWPF.ViewModel
         [FormatString(MasFr)]
         public float Consumption => (float)(Power * 1000 / (4198 * Math.Abs(TempBegin - TempEnd))) * 3600;
 
-        [Browsable(false)]
         public override List<string> InfoProperties => new()
         {
             "TempIn",

@@ -12,7 +12,7 @@ namespace VentWPF.Fans.FanSelect
             return request switch
             {
                 WebRequest => throw new NotImplementedException(),
-                DllRequest => throw new NotImplementedException(),
+                FanCRequest => throw new NotImplementedException(),
                 _ => throw new NotImplementedException(),
             };
         }

@@ -33,7 +33,6 @@ namespace VentWPF.ViewModel
         [DisplayName("Тип Фреона")]
         public FrType Fr { get; set; }
 
-        [Browsable(false)]
         public override List<string> InfoProperties => new()
         {
             "TempIn",

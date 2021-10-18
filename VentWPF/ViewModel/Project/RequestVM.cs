@@ -24,6 +24,6 @@ namespace VentWPF.ViewModel
         }
 
         //Наблон для Fan Select DLL
-        private DllRequest FanSelectTemplate => IOManager.LoadAsJson<DllRequest>("req.json");
+        private FanCRequest FanSelectTemplate => IOManager.LoadAsJson<FanCRequest>("req.json");
     }
 }

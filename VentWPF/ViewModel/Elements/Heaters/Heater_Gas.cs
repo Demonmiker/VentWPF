@@ -10,7 +10,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Heater_Gas : Heater
     {
-
         public Heater_Gas()
         {
             image = "Heaters/Heater_Gas.png";
@@ -26,7 +25,6 @@ namespace VentWPF.ViewModel
         [DisplayName("Горелка")]
         public TorchType Torch { get; set; }
 
-        [Browsable(false)]
         public override List<string> InfoProperties => new()
         {
             "Performance",
@@ -34,6 +32,5 @@ namespace VentWPF.ViewModel
             "TempOut",
             "torch",
         };
-
     }
 }

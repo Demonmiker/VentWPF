@@ -40,7 +40,7 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
-
+                <!--  Левый верхний текст  -->
                 <Canvas Grid.Row="0" Grid.Column="1"
                     Width="30"
                     Margin="0 28 0 0"
@@ -61,6 +61,7 @@
                         </TextBox.RenderTransform>
                     </TextBox>
                 </Canvas>
+                <!--  Левый нижний текст  -->
                 <Canvas Grid.Row="1" Grid.Column="1"
                     Width="30"
                     Margin="0 -12 0 0"
@@ -81,12 +82,10 @@
                         </TextBox.RenderTransform>
                     </TextBox>
                 </Canvas>
-                <Canvas Grid.RowSpan="2"
-                    Width="30"
-                    Margin="0 25 -3 0">
+                <!--  Левый общий текст  -->
+                <Canvas Grid.RowSpan="2" Width="30">
                     <TextBox
                         Height="25"
-                        Margin="27 0 0 0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         ClipToBounds="False"
@@ -97,10 +96,12 @@
                             <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource under}">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding TwoRows}" Value="true">
-                                        <Setter Property="Width" Value="300"/>
+                                        <Setter Property="Width" Value="298.5"/>
+                                        <Setter Property="Margin" Value="35 28 0 0"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                                 <Setter Property="Width" Value="150"/>
+                                <Setter Property="Margin" Value="32 0 0 0"/>
                             </Style>
                         </TextBox.Style>
                         <TextBox.RenderTransform>
@@ -111,8 +112,6 @@
                 <TextBox Grid.Row="2" Grid.Column="2"
                     Text="{Binding Sum, Mode=OneWay}"
                     Style="{StaticResource under}"/>
-
-
             </Grid>
         </Grid>
 

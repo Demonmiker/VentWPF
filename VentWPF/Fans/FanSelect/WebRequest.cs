@@ -5,9 +5,9 @@ namespace VentWPF.Fans.FanSelect
     /// <summary>
     /// Веб запрос к FanSelect API
     /// </summary>
-    internal class WebRequest : DllRequest
+    internal class WebRequest : FanCRequest
     {
-        public WebRequest(DllRequest req, string id)
+        public WebRequest(FanCRequest req, string id)
         {
             this.SessionID = id;
             this.Password = req.Password;

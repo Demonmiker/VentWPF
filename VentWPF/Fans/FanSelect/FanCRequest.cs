@@ -9,7 +9,7 @@ namespace VentWPF.Fans.FanSelect
     /// <summary>
     /// Класс запроса для FanSelect
     /// </summary>
-    internal class DllRequest : BaseViewModel, IRequest<string>
+    internal class FanCRequest : BaseViewModel, IRequest<string>
     {
         [Category("Запрос")]
         [JsonPropertyName("insert_geo_data")]

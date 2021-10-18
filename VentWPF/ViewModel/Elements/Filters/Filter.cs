@@ -11,7 +11,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal abstract class Filter : Element
     {
-
         public Filter()
         {
             image = "Filters/Filters.png";
@@ -22,7 +21,6 @@ namespace VentWPF.ViewModel
         [DisplayName("Класс очистки")]
         public FilterClassType FC { get; set; }
 
-        [Browsable(false)]
         public override List<string> InfoProperties => new()
         {
             "FC",
@@ -40,6 +38,5 @@ namespace VentWPF.ViewModel
             FilterClassType.F9 => 275,
             _ => 0
         };
-
     }
 }

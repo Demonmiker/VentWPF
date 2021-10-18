@@ -17,13 +17,5 @@ namespace VentWPF.ViewModel
         }
 
         public override string Name => "Увлажнитель сотовый";
-
-        [Browsable(false)]
-        public override List<string> InfoProperties => new()
-        {
-            "AirSoftIn",
-            "AirSoftOut",
-            "WaterConsumption",
-        };
     }
 }

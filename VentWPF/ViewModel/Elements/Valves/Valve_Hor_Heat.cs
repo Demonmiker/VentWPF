@@ -29,7 +29,6 @@ namespace VentWPF.ViewModel
         [DisplayName("Количество ТЭНов")]
         public int TEN_count { get; set; } = 3;
 
-        [Browsable(false)]
         public override List<string> InfoProperties => new()
         {
             "DeviceData.Маркировка",
