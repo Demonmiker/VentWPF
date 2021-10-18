@@ -25,48 +25,47 @@ namespace VentWPF.Fans.K3G
             PtotSoll = details[26];
         }
 
-        [DisplayName("ID")]
-        [FormatString(fNull)]
+        [DisplayName("ID")]        
         public string Id { get; set; }
 
-        [DisplayName("нечто0")]
-        [FormatString(fNull)]
+        [DisplayName("Обороты в мин.")]
+        [FormatString(fRotate)]
         public string nSoll { get; set; } //0 n/1/min
 
-        [DisplayName("нечто1")]
+        [DisplayName("Pe/W")]
         [FormatString(fNull)]
         public string P1Soll { get; set; } //1 Pe/W
 
-        [DisplayName("нечто2")]
+        [DisplayName("I/A")]
         [FormatString(fNull)]
         public string ISoll { get; set; } //2 I/A
 
-        [DisplayName("нечто3")]
-        [FormatString(fNull)]
+        [DisplayName("КПД")]
+        [FormatString(fper)]
         public string EtaSoll { get; set; }//3 nu o/%
 
-        [DisplayName("нечто4")]
-        [FormatString(fNull)]
+        [DisplayName("Напряжение сети")]
+        [FormatString(fV)]
         public string UstSoll { get; set; }//4 Voltage
 
-        [DisplayName("нечто5")]
+        [DisplayName("Md/Ncm")]
         [FormatString(fNull)]
         public string MdSoll { get; set; }//5 Md/Ncm
 
-        [DisplayName("нечто6")]
-        [FormatString(fNull)]
+        [DisplayName("КПД мотора")]
+        [FormatString(fper)]
         public string EtaMSoll { get; set; }//6  nu o/% Motor
 
-        [DisplayName("нечто7")]
-        [FormatString(fNull)]
+        [DisplayName("m^3/s")]
+        [FormatString(fm3Ps)]
         public string LwASoll { get; set; }//7  (in+out) m^3/s
 
-        [DisplayName("нечто8")]
-        [FormatString(fNull)]
+        [DisplayName("Шум на входе")]
+        [FormatString(fdB)]
         public string LwAssSoll { get; set; }//8   dB in
 
-        [DisplayName("нечто9")]
-        [FormatString(fNull)]
+        [DisplayName("Шум на выходе")]
+        [FormatString(fdB)]
         public string LwAdsSoll { get; set; }//9 dB Out
 
         #region[Noize]
@@ -105,8 +104,8 @@ namespace VentWPF.Fans.K3G
         public string Lwds8000_Soll;//25
         #endregion
 
-        [DisplayName("нечто26")]
-        [FormatString(fNull)]
+        [DisplayName("pf/Pa")]
+        [FormatString(fPa)]
         public string PtotSoll { get; set; }//26 pf/Pa
     }
 }
