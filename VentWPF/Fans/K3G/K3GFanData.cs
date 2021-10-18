@@ -26,7 +26,7 @@ namespace VentWPF.Fans.K3G
         }
 
         [DisplayName("ID")]
-        [FormatString(fEmpty)]
+        [FormatString(f2)]
         public string Id { get; set; }
 
         [DisplayName("Обороты в мин.")]

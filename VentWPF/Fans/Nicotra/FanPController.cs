@@ -9,11 +9,11 @@ namespace VentWPF.Fans.Nicotra
     class FanPController : IController<FanPRequest, List<FanPData>>
     {
         //Получение расчёта по одному вентилятору
-        [DllImport(@"C:\Users\stig1\source\repos\3type\3type\bin\x86\Nicotra.dll", CallingConvention = CallingConvention.StdCall)]
+        [DllImport(@"Fans/Nicotra/Nicotra.dll", CallingConvention = CallingConvention.StdCall)]
         public static extern int GET_CALCULATION_FANALONE(short s1, short s2, double[] IN, string KEY, short z1, short z2, double[] OUT);
 
         //получения списка вентиляторов
-        [DllImport(@"C:\Users\stig1\source\repos\3type\3type\bin\x86\Nicotra.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        [DllImport(@"Fans/Nicotra/Nicotra.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public static extern int GET_PRODUCTS([MarshalAsAttribute(UnmanagedType.VBByRefStr)] ref string LIST);
 
 
@@ -25,7 +25,7 @@ namespace VentWPF.Fans.Nicotra
             foreach (var id in KEY)
             {
                 var list = GetFanInfo(id, request);
-                FanPData data = new NICOTRAFanData(id, list);
+                FanPData data = new FanPData(id, list);
                 res.Add(data);
             }
             return res;
@@ -39,7 +39,7 @@ namespace VentWPF.Fans.Nicotra
             return str.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Where(x => !x.StartsWith("K3G")); //исправить
         }
 
-        public IEnumerable<string> GetFanInfo(string id, FanPRequest req)
+        public IEnumerable<double> GetFanInfo(string id, FanPRequest req)
         {
             var bufferInfo = new string(new Char(), 4000);
             var r = req.GetRequest();
@@ -47,10 +47,7 @@ namespace VentWPF.Fans.Nicotra
             //временные данные----------
             var KEY = new string(new Char(), 15);
             KEY = "AT 7-7 S";
-            double[] IN =
-            {
-                1, 1, 0, 24, 5, 600, 100, 150, 0, 0, 0, 0, 0
-            };
+            
             short s1 = 0;
             short s2 = 0;
             short z1 = 0;
@@ -59,11 +56,9 @@ namespace VentWPF.Fans.Nicotra
             foreach (int i in OUT)
             {
                 OUT[i] = 0;
-            }
-            //временные данные конец-------
-
-            GET_CALCULATION_FANALONE(s1, s2, IN, KEY, z1, z2, OUT);
-            return bufferInfo.Split(new[] { ';' });
+            }  
+            GET_CALCULATION_FANALONE(s1, s2, r, KEY, z1, z2, OUT);
+            return OUT;
         }
     }
 }

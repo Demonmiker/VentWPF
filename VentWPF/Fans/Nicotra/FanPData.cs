@@ -31,13 +31,10 @@ namespace VentWPF.Fans.Nicotra
         [DisplayName("Название")]
         [FormatString(fNull)]
         public string Id { get; set; }
+                
+        public double errors { get; set; } 
 
-        [DisplayName("Ошибки")]
-        [FormatString(fNull)]
-        public double errors { get; set; } //0 n/1/min
-
-        [DisplayName("Тип установки")]
-        [FormatString(fEmpty)]
+        [DisplayName("Тип установки")]        
         public double installationType { get; set; }
 
         [DisplayName("Плотность воздуха")]
