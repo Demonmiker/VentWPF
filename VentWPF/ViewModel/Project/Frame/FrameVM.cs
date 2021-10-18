@@ -78,6 +78,8 @@ namespace VentWPF.ViewModel
 
         private void CreateReport()
         {
+            DocX.DocX_Main export = new DocX.DocX_Main();
+            export.DocX_Frame();
         }
     }
 }

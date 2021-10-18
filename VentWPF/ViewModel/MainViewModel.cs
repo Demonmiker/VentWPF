@@ -122,13 +122,11 @@ namespace VentWPF.ViewModel
             }
         }
 
-        //TODO Сделать отдельную кнопку для докуменка по каркасам (export.DocX_Frame();)
+        
         public void SaveReport(object _)
         {
             DocX.DocX_Main export = new DocX.DocX_Main();
             export.DocX_Initialization();
-            //export.DocX_Frame();
-
             /*
             var cfd = new SaveFileDialog() { DefaultExt = "rtf", AddExtension = true };
             if(cfd.ShowDialog()==true)
