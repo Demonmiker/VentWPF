@@ -25,8 +25,7 @@ namespace VentWPF.Fans.K3G
             PtotSoll = details[26];
         }
 
-        [DisplayName("ID")]
-        [FormatString(f2)]
+        [DisplayName("ID")]        
         public string Id { get; set; }
 
         [DisplayName("Обороты в мин.")]
