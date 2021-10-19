@@ -358,13 +358,13 @@
                                 SelectionUnit="FullRow"
                                 Visibility="{Binding Project.Grid.Selected.Query.Result, Converter={StaticResource visConv}}">
                                 <DataGrid.Resources>
-                                    <Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="DataGridCell">
+                                    <!--<Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="DataGridCell">
                                         <Style.Triggers>
                                             <Trigger Property="IsSelected" Value="True">
                                                 <Setter Property="Background" Value="Transparent"/>
                                             </Trigger>
                                         </Style.Triggers>
-                                    </Style>
+                                    </Style>-->
                                 </DataGrid.Resources>
                                 <DataGrid.ItemContainerStyle>
                                     <Style BasedOn="{StaticResource {x:Type DataGridRow}}" TargetType="DataGridRow">

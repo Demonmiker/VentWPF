@@ -43,6 +43,11 @@ namespace VentWPF.Fans.FanSelect
         [JsonPropertyName("qv")]
         public double VFlow { get; set; } = 6000;
 
+        //"fan_type" : "ER",
+
+        [JsonPropertyName("fan_type")]
+        public string FanType { get; set; }
+
         public string GetRequest() => JsonSerializer.Serialize(this);
     }
 }

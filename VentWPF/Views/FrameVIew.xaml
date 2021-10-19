@@ -31,7 +31,7 @@
                             Width="auto"
                             Height="auto"
                             Padding="10"
-                            Command="{Binding Project.CmdScheme}">
+                            Command="{Binding CmdCreateReport}">
                             <fa5:SvgAwesome Icon="Solid_FileWord"/>
                         </Button>
                         <TextBox Style="{StaticResource utb}" Text="{Binding Width}"/>
@@ -42,32 +42,50 @@
                     </StackPanel>
                 </md:Card>
                 <GroupBox Header="Верхняя" Style="{x:Null}">
-                    <ContentControl Name="frame_top" Content="{Binding Top}">
-                        <b:Interaction.Triggers>
-                            <b:EventTrigger EventName="Loaded">
-                                <b:InvokeCommandAction Command="{Binding Parent.CmdLinkGui}" CommandParameter="{Binding ElementName=frame_top}"/>
-                            </b:EventTrigger>
-                        </b:Interaction.Triggers>
-                    </ContentControl>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <ContentControl Name="frame_top" Content="{Binding Top}">
+                            <b:Interaction.Triggers>
+                                <b:EventTrigger EventName="Loaded">
+                                    <b:InvokeCommandAction Command="{Binding Parent.CmdLinkGui}" CommandParameter="{Binding ElementName=frame_top}"/>
+                                </b:EventTrigger>
+                            </b:Interaction.Triggers>
+                        </ContentControl>
+                    </Grid>
 
                 </GroupBox>
                 <GroupBox Header="Левая" Style="{x:Null}">
-                    <ContentControl Name="frame_left" Content="{Binding Left}">
-                        <b:Interaction.Triggers>
-                            <b:EventTrigger EventName="Loaded">
-                                <b:InvokeCommandAction Command="{Binding Parent.CmdLinkGui}" CommandParameter="{Binding ElementName=frame_left}"/>
-                            </b:EventTrigger>
-                        </b:Interaction.Triggers>
-                    </ContentControl>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <ContentControl Name="frame_left" Content="{Binding Left}">
+                            <b:Interaction.Triggers>
+                                <b:EventTrigger EventName="Loaded">
+                                    <b:InvokeCommandAction Command="{Binding Parent.CmdLinkGui}" CommandParameter="{Binding ElementName=frame_left}"/>
+                                </b:EventTrigger>
+                            </b:Interaction.Triggers>
+                        </ContentControl>
+                    </Grid>
                 </GroupBox>
                 <GroupBox Header="Правая" Style="{x:Null}">
-                    <ContentControl Name="frame_right" Content="{Binding Right}">
-                        <b:Interaction.Triggers>
-                            <b:EventTrigger EventName="Loaded">
-                                <b:InvokeCommandAction Command="{Binding Parent.CmdLinkGui}" CommandParameter="{Binding ElementName=frame_right}"/>
-                            </b:EventTrigger>
-                        </b:Interaction.Triggers>
-                    </ContentControl>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <ContentControl Name="frame_right" Content="{Binding Right}">
+                            <b:Interaction.Triggers>
+                                <b:EventTrigger EventName="Loaded">
+                                    <b:InvokeCommandAction Command="{Binding Parent.CmdLinkGui}" CommandParameter="{Binding ElementName=frame_right}"/>
+                                </b:EventTrigger>
+                            </b:Interaction.Triggers>
+                        </ContentControl>
+                    </Grid>
                 </GroupBox>
             </StackPanel>
         </ScrollViewer>

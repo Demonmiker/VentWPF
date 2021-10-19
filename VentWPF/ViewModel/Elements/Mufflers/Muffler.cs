@@ -1,4 +1,5 @@
-﻿using PropertyTools.DataAnnotations;
+﻿using PropertyChanged;
+using PropertyTools.DataAnnotations;
 using System.Collections.Generic;
 using VentWPF.Model;
 using static VentWPF.ViewModel.Strings;
@@ -20,9 +21,9 @@ namespace VentWPF.ViewModel
         [Category(Data)]
         [DisplayName("Длинна секции")]
         [FormatString(fmm)]
-        public SectionLength FC { get; set; }
+        public SectionLength SectionLen { get; set; }
 
-        protected override float GeneratedPressureDrop => FC switch
+        protected override float GeneratedPressureDrop => SectionLen switch
         {
             SectionLength.секция500 => 25,
             SectionLength.секция1000 => 55,
@@ -31,7 +32,10 @@ namespace VentWPF.ViewModel
 
         public override List<string> InfoProperties => new()
         {
-            "FC",
+            nameof(SectionLen ),
         };
+
+        [DependsOn(nameof(SectionLen))]
+        public override float PressureDrop { get => base.PressureDrop; set => base.PressureDrop = value; }
     }
 }

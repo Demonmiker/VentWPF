@@ -7,20 +7,22 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using VentWPF.Model.Calculations;
 using vm = VentWPF.ViewModel;
+
 using SYS = System.Windows;
 using Word = Microsoft.Office.Interop.Word;
-
 
 namespace VentWPF.DocX
 {
     internal class DocX_Main
     {
-        object missing = System.Reflection.Missing.Value;
-        object varFalse = false;
-        Word.Application winword = new Word.Application();
+        private object missing = System.Reflection.Missing.Value;
+        private object varFalse = false;
+        private Word.Application winword = new Word.Application();
         public string imageLogo = Path.GetFullPath("Assets/Images/DocXImages/logo.png");
         public string imageQR = Path.GetFullPath("Assets/Images/DocXImages/qr-code.gif");
+
         public static vm.ProjectVM Project { get; set; } = vm.ProjectVM.Current;
+
         public float currentSumFrame;
         public float currentSumStand;
         public float currentSumCorner;
@@ -117,7 +119,6 @@ namespace VentWPF.DocX
 
         public void DataTableFrame(Document document)
         {
-
             Paragraph para0 = document.Content.Paragraphs.Add(ref missing);
             para0.Range.Text = "Профиль каркаса";
             para0.Range.InsertParagraphAfter();
@@ -159,7 +160,6 @@ namespace VentWPF.DocX
             para0.Range.Text = "Перегородки каркаса";
             para0.Range.InsertParagraphAfter();
 
-
             Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
             string[] dataT = Calculations.FrameStandCalcTop(Convert.ToInt32(Project.Frame.Width), Project.Frame.Top.Values.Count - 1);
             string[] dataS = Calculations.FrameStandCalcServ(Convert.ToInt32(Project.Frame.Height), Project.Frame.Left.Values.Count - 1);
@@ -197,7 +197,6 @@ namespace VentWPF.DocX
             para0.Range.Text = "Фитинги";
             para0.Range.InsertParagraphAfter();
 
-
             Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
             string[] dataT = Calculations.FrameCorner(8);
             Table firstTable = document.Tables.Add(para1.Range, 2, 2, ref missing, ref missing);
@@ -231,7 +230,7 @@ namespace VentWPF.DocX
             firstTable.AutoFitBehavior(WdAutoFitBehavior.wdAutoFitContent);
 
             firstTable.Rows[1].Cells[1].Range.Text = "Наименование";
-            firstTable.Rows[1].Cells[2].Range.Text = "Цена за еденицу";
+            firstTable.Rows[1].Cells[2].Range.Text = "Цена за единицу";
             firstTable.Rows[1].Cells[3].Range.Text = "Всего";
             firstTable.Rows[1].Cells[4].Range.Text = "Итог";
             string[] dataB = Calculations.FrameBorderPrice(currentSumFrame);
@@ -243,7 +242,7 @@ namespace VentWPF.DocX
                 firstTable.Rows[3].Cells[i + 1].Range.Text = dataS[i];
                 firstTable.Rows[4].Cells[i + 1].Range.Text = dataC[i];
             }
-            int sum = Convert.ToInt32(dataB[4]) + Convert.ToInt32(dataS[4]) + Convert.ToInt32(dataC[4]);
+            int sum = Convert.ToInt32(dataB[3]) + Convert.ToInt32(dataS[3]) + Convert.ToInt32(dataC[3]);
             firstTable.Rows[5].Cells[1].Range.Text = "Итого:";
             firstTable.Rows[5].Cells[4].Range.Text = Convert.ToString(sum);
         }
@@ -252,7 +251,6 @@ namespace VentWPF.DocX
         {
             foreach (Section section in document.Sections)
             {
-
                 Word.Range headerRange = section.Headers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
                 Table Table = document.Tables.Add(headerRange, 1, 3, ref missing, ref missing);
                 Table.Borders.Enable = 0; //для тестов
@@ -266,21 +264,19 @@ namespace VentWPF.DocX
                 Table.Rows[1].Cells[1].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphLeft;
                 Table.Rows[1].Cells[2].Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
 
-
                 object docRange = Table.Rows[1].Cells[1].Range;
                 string imagePath = imageLogo;
                 document.InlineShapes.AddPicture(imageLogo, LinkToFile: true, SaveWithDocument: true, Range: docRange);
                 docRange = Table.Rows[1].Cells[3].Range;
                 imagePath = imageQR;
                 document.InlineShapes.AddPicture(imageQR, LinkToFile: true, SaveWithDocument: true, Range: docRange);
-
             }
         }
-
 
         #endregion
 
         #region DocX
+
         public void DocX_Initialization()
         {
             winword.ShowAnimation = false;
@@ -361,7 +357,7 @@ namespace VentWPF.DocX
             var existed = Project.Elements.ContainsKey("scheme");
             if (existed)
             {
-                SaveImage(path, Project.Elements["scheme"]);                
+                SaveImage(path, Project.Elements["scheme"]);
                 object docRange = para1.Range;
                 string imagePath = path;
                 document.InlineShapes.AddPicture(imagePath, LinkToFile: true, SaveWithDocument: true, Range: docRange);
@@ -440,7 +436,8 @@ namespace VentWPF.DocX
             }
 
             para1.Range.InsertParagraphAfter();
-        }       
+        }
+
         public void footerInit(Document document)
         {
             foreach (Section section in document.Sections)

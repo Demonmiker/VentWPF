@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 
 namespace VentWPF.Fans.K3G
 {
-    internal class K3GController : IController<K3GRequest, List<K3GFanData>>
+    internal class K3GController : IController<K3GRequest, List<K3GData>>
     {
 #pragma warning disable CS0618
 
@@ -25,15 +25,17 @@ namespace VentWPF.Fans.K3G
 
 #pragma warning restore CS0618
 
-        public List<K3GFanData> GetResponce(K3GRequest request)
+        string[] Keys;
+
+        public List<K3GData> GetResponce(K3GRequest request)
         {
             Connection();
-            var ids = GetIDs();
-            List<K3GFanData> res = new();
-            foreach (var id in ids)
+            Keys ??= GetIDs().ToArray();
+            List<K3GData> res = new();
+            foreach (var id in Keys)
             {
                 var list = GetFanInfo(id, request);
-                K3GFanData data = new K3GFanData(id, list);
+                K3GData data = new K3GData(id, list);
                 res.Add(data);
             }
             return res;

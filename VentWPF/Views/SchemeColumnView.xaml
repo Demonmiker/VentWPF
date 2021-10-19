@@ -6,7 +6,7 @@
         <DataTemplate.Resources>
             <Style TargetType="{x:Type Border}">
                 <Setter Property="Margin" Value="-2 0 0 -2"/>
-                <!--<Setter Property="BorderThickness" Value="1"/>-->
+                <Setter Property="BorderThickness" Value="1"/>
                 <Setter Property="BorderBrush" Value="Black"/>
             </Style>
         </DataTemplate.Resources>

@@ -1,0 +1,2 @@
+Version spécifique pour les tailles 1120, 1250 et 1400. Déstinée aux applications avec préssions plus lourdes, elle est équipée des cadres latéraux renforcés, réalisés par des profilés en acier saudés, spécifiques pour chaque orientation. Quatre versions différentes pour chaque taille permettent l'installation avec une orientation spécifique: 0°, 90°, 180° ou 270°, selon ISO 13349.
+La volute est supportée par trois paliers spéciaux à billes, pour charges élévées, montés sur supports en fonte avec graisseur.
