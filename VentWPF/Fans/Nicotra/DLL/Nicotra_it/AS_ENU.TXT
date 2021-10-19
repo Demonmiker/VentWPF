@@ -1,4 +1,0 @@
-Single inlet centrifugal fans with forward curved blades. 
-Volume flow from 200 m3/h to 45000 m3/h
-Total Pressure up to 2300 Pa total. 
-Sizes from 9/4 up to 30/14, with rotation LG or RD.

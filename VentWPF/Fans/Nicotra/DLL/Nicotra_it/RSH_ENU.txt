@@ -1,5 +1,0 @@
-Single inlet centrifugal fans with backward curved blades. 
-Volume flow from 400 m3/h to 67000 m3/h
-Total Pressure up to 3000 Pa. 
-Sizes from 250 to 1000,
-with scaling in accordance to AMCA Standard 99-0098 76 R20 and to DIN 323 R20.

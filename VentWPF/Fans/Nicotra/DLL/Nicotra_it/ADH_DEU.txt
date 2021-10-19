@@ -1,5 +1,0 @@
-Radialventilatoren, doppelseitig saugend, Laufrad mit vorwärtsgekrümmten Schaufeln.
-Luftleistung von 200 m3/h bis 140.000 m3/h
-Pressung bis 2000 Pa gesamt.
-Baugrößen von 160 bis 1.000,
-Abstufung gemäß AMCA Standard 99-0098 76 R20 und DIN 323 R20.

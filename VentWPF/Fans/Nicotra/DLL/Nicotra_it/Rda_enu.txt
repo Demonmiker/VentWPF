@@ -1,5 +1,0 @@
-High performance double inlet centrifugal fans with airfoil blades.
-Volume flow from 2000 m3/h to 150.000 m3/h
-Total pressure up to 3.000 Pa.
-Sizes from 315 up to 1000,
-with scaling in accordance to AMCA Standard 99-0098 76 R20 and to DIN 323 R20.
