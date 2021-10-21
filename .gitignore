@@ -233,7 +233,7 @@ _pkginfo.txt
 ClientBin/
 [Dd]LL
 Nicotra_it
-*.dll
+*.[Dd]ll
 *.[Dd]LL
 ~$*
 *~
