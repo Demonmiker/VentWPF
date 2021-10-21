@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using VentWPF.ViewModel;
+using VentWPF.Model.Calculations;
 
 namespace VentWPF.Fans.FanSelect
 {
@@ -11,6 +12,7 @@ namespace VentWPF.Fans.FanSelect
     /// </summary>
     internal class FanCRequest : BaseViewModel, IRequest<string>
     {
+        public static ProjectInfoVM Project { get; set; } = ProjectVM.Current?.ProjectInfo;
         [Category("Запрос")]
         [JsonPropertyName("insert_geo_data")]
         public bool InsertGeoData { get; set; } = true;
@@ -29,7 +31,7 @@ namespace VentWPF.Fans.FanSelect
         public string Password { get; set; } = "password";
 
         [JsonPropertyName("psf")]
-        public double PressureDrop { get; set; } = 150;
+        public double PressureDrop { get; set; } = Calculations.GPD() + Project.PFlow;
 
         [JsonPropertyName("search_tolerance")]
         public double SearchTolerance { get; set; } = 10;
@@ -41,9 +43,7 @@ namespace VentWPF.Fans.FanSelect
         public string Username { get; set; } = "login";
 
         [JsonPropertyName("qv")]
-        public double VFlow { get; set; } = 6000;
-
-        //"fan_type" : "ER",
+        public double VFlow { get; set; } = Project.VFlow;
 
         [JsonPropertyName("fan_type")]
         public string FanType { get; set; }

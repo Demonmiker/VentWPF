@@ -150,6 +150,9 @@ namespace VentWPF.Fans
 
         public double ZA_WEIGHT;
 
+        [DisplayName("Индекс")]
+        public int INDEX { get; set; }
+
         [DisplayName("ID")]
         public string ARTICLE_NO { get; set; }
 
@@ -157,10 +160,7 @@ namespace VentWPF.Fans
         public string TYPE { get; set; }
 
         [DisplayName("Мощность")]
-        public double POWER_OUTPUT_HP { get; set; }
-
-        [DisplayName("Индекс")]
-        public int INDEX { get; set; }
+        public double POWER_OUTPUT_HP { get; set; }        
 
         [DisplayName("Обороты номинал")]
         public double ZA_N { get; set; }

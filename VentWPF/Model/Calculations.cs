@@ -1,6 +1,7 @@
 ﻿using System;
 using VentWPF.ViewModel;
 using PropertyTools.DataAnnotations;
+using vm = VentWPF.ViewModel;
 
 namespace VentWPF.Model.Calculations
 {
@@ -36,7 +37,8 @@ namespace VentWPF.Model.Calculations
 
         #endregion
 
-        public static ProjectInfoVM Project { get; set; } = ProjectVM.Current?.ProjectInfo;
+        public static ProjectInfoVM ProjectInfo { get; set; } = ProjectVM.Current?.ProjectInfo;
+        public static vm.ProjectVM Project { get; set; } = vm.ProjectVM.Current;
 
         #region[Heaters]
         static public float heaterConsumption(float Power, float TempBegin, float TempEnd)
@@ -194,5 +196,13 @@ namespace VentWPF.Model.Calculations
 
         #endregion
 
+
+        public static int GPD()
+        {
+
+            var i = Project.Elements["Heater_Water"].
+
+            return 0;
+        }
     }
 }
