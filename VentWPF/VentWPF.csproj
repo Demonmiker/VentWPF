@@ -240,4 +240,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Fans\FanSelect\DLL\" />
+  </ItemGroup>
+
 </Project>
