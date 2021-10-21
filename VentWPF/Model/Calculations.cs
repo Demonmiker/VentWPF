@@ -37,8 +37,8 @@ namespace VentWPF.Model.Calculations
 
         #endregion
 
-        public static ProjectInfoVM ProjectInfo { get; set; } = ProjectVM.Current?.ProjectInfo;
-        public static vm.ProjectVM Project { get; set; } = vm.ProjectVM.Current;
+        public static ProjectInfoVM Project { get; set; } = ProjectVM.Current?.ProjectInfo;
+        public static vm.ProjectVM ProjectIT { get; set; } = vm.ProjectVM.Current;
 
         #region[Heaters]
         static public float heaterConsumption(float Power, float TempBegin, float TempEnd)
@@ -199,10 +199,17 @@ namespace VentWPF.Model.Calculations
 
         public static int GPD()
         {
+            int sum = 0;
+            //foreach (int i in ProjectVM.Current.Grid.Elements.Count)
+            //{
+               // sum += Convert.ToInt32(Project.Grid.Elements[i].PressureDrop);
+            //}       
+            for (int i = 0; i < ProjectVM.Current.Grid.Elements.Count; i++)
+            {
+                sum += Convert.ToInt32(ProjectIT.Grid.Elements[i].PressureDrop);
+            }
 
-            var i = Project.Elements["Heater_Water"].
-
-            return 0;
+            return sum;
         }
     }
 }
