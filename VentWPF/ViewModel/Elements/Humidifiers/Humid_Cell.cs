@@ -12,8 +12,9 @@ namespace VentWPF.ViewModel
         public Humid_Cell()
         {
             image = "Humidifiers/Humid_Cell.png";
-            SchemeImage = Path.GetFullPath("Assets/Images/Humidifiers/SH_Humid_Cell.png");
         }
+
+        public override string SchemeImage => ImagePath("Humidifiers/SH_Humid_Cell.png");
 
         public override int Length => 650;
 

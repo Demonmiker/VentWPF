@@ -23,8 +23,9 @@ namespace VentWPF.ViewModel
             {
                 Source = from o in VentContext.Instance.Tэнрыs select o
             };
-            SchemeImage = Path.GetFullPath("Assets/Images/Heaters/SH_Heater_Electric.png");
         }
+
+        public override string SchemeImage => ImagePath("Heaters/SH_Heater_Electric.png");
 
         public override int Length => 400;
 
