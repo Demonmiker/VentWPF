@@ -21,11 +21,10 @@ namespace VentWPF.ViewModel
             {
                 Source = from h in VentContext.Instance.ВодаТеплоs select h
             };
-            Length = 400;
-            Width = 456;
-            Height = 789;
             SchemeImage = Path.GetFullPath("Assets/Images/Heaters/SH_Heater_Water.png");
         }
+
+        public override int Length => 400;
 
         public override string Name => $"Нагреватель жидкостный {(DeviceData as ВодаТепло)?.Типоряд}";
 

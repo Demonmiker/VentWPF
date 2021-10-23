@@ -23,8 +23,9 @@ namespace VentWPF.ViewModel
                     Volumenstrom = Project.VFlow / 3600.0f,
                 }
             };
-            Length = 980;
         }
+
+        public override int Length => 980;
 
         public override string Name => "Вентилятор поточный";
 
