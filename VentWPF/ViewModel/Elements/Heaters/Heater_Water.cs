@@ -21,8 +21,9 @@ namespace VentWPF.ViewModel
             {
                 Source = from h in VentContext.Instance.ВодаТеплоs select h
             };
-            SchemeImage = Path.GetFullPath("Assets/Images/Heaters/SH_Heater_Water.png");
         }
+
+        public override string SchemeImage => ImagePath("Heaters/SH_Heater_Water.png");
 
         public override int Width => (int)((DeviceData as ВодаТепло)?.ШиринаЖс ?? 0);
 

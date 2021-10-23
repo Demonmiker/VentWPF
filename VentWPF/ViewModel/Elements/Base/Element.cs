@@ -210,6 +210,11 @@ namespace VentWPF.ViewModel
 
         [Browsable(false)]
         [DependsOn(nameof(DeviceIndex))]
-        public string SchemeImage { get; protected set; } = "";
+        public virtual string SchemeImage => "";
+
+        protected string ImagePath(string path) // пример Heaters/Heater_Electric.png
+        {
+            return Path.GetFullPath("Assets/Images/" + path);
+        }
     }
 }

@@ -8,8 +8,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib"
-    xmlns:tl="clr-namespace:VentWPF.Tools"
     xmlns:vm="clr-namespace:VentWPF.ViewModel"
     Title="MainWindow"
     Background="{DynamicResource MaterialDesignPaper}"
