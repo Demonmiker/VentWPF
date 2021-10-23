@@ -20,8 +20,9 @@ namespace VentWPF.ViewModel
             {
                 Source = from o in VentContext.Instance.ВодаХолодs select o
             };
-            Length = 500;
         }
+
+        public override int Length => 500;
 
         [DependsOn(nameof(DeviceData))]
         public override string Name => $"Охладитель жидкостный {(DeviceData as ВодаХолод)?.Типоряд}";

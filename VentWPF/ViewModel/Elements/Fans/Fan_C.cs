@@ -27,8 +27,9 @@ namespace VentWPF.ViewModel
                     FanType = "ER"
                 }
             };
-            Length = 980;
         }
+
+        public override int Length => 980;
 
         public override string Name => "Вентилятор";
 

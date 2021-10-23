@@ -12,8 +12,9 @@ namespace VentWPF.ViewModel
             {
                 Source = new NicotraRequest()
             };
-            Length = 980;
         }
+
+        public override int Length => 980;
 
         public override string Name => "Вентилятор улиточный";
 
