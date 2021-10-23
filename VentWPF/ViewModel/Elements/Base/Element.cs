@@ -201,12 +201,15 @@ namespace VentWPF.ViewModel
         public virtual int Length => 0;
 
         [Browsable(false)]
+        [DependsOn(nameof(DeviceIndex))]
         public virtual int Width => 0;
 
         [Browsable(false)]
+        [DependsOn(nameof(DeviceIndex))]
         public virtual int Height => 0;
 
         [Browsable(false)]
+        [DependsOn(nameof(DeviceIndex))]
         public string SchemeImage { get; protected set; } = "";
     }
 }
