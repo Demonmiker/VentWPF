@@ -17,6 +17,10 @@ namespace VentWPF.ViewModel
             ShowPD = true;
         }
 
+        public override int Width => 500;
+
+        public override int Height => 600;
+
         [Category(Data)]
         [DisplayName("Класс очистки")]
         public FilterClassType FC { get; set; }

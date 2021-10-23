@@ -51,13 +51,27 @@
                                         ToolTip="{Binding Error}"
                                         Visibility="{Binding HasErrors, Converter={StaticResource visConv}}">
                                         <fa5:SvgAwesome
-                                            Height="12"
+                                            Height="15"
                                             Margin="4.5 5"
                                             HorizontalAlignment="Left"
-                                            VerticalAlignment="Bottom"
+                                            VerticalAlignment="Top"
                                             Foreground="Red"
                                             Icon="Solid_ExclamationCircle"/>
                                     </Border>
+                                    <TextBlock
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Bottom"
+                                        Visibility="{Binding DeviceData, Converter={StaticResource visConv}}"
+                                        TextAlignment="Center"
+                                        Background="#a000"
+                                        Foreground="Red">
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0}x{1}">
+                                                <Binding Path="Width"/>
+                                                <Binding Path="Height"/>
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
