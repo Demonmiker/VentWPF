@@ -75,7 +75,37 @@ namespace VentWPF.ViewModel
         [Category("Настройки|")]
         [DisplayName("Объём притока")]
         [FormatString(fm3)]
-        public int VFlow { get; set; } = 6000;
+        public int VFlow
+        {
+            get => vFlow;
+            set
+            {
+                vFlow = value;
+                SizeType = value switch
+                {
+                    < 1200 => SizeType.ТипоРазмер1,
+                    < 2200 => SizeType.ТипоРазмер2,
+                    < 3200 => SizeType.ТипоРазмер3,
+                    < 4200 => SizeType.ТипоРазмер4,
+                    < 5200 => SizeType.ТипоРазмер5,
+                    < 6500 => SizeType.ТипоРазмер6,
+                    < 7200 => SizeType.ТипоРазмер8,
+                    < 9700 => SizeType.ТипоРазмер10,
+                    < 12000 => SizeType.ТипоРазмер12,
+                    < 15000 => SizeType.ТипоРазмер16,
+                    < 20300 => SizeType.ТипоРазмер20,
+                    < 25000 => SizeType.ТипоРазмер25,
+                    < 30000 => SizeType.ТипоРазмер30,
+                    < 40000 => SizeType.ТипоРазмер40,
+                    < 50000 => SizeType.ТипоРазмер50,
+                    < 60000 => SizeType.ТипоРазмер60,
+                    < 70000 => SizeType.ТипоРазмер80,
+                    _ => SizeType.ТипоРазмер100,
+                };
+            }
+        }
+
+        private int vFlow = 6000;
 
         /// <summary>
         /// Сопротивление сети притока
@@ -153,9 +183,19 @@ namespace VentWPF.ViewModel
 
         [DependsOn("Realization")]
         [Category("Вид|")]
-        [DisplayName("Типоряд не сделано")]
-        public ObservableCollection<string> Types
-            => new() { $"{Realization}1", $"{Realization}2" };
+        [DisplayName("Типоразмер")]
+        public SizeType SizeType
+        {
+            get => sizeType;
+            set
+            {
+                sizeType = value;
+                (Width, Height) = value.GetSize();
+            }
+        }
+
+        private SizeType sizeType = SizeType.ТипоРазмер6;
+
 
         /// <summary>
         /// Сторона обслуживания
