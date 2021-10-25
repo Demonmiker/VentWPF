@@ -9,6 +9,10 @@ namespace VentWPF.ViewModel
         public Fan_K3G()
         {
             DeviceType = typeof(K3GData);
+        }
+
+        public override void UpdateQuery()
+        {
             Query = new K3GQuery()
             {
                 Source = new K3GRequest()

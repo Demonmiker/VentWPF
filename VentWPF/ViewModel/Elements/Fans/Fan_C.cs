@@ -8,7 +8,7 @@ namespace VentWPF.ViewModel
 {
     internal class Fan_C : Fan
     {
-        public Fan_C()
+        public override void UpdateQuery()
         {
             DeviceType = typeof(FanCData);
             Query = new FanQuery_C()
@@ -26,7 +26,7 @@ namespace VentWPF.ViewModel
                     PressureDrop = Calculations.GPD() + Project.PFlow,
                     SearchTolerance = 10,
                     UnitSystem = "m",
-                    Voltage = 230,
+                    Voltage = 230, // TODO Не динамично нельзя будет изменить
                     VFlow = Project.VFlow,
                     FanType = "ER"
                 }

@@ -7,10 +7,17 @@ namespace VentWPF.ViewModel
     {
         public Fan_P()
         {
+        }
+
+        public override void UpdateQuery()
+        {
             DeviceType = typeof(NicotraData);
             Query = new NicotraQuery()
             {
                 Source = new NicotraRequest()
+                {
+                    // TODO нужно указать свойства нормально здесь
+                }
             };
         }
 

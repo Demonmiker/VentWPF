@@ -201,11 +201,16 @@ namespace VentWPF.ViewModel
             return table;
         }
 
-        public static T GetInstance<T>(T o) => (T)Activator.CreateInstance(o.GetType());
+        public static T GetInstance<T>(T o)
+        {
+            return (T)Activator.CreateInstance(o.GetType());
+        }
 
         protected override string OnValidation()
-            => (DeviceType is not null && DeviceData is null ? "Не выбрана модель устройства\n" : "") +
-               (!CorrectSize ? "Не подходит по размерам" : "");
+        {
+            return (DeviceType is not null && DeviceData is null ? "Не выбрана модель устройства\n" : "") +
+                          (!CorrectSize ? "Не подходит по размерам" : "");
+        }
 
         [Browsable(false)]
         public virtual int Length => 0;
@@ -235,6 +240,7 @@ namespace VentWPF.ViewModel
 
         public virtual void UpdateQuery()
         {
+            throw new Exception("Не реализовано обновление запроса");
         }
     }
 }

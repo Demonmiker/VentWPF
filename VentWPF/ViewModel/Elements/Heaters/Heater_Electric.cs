@@ -18,6 +18,10 @@ namespace VentWPF.ViewModel
         public Heater_Electric()
         {
             image = "Heaters/Heater_Electric.png";
+        }
+
+        public override void UpdateQuery()
+        {
             DeviceType = typeof(Тэнры);
             Query = new DatabaseQuery<Тэнры>
             {
