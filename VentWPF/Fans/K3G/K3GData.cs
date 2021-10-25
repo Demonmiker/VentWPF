@@ -7,7 +7,6 @@ namespace VentWPF.Fans.K3G
 {
     public class K3GData
     {
-        //TODO исправить наименования и форматирование
         public K3GData(string id, IEnumerable<string> info)
         {
             var details = info.ToArray();
