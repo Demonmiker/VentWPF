@@ -10,7 +10,6 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal abstract class Cooler : Element
     {
-
         public Cooler()
         {
             ShowPR = true;
@@ -57,6 +56,5 @@ namespace VentWPF.ViewModel
 
         [Browsable(false)]
         public virtual float pD2 => (float)(Math.Exp((1500.3 + 23.5 * TempOut) / (234 + TempOut)));
-
     }
 }

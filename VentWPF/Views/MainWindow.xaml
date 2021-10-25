@@ -357,7 +357,11 @@
                         SelectionUnit="FullRow">
                         <DataGrid.Resources>
                            <Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="DataGridCell">
-                              <Setter Property="Background" Value="Transparent"/>
+                              <Style.Triggers>
+                                 <Trigger Property="HasContent" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                 </Trigger>
+                              </Style.Triggers>
                            </Style>
                         </DataGrid.Resources>
                         <DataGrid.ItemContainerStyle>

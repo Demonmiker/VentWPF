@@ -29,9 +29,9 @@ namespace VentWPF.ViewModel
 
         public override string SchemeImage => ImagePath("Heaters/SH_Heater_Water.png");
 
-        public override int Width => (int)((DeviceData as ВодаТепло)?.ШиринаЖс ?? 0);
+        public override int Width => (int)((DeviceData as ВодаТепло)?.ШиринаГабарит ?? 0);
 
-        public override int Height => (int)((DeviceData as ВодаТепло)?.ВысотаЖс ?? 0);
+        public override int Height => (int)((DeviceData as ВодаТепло)?.ВысотаГабарит ?? 0);
 
         public override int Length => 400;
 

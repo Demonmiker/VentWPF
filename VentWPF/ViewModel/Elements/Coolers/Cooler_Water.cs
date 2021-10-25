@@ -26,6 +26,10 @@ namespace VentWPF.ViewModel
             };
         }
 
+        public override int Width => (int)((DeviceData as ВодаХолод)?.ШиринаГабарит ?? 0);
+
+        public override int Height => (int)((DeviceData as ВодаХолод)?.ВысотаГабарит ?? 0);
+
         public override int Length => 500;
 
         [DependsOn(nameof(DeviceData))]

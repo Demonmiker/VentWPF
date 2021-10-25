@@ -3,6 +3,7 @@ using VentWPF.Fans.FanSelect;
 using PropertyTools.DataAnnotations;
 using VentWPF.Fans;
 using VentWPF.Model.Calculations;
+using PropertyChanged;
 
 namespace VentWPF.ViewModel
 {
@@ -33,9 +34,15 @@ namespace VentWPF.ViewModel
             };
         }
 
-        public override int Length => 980;
+        public override int Width => (int)((DeviceData as FanCData)?.INSTALLATION_WIDTH_MM ?? 0);
 
-        public override string Name => "Вентилятор";
+        public override int Height => (int)((DeviceData as FanCData)?.INSTALLATION_HEIGHT_MM ?? 0);
+
+        public override int Length => (int)((DeviceData as FanCData)?.INSTALLATION_LENGTH_MM ?? 0);
+
+        //public override string Name => $"Фреоновый охладитель ";
+        [DependsOn(nameof(DeviceData))]
+        public override string Name => $"Вентилятор {(DeviceData as FanCData)?.ARTICLE_NO}";
 
         public override List<string> InfoProperties => new()
         {

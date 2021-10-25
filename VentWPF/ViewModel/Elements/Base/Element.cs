@@ -87,7 +87,7 @@ namespace VentWPF.ViewModel
         /// Информация о выбраной модели
         /// </summary>
         [Browsable(false)]
-        public object DeviceData => DeviceIndex >= 0 ? Query.Result[DeviceIndex] : null;
+        public object DeviceData => DeviceIndex >= 0 ? Query.Result?[DeviceIndex] : null;
 
         /// <summary>
         /// Содержит данные о форматировании этого элемента @@warn Можно убрать
@@ -240,7 +240,6 @@ namespace VentWPF.ViewModel
 
         public virtual void UpdateQuery()
         {
-            throw new Exception("Не реализовано обновление запроса");
         }
     }
 }
