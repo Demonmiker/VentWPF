@@ -54,7 +54,8 @@ namespace VentWPF.ViewModel
         {
             string header = e.Column.Header.ToString();
             // Получчение имени из тэга
-            // TODO при запросе в 0 элементов вылетает
+            // TODO при запросе в 0 элементов вылетает (fixed)
+            if (ProjectVM.Current.Grid.Selected.Query.Result.Count == 0) return;
             object[] atrs = ProjectVM.Current.Grid.Selected.Query.Result[0].GetType()
                     .GetProperty(header).GetCustomAttributes(typeof(DisplayNameAttribute), true);
             if (atrs.Length > 0)
