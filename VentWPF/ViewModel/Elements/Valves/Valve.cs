@@ -20,7 +20,7 @@ namespace VentWPF.ViewModel
         [Category(Data)]
         [FormatString(fmm)]
         [DisplayName("Ширина")]        
-        public int WidthValve { get; set; } = 450;
+        public int WidthValve { get; set; } = Project.Width;
 
         [Category(Data)]
         [FormatString(fmm)]

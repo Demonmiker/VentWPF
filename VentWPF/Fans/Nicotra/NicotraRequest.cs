@@ -1,10 +1,12 @@
 ﻿using valid = VentWPF.Tools;
 using PropertyTools.DataAnnotations;
-
+using VentWPF.ViewModel;
+using VentWPF.Model.Calculations;
 namespace VentWPF.Fans.Nicotra
 {
     internal class NicotraRequest : IRequest<double[]>
     {
+        public static ProjectInfoVM Project { get; set; } = ProjectVM.Current?.ProjectInfo;
         public double Option { get; set; } = 1; //1 - Air volume and static pressure 2 - Air volume and total pressure
 
         public double InstType { get; set; } = 1; // 1 - free inlet free outlet  2 - free inlet ducted outlet
@@ -15,11 +17,11 @@ namespace VentWPF.Fans.Nicotra
 
         public double Height { get; set; } = 1; //высота в метрах
 
-        public double FlowRate { get; set; } = 600; //VFlow
+        public double FlowRate { get; set; } = Project.VFlow; //VFlow
 
-        public double StaticPressure { get; set; } = 100; //Статическое сопр давления
+        public double StaticPressure { get; set; } = Project.PFlow; //Статическое сопр давления
 
-        public double TotalPressure { get; set; } = 150; //Тотальное(?)
+        public double TotalPressure { get; set; } = Calculations.GPD(); //Тотальное(?)
 
         public double Speed { get; set; } = 0; //оставить 0
 

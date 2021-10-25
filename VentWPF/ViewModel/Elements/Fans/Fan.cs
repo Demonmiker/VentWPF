@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.IO;
 using static VentWPF.ViewModel.Strings;
+using VentWPF.Model.Calculations;
 
 namespace VentWPF.ViewModel
 {
@@ -29,12 +30,12 @@ namespace VentWPF.ViewModel
 
         [Category(Info)]
         [DisplayName("Падение давления системы")]
-        public float PressureDropSystem => 999;
+        public float PressureDropSystem => Calculations.GPD();
 
         [DisplayName("Повышение давления")]
-        public float PressureRaise => -PressureDrop;
+        public float PressureRaise => PressureDrop;
 
-        protected override float GeneratedPressureDrop => -500;
+        protected override float GeneratedPressureDrop => 0;
 
         // тут типо вычисляяю всё
     }
