@@ -45,6 +45,9 @@ namespace VentWPF.Fans.FanSelect
         [JsonPropertyName("unit_system")]
         public string UnitSystem { get; set; } = "m";
 
+        [JsonPropertyName("voltage")]
+        public double Voltage { get; set; } = 230;
+
         [JsonPropertyName("username")]
         public string Username { get; set; } = "login";
 

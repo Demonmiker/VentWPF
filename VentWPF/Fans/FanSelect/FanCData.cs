@@ -160,7 +160,10 @@ namespace VentWPF.Fans
         public string TYPE { get; set; }
 
         [DisplayName("Мощность")]
-        public double POWER_OUTPUT_HP { get; set; }        
+        public double POWER_OUTPUT_HP { get; set; }
+
+        [DisplayName("Разница оборотов")]
+        public double NDiff => ZA_NMAX - ZA_N;
 
         [DisplayName("Обороты номинал")]
         public double ZA_N { get; set; }

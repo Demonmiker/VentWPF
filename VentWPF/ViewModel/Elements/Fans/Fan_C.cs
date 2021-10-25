@@ -26,6 +26,7 @@ namespace VentWPF.ViewModel
                     PressureDrop = Calculations.GPD() + Project.PFlow,
                     SearchTolerance = 10,
                     UnitSystem = "m",
+                    Voltage = 230,
                     VFlow = Project.VFlow,
                     FanType = "ER"
                 }
