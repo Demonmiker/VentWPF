@@ -1,433 +1,433 @@
 ﻿<Window
-    x:Class="VentWPF.MainWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:pt="http://propertytools.org/wpf"
-    xmlns:fa5="http://schemas.fontawesome.com/icons/"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:vm="clr-namespace:VentWPF.ViewModel"
-    Title="MainWindow"
-    Background="{DynamicResource MaterialDesignPaper}"
-    FontFamily="{md:MaterialDesignFont}"
-    TextElement.FontSize="14"
-    TextElement.FontWeight="Medium"
-    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-    WindowState="Maximized"
-    mc:Ignorable="d">
-    <Window.DataContext>
-        <vm:MainViewModel/>
-    </Window.DataContext>
-    <b:Interaction.Triggers>
-        <b:EventTrigger EventName="Closed">
-            <b:InvokeCommandAction Command="{Binding CmdWindowClosed}" PassEventArgsToCommand="True"/>
-        </b:EventTrigger>
-    </b:Interaction.Triggers>
-    <DockPanel>
-        <!--  Верхнее контекстное меню  -->
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Файл">
-                <MenuItem Command="{Binding CmdSave}" Header="Сохранить"/>
-                <MenuItem Command="{Binding CmdLoad}" Header="Загрузить"/>
-            </MenuItem>
-            <MenuItem Header="Настройки">
-                <MenuItem Command="{Binding CmdConfig}" Header="Запрос"/>
-                <MenuItem Command="{Binding CmdLoad}" Header="Интерфейс"/>
-                <MenuItem Command="{Binding CmdLoad}" Header="Интерфейс"/>
-            </MenuItem>
-        </Menu>
-        <!--  Статус бар внизу  -->
-        <StatusBar DockPanel.Dock="Bottom">
-            <TextBlock>
-                <Run Text="Очередь запросов"/>
-                <Run Text="{Binding Project.TaskManager.Count, Mode=OneWay}"/>
-            </TextBlock>
-            <fa5:SvgAwesome
-                Width="20"
-                Height="18"
-                Foreground="{Binding Project.ErrorManager.HasErrors, Converter={StaticResource brGR}}">
-                <fa5:SvgAwesome.Style>
-                    <Style TargetType="{x:Type fa5:SvgAwesome}">
-                        <Setter Property="Icon" Value="Solid_ExclamationTriangle"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Project.ErrorManager.HasErrors}" Value="false">
-                                <Setter Property="Icon" Value="Solid_CheckCircle"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </fa5:SvgAwesome.Style>
-            </fa5:SvgAwesome>
-        </StatusBar>
-        <Grid Margin="0 0 0 0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5*" MinWidth="600"/>
-                <ColumnDefinition Width="2*">
-                    <ColumnDefinition.Style>
-                        <Style TargetType="{x:Type ColumnDefinition}">
-                            <Setter Property="MaxWidth" Value="800"/>
-                            <Setter Property="MinWidth" Value="400"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Path=Project.Grid.Index}" Value="-1">
-                                    <Setter Property="MaxWidth" Value="25"/>
-                                    <Setter Property="MinWidth" Value="25"/>
-                                    <Setter Property="Width" Value="25"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Path=Project.Grid.Selected.Name}" Value="">
-                                    <Setter Property="MaxWidth" Value="25"/>
-                                    <Setter Property="MinWidth" Value="25"/>
-                                    <Setter Property="Width" Value="25"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ColumnDefinition.Style>
-                </ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <GridSplitter
-                Width="6"
-                Margin="0 0 0 0"
-                HorizontalAlignment="Right"
-                Panel.ZIndex="2"
-                Background="Transparent"
-                Visibility="{Binding Project.Grid.Selected.Name, Converter={StaticResource visConv}}"/>
+   x:Class="VentWPF.MainWindow"
+   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+   xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+   xmlns:pt="http://propertytools.org/wpf"
+   xmlns:fa5="http://schemas.fontawesome.com/icons/"
+   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+   xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+   xmlns:vm="clr-namespace:VentWPF.ViewModel"
+   Title="MainWindow"
+   Background="{DynamicResource MaterialDesignPaper}"
+   FontFamily="{md:MaterialDesignFont}"
+   TextElement.FontSize="14"
+   TextElement.FontWeight="Medium"
+   TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+   WindowState="Maximized"
+   mc:Ignorable="d">
+   <Window.DataContext>
+      <vm:MainViewModel/>
+   </Window.DataContext>
+   <b:Interaction.Triggers>
+      <b:EventTrigger EventName="Closed">
+         <b:InvokeCommandAction Command="{Binding CmdWindowClosed}" PassEventArgsToCommand="True"/>
+      </b:EventTrigger>
+   </b:Interaction.Triggers>
+   <DockPanel>
+      <!--  Верхнее контекстное меню  -->
+      <Menu DockPanel.Dock="Top">
+         <MenuItem Header="Файл">
+            <MenuItem Command="{Binding CmdSave}" Header="Сохранить"/>
+            <MenuItem Command="{Binding CmdLoad}" Header="Загрузить"/>
+         </MenuItem>
+         <MenuItem Header="Настройки">
+            <MenuItem Command="{Binding CmdConfig}" Header="Запрос"/>
+            <MenuItem Command="{Binding CmdLoad}" Header="Интерфейс"/>
+            <MenuItem Command="{Binding CmdLoad}" Header="Интерфейс"/>
+         </MenuItem>
+      </Menu>
+      <!--  Статус бар внизу  -->
+      <StatusBar DockPanel.Dock="Bottom">
+         <TextBlock>
+            <Run Text="Очередь запросов"/>
+            <Run Text="{Binding Project.TaskManager.Count, Mode=OneWay}"/>
+         </TextBlock>
+         <fa5:SvgAwesome
+            Width="20"
+            Height="18"
+            Foreground="{Binding Project.ErrorManager.HasErrors, Converter={StaticResource brGR}}">
+            <fa5:SvgAwesome.Style>
+               <Style TargetType="{x:Type fa5:SvgAwesome}">
+                  <Setter Property="Icon" Value="Solid_ExclamationTriangle"/>
+                  <Style.Triggers>
+                     <DataTrigger Binding="{Binding Project.ErrorManager.HasErrors}" Value="false">
+                        <Setter Property="Icon" Value="Solid_CheckCircle"/>
+                     </DataTrigger>
+                  </Style.Triggers>
+               </Style>
+            </fa5:SvgAwesome.Style>
+         </fa5:SvgAwesome>
+      </StatusBar>
+      <Grid Margin="0 0 0 0">
+         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*" MinWidth="600"/>
+            <ColumnDefinition Width="2*">
+               <ColumnDefinition.Style>
+                  <Style TargetType="{x:Type ColumnDefinition}">
+                     <Setter Property="MaxWidth" Value="800"/>
+                     <Setter Property="MinWidth" Value="400"/>
+                     <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=Project.Grid.Index}" Value="-1">
+                           <Setter Property="MaxWidth" Value="25"/>
+                           <Setter Property="MinWidth" Value="25"/>
+                           <Setter Property="Width" Value="25"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=Project.Grid.Selected.Name}" Value="">
+                           <Setter Property="MaxWidth" Value="25"/>
+                           <Setter Property="MinWidth" Value="25"/>
+                           <Setter Property="Width" Value="25"/>
+                        </DataTrigger>
+                     </Style.Triggers>
+                  </Style>
+               </ColumnDefinition.Style>
+            </ColumnDefinition>
+         </Grid.ColumnDefinitions>
+         <GridSplitter
+            Width="6"
+            Margin="0 0 0 0"
+            HorizontalAlignment="Right"
+            Panel.ZIndex="2"
+            Background="Transparent"
+            Visibility="{Binding Project.Grid.Selected.Name, Converter={StaticResource visConv}}"/>
+         <!--  Основная панель  -->
+         <DockPanel>
+            <!--  Верхняя панель для содания элементов  -->
+            <md:Card Background="LightGray" DockPanel.Dock="Top">
+               <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                  <ContentControl>
+                     <ContentControl.Content>
+                        <vm:CreateViewModel/>
+                     </ContentControl.Content>
+                  </ContentControl>
+               </ScrollViewer>
+            </md:Card>
+            <!--  Нижняя панель для констурирования системы  -->
+            <ContentControl Content="{Binding Project.Grid}" DockPanel.Dock="Bottom"/>
+            <Rectangle DockPanel.Dock="Bottom"
+               Height="3"
+               HorizontalAlignment="Stretch"
+               Fill="{DynamicResource PrimaryHueDarkBrush}"/>
+            <Rectangle DockPanel.Dock="Top"
+               Height="3"
+               HorizontalAlignment="Stretch"
+               Fill="{DynamicResource PrimaryHueDarkBrush}"/>
             <!--  Основная панель  -->
-            <DockPanel>
-                <!--  Верхняя панель для содания элементов  -->
-                <md:Card Background="LightGray" DockPanel.Dock="Top">
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-                        <ContentControl>
-                            <ContentControl.Content>
-                                <vm:CreateViewModel/>
-                            </ContentControl.Content>
-                        </ContentControl>
-                    </ScrollViewer>
-                </md:Card>
-                <!--  Нижняя панель для констурирования системы  -->
-                <ContentControl Content="{Binding Project.Grid}" DockPanel.Dock="Bottom"/>
-                <Rectangle DockPanel.Dock="Bottom"
-                    Height="3"
-                    HorizontalAlignment="Stretch"
-                    Fill="{DynamicResource PrimaryHueDarkBrush}"/>
-                <Rectangle DockPanel.Dock="Top"
-                    Height="3"
-                    HorizontalAlignment="Stretch"
-                    Fill="{DynamicResource PrimaryHueDarkBrush}"/>
-                <!--  Основная панель  -->
-                <TabControl Margin="0 2 0 0">
-                    <TabControl.Resources>
-                        <Style TargetType="{x:Type StackPanel}">
-                            <Setter Property="Orientation" Value="Horizontal"/>
-                        </Style>
-                        <Style TargetType="{x:Type fa5:SvgAwesome}">
-                            <Setter Property="Foreground" Value="{StaticResource PrimaryHueDarkBrush}"/>
-                            <Setter Property="Height" Value="12"/>
-                            <Setter Property="Margin" Value="2 0 2 0"/>
-                        </Style>
-                    </TabControl.Resources>
-                    <!--  Проект  -->
-                    <TabItem>
-                        <TabItem.Header>
-                            <StackPanel ToolTip="{Binding Project.ProjectInfo.Error}">
-                                <fa5:SvgAwesome Foreground="{StaticResource PrimaryHueDarkBrush}" Icon="Solid_Bars"/>
-                                <TextBlock Text="Проект"/>
-                                <fa5:SvgAwesome
-                                    Foreground="Red"
-                                    Icon="Solid_ExclamationCircle"
-                                    Visibility="{Binding Project.ProjectInfo.HasErrors}"/>
-                            </StackPanel>
-                        </TabItem.Header>
-                        <pt:PropertyGrid
-                            Width="400"
-                            HorizontalAlignment="Left"
-                            EnumAsRadioButtonsLimit="1"
-                            SelectedObject="{Binding Project.ProjectInfo}"
-                            ShowDeclaredOnly="True"/>
-                    </TabItem>
-                    <!--  Информация  -->
-                    <TabItem>
-                        <TabItem.Header>
-                            <StackPanel>
-                                <fa5:SvgAwesome Icon="Solid_List"/>
-                                <TextBlock Text="Инфо"/>
-                            </StackPanel>
-                        </TabItem.Header>
-                        <ContentControl Content="{Binding Project.Grid.InfoBox}"/>
-                    </TabItem>
-                    <!--  Графики  -->
-                    <TabItem Visibility="Visible">
-                        <TabItem.Header>
-                            <StackPanel>
-                                <fa5:SvgAwesome Icon="Solid_ChartLine"/>
-                                <TextBlock Text="График"/>
-                            </StackPanel>
-                        </TabItem.Header>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Border
-                                Height="300"
-                                HorizontalAlignment="Stretch"
-                                BorderThickness="2"
-                                BorderBrush="Black">
-                                <!-- <Border.Background>
+            <TabControl Margin="0 2 0 0">
+               <TabControl.Resources>
+                  <Style TargetType="{x:Type StackPanel}">
+                     <Setter Property="Orientation" Value="Horizontal"/>
+                  </Style>
+                  <Style TargetType="{x:Type fa5:SvgAwesome}">
+                     <Setter Property="Foreground" Value="{StaticResource PrimaryHueDarkBrush}"/>
+                     <Setter Property="Height" Value="12"/>
+                     <Setter Property="Margin" Value="2 0 2 0"/>
+                  </Style>
+               </TabControl.Resources>
+               <!--  Проект  -->
+               <TabItem>
+                  <TabItem.Header>
+                     <StackPanel ToolTip="{Binding Project.ProjectInfo.Error}">
+                        <fa5:SvgAwesome Foreground="{StaticResource PrimaryHueDarkBrush}" Icon="Solid_Bars"/>
+                        <TextBlock Text="Проект"/>
+                        <fa5:SvgAwesome
+                           Foreground="Red"
+                           Icon="Solid_ExclamationCircle"
+                           Visibility="{Binding Project.ProjectInfo.HasErrors}"/>
+                     </StackPanel>
+                  </TabItem.Header>
+                  <pt:PropertyGrid
+                     Width="400"
+                     HorizontalAlignment="Left"
+                     EnumAsRadioButtonsLimit="1"
+                     SelectedObject="{Binding Project.ProjectInfo}"
+                     ShowDeclaredOnly="True"/>
+               </TabItem>
+               <!--  Информация  -->
+               <TabItem>
+                  <TabItem.Header>
+                     <StackPanel>
+                        <fa5:SvgAwesome Icon="Solid_List"/>
+                        <TextBlock Text="Инфо"/>
+                     </StackPanel>
+                  </TabItem.Header>
+                  <ContentControl Content="{Binding Project.Grid.InfoBox}"/>
+               </TabItem>
+               <!--  Графики  -->
+               <TabItem Visibility="Visible">
+                  <TabItem.Header>
+                     <StackPanel>
+                        <fa5:SvgAwesome Icon="Solid_ChartLine"/>
+                        <TextBlock Text="График"/>
+                     </StackPanel>
+                  </TabItem.Header>
+                  <Grid>
+                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                     </Grid.ColumnDefinitions>
+                     <Border
+                        Height="300"
+                        HorizontalAlignment="Stretch"
+                        BorderThickness="2"
+                        BorderBrush="Black">
+                        <!-- <Border.Background>
                                     <ImageBrush
                                         ImageSource="C:\Users\stig1\source\repos\VentWPF\VentWPF\Assets\Images\Sections\Section_LRD.png"
                                         TileMode="Tile"
                                         Viewport="0 0 100 100"
                                         ViewportUnits="Absolute"/>
                                 </Border.Background>
-                                -->
-                            </Border>
-                            <GridSplitter Width="6" VerticalAlignment="Stretch"/>
+                        -->
+                     </Border>
+                     <GridSplitter Width="6" VerticalAlignment="Stretch"/>
 
-                        </Grid>
+                  </Grid>
 
-                    </TabItem>
-                    <!--  Каркас  -->
-                    <TabItem>
-                        <ContentControl x:Name="frame" Content="{Binding Project.Frame}"/>
+               </TabItem>
+               <!--  Каркас  -->
+               <TabItem>
+                  <ContentControl x:Name="frame" Content="{Binding Project.Frame}"/>
+                  <b:Interaction.Triggers>
+                     <b:EventTrigger EventName="Loaded">
+                        <b:InvokeCommandAction Command="{Binding CmdLinkGui}" CommandParameter="{Binding ElementName=frame}"/>
+                     </b:EventTrigger>
+                  </b:Interaction.Triggers>
+                  <TabItem.Header>
+                     <StackPanel>
+                        <fa5:SvgAwesome Icon="Solid_BorderAll"/>
+                        <TextBlock Text="Каркас"/>
+                     </StackPanel>
+                  </TabItem.Header>
+               </TabItem>
+               <!--  Схема  -->
+               <TabItem>
+                  <TabItem.Header>
+                     <StackPanel>
+                        <fa5:SvgAwesome Icon="Solid_BorderNone"/>
+                        <TextBlock Text="Схема"/>
+                     </StackPanel>
+                  </TabItem.Header>
+                  <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                     <Grid>
+                        <ContentControl Content="{Binding Project.Scheme, Mode=OneWay}"/>
+                        <md:Card
+                           Width="auto"
+                           Height="auto"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top">
+                           <Button
+                              Width="auto"
+                              Height="auto"
+                              Padding="10"
+                              Command="{Binding Project.CmdScheme}">
+                              <fa5:SvgAwesome Icon="Solid_Sync"/>
+                           </Button>
+                        </md:Card>
+                     </Grid>
+                  </ScrollViewer>
+               </TabItem>
+               <!--  Отчет  -->
+               <TabItem>
+                  <TabItem.Header>
+                     <StackPanel>
+                        <fa5:SvgAwesome Icon="Solid_FileWord"/>
+                        <TextBlock Text="Отчет"/>
+                     </StackPanel>
+                  </TabItem.Header>
+                  <DockPanel>
+                     <md:Card HorizontalAlignment="Left" DockPanel.Dock="Top">
+                        <StackPanel>
+                           <Button
+                              Width="auto"
+                              Height="auto"
+                              Padding="10"
+                              Command="{Binding CmdUpdateReport}">
+                              <fa5:SvgAwesome Icon="Solid_Sync"/>
+                           </Button>
+                           <Button
+                              Width="auto"
+                              Height="auto"
+                              Padding="10"
+                              Command="{Binding CmdSaveReport}">
+                              <fa5:SvgAwesome Icon="Solid_FileWord"/>
+                           </Button>
+                        </StackPanel>
+                     </md:Card>
+                     <ContentControl Content="{Binding ReportViewer, Mode=OneWay}"/>
+                  </DockPanel>
+               </TabItem>
+               <!--  Электроника  -->
+               <TabItem Visibility="Collapsed">
+                  <TabItem.Header>
+                     <StackPanel>
+                        <fa5:SvgAwesome Icon="Solid_Microchip"/>
+                        <TextBlock Text="Электроника"/>
+                     </StackPanel>
+                  </TabItem.Header>
+               </TabItem>
+               <!--  Вкладка 3D  -->
+               <TabItem Visibility="Collapsed">
+                  <TabItem.Header>
+                     <StackPanel>
+                        <fa5:SvgAwesome Icon="Solid_Cube"/>
+                        <TextBlock Text="3D"/>
+                     </StackPanel>
+                  </TabItem.Header>
+               </TabItem>
+               <!--  Debug  -->
+               <TabItem>
+                  <TabItem.Header>
+                     <StackPanel>
+                        <fa5:SvgAwesome Icon="Solid_Bug"/>
+                        <TextBlock Text="Debug"/>
+                     </StackPanel>
+                  </TabItem.Header>
+                  <ListBox ItemsSource="{Binding Project.ErrorManager.Errors}"/>
+               </TabItem>
+            </TabControl>
+         </DockPanel>
+         <!--  Боковая Панель  -->
+         <md:Card Grid.Column="1" md:ShadowAssist.ShadowEdges="All">
+            <Grid Margin="0 2 0 0" Visibility="{Binding Project.Grid.Selected.Name, Converter={StaticResource visConv}}">
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="auto"/>
+                  <RowDefinition Height="2*"/>
+                  <RowDefinition>
+                     <RowDefinition.Style>
+                        <Style TargetType="{x:Type RowDefinition}">
+                           <Setter Property="Height" Value="*"/>
+                           <Setter Property="MaxHeight" Value="155"/>
+                           <Setter Property="MinHeight" Value="155"/>
+                           <Style.Triggers>
+                              <DataTrigger Binding="{Binding Project.Grid.Selected.Query}" Value="{x:Null}">
+                                 <Setter Property="Height" Value="0"/>
+                                 <Setter Property="MaxHeight" Value="0"/>
+                                 <Setter Property="MinHeight" Value="0"/>
+                              </DataTrigger>
+                              <DataTrigger Binding="{Binding Project.Grid.Selected.Query.State}" Value="Success">
+                                 <Setter Property="MaxHeight" Value="600"/>
+                              </DataTrigger>
+                           </Style.Triggers>
+                        </Style>
+                     </RowDefinition.Style>
+                  </RowDefinition>
+               </Grid.RowDefinitions>
+               <Grid Grid.Row="0" Margin="7 0">
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="auto"/>
+                     <ColumnDefinition/>
+                  </Grid.ColumnDefinitions>
+                  <Image
+                     Width="50"
+                     Height="50"
+                     Source="{Binding Project.Grid.Selected.Image}"/>
+                  <TextBlock Grid.Column="1"
+                     Margin="4 0"
+                     VerticalAlignment="Bottom"
+                     Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
+                     Text="{Binding Project.Grid.Selected.Name}"
+                     TextWrapping="WrapWithOverflow"/>
+               </Grid>
+               <ScrollViewer Grid.Row="1" Margin="7 5 0 5">
+                  <pt:PropertyGrid
+                     EnableLabelWidthResizing="True"
+                     EnumAsRadioButtonsLimit="1"
+                     SelectedObject="{Binding Project.Grid.Selected}"
+                     TabVisibility="Collapsed"/>
+               </ScrollViewer>
+               <GridSplitter Grid.Row="1"
+                  Height="6"
+                  Margin="-5 -5 16 0"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Bottom"
+                  Panel.ZIndex="2"
+                  Background="Transparent"
+                  Visibility="{Binding Project.Grid.Selected.Query, Converter={StaticResource visConv}}"/>
+               <md:Card Grid.Row="2" Margin="0 0 0 5">
+                  <Grid>
+                     <DataGrid
+                        Name="dg"
+                        Height="auto"
+                        AutoGenerateColumns="True"
+                        EnableColumnVirtualization="True"
+                        EnableRowVirtualization="True"
+                        IsReadOnly="True"
+                        ItemsSource="{Binding Project.Grid.Selected.Query.Result}"
+                        SelectedIndex="{Binding Project.Grid.Selected.DeviceIndex}"
+                        SelectionMode="Single"
+                        SelectionUnit="FullRow">
+                        <DataGrid.Resources>
+                           <Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="DataGridCell">
+                              <Setter Property="Background" Value="Transparent"/>
+                           </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.ItemContainerStyle>
+                           <Style BasedOn="{StaticResource {x:Type DataGridRow}}" TargetType="DataGridRow">
+                              <Style.Triggers>
+                                 <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="{DynamicResource PrimaryHueLightBrush}"/>
+                                 </Trigger>
+                              </Style.Triggers>
+                           </Style>
+                        </DataGrid.ItemContainerStyle>
                         <b:Interaction.Triggers>
-                            <b:EventTrigger EventName="Loaded">
-                                <b:InvokeCommandAction Command="{Binding CmdLinkGui}" CommandParameter="{Binding ElementName=frame}"/>
-                            </b:EventTrigger>
+                           <b:EventTrigger EventName="AutoGeneratingColumn">
+                              <b:InvokeCommandAction Command="{Binding CmdAutoColumns}" PassEventArgsToCommand="True"/>
+                           </b:EventTrigger>
                         </b:Interaction.Triggers>
-                        <TabItem.Header>
-                            <StackPanel>
-                                <fa5:SvgAwesome Icon="Solid_BorderAll"/>
-                                <TextBlock Text="Каркас"/>
-                            </StackPanel>
-                        </TabItem.Header>
-                    </TabItem>
-                    <!--  Схема  -->
-                    <TabItem>
-                        <TabItem.Header>
-                            <StackPanel>
-                                <fa5:SvgAwesome Icon="Solid_BorderNone"/>
-                                <TextBlock Text="Схема"/>
-                            </StackPanel>
-                        </TabItem.Header>
-                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                            <Grid>
-                                <ContentControl Content="{Binding Project.Scheme, Mode=OneWay}"/>
-                                <md:Card
-                                    Width="auto"
-                                    Height="auto"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Top">
-                                    <Button
-                                        Width="auto"
-                                        Height="auto"
-                                        Padding="10"
-                                        Command="{Binding Project.CmdScheme}">
-                                        <fa5:SvgAwesome Icon="Solid_Sync"/>
-                                    </Button>
-                                </md:Card>
-                            </Grid>
-                        </ScrollViewer>
-                    </TabItem>
-                    <!--  Отчет  -->
-                    <TabItem>
-                        <TabItem.Header>
-                            <StackPanel>
-                                <fa5:SvgAwesome Icon="Solid_FileWord"/>
-                                <TextBlock Text="Отчет"/>
-                            </StackPanel>
-                        </TabItem.Header>
-                        <DockPanel>
-                            <md:Card HorizontalAlignment="Left" DockPanel.Dock="Top">
-                                <StackPanel>
-                                    <Button
-                                        Width="auto"
-                                        Height="auto"
-                                        Padding="10"
-                                        Command="{Binding CmdUpdateReport}">
-                                        <fa5:SvgAwesome Icon="Solid_Sync"/>
-                                    </Button>
-                                    <Button
-                                        Width="auto"
-                                        Height="auto"
-                                        Padding="10"
-                                        Command="{Binding CmdSaveReport}">
-                                        <fa5:SvgAwesome Icon="Solid_FileWord"/>
-                                    </Button>
-                                </StackPanel>
-                            </md:Card>
-                            <ContentControl Content="{Binding ReportViewer, Mode=OneWay}"/>
-                        </DockPanel>
-                    </TabItem>
-                    <!--  Электроника  -->
-                    <TabItem Visibility="Collapsed">
-                        <TabItem.Header>
-                            <StackPanel>
-                                <fa5:SvgAwesome Icon="Solid_Microchip"/>
-                                <TextBlock Text="Электроника"/>
-                            </StackPanel>
-                        </TabItem.Header>
-                    </TabItem>
-                    <!--  Вкладка 3D  -->
-                    <TabItem Visibility="Collapsed">
-                        <TabItem.Header>
-                            <StackPanel>
-                                <fa5:SvgAwesome Icon="Solid_Cube"/>
-                                <TextBlock Text="3D"/>
-                            </StackPanel>
-                        </TabItem.Header>
-                    </TabItem>
-                    <!--  Debug  -->
-                    <TabItem>
-                        <TabItem.Header>
-                            <StackPanel>
-                                <fa5:SvgAwesome Icon="Solid_Bug"/>
-                                <TextBlock Text="Debug"/>
-                            </StackPanel>
-                        </TabItem.Header>
-                        <ListBox ItemsSource="{Binding Project.ErrorManager.Errors}"/>
-                    </TabItem>
-                </TabControl>
-            </DockPanel>
-            <!--  Боковая Панель  -->
-            <md:Card Grid.Column="1" md:ShadowAssist.ShadowEdges="All">
-                <Grid Margin="0 2 0 0" Visibility="{Binding Project.Grid.Selected.Name, Converter={StaticResource visConv}}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="2*"/>
-                        <RowDefinition>
-                            <RowDefinition.Style>
-                                <Style TargetType="{x:Type RowDefinition}">
-                                    <Setter Property="Height" Value="*"/>
-                                    <Setter Property="MaxHeight" Value="155"/>
-                                    <Setter Property="MinHeight" Value="155"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Project.Grid.Selected.Query}" Value="{x:Null}">
-                                            <Setter Property="Height" Value="0"/>
-                                            <Setter Property="MaxHeight" Value="0"/>
-                                            <Setter Property="MinHeight" Value="0"/>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding Project.Grid.Selected.Query.State}" Value="Success">
-                                            <Setter Property="MaxHeight" Value="600"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </RowDefinition.Style>
-                        </RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" Margin="7 0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Image
-                            Width="50"
-                            Height="50"
-                            Source="{Binding Project.Grid.Selected.Image}"/>
-                        <TextBlock Grid.Column="1"
-                            Margin="4 0"
-                            VerticalAlignment="Bottom"
-                            Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
-                            Text="{Binding Project.Grid.Selected.Name}"
-                            TextWrapping="WrapWithOverflow"/>
-                    </Grid>
-                    <ScrollViewer Grid.Row="1" Margin="7 5 0 5">
-                        <pt:PropertyGrid
-                            EnableLabelWidthResizing="True"
-                            EnumAsRadioButtonsLimit="1"
-                            SelectedObject="{Binding Project.Grid.Selected}"
-                            TabVisibility="Collapsed"/>
-                    </ScrollViewer>
-                    <GridSplitter Grid.Row="1"
-                        Height="6"
-                        Margin="-5 -5 16 0"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Bottom"
-                        Panel.ZIndex="2"
-                        Background="Transparent"
-                        Visibility="{Binding Project.Grid.Selected.Query, Converter={StaticResource visConv}}"/>
-                    <md:Card Grid.Row="2" Margin="0 0 0 5">
-                        <Grid>
-                            <DataGrid
-                                Name="dg"
-                                Height="auto"
-                                AutoGenerateColumns="True"
-                                EnableColumnVirtualization="True"
-                                EnableRowVirtualization="True"
-                                IsReadOnly="True"
-                                ItemsSource="{Binding Project.Grid.Selected.Query.Result}"
-                                SelectedIndex="{Binding Project.Grid.Selected.DeviceIndex}"
-                                SelectionMode="Single"
-                                SelectionUnit="FullRow">
-                                <DataGrid.Resources>
-                                    <Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="DataGridCell">
-                                        <Setter Property="Background" Value="Transparent"/>
-                                    </Style>
-                                </DataGrid.Resources>
-                                <DataGrid.ItemContainerStyle>
-                                    <Style BasedOn="{StaticResource {x:Type DataGridRow}}" TargetType="DataGridRow">
-                                        <Style.Triggers>
-                                            <Trigger Property="IsSelected" Value="True">
-                                                <Setter Property="Background" Value="{DynamicResource PrimaryHueLightBrush}"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </DataGrid.ItemContainerStyle>
-                                <b:Interaction.Triggers>
-                                    <b:EventTrigger EventName="AutoGeneratingColumn">
-                                        <b:InvokeCommandAction Command="{Binding CmdAutoColumns}" PassEventArgsToCommand="True"/>
-                                    </b:EventTrigger>
-                                </b:Interaction.Triggers>
-                                <DataGrid.Style>
-                                    <Style TargetType="{x:Type DataGrid}" BasedOn="{StaticResource MaterialDesignDataGrid}">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Project.Grid.Selected.Query.State}" Value="Success">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                        <Setter Property="Visibility" Value="Hidden"/>
-                                    </Style>
-                                </DataGrid.Style>
-                            </DataGrid>
-                            <fa5:SvgAwesome Icon="Solid_Spinner" Spin="True">
-                                <fa5:SvgAwesome.Style>
-                                    <Style TargetType="{x:Type fa5:SvgAwesome}" BasedOn="{StaticResource query-icon}">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Project.Grid.Selected.Query.State}" Value="Process">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                        <Setter Property="Visibility" Value="Hidden"/>
-                                    </Style>
-                                </fa5:SvgAwesome.Style>
-                            </fa5:SvgAwesome>
-                            <fa5:SvgAwesome Icon="Solid_ExclamationTriangle" Foreground="Red">
-                                <fa5:SvgAwesome.Style>
-                                    <Style TargetType="{x:Type fa5:SvgAwesome}" BasedOn="{StaticResource query-icon}">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Project.Grid.Selected.Query.State}" Value="Error">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                        <Setter Property="Visibility" Value="Hidden"/>
-                                    </Style>
-                                </fa5:SvgAwesome.Style>
-                            </fa5:SvgAwesome>
-                            <fa5:SvgAwesome Icon="Solid_TimesCircle" Foreground="{StaticResource PrimaryHueDarkBrush}">
-                                <fa5:SvgAwesome.Style>
-                                    <Style TargetType="{x:Type fa5:SvgAwesome}" BasedOn="{StaticResource query-icon}">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Project.Grid.Selected.Query.State}" Value="Empty">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                        <Setter Property="Visibility" Value="Hidden"/>
-                                    </Style>
-                                </fa5:SvgAwesome.Style>
-                            </fa5:SvgAwesome>
-                        </Grid>
-                    </md:Card>
-                </Grid>
-            </md:Card>
-        </Grid>
-    </DockPanel>
+                        <DataGrid.Style>
+                           <Style TargetType="{x:Type DataGrid}" BasedOn="{StaticResource MaterialDesignDataGrid}">
+                              <Style.Triggers>
+                                 <DataTrigger Binding="{Binding Project.Grid.Selected.Query.State}" Value="Success">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                 </DataTrigger>
+                              </Style.Triggers>
+                              <Setter Property="Visibility" Value="Hidden"/>
+                           </Style>
+                        </DataGrid.Style>
+                     </DataGrid>
+                     <fa5:SvgAwesome Icon="Solid_Spinner" Spin="True">
+                        <fa5:SvgAwesome.Style>
+                           <Style TargetType="{x:Type fa5:SvgAwesome}" BasedOn="{StaticResource query-icon}">
+                              <Style.Triggers>
+                                 <DataTrigger Binding="{Binding Project.Grid.Selected.Query.State}" Value="Process">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                 </DataTrigger>
+                              </Style.Triggers>
+                              <Setter Property="Visibility" Value="Hidden"/>
+                           </Style>
+                        </fa5:SvgAwesome.Style>
+                     </fa5:SvgAwesome>
+                     <fa5:SvgAwesome Icon="Solid_ExclamationTriangle" Foreground="Red">
+                        <fa5:SvgAwesome.Style>
+                           <Style TargetType="{x:Type fa5:SvgAwesome}" BasedOn="{StaticResource query-icon}">
+                              <Style.Triggers>
+                                 <DataTrigger Binding="{Binding Project.Grid.Selected.Query.State}" Value="Error">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                 </DataTrigger>
+                              </Style.Triggers>
+                              <Setter Property="Visibility" Value="Hidden"/>
+                           </Style>
+                        </fa5:SvgAwesome.Style>
+                     </fa5:SvgAwesome>
+                     <fa5:SvgAwesome Icon="Solid_TimesCircle" Foreground="{StaticResource PrimaryHueDarkBrush}">
+                        <fa5:SvgAwesome.Style>
+                           <Style TargetType="{x:Type fa5:SvgAwesome}" BasedOn="{StaticResource query-icon}">
+                              <Style.Triggers>
+                                 <DataTrigger Binding="{Binding Project.Grid.Selected.Query.State}" Value="Empty">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                 </DataTrigger>
+                              </Style.Triggers>
+                              <Setter Property="Visibility" Value="Hidden"/>
+                           </Style>
+                        </fa5:SvgAwesome.Style>
+                     </fa5:SvgAwesome>
+                  </Grid>
+               </md:Card>
+            </Grid>
+         </md:Card>
+      </Grid>
+   </DockPanel>
 </Window>

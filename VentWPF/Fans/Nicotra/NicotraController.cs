@@ -11,7 +11,6 @@ namespace VentWPF.Fans.Nicotra
 
 #pragma warning disable CS0618
         /*
-         *  TODO для сменыпути к dll
             string path = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             [DllImport(@"Nicotra.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
             public static extern int SETDLLPATH([MarshalAsAttribute(UnmanagedType.AnsiBStr)] string Path);
