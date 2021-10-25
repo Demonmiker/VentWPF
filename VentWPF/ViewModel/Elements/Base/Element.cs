@@ -195,7 +195,8 @@ namespace VentWPF.ViewModel
         public static T GetInstance<T>(T o) => (T)Activator.CreateInstance(o.GetType());
 
         protected override string OnValidation()
-            => DeviceType != null && DeviceData == null ? "Не выбрана модель устройства" : "";
+            => (DeviceType is not null && DeviceData is null ? "Не выбрана модель устройства\n" : "") +
+               (!CorrectSize ? "Не подходит по размерам" : "");
 
         [Browsable(false)]
         public virtual int Length => 0;
@@ -211,6 +212,8 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         [DependsOn(nameof(DeviceIndex))]
         public virtual string SchemeImage => "";
+
+        public bool CorrectSize => Width <= Project.Width && Height <= Project.Height;
 
         protected string ImagePath(string path) // пример Heaters/Heater_Electric.png
         {

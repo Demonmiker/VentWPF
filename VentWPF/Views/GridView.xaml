@@ -64,7 +64,7 @@
                                         Visibility="{Binding DeviceData, Converter={StaticResource visConv}}"
                                         TextAlignment="Center"
                                         Background="#a000"
-                                        Foreground="Red">
+                                        Foreground="{Binding CorrectSize, Converter={StaticResource brRG}}">
                                         <TextBlock.Text>
                                             <MultiBinding StringFormat="{}{0}x{1}">
                                                 <Binding Path="Width"/>
