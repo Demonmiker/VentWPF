@@ -1,4 +1,5 @@
 ﻿using PropertyTools.DataAnnotations;
+using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.Fans
 {
@@ -150,7 +151,7 @@ namespace VentWPF.Fans
 
         public double ZA_WEIGHT;
 
-        [DisplayName("Индекс")]
+        [DisplayName("Индекс")]        
         public int INDEX { get; set; }
 
         [DisplayName("ID")]
@@ -160,39 +161,51 @@ namespace VentWPF.Fans
         public string TYPE { get; set; }
 
         [DisplayName("Мощность")]
+        [FormatString(fkW)]
         public double POWER_OUTPUT_HP { get; set; }
 
         [DisplayName("Разница оборотов")]
+        [FormatString(f2)]
         public double NDiff => ZA_NMAX - ZA_N;
 
         [DisplayName("Обороты номинал")]
+        [FormatString(fRotate)]
         public double ZA_N { get; set; }
 
         [DisplayName("Обороты максимальные")]
+        [FormatString(fRotate)]
         public double ZA_NMAX { get; set; }
 
         [DisplayName("Динамическое сопротивление")]
+        [FormatString(fkPa)]
         public double ZA_PD { get; set; }
 
         [DisplayName("Суммарное сопротивление")]
+        [FormatString(fkPa)]
         public double ZA_PF { get; set; }
 
         [DisplayName("Общий КПД %")]
+        [FormatString(fper)]
         public double ZA_ETAF_L { get; set; }
 
         [DisplayName("Шум на выходе дБ")]
+        [FormatString(fdB)]
         public double ZA_LW6 { get; set; }
 
         [DisplayName("Длина установки")]
+        [FormatString(fmm)]
         public double INSTALLATION_LENGTH_MM { get; set; }
 
         [DisplayName("Высота установки")]
+        [FormatString(fmm)]
         public double INSTALLATION_HEIGHT_MM { get; set; }
 
         [DisplayName("Ширина установки")]
+        [FormatString(fmm)]
         public double INSTALLATION_WIDTH_MM { get; set; }
 
         [DisplayName("Размер")]
+        [FormatString(fmm)]
         public double ZA_BG { get; set; }
 
         [DisplayName("Подключение")]
