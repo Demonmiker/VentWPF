@@ -13,8 +13,9 @@ namespace VentWPF.ViewModel
         public Valve_Ver()
         {
             image = "Valves/Valve_Ver.png";
-            Length = 125;
         }
+
+        public override int Length => 125;
 
         public override string Name => "Клапан воздушный вертикальный";
 

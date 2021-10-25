@@ -198,15 +198,23 @@ namespace VentWPF.ViewModel
             => DeviceType != null && DeviceData == null ? "Не выбрана модель устройства" : "";
 
         [Browsable(false)]
-        public int Length { get; protected set; } = 0;
+        public virtual int Length => 0;
 
         [Browsable(false)]
-        public int Width { get; protected set; } = 0;
+        [DependsOn(nameof(DeviceIndex))]
+        public virtual int Width => 0;
 
         [Browsable(false)]
-        public int Height { get; protected set; } = 0;
+        [DependsOn(nameof(DeviceIndex))]
+        public virtual int Height => 0;
 
         [Browsable(false)]
-        public string SchemeImage { get; protected set; } = "";
+        [DependsOn(nameof(DeviceIndex))]
+        public virtual string SchemeImage => "";
+
+        protected string ImagePath(string path) // пример Heaters/Heater_Electric.png
+        {
+            return Path.GetFullPath("Assets/Images/" + path);
+        }
     }
 }

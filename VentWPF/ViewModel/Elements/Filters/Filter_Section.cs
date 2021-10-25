@@ -5,14 +5,13 @@
     /// </summary>
     internal class Filter_Section : Filter
     {
-
         public Filter_Section()
         {
             image = "Filters/Filter_Section.png";
-            Length = 680;
         }
 
-        public override string Name => $"Фильтр секционный";
+        public override int Length => 680;
 
+        public override string Name => $"Фильтр секционный";
     }
 }
