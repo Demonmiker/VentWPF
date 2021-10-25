@@ -155,7 +155,10 @@ namespace VentWPF.ViewModel
         [FormatString(fmm)]
         public int Height { get; set; } = 600;
 
-        //+Толщина панели ?? @@stop
+        [Category("Настройки|")]
+        [DisplayName("Толщина панели")]
+        [FormatString(fmm)]
+        public int PanelWidth { get; set; } = 45;
 
         /// <summary>
         /// Влажность
@@ -196,7 +199,6 @@ namespace VentWPF.ViewModel
 
         private SizeType sizeType = SizeType.ТипоРазмер6;
 
-
         /// <summary>
         /// Сторона обслуживания
         /// </summary>
@@ -232,11 +234,11 @@ namespace VentWPF.ViewModel
         [DisplayName("Клапан")]
         public ValvePos Valve { get; set; } = ValvePos.Снаружи;
 
-        //Непонятно @@info
+        // TODO Непонятно
         [Browsable(false)]
         public float PressOut { get; set; } = 100;
 
-        //Непонятно @@info
+        // TODO Непонятно
         [Browsable(false)]
         public int Temp { get; set; } = -30;
     }

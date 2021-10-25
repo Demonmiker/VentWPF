@@ -9,41 +9,48 @@ namespace VentWPF.ViewModel
 
         public object Source { get; init; }
 
+        public QueryState State { get; set; } = QueryState.New;
+
         [DependsOn("Cache")]
         public IList Result
         {
             get
             {
-                if (Cache == null)
+                if (State == QueryState.New)
                 {
-                    if (!InProcess)
+                    State = QueryState.Process;
+                    ProjectVM.Current.TaskManager.Add(() =>
                     {
-                        InProcess = true;
-                        ProjectVM.Current.TaskManager.Add(() =>
+                        Cache = Fill(Source);
+                        State = Cache switch
                         {
-                            Cache = Fill(Source);
-                        });
-                    }
+                            null => QueryState.Error,
+                            { Count: 0 } => QueryState.Empty,
+                            _ => QueryState.Success,
+                        };
+                    });
                 }
 
                 return Cache;
             }
         }
 
-        protected bool InProcess { get; set; }
-
-        //Здесь можно создать объект регулирующий релоад запроса
         private IList Cache
 
         {
             get => _Cache;
-            set
-            {
-                InProcess = false;
-                _Cache = value;
-            }
+            set => _Cache = value;
         }
 
         protected abstract IList Fill(object q);
+    }
+
+    internal enum QueryState
+    {
+        New,
+        Process,
+        Success,
+        Empty,
+        Error,
     }
 }

@@ -72,4 +72,10 @@
         <Setter Property="Height" Value="12"/>
         <Setter Property="Margin" Value="2 0 2 0"/>
     </Style>
+    <Style x:Key="query-icon" TargetType="{x:Type fa5:SvgAwesome}">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Panel.ZIndex" Value="3"/>
+    </Style>
 </ResourceDictionary>

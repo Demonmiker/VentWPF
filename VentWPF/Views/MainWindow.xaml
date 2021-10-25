@@ -179,7 +179,7 @@
                                         Viewport="0 0 100 100"
                                         ViewportUnits="Absolute"/>
                                 </Border.Background>
-                                    -->
+                                -->
                             </Border>
                             <GridSplitter Width="6" VerticalAlignment="Stretch"/>
 
@@ -298,13 +298,16 @@
                             <RowDefinition.Style>
                                 <Style TargetType="{x:Type RowDefinition}">
                                     <Setter Property="Height" Value="*"/>
-                                    <Setter Property="MaxHeight" Value="600"/>
+                                    <Setter Property="MaxHeight" Value="155"/>
                                     <Setter Property="MinHeight" Value="155"/>
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Project.Grid.Selected.Query}" Value="{x:Null}">
                                             <Setter Property="Height" Value="0"/>
                                             <Setter Property="MaxHeight" Value="0"/>
                                             <Setter Property="MinHeight" Value="0"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Project.Grid.Selected.Query.State}" Value="Success">
+                                            <Setter Property="MaxHeight" Value="600"/>
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -354,16 +357,11 @@
                                 ItemsSource="{Binding Project.Grid.Selected.Query.Result}"
                                 SelectedIndex="{Binding Project.Grid.Selected.DeviceIndex}"
                                 SelectionMode="Single"
-                                SelectionUnit="FullRow"
-                                Visibility="{Binding Project.Grid.Selected.Query.Result, Converter={StaticResource visConv}}">
+                                SelectionUnit="FullRow">
                                 <DataGrid.Resources>
-                                    <!--<Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="DataGridCell">
-                                        <Style.Triggers>
-                                            <Trigger Property="IsSelected" Value="True">
-                                                <Setter Property="Background" Value="Transparent"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>-->
+                                    <Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="DataGridCell">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                    </Style>
                                 </DataGrid.Resources>
                                 <DataGrid.ItemContainerStyle>
                                     <Style BasedOn="{StaticResource {x:Type DataGridRow}}" TargetType="DataGridRow">
@@ -379,15 +377,53 @@
                                         <b:InvokeCommandAction Command="{Binding CmdAutoColumns}" PassEventArgsToCommand="True"/>
                                     </b:EventTrigger>
                                 </b:Interaction.Triggers>
+                                <DataGrid.Style>
+                                    <Style TargetType="{x:Type DataGrid}" BasedOn="{StaticResource MaterialDesignDataGrid}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Project.Grid.Selected.Query.State}" Value="Success">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </Style>
+                                </DataGrid.Style>
                             </DataGrid>
-                            <fa5:SvgAwesome
-                                Height="30"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Panel.ZIndex="3"
-                                Icon="Solid_Spinner"
-                                Spin="True"
-                                Visibility="{Binding Project.Grid.Selected.Query.Result, Converter={StaticResource visConvrev}}"/>
+                            <fa5:SvgAwesome Icon="Solid_Spinner" Spin="True">
+                                <fa5:SvgAwesome.Style>
+                                    <Style TargetType="{x:Type fa5:SvgAwesome}" BasedOn="{StaticResource query-icon}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Project.Grid.Selected.Query.State}" Value="Process">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </Style>
+                                </fa5:SvgAwesome.Style>
+                            </fa5:SvgAwesome>
+                            <fa5:SvgAwesome Icon="Solid_ExclamationTriangle" Foreground="Red">
+                                <fa5:SvgAwesome.Style>
+                                    <Style TargetType="{x:Type fa5:SvgAwesome}" BasedOn="{StaticResource query-icon}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Project.Grid.Selected.Query.State}" Value="Error">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </Style>
+                                </fa5:SvgAwesome.Style>
+                            </fa5:SvgAwesome>
+                            <fa5:SvgAwesome Icon="Solid_TimesCircle" Foreground="{StaticResource PrimaryHueDarkBrush}">
+                                <fa5:SvgAwesome.Style>
+                                    <Style TargetType="{x:Type fa5:SvgAwesome}" BasedOn="{StaticResource query-icon}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Project.Grid.Selected.Query.State}" Value="Empty">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </Style>
+                                </fa5:SvgAwesome.Style>
+                            </fa5:SvgAwesome>
                         </Grid>
                     </md:Card>
                 </Grid>
