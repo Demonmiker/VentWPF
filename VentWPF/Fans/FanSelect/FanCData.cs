@@ -151,7 +151,7 @@ namespace VentWPF.Fans
 
         public double ZA_WEIGHT;
 
-        [DisplayName("Индекс")]        
+
         public int INDEX { get; set; }
 
         [DisplayName("ID")]
@@ -208,7 +208,7 @@ namespace VentWPF.Fans
         [FormatString(fmm)]
         public double ZA_BG { get; set; }
 
-        [DisplayName("Подключение")]
+
         public string ZA_MAINS_SUPPLY { get; set; }
     }
 }

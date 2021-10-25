@@ -39,6 +39,13 @@ namespace VentWPF.ViewModel.Elements
                     { "Скорость", new Condition<double>(x => x is > 2.5 and < 4.5) },
                 }
             },
+            {
+                typeof(Fan_C),
+                new()
+                {
+                    { "NDiff", new Condition<double>(x => x is < 200 and > 0) },
+                }
+            }
         };
 
         private static ProjectInfoVM Project = ProjectVM.Current?.ProjectInfo;
