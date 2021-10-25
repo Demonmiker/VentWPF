@@ -92,6 +92,9 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Содержит данные о форматировании этого элемента @@warn Можно убрать
         /// </summary>
+        ///
+
+        // TODO можно везде вынести
         [Browsable(false)]
         [JsonIgnore]
         public Dictionary<string, IValueConverter> Format => Conditions.Get(this.GetType());
@@ -101,7 +104,7 @@ namespace VentWPF.ViewModel
         /// </summary>
         [Browsable(false)]
         [JsonIgnore]
-        public Query Query { get; init; }
+        public Query Query { get; set; }
 
         /// <summary>
         /// Определяет нужно ли показывать Падения давления пользователю
@@ -219,6 +222,7 @@ namespace VentWPF.ViewModel
         [DependsOn(nameof(DeviceIndex))]
         public virtual string SchemeImage => "";
 
+        [Browsable(false)]
         public bool CorrectSize => Width <= Project.Width && Height <= Project.Height;
 
         protected string ImagePath(string path) // пример Heaters/Heater_Electric.png
@@ -226,6 +230,7 @@ namespace VentWPF.ViewModel
             return Path.GetFullPath("Assets/Images/" + path);
         }
 
+        [Browsable(false)]
         public Command<object> CmdUpdateQuery { get; init; }
 
         public virtual void UpdateQuery()

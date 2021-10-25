@@ -424,6 +424,19 @@
                            </Style>
                         </fa5:SvgAwesome.Style>
                      </fa5:SvgAwesome>
+                     <md:Card
+                        Width="auto"
+                        Height="auto"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top">
+                        <Button
+                           Width="auto"
+                           Height="auto"
+                           Padding="10"
+                           Command="{Binding Project.Grid.Selected.CmdUpdateQuery}">
+                           <fa5:SvgAwesome Icon="Solid_Sync"/>
+                        </Button>
+                     </md:Card>
                   </Grid>
                </md:Card>
             </Grid>
