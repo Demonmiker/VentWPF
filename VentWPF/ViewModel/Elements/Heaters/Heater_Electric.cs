@@ -1,66 +1,89 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PropertyChanged;
 using PropertyTools.DataAnnotations;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using VentWPF.Model;
+using VentWPF.Tools;
+using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
 {
-    
-    class Heater_Electric : HasDownPressure
+    /// <summary>
+    /// Нагреватель электрический
+    /// </summary>
+    internal class Heater_Electric : Heater
     {
         public Heater_Electric()
         {
-            image = "Heater_Electric.png";
-            Name = "Нагреватель электрический";
-        }        
-        
-        [DisplayName("Производительность"), Category(c1), PropertyOrder(1)]
-        public float performance => project.VFlow;
+            image = "Heaters/Heater_Electric.png";
+            DeviceType = typeof(Тэнры);
+            Query = new DatabaseQuery<Тэнры>
+            {
+                Source = from o in VentContext.Instance.Tэнрыs select o
+            };
+        }
 
-        [DisplayName("t наружного воздуха"), Category(c1), PropertyOrder(2)]
-        public float tOutside => project.temp;
+        public override string SchemeImage => ImagePath("Heaters/SH_Heater_Electric.png");
 
-        [DisplayName("t воздуха на выходе"), Category(c1), PropertyOrder(3)]
-        public float tOut { get; set; } = 18;
+        public override int Length => 400;
 
-        [DisplayName("t теплоносителя начальная"), Category(c1), PropertyOrder(4)]
-        public float tBegin { get; } = 95;
+        [DependsOn(nameof(DeviceData))]
+        public override string Name => $"Нагреватель электрический {(DeviceData as Тэнры)?.Маркировка}";
 
-        [DisplayName("t теплоносителя конечная"), Category(c1), PropertyOrder(5)]
-        public float tEnd { get; } = 70;
-
-        [DisplayName("Влажность наружного воздуха"), Category(c1), PropertyOrder(6)]
-        public float humidityOutSide { get; set; } = 85;
-
-
-        private float AB = (((float)project.With / 1000) * ((float)project.Height / 1000));
-
-        [DisplayName("Падение давления расчётное"), Category(c2), PropertyOrder(1)]
-        public override float pressureDrop => (70 / (4 / (((float)project.VFlow / 3600) / AB)));
-
-        [DisplayName("Мощность воздухонагревателя"), Category(c2), PropertyOrder(2)]
-        public float Power => (float)(project.VFlow * (353 / (273.15 + tOut)) / 3600000 * 1009 * Math.Abs(tOutside - tOut));
-
-        [DisplayName("Число ступеней нагрева"), Category(c2), PropertyOrder(3)]
-        public int heatSteps { get { return 3; } }
-
-        [DisplayName("Длина калорифера"), Category(c2), PropertyOrder(4)]
-        public int lengthKal { get { return 50; } }
-
+        /// <summary>
+        /// Температура теплоносителя начальная
+        /// </summary>
+        [Category(Data)]
         [Browsable(false)]
-        public float pD => (float)(Math.Exp((1500.3 + 23.5 * tOutside) / (234 + tOutside)));
+        [DisplayName("т. теплоносителя начальная")]
+        [FormatString(fT)]
+        [Range(maximum: 100)]
+        public float tBegin { get; set; } = 95;
 
-        [DisplayName("Абсолютная влажность воздуха на выходе"), Category(c2), PropertyOrder(4)]
-        public float humidityOut => (float)((0.6222 * (humidityOutSide / 100) * pD) / (project.PressOut - (humidityOutSide / 100) * pD / 1000));
-
+        /// <summary>
+        /// Температура теплоносителя конечная
+        /// </summary>
         [Browsable(false)]
-        public float pD2 => (float)(Math.Exp((1500.3 + 23.5 * tOut) / (234 + tOut)));
+        [DisplayName("т. теплоносителя конечная")]
+        [FormatString(fT)]
+        [Range(minimum: 0)]
+        public float tEnd { get; set; } = 70;
 
-        [DisplayName("Относительная влажность воздуха на выходе"), Category(c2), PropertyOrder(4)]
-        public int humidityOutOtn => (int)((project.PressOut / pD2 * 1000 / (0.6222 / humidityOut * 1000 + 1)) * 100);
-    }    
+        /// <summary>
+        /// Длина калорифера
+        /// </summary>
+        [DisplayName("Длина калорифера")]
+        public int lengthKal => 50;
+
+        /// <summary>
+        /// Количество ступеней нагрева
+        /// </summary>
+        [DisplayName("Ступеней нагрева")]
+        public int heatSteps => 3;
+
+        /// <summary>
+        /// Тип горелки
+        /// </summary>
+        [Category(Info)]
+        [Browsable(false)]
+        [DisplayName("Горелка")]
+        public TorchType TorchType { get; set; }
+
+        public override List<string> InfoProperties => new()
+        {
+            "Performance",
+            "TempIn",
+            "TempOut",
+            "tBegin",
+            "tEnd",
+            "lengthKal",
+            "heatSteps",
+            "TorchType",
+            "DeviceData.Типоряд",
+            "DeviceData.Маркировка",
+            "DeviceData.Мощность",
+        };
+    }
 }
-

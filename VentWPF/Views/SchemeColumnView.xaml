@@ -1,0 +1,88 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="clr-namespace:VentWPF.ViewModel">
+    <DataTemplate DataType="{x:Type vm:ElementPair}">
+        <DataTemplate.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="Margin" Value="-2 0 0 -2"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+            </Style>
+        </DataTemplate.Resources>
+        <StackPanel>
+            <Grid Visibility="{Binding TwoRows, Converter={StaticResource visConv}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <!--  Верхний текстбокс  -->
+                <TextBox
+                    RenderTransformOrigin="0.5, 0.5"
+                    Text=""
+                    IsHitTestVisible="false">
+                    <TextBox.RenderTransform>
+                        <RotateTransform Angle="180"/>
+                    </TextBox.RenderTransform>
+                    <TextBox.Style>
+                        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource under}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Top.Name}" Value="">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+                <!--  Тект нижнего текст бокса  -->
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Text="{Binding Top.Length, Mode=OneWay}">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Top.Name}" Value="">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <!--  Квадрат и изображение верх  -->
+                <Border Grid.Row="1" MinHeight="150">
+                    <Image Height="150" Source="{Binding Top.SchemeImage}"/>
+                </Border>
+            </Grid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <!--  Квадрат и изображение низ  -->
+                <Border MinHeight="150">
+                    <Image Height="150" Source="{Binding Bottom.SchemeImage}"/>
+                </Border>
+                <!--  Нижний текстбокс  -->
+                <TextBox Grid.Row="1"
+                    HorizontalAlignment="Stretch"
+                    Text="{Binding Bottom.Length, Mode=OneWay}"
+                    IsHitTestVisible="False">
+                    <TextBox.Style>
+                        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource under}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Bottom.Name}" Value="">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+            </Grid>
+
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

@@ -231,6 +231,10 @@ _pkginfo.txt
 
 # Others
 ClientBin/
+[Dd]LL
+Nicotra_it
+*.[Dd]ll
+*.[Dd]LL
 ~$*
 *~
 *.dbmdl

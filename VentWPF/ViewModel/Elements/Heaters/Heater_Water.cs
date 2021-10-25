@@ -1,73 +1,86 @@
-﻿using System;
+﻿using PropertyTools.DataAnnotations;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PropertyTools.DataAnnotations;
 using VentWPF.Model;
+using VentWPF.Model.Calculations;
+using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
 {
-    public class Heater_Water : HasDownPressure
+    /// <summary>
+    /// Нагреватель водяной
+    /// </summary>
+    internal class Heater_Water : Heater
     {
         public Heater_Water()
         {
-            Name = "Нагреватель жидкосный";
-            image = "Heater_Water.png";
+            image = "Heaters/Heater_Water.png";
+            DeviceType = typeof(ВодаТепло);
+            Query = new DatabaseQuery<ВодаТепло>
+            {
+                Source = from h in VentContext.Instance.ВодаТеплоs select h
+            };
         }
 
+        public override string SchemeImage => ImagePath("Heaters/SH_Heater_Water.png");
 
-        [DisplayName("Производительность"), Category(c1), PropertyOrder(1)]
-        public float performance => project.VFlow;
+        public override int Width => (int)((DeviceData as ВодаТепло)?.ШиринаЖс ?? 0);
 
-        [DisplayName("t наружного воздуха"), Category(c1), PropertyOrder(2)]
-        public float tOutside => project.temp;
+        public override int Height => (int)((DeviceData as ВодаТепло)?.ВысотаЖс ?? 0);
 
-        [DisplayName("t воздуха на выходе"), Category(c1), PropertyOrder(3)]
-        public float tOut { get; set; } = 18;
+        public override int Length => 400;
 
-        [DisplayName("t теплоносителя начальная"), Category(c1), PropertyOrder(4)]
-        public float tBegin { get; set; } = 95;
+        public override string Name => $"Нагреватель жидкостный {(DeviceData as ВодаТепло)?.Типоряд}";
 
-        [DisplayName("t теплоносителя конечная"), Category(c1), PropertyOrder(5)]
-        public float tEnd { get; set; } = 70;
+        /// <summary>
+        /// Тип теплоносителя
+        /// </summary>
+        [Category(Data)]
+        [DisplayName("Теплоноситель")]
+        public CoolantType Coolant { get; set; }
 
-        [DisplayName("Влажность наружного воздуха"), Category(c1), PropertyOrder(6)]
-        public float humidityOutSide { get; set; } = project.Humid;
+        /// <summary>
+        /// Температура теплоносителя начальная
+        /// </summary>
+        [DisplayName("т. теплоносителя нач.")]
+        public float TempBegin { get; set; } = 95;
 
-        [DisplayName("Теплоноситель"), Category(c1), PropertyOrder(7)]
-        public coolantType coolant { get; set; }
+        /// <summary>
+        /// Температура теплоносителя конечная
+        /// </summary>
+        [DisplayName("т. теплоносителя кон.")]
+        public float TempEnd { get; set; } = 70;
 
+        /// <summary>
+        /// Расход теплоносителя
+        /// </summary>
+        [Category(Info)]
+        [DisplayName("Расход теплоносителя")]
+        [FormatString(MasFr)]
+        public float Consumption => Calculations.heaterConsumption(Power, TempBegin, TempEnd);
 
-        private float AB = (((float)project.With / 1000) * ((float)project.Height / 1000));
+        /// <summary>
+        /// Падение давления теплоносителя
+        /// </summary>
+        [DisplayName("Падение давл. теплоносителя")]
+        [FormatString(fkPa)]
+        public float CoolantPressureDrop => 12.5f;
 
-        [DisplayName("Падение давления расчётное"), Category(c2), PropertyOrder(1)]
-        public override float pressureDrop => (70 / (4 / (((float)project.VFlow / 3600) / AB)));
-        
-
-        [DisplayName("Расход теплоносителя"), Category(c2), PropertyOrder(2)]
-        
-        public float consumption => (float)((Power * 1000) / (4200 * Math.Abs(tOutside - tOut)) * 3600);
-
-        [DisplayName("Мощность воздухонагревателя, кВТ"), Category(c2), PropertyOrder(3)]
-
-        public float Power => (float)(project.VFlow * (353 / (273.15 + tOut)) / 3600000 * 1009 * Math.Abs(tOutside - tOut));
-
-        [Browsable(false)]
-        public float pD => (float)(Math.Exp((1500.3 + 23.5 * tOutside) / (234 + tOutside)));
-
-        [DisplayName("Абсолютная влажность воздуха на выходе"), Category(c2), PropertyOrder(4)]        
-        public float humidityOut => (float)((0.6222 * (humidityOutSide / 100) * pD) / (project.PressOut - (humidityOutSide / 100) * pD / 1000));
-
-        [Browsable(false)]
-        public float pD2 => (float)(Math.Exp((1500.3 + 23.5 * tOut) / (234 + tOut)));
-
-        [DisplayName("Относительная влажность воздуха на выходе"), Category(c2), PropertyOrder(4)]
-
-        public int humidityOutOtn => (int)((project.PressOut / pD2 * 1000 / (0.6222 / humidityOut * 1000 + 1)) * 100);
-
-        [DisplayName("Падение давл. теплоносителя"), Category(c2), PropertyOrder(5)]
-        public float pressureDropT { get { return  (float)12.5; } }
-        
+        public override List<string> InfoProperties => new()
+        {
+            "Performance",
+            "TempIn",
+            "TempOut",
+            "tBegin",
+            "tEnd",
+            "HumidIn",
+            "HumidOutRel",
+            "DeviceData.Скорость",
+            "PressureDrop",
+            "Consumption",
+            "Coolant",
+            "CoolantPressureDrop",
+        };
     }
 }
