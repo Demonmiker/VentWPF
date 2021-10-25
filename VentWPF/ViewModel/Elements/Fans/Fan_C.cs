@@ -3,12 +3,13 @@ using VentWPF.Fans.FanSelect;
 using PropertyTools.DataAnnotations;
 using VentWPF.Fans;
 using VentWPF.Model.Calculations;
+using PropertyChanged;
 
 namespace VentWPF.ViewModel
 {
     internal class Fan_C : Fan
     {
-        public Fan_C()
+        public override void UpdateQuery()
         {
             DeviceType = typeof(FanCData);
             Query = new FanQuery_C()
@@ -26,16 +27,22 @@ namespace VentWPF.ViewModel
                     PressureDrop = Calculations.GPD() + Project.PFlow,
                     SearchTolerance = 10,
                     UnitSystem = "m",
-                    Voltage = 230,
+                    Voltage = 230, // TODO Не динамично нельзя будет изменить
                     VFlow = Project.VFlow,
                     FanType = "ER"
                 }
             };
         }
 
-        public override int Length => 980;
+        public override int Width => (int)((DeviceData as FanCData)?.INSTALLATION_WIDTH_MM ?? 0);
 
-        public override string Name => "Вентилятор";
+        public override int Height => (int)((DeviceData as FanCData)?.INSTALLATION_HEIGHT_MM ?? 0);
+
+        public override int Length => (int)((DeviceData as FanCData)?.INSTALLATION_LENGTH_MM ?? 0);
+
+        //public override string Name => $"Фреоновый охладитель ";
+        [DependsOn(nameof(DeviceData))]
+        public override string Name => $"Вентилятор {(DeviceData as FanCData)?.ARTICLE_NO}";
 
         public override List<string> InfoProperties => new()
         {

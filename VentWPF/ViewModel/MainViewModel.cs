@@ -1,15 +1,10 @@
 ﻿using PropertyTools.DataAnnotations;
-using PropertyTools.Wpf;
-using System.Collections.Generic;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using VentWPF.Fans.FanSelect;
 using VentWPF.Tools;
 
 namespace VentWPF.ViewModel
@@ -54,7 +49,6 @@ namespace VentWPF.ViewModel
         {
             string header = e.Column.Header.ToString();
             // Получчение имени из тэга
-            // TODO при запросе в 0 элементов вылетает (fixed)
             if (ProjectVM.Current.Grid.Selected.Query.Result.Count == 0) return;
             object[] atrs = ProjectVM.Current.Grid.Selected.Query.Result[0].GetType()
                     .GetProperty(header).GetCustomAttributes(typeof(DisplayNameAttribute), true);

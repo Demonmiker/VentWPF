@@ -90,6 +90,7 @@ namespace VentWPF.ViewModel
                 Elements[Index] = Element.GetInstance(el);
                 Index = ind;
                 Elements[Index].SubType = el.SubType;
+                Elements[Index].UpdateQuery();
             }
             Index = ind;
             ErrorManager.Add(Elements[Index], $"[{Index % 10 + 1},{Index / 10 + 1}]");

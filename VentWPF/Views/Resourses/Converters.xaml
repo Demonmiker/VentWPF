@@ -18,6 +18,10 @@
         FalseBrush="LimeGreen"
         TrueBrush="Red"/>
     <tl:MulConverter x:Key="frame-scale" K="0.3"/>
+    <tl:BrushConverter
+        x:Key="brRG"
+        TrueBrush="LimeGreen"
+        FalseBrush="Red"/>
     <tl:MarginConverter
         x:Key="toleft"
         Margin="5 0 0 0"

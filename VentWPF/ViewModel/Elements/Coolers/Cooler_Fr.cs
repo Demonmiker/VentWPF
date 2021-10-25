@@ -15,12 +15,20 @@ namespace VentWPF.ViewModel
         public Cooler_Fr()
         {
             image = "Coolers/Cooler_Fr.png";
+        }
+
+        public override void UpdateQuery()
+        {
             DeviceType = typeof(ФреонХолод);
             Query = new DatabaseQuery<ФреонХолод>
             {
                 Source = from o in VentContext.Instance.ФреонХолодs select o
             };
         }
+
+        public override int Width => (int)((DeviceData as ФреонХолод)?.ШиринаГабарит ?? 0);
+
+        public override int Height => (int)((DeviceData as ФреонХолод)?.ВысотаГабарит ?? 0);
 
         public override int Length => 500;
 

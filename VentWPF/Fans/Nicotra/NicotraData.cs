@@ -32,7 +32,6 @@ namespace VentWPF.Fans.Nicotra
 
         public double errors { get; set; }
 
-        // TODO выяснить какие бывают типы установки
         [DisplayName("Тип установки")]
         public double InstallationType { get; set; }
 

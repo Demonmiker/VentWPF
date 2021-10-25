@@ -44,6 +44,8 @@ namespace VentWPF.ViewModel.Elements
                 new()
                 {
                     { "NDiff", new Condition<double>(x => x is < 200 and > 0) },
+                    { "INSTALLATION_WIDTH_MM", new Condition<double>(x => x <= Project.Width) },
+                    { "INSTALLATION_HEIGHT_MM", new Condition<double>(x => x <= Project.Height) },
                 }
             }
         };
@@ -52,6 +54,5 @@ namespace VentWPF.ViewModel.Elements
 
         public static Dictionary<string, IValueConverter> Get(Type t)
                             => dict.ContainsKey(t) ? dict[t] : null;
-
     }
 }

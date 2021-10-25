@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Data;
 using System.Windows.Documents;
+using VentWPF.Tools;
 using VentWPF.ViewModel.Elements;
 using static VentWPF.ViewModel.Strings;
 
@@ -17,6 +18,11 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Element : ValidViewModel
     {
+        public Element()
+        {
+            CmdUpdateQuery = new Command<object>((x) => UpdateQuery());
+        }
+
         /// <summary>
         /// Тип модели реализации класса
         /// </summary>
@@ -81,11 +87,14 @@ namespace VentWPF.ViewModel
         /// Информация о выбраной модели
         /// </summary>
         [Browsable(false)]
-        public object DeviceData => DeviceIndex >= 0 ? Query.Result[DeviceIndex] : null;
+        public object DeviceData => DeviceIndex >= 0 ? Query.Result?[DeviceIndex] : null;
 
         /// <summary>
         /// Содержит данные о форматировании этого элемента @@warn Можно убрать
         /// </summary>
+        ///
+
+        // TODO можно везде вынести
         [Browsable(false)]
         [JsonIgnore]
         public Dictionary<string, IValueConverter> Format => Conditions.Get(this.GetType());
@@ -95,7 +104,7 @@ namespace VentWPF.ViewModel
         /// </summary>
         [Browsable(false)]
         [JsonIgnore]
-        public Query Query { get; init; }
+        public Query Query { get; set; }
 
         /// <summary>
         /// Определяет нужно ли показывать Падения давления пользователю
@@ -192,10 +201,16 @@ namespace VentWPF.ViewModel
             return table;
         }
 
-        public static T GetInstance<T>(T o) => (T)Activator.CreateInstance(o.GetType());
+        public static T GetInstance<T>(T o)
+        {
+            return (T)Activator.CreateInstance(o.GetType());
+        }
 
         protected override string OnValidation()
-            => DeviceType != null && DeviceData == null ? "Не выбрана модель устройства" : "";
+        {
+            return (DeviceType is not null && DeviceData is null ? "Не выбрана модель устройства\n" : "") +
+                          (!CorrectSize ? "Не подходит по размерам" : "");
+        }
 
         [Browsable(false)]
         public virtual int Length => 0;
@@ -212,9 +227,19 @@ namespace VentWPF.ViewModel
         [DependsOn(nameof(DeviceIndex))]
         public virtual string SchemeImage => "";
 
+        [Browsable(false)]
+        public bool CorrectSize => Width <= Project.Width && Height <= Project.Height;
+
         protected string ImagePath(string path) // пример Heaters/Heater_Electric.png
         {
             return Path.GetFullPath("Assets/Images/" + path);
+        }
+
+        [Browsable(false)]
+        public Command<object> CmdUpdateQuery { get; init; }
+
+        public virtual void UpdateQuery()
+        {
         }
     }
 }
