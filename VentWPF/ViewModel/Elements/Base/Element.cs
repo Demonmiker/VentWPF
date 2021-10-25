@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Data;
 using System.Windows.Documents;
+using VentWPF.Tools;
 using VentWPF.ViewModel.Elements;
 using static VentWPF.ViewModel.Strings;
 
@@ -17,6 +18,11 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class Element : ValidViewModel
     {
+        public Element()
+        {
+            CmdUpdateQuery = new Command<object>((x) => UpdateQuery());
+        }
+
         /// <summary>
         /// Тип модели реализации класса
         /// </summary>
@@ -218,6 +224,12 @@ namespace VentWPF.ViewModel
         protected string ImagePath(string path) // пример Heaters/Heater_Electric.png
         {
             return Path.GetFullPath("Assets/Images/" + path);
+        }
+
+        public Command<object> CmdUpdateQuery { get; init; }
+
+        public virtual void UpdateQuery()
+        {
         }
     }
 }
