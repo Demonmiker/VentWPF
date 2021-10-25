@@ -2,6 +2,7 @@
 using VentWPF.Fans.FanSelect;
 using PropertyTools.DataAnnotations;
 using VentWPF.Fans;
+using VentWPF.Model.Calculations;
 
 namespace VentWPF.ViewModel
 {
@@ -20,10 +21,12 @@ namespace VentWPF.ViewModel
                     Language = "RU",
                     Password = "bnexg5",
                     Username = "ZAFS19946",
-                    PressureDrop = 500,
+                    InstHeight = Project.Height,
+                    InstWidth = Project.Width,
+                    PressureDrop = Calculations.GPD() + Project.PFlow,
                     SearchTolerance = 10,
                     UnitSystem = "m",
-                    VFlow = 6000.0,
+                    VFlow = Project.VFlow,
                     FanType = "ER"
                 }
             };

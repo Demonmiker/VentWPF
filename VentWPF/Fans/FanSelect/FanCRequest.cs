@@ -33,6 +33,12 @@ namespace VentWPF.Fans.FanSelect
         [JsonPropertyName("psf")]
         public double PressureDrop { get; set; } = Calculations.GPD() + Project.PFlow;
 
+        [JsonPropertyName("installation_height_mm")]
+        public double InstHeight { get; set; } = Project.Height;
+
+        [JsonPropertyName("installation_width_mm")]
+        public double InstWidth { get; set; } = Project.Width;
+
         [JsonPropertyName("search_tolerance")]
         public double SearchTolerance { get; set; } = 10;
 

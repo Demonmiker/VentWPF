@@ -174,13 +174,14 @@
                                 HorizontalAlignment="Stretch"
                                 BorderThickness="2"
                                 BorderBrush="Black">
-                                <Border.Background>
+                                <!-- <Border.Background>
                                     <ImageBrush
-                                        ImageSource="C:\Projects\VentWPF\VentWPF\Assets\Images\Sections\Section_LRD.png"
+                                        ImageSource="C:\Users\stig1\source\repos\VentWPF\VentWPF\Assets\Images\Sections\Section_LRD.png"
                                         TileMode="Tile"
                                         Viewport="0 0 100 100"
                                         ViewportUnits="Absolute"/>
                                 </Border.Background>
+                                    -->
                             </Border>
                             <GridSplitter Width="6" VerticalAlignment="Stretch"/>
 
