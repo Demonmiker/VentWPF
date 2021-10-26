@@ -1,0 +1,127 @@
+﻿<Window x:Class="VentWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:l="clr-namespace:VentWPF"
+        xmlns:ex="http://propertytools.org/wpf"
+        xmlns:vm="clr-namespace:VentWPF.ViewModel"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="{md:MaterialDesignFont}"
+        Title="MainWindow" Height="720" Width="1280">
+  <Window.Resources>
+    
+  </Window.Resources>
+  <Window.DataContext>
+    <vm:MainViewModel/>
+  </Window.DataContext>
+  <DockPanel>
+    <Menu DockPanel.Dock="Top" Height="25">
+      <MenuItem Header="Файл" Height="25"/>
+    </Menu>
+    <StatusBar DockPanel.Dock="Bottom">
+      <TextBlock Text="Статус"/>
+    </StatusBar>
+    <Grid>
+      <Grid.ColumnDefinitions >
+        <ColumnDefinition Width="5*" MinWidth="840"/>
+        <ColumnDefinition Width="2*" MinWidth="400"/>
+      </Grid.ColumnDefinitions>
+      <GridSplitter HorizontalAlignment="Right" Width="6" Margin="0,0,0,0" Background="Transparent" Panel.ZIndex="2"/>
+      <DockPanel>
+        <Rectangle DockPanel.Dock="Right" Width="5" VerticalAlignment="Stretch" Fill="{DynamicResource MaterialDesignDarkBackground}"/>
+        <!--Верхняя панель для содания элементов-->
+        <md:Card  DockPanel.Dock="Top" Background="LightGray">
+          <StackPanel Orientation="Horizontal"
+                   Margin="0,5">
+            <StackPanel.Resources>
+              <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}" >
+                <Setter Property="Width" Value="75" />
+                <Setter Property="Height" Value="75" />
+                <Setter Property="Margin" Value="4,2" />
+              </Style>
+              <Style TargetType="{x:Type Image}">
+                <Setter Property="Margin" Value="-16" />
+              </Style>
+            </StackPanel.Resources>
+           
+            <Button>
+              <Button.DataContext>
+                <vm:Heater_Water/>
+              </Button.DataContext>
+              <Image Source="{Binding Image}" />
+            </Button>
+            <Button>
+              <Button.DataContext>
+                <vm:Heater_Water/>
+              </Button.DataContext>
+              <Button.ContextMenu>
+                <ContextMenu>
+                  <Image Source="{Binding Image}" Margin="-3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </ContextMenu>
+              </Button.ContextMenu>
+            </Button>
+            <Button/>
+            <Button/>
+            <Button/>
+            <Button/>
+            <Button/>
+            <Button/>
+            <Button/>
+            <Button/>
+            <Button/>
+          </StackPanel>
+        </md:Card>
+        <!--Нижняя панель для констурирования системы-->
+        <md:Card DockPanel.Dock="Bottom">
+          <Viewbox Stretch="Uniform">
+            <ListBox Width="750" Height="150" Background="LightGray" 
+                     SelectedIndex="0"
+                     ItemsSource="{Binding Table}"  
+                     SelectedItem="{Binding SelectedElement}">
+              <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <UniformGrid Rows="2" Columns="10"/>
+                </ItemsPanelTemplate>
+              </ListBox.ItemsPanel>
+              <ListBox.ItemTemplate>
+                <DataTemplate DataType="ElementVM">
+                  <!--<Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  BorderBrush="DarkBlue" BorderThickness="2" >
+                     
+                  </Border>-->
+                  <Image Source="{Binding Image}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="-6"/>
+                 
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+            </ListBox>
+          </Viewbox>
+        </md:Card>
+        <Rectangle DockPanel.Dock="Bottom" Height="5" HorizontalAlignment="Stretch" Fill="{DynamicResource MaterialDesignDarkBackground}"/>
+        <Rectangle DockPanel.Dock="Top" Height="5" HorizontalAlignment="Stretch" Fill="{DynamicResource MaterialDesignDarkBackground}"/>
+        
+        <!--Основная панель-->
+        <TabControl Margin="0,2,0,0">
+          <TabItem Header="Проект"/>
+          <TabItem Header="Подбор"/>
+          <TabItem Header="Графики"/>
+          <TabItem Header="Схема"/>
+          <TabItem Header="Отчёт"/>
+          <TabItem Header="Электроника"/>
+          <TabItem Header="3D"/>
+        </TabControl>
+      </DockPanel>
+      <StackPanel Grid.Column="1" Margin="7,2,0,0" CanVerticallyScroll="True">
+        <StackPanel Orientation="Horizontal">
+          <Image Source="{Binding SelectedElement.Image}" Width="50" Height="50"/>
+          <TextBlock Text="{Binding SelectedElement.Name}" VerticalAlignment="Bottom" FontSize="18" FontWeight="SemiBold"/>
+        </StackPanel>
+        <ex:PropertyGrid SelectedObject="{Binding SelectedElement}" TabVisibility="Collapsed"/>
+      </StackPanel>
+    </Grid>
+  </DockPanel>
+</Window>

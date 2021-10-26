@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "VentWPF": {
-      "commandName": "Project",
-      "sqlDebugging": true
-    }
-  }
-}

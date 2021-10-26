@@ -1,48 +1,38 @@
-﻿using PropertyChanged;
-using PropertyTools.DataAnnotations;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using PropertyTools.DataAnnotations;
 using VentWPF.Model;
-using static VentWPF.ViewModel.Strings;
+
 
 namespace VentWPF.ViewModel
 {
-    /// <summary>
-    /// Общий класс Фильтр
-    /// </summary>
-    internal abstract class Filter : Element
+    
+    class Filter : HasDownPressure
     {
         public Filter()
         {
-            image = "Filters/Filters.png";
-            ShowPD = true;
+            Name = "Фильтр секционный";
         }
 
-        public override int Width => 500;
+        [DisplayName("Класс очистки"), Category(c1), PropertyOrder(7)]
+        public FClassType FC { get; set; }
 
-        public override int Height => 600;
-
-        [Category(Data)]
-        [DisplayName("Класс очистки")]
-        public FilterClassType FC { get; set; }
-
-        public override List<string> InfoProperties => new()
+       
+        [DisplayName("Падение давления при загряз. 50%"), Category(c2), PropertyOrder(1)]
+        public override float pressureDrop
         {
-            "FC",
-            "GeneratedPressureDrop",
-        };
+            get { 
+                if(FC == FClassType.G4)
+                    return (float)175;
+                if (FC == FClassType.F5)
+                    return (float)225;
+                else
+                    return (float)275;
 
-        [Category(Info)]
-        [DisplayName("Падение давления при загряз. 50%")]
-        [FormatString(fkPa)]
-        protected override float GeneratedPressureDrop => FC switch
-        {
-            FilterClassType.G4 => 175,
-            FilterClassType.F5 => 225,
-            FilterClassType.F9 => 275,
-            _ => 0
-        };
-
-        [DependsOn(nameof(FC))]
-        public override float PressureDrop { get => base.PressureDrop; set => base.PressureDrop = value; }
+            }
+        }
     }
 }

@@ -9,14 +9,14 @@ using VentWPF.Model;
 namespace VentWPF.ViewModel
 {
     
-    class Filter_short : HasDownPressure
+    class Filter_clap : HasDownPressure
     {
-        public Filter_short()
+        public Filter_clap()
         {
-            Name = "Фильтр клапанный укороченый";
+            Name = "Фильтр клапанный";
         }
-                
 
+       
         [DisplayName("Класс очистки"), Category(c1), PropertyOrder(7)]
         public FClassType FC { get; set; }
 

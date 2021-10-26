@@ -1,70 +1,59 @@
-﻿using PropertyChanged;
-using PropertyTools.DataAnnotations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using static VentWPF.ViewModel.Strings;
+using System.Text;
+using System.Threading.Tasks;
+using PropertyTools.DataAnnotations;
+using VentWPF.Model;
 
 namespace VentWPF.ViewModel
 {
-    /// <summary>
-    /// Представление Охладитель жидкостный
-    /// </summary>
-    internal class Cooler_Water : Cooler
+    
+    class Cooler_Water : HasDownPressure
     {
         public Cooler_Water()
         {
-            image = "Coolers/Cooler_Water.png";
-            DeviceType = typeof(ВодаХолод);
-            Query = new DatabaseQuery<ВодаХолод>
-            {
-                Source = from o in VentContext.Instance.ВодаХолодs select o
-            };
+            Name = "Охладитель жидкостный";
         }
 
-        public override int Length => 500;
+        [DisplayName("Производительность"), Category(c1), PropertyOrder(1)]
+        public float performance => project.VFlow;
 
-        [DependsOn(nameof(DeviceData))]
-        public override string Name => $"Охладитель жидкостный {(DeviceData as ВодаХолод)?.Типоряд}";
+        [DisplayName("t наружного воздуха"), Category(c1), PropertyOrder(2)]
+        public float tOutside { get; set; } = 30;
 
-        /// <summary>
-        /// Температура теплоносителя в начале
-        /// </summary>
-        [Category(Data)]
-        [DisplayName("т. теплоносителя нач.")]
-        public float TempBegin => 7;
+        [DisplayName("t воздуха на выходе"), Category(c1), PropertyOrder(3)]
+        public float tOut { get; set; } = 18;
 
-        /// <summary>
-        /// Температура теплоносителя в конце
-        /// </summary>
-        [DisplayName("т. теплоносителя кон.")]
-        public float TempEnd => 12;
+        [DisplayName("t теплоносителя начальная"), Category(c1), PropertyOrder(4)]
+        public float tBegin { get; } = 7;
 
-        /// <summary>
-        /// Расход теплоносителя
-        /// </summary>
-        [Category(Info)]
+        [DisplayName("t теплоносителя конечная"), Category(c1), PropertyOrder(5)]
+        public float tEnd { get; } = 12;
+
+        [DisplayName("Влажность воздуха"), Category(c1), PropertyOrder(6)]
+        public float humidityOutSide { get; set; } = 42;
+
+
+        private float AB = (((float)project.With / 1000) * ((float)project.Height / 1000));
+
+        [DisplayName("Падение давления расчётное"), Category(c2), PropertyOrder(1)]
+        public override float pressureDrop => (70 / (4 / (((float)project.VFlow / 3600) / AB)));
+
+        [DisplayName("Мощность охладителя"), Category(c2), PropertyOrder(2)]
+        public float Power => (float)(project.VFlow * (353 / (273.15 + tOut)) / 3600000 * 1009 * Math.Abs(tOutside - tOut));
+
         [Browsable(false)]
-        [DisplayName("Расход теплоносителя")]
-        [FormatString(MasFr)]
-        public float Consumption => (float)(Power * 1000 / (4198 * Math.Abs(TempBegin - TempEnd))) * 3600;
+        public float pD => (float)(Math.Exp((1500.3 + 23.5 * tOutside) / (234 + tOutside)));
 
-        public override List<string> InfoProperties => new()
-        {
-            "TempIn",
-            "TempOut",
-            "TempBegin",
-            "TempEnd",
-            "HumidityIn",
-            "Power",
-            "HumidOutAbs",
-            "HumidOutRel",
-            "DeviceData.LВозд",
-            "DeviceData.NКвт",
-            "DeviceData.Скорость",
-            "DeviceData.ВысотаГабарит",
-            "DeviceData.ШиринаГабарит",
-            "Fr",
-        };
+        [DisplayName("Абсолютная влажность воздуха на выходе"), Category(c2), PropertyOrder(4)]
+        public float humidityOut => (float)((0.6222 * (humidityOutSide / 100) * pD) / (project.PressOut - (humidityOutSide / 100) * pD / 1000));
+
+        [Browsable(false)]
+        public float pD2 => (float)(Math.Exp((1500.3 + 23.5 * tOut) / (234 + tOut)));
+
+        [DisplayName("Относительная влажность воздуха на выходе"), Category(c2), PropertyOrder(4)]
+
+        public float humidityOutOtn => (float)((project.PressOut / pD2 * 1000 / (0.6222 / humidityOut * 1000 + 1)) * 100);
     }
 }
