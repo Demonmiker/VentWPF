@@ -10,16 +10,8 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class ValveVerticalHeat : Valve
     {
-        public ValveVerticalHeat()
-        {
-<<<<<<< HEAD:VentWPF/ViewModel/Elements/Valves/Valve_Ver_Heat.cs
-            image = "Valves/Valve_Ver_Heat.png";
-        }
-
         public override void UpdateQuery()
         {
-=======
->>>>>>> ptb-update:VentWPF/ViewModel/Elements/Valves/ValveVerticalHeat.cs
             DeviceType = typeof(Тэны);
             Query = new DatabaseQuery<Тэны>
             {

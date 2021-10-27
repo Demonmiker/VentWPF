@@ -8,7 +8,7 @@ namespace VentWPF.Fans.Nicotra
     {
         protected override IList Fill(object q)//Request
         {
-            return new NicotraController().GetResponce(q as FanPRequest);
+            return new FanPController().GetResponce(q as FanPRequest);
         }
     }
 }

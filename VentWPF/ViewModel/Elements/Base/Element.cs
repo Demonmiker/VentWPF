@@ -226,19 +226,9 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         [DependsOn(nameof(DeviceIndex))]
         public virtual int Height => 0;
-<<<<<<< HEAD
-
-        [Browsable(false)]
-        [DependsOn(nameof(DeviceIndex))]
-        public virtual string SchemeImage => "";
 
         [Browsable(false)]
         public bool CorrectSize => Width <= Project.Width && Height <= Project.Height;
-
-        protected string ImagePath(string path) // пример Heaters/Heater_Electric.png
-        {
-            return Path.GetFullPath("Assets/Images/" + path);
-        }
 
         [Browsable(false)]
         public Command<object> CmdUpdateQuery { get; init; }
@@ -246,7 +236,5 @@ namespace VentWPF.ViewModel
         public virtual void UpdateQuery()
         {
         }
-=======
->>>>>>> ptb-update
     }
 }

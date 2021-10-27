@@ -12,16 +12,8 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class CoolerFr : Cooler
     {
-        public CoolerFr()
-        {
-<<<<<<< HEAD:VentWPF/ViewModel/Elements/Coolers/Cooler_Fr.cs
-            image = "Coolers/Cooler_Fr.png";
-        }
-
         public override void UpdateQuery()
         {
-=======
->>>>>>> ptb-update:VentWPF/ViewModel/Elements/Coolers/CoolerFr.cs
             DeviceType = typeof(ФреонХолод);
             Query = new DatabaseQuery<ФреонХолод>
             {
@@ -29,13 +21,11 @@ namespace VentWPF.ViewModel
             };
         }
 
-<<<<<<< HEAD:VentWPF/ViewModel/Elements/Coolers/Cooler_Fr.cs
         public override int Width => (int)((DeviceData as ФреонХолод)?.ШиринаГабарит ?? 0);
 
         public override int Height => (int)((DeviceData as ФреонХолод)?.ВысотаГабарит ?? 0);
-=======
+
         public override string Image => ImagePath("Coolers/Fr");
->>>>>>> ptb-update:VentWPF/ViewModel/Elements/Coolers/CoolerFr.cs
 
         public override int Length => 500;
 

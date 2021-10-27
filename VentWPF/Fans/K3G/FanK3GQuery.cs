@@ -9,7 +9,7 @@ namespace VentWPF.Fans.K3G
     {
         protected override IList Fill(object q)//Request
         {
-            return new K3GController().GetResponce(q as FanK3GRequest);
+            return new FanK3GController().GetResponce(q as FanK3GRequest);
         }
     }
 }

@@ -6,19 +6,11 @@ namespace VentWPF.ViewModel
 {
     internal class FanK3G : Fan
     {
-        public FanK3G()
-        {
-<<<<<<< HEAD:VentWPF/ViewModel/Elements/Fans/Fan_K3G.cs
-            DeviceType = typeof(K3GData);
-        }
-
         public override void UpdateQuery()
         {
-            Query = new K3GQuery()
-=======
+            Query = new FanK3GQuery();
             DeviceType = typeof(FanK3GData);
             Query = new FanK3GQuery()
->>>>>>> ptb-update:VentWPF/ViewModel/Elements/Fans/FanK3G.cs
             {
                 Source = new FanK3GRequest()
                 {

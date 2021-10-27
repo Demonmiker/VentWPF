@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 
 namespace VentWPF.Fans.K3G
 {
-    internal class K3GController : IController<FanK3GRequest, List<FanK3GData>>
+    internal class FanK3GController : IController<FanK3GRequest, List<FanK3GData>>
     {
 #pragma warning disable CS0618
 
@@ -25,7 +25,7 @@ namespace VentWPF.Fans.K3G
 
 #pragma warning restore CS0618
 
-        string[] Keys;
+        private string[] Keys;
 
         public List<FanK3GData> GetResponce(FanK3GRequest request)
         {

@@ -554,7 +554,7 @@
 
   <ItemGroup>
     <Folder Include="Assets\Images\Scheme\Recuperators\" />
-    <Folder Include="Fans\FanSelect\DLL\" />
+    <Folder Include="Fans\FanC\DLL\" />
     <Folder Include="Fans\K3G\DLL\" />
   </ItemGroup>
 

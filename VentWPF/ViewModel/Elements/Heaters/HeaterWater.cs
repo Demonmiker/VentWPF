@@ -13,16 +13,8 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class HeaterWater : Heater
     {
-        public HeaterWater()
-        {
-<<<<<<< HEAD:VentWPF/ViewModel/Elements/Heaters/Heater_Water.cs
-            image = "Heaters/Heater_Water.png";
-        }
-
         public override void UpdateQuery()
         {
-=======
->>>>>>> ptb-update:VentWPF/ViewModel/Elements/Heaters/HeaterWater.cs
             DeviceType = typeof(ВодаТепло);
             Query = new DatabaseQuery<ВодаТепло>
             {

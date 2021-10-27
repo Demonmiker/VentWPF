@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace VentWPF.Fans.Nicotra
 {
-    internal class NicotraController : IController<FanPRequest, List<FanPData>>
+    internal class FanPController : IController<FanPRequest, List<FanPData>>
     {
         #region Marshaling
 
