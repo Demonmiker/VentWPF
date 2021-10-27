@@ -1,22 +1,15 @@
-﻿using pt = PropertyTools.Wpf;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using pt = PropertyTools.Wpf;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace VentWPF
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public partial class Events
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-
-        public DataGrid datagrid => this.dg;
-
         private void TbxGotFocus(object sender, RoutedEventArgs e)
         {
             object o = e.OriginalSource;
