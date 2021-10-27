@@ -11,7 +11,6 @@ namespace VentWPF.ViewModel
     {
         public Humid()
         {
-            image = "Humidifiers/Humid_Cell.png";
             ShowPR = true;
         }
 

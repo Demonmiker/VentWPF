@@ -12,7 +12,6 @@ namespace VentWPF.ViewModel
     {
         public Heater_Gas()
         {
-            image = "Heaters/Heater_Gas.png";
         }
 
         public override int Length => 400;

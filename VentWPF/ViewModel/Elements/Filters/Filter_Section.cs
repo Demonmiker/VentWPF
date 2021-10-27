@@ -7,7 +7,6 @@
     {
         public Filter_Section()
         {
-            image = "Filters/Filter_Section.png";
         }
 
         public override int Length => 680;

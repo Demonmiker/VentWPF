@@ -11,7 +11,6 @@ namespace VentWPF.ViewModel
     {
         public Humid_Cell()
         {
-            image = "Humidifiers/Humid_Cell.png";
         }
 
         public override string SchemeImage => ImagePath("Humidifiers/SH_Humid_Cell.png");

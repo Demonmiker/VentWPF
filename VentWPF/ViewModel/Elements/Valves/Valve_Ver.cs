@@ -12,7 +12,6 @@ namespace VentWPF.ViewModel
     {
         public Valve_Ver()
         {
-            image = "Valves/Valve_Ver.png";
         }
 
         public override int Length => 125;

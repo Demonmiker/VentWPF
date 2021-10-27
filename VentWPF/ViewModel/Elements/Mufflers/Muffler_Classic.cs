@@ -10,7 +10,6 @@ namespace VentWPF.ViewModel
     {
         public Muffler_Classic()
         {
-            image = "Mufflers/Muffler.png";
         }
 
         public override string Name => "Шумоглушитель";

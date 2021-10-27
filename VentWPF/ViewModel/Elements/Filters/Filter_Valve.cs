@@ -7,7 +7,6 @@
     {
         public Filter_Valve()
         {
-            image = "Filters/Filter_Valve.png";
         }
 
         public override int Length => 680;

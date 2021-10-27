@@ -12,7 +12,6 @@ namespace VentWPF.ViewModel
     {
         public Valve_Hor_Heat()
         {
-            image = "Valves/Valve_Hor_Heat.png";
             DeviceType = typeof(Тэны);
             Query = new DatabaseQuery<Тэны>
             {

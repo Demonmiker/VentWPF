@@ -14,7 +14,6 @@ namespace VentWPF.ViewModel
     {
         public Cooler_Water()
         {
-            image = "Coolers/Cooler_Water.png";
             DeviceType = typeof(ВодаХолод);
             Query = new DatabaseQuery<ВодаХолод>
             {

@@ -10,7 +10,6 @@ namespace VentWPF.ViewModel
     {
         public Humid_Steam()
         {
-            image = "Humidifiers/Humid_Steam.png";
         }
 
         public override int Length => 650;
