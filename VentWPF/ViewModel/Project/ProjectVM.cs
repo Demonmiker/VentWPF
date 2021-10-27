@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using VentWPF.Tools;
 
@@ -87,30 +88,23 @@ namespace VentWPF.ViewModel
             result.TwoRows = ProjectInfo.Rows == Model.Rows.Двухярусный;
             result.WidthBottom = ProjectInfo.Height;
             result.WidthTop = ProjectInfo.Height + 100; //TODO Исправить на нормальное значение
-            result.Elements.Clear();
-            for (int i = 0; i < 10; i++)
+            result.TopElements.Clear();
+            result.BottomElements.Clear();
+            if (result.TwoRows)
             {
-                if (result.TwoRows)
-                {
-                    if (Grid.Elements[i].GetType().Name == "Element" && Grid.Elements[i + 10].GetType().Name == "Element")
-                        break;
-                    result.Elements.Add(new ElementPair()
-                    {
-                        TwoRows = true,
-                        Top = Grid.Elements[i],
-                        Bottom = Grid.Elements[i + 10],
-                    });
-                }
-                else
-                {
-                    if (Grid.Elements[i].GetType().Name == "Element")
-                        break;
-                    result.Elements.Add(new ElementPair()
-                    {
-                        TwoRows = false,
-                        Bottom = Grid.Elements[i],
-                    });
-                }
+                int i = 0;
+                while (Grid.Elements[i].Name != "" && i < 10)
+                    result.TopElements.Add(Grid.Elements[i++]);
+                i = 10;
+                while (Grid.Elements[i].Name != "" && i < 20)
+                    result.BottomElements.Add(Grid.Elements[i++]);
+                MessageBox.Show(result.TopElements.Sum(x => x.Length).ToString());
+            }
+            else
+            {
+                int i = 0;
+                while (Grid.Elements[i].Name != "" && i < 10)
+                    result.BottomElements.Add(Grid.Elements[i++]);
             }
             result.Init();
             Scheme = result;
