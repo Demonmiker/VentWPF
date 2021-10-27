@@ -10,7 +10,6 @@ namespace VentWPF.ViewModel
     {
         public Valve()
         {
-            image = "Valves/Valve_Hor.png";
             ShowPR = true;
             ShowPD = true;
         }
@@ -19,14 +18,12 @@ namespace VentWPF.ViewModel
 
         [Category(Data)]
         [FormatString(fmm)]
-        [DisplayName("Ширина")]        
+        [DisplayName("Ширина")]
         public int WidthValve { get; set; } = Project.Width;
 
         [Category(Data)]
         [FormatString(fmm)]
-        [DisplayName("Высота")]              
+        [DisplayName("Высота")]
         public int HeightValve { get; set; } = 150;
     }
-
-
 }

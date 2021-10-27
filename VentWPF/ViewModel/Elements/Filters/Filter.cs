@@ -13,7 +13,6 @@ namespace VentWPF.ViewModel
     {
         public Filter()
         {
-            image = "Filters/Filters.png";
             ShowPD = true;
         }
 

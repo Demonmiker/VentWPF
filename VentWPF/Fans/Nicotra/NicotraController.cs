@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace VentWPF.Fans.Nicotra
 {
-    internal class NicotraController : IController<NicotraRequest, List<NicotraData>>
+    internal class NicotraController : IController<FanPRequest, List<FanPData>>
     {
         #region Marshaling
 
@@ -31,10 +31,10 @@ namespace VentWPF.Fans.Nicotra
 
         private static string[] Keys;
 
-        public List<NicotraData> GetResponce(NicotraRequest request)
+        public List<FanPData> GetResponce(FanPRequest request)
         {
             Keys ??= GetKeys().ToArray();
-            return Keys.Select(x => new NicotraData(x, GetFanInfo(x, request))).ToList();
+            return Keys.Select(x => new FanPData(x, GetFanInfo(x, request))).ToList();
         }
 
         public IEnumerable<string> GetKeys()
@@ -48,7 +48,7 @@ namespace VentWPF.Fans.Nicotra
             return keys;
         }
 
-        public IEnumerable<double> GetFanInfo(string id, NicotraRequest req)
+        public IEnumerable<double> GetFanInfo(string id, FanPRequest req)
         {
             var bufferInfo = new string(new Char(), 4000);
             var r = req.GetRequest();

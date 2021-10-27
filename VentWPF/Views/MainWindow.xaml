@@ -59,6 +59,12 @@
                </Style>
             </fa5:SvgAwesome.Style>
          </fa5:SvgAwesome>
+<<<<<<< HEAD
+=======
+         <TextBox Width="100"/>
+         <pt:TextBlockEx Width="100"/>
+         <pt:FormattingTextBox Width="100"/>
+>>>>>>> ptb-update
       </StatusBar>
       <Grid Margin="0 0 0 0">
          <Grid.ColumnDefinitions>
@@ -141,8 +147,18 @@
                      Width="400"
                      HorizontalAlignment="Left"
                      EnumAsRadioButtonsLimit="1"
+<<<<<<< HEAD
                      SelectedObject="{Binding Project.ProjectInfo}"
                      ShowDeclaredOnly="True"/>
+=======
+                     FocusVisualStyle="{StaticResource tbe}"
+                     SelectedObject="{Binding Project.ProjectInfo}"
+                     ShowDeclaredOnly="True"/>
+
+
+
+
+>>>>>>> ptb-update
                </TabItem>
                <!--  Информация  -->
                <TabItem>
@@ -298,7 +314,11 @@
                      <RowDefinition.Style>
                         <Style TargetType="{x:Type RowDefinition}">
                            <Setter Property="Height" Value="*"/>
+<<<<<<< HEAD
                            <Setter Property="MaxHeight" Value="600"/>
+=======
+                           <Setter Property="MaxHeight" Value="155"/>
+>>>>>>> ptb-update
                            <Setter Property="MinHeight" Value="155"/>
                            <Style.Triggers>
                               <DataTrigger Binding="{Binding Project.Grid.Selected.Query}" Value="{x:Null}">
@@ -306,6 +326,12 @@
                                  <Setter Property="MaxHeight" Value="0"/>
                                  <Setter Property="MinHeight" Value="0"/>
                               </DataTrigger>
+<<<<<<< HEAD
+=======
+                              <DataTrigger Binding="{Binding Project.Grid.Selected.Query.State}" Value="Success">
+                                 <Setter Property="MaxHeight" Value="600"/>
+                              </DataTrigger>
+>>>>>>> ptb-update
                            </Style.Triggers>
                         </Style>
                      </RowDefinition.Style>
@@ -357,11 +383,15 @@
                         SelectionUnit="FullRow">
                         <DataGrid.Resources>
                            <Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="DataGridCell">
+<<<<<<< HEAD
                               <Style.Triggers>
                                  <Trigger Property="HasContent" Value="True">
                                     <Setter Property="Background" Value="Transparent"/>
                                  </Trigger>
                               </Style.Triggers>
+=======
+                              <Setter Property="Background" Value="Transparent"/>
+>>>>>>> ptb-update
                            </Style>
                         </DataGrid.Resources>
                         <DataGrid.ItemContainerStyle>
@@ -425,6 +455,7 @@
                            </Style>
                         </fa5:SvgAwesome.Style>
                      </fa5:SvgAwesome>
+<<<<<<< HEAD
                      <md:Card
                         Width="auto"
                         Height="auto"
@@ -438,6 +469,8 @@
                            <fa5:SvgAwesome Icon="Solid_Sync"/>
                         </Button>
                      </md:Card>
+=======
+>>>>>>> ptb-update
                   </Grid>
                </md:Card>
             </Grid>
