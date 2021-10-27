@@ -8,11 +8,13 @@ namespace VentWPF.ViewModel
     /// <summary>
     /// Нагреватель газовый
     /// </summary>
-    internal class Heater_Gas : Heater
+    internal class HeaterGas : Heater
     {
-        public Heater_Gas()
+        public HeaterGas()
         {
         }
+
+        public override string Image => ImagePath("Heaters/Gas");
 
         public override int Length => 400;
 

@@ -6,11 +6,13 @@ namespace VentWPF.ViewModel
     /// <summary>
     /// Шумоглушитель
     /// </summary>
-    internal class Muffler_Classic : Muffler
+    internal class MufflerDefault : Muffler
     {
-        public Muffler_Classic()
+        public MufflerDefault()
         {
         }
+
+        public override string Image => ImagePath("Mufflers/Default");
 
         public override string Name => "Шумоглушитель";
     }

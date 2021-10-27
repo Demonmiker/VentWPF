@@ -5,11 +5,11 @@ using VentWPF.ViewModel;
 
 namespace VentWPF.Fans.K3G
 {
-    internal class K3GQuery : Query
+    internal class FanK3GQuery : Query
     {
         protected override IList Fill(object q)//Request
         {
-            return new K3GController().GetResponce(q as K3GRequest);
+            return new K3GController().GetResponce(q as FanK3GRequest);
         }
     }
 }

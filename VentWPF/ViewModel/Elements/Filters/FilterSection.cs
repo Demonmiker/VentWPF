@@ -3,11 +3,13 @@
     /// <summary>
     /// Представление Фильтр секционный
     /// </summary>
-    internal class Filter_Section : Filter
+    internal class FilterSection : Filter
     {
-        public Filter_Section()
+        public FilterSection()
         {
         }
+
+        public override string Image => ImagePath("Filters/Section");
 
         public override int Length => 680;
 

@@ -13,9 +13,9 @@ namespace VentWPF.ViewModel
     /// <summary>
     /// Нагреватель электрический
     /// </summary>
-    internal class Heater_Electric : Heater
+    internal class HeaterElectric : Heater
     {
-        public Heater_Electric()
+        public HeaterElectric()
         {
             DeviceType = typeof(Тэнры);
             Query = new DatabaseQuery<Тэнры>
@@ -24,7 +24,7 @@ namespace VentWPF.ViewModel
             };
         }
 
-        public override string SchemeImage => ImagePath("Heaters/SH_Heater_Electric.png");
+        public override string Image => ImagePath("Heaters/Electric");
 
         public override int Length => 400;
 

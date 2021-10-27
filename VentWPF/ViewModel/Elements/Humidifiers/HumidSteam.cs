@@ -6,11 +6,13 @@ namespace VentWPF.ViewModel
     /// <summary>
     /// Увлажнитель паровой
     /// </summary>
-    internal class Humid_Steam : Humid
+    internal class HumidSteam : Humid
     {
-        public Humid_Steam()
+        public HumidSteam()
         {
         }
+
+        public override string Image => ImagePath("Humidifiers/Steam");
 
         public override int Length => 650;
 

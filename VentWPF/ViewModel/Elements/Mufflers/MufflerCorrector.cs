@@ -6,11 +6,13 @@ namespace VentWPF.ViewModel
     /// <summary>
     /// Шумаглушитель с выравниванием
     /// </summary>
-    internal class Muffler_Corrector : Muffler
+    internal class MufflerCorrector : Muffler
     {
-        public Muffler_Corrector()
+        public MufflerCorrector()
         {
         }
+
+        public override string Image => ImagePath("Mufflers/Corrector");
 
         public override string Name => "Шумоглушитель с выравниванием";
     }

@@ -8,9 +8,9 @@ namespace VentWPF.ViewModel
     /// <summary>
     /// Клапан воздушный утеплённый вертикальный
     /// </summary>
-    internal class Valve_Ver_Heat : Valve
+    internal class ValveVerticalHeat : Valve
     {
-        public Valve_Ver_Heat()
+        public ValveVerticalHeat()
         {
             DeviceType = typeof(Тэны);
             Query = new DatabaseQuery<Тэны>
@@ -18,6 +18,8 @@ namespace VentWPF.ViewModel
                 Source = from o in VentContext.Instance.Tэныs select o,
             };
         }
+
+        public override string Image => ImagePath("Valves/VerticalHeat");
 
         public override int Length => 125;
 

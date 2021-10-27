@@ -133,11 +133,11 @@ namespace VentWPF.ViewModel
         /// </summary>
         [Browsable(false)]
         [DependsOn(nameof(SubType))]
-        public virtual string Image => ImagePath("Recuperator.png");
+        public virtual string Image => ImagePath("_Menu/Empty");
 
         [Browsable(false)]
         [DependsOn(nameof(SubType))]
-        public virtual string SchemeImage => "";
+        public virtual string SchemeImage => Image.Replace("Icons", "Scheme");
 
         protected string ImagePath(string path) // пример Heaters/Electric
         {

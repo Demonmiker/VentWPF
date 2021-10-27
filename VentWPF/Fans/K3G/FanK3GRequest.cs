@@ -2,7 +2,7 @@
 using VentWPF.Model.Calculations;
 namespace VentWPF.Fans.K3G
 {
-    internal class K3GRequest : IRequest<string>
+    internal class FanK3GRequest : IRequest<string>
     {
         public static ProjectInfoVM Project { get; set; } = ProjectVM.Current?.ProjectInfo;
         public string ID { get; set; }

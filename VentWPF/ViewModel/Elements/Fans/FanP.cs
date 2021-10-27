@@ -3,16 +3,18 @@ using VentWPF.Fans.Nicotra;
 
 namespace VentWPF.ViewModel
 {
-    internal class Fan_P : Fan
+    internal class FanP : Fan
     {
-        public Fan_P()
+        public FanP()
         {
-            DeviceType = typeof(NicotraData);
-            Query = new NicotraQuery()
+            DeviceType = typeof(FanPData);
+            Query = new FanPQuery()
             {
-                Source = new NicotraRequest()
+                Source = new FanPRequest()
             };
         }
+
+        public override string Image => ImagePath($"FanP/{Direction}");
 
         public override int Length => 980;
 

@@ -8,11 +8,13 @@ namespace VentWPF.ViewModel
     /// <summary>
     /// Клапан воздушный вертикальный
     /// </summary>
-    internal class Valve_Ver : Valve
+    internal class ValveVertical : Valve
     {
-        public Valve_Ver()
+        public ValveVertical()
         {
         }
+
+        public override string Image => ImagePath("Valves/Vertical");
 
         public override int Length => 125;
 

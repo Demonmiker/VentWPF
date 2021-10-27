@@ -5,9 +5,9 @@ using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.Fans.K3G
 {
-    public class K3GData
+    public class FanK3GData
     {
-        public K3GData(string id, IEnumerable<string> info)
+        public FanK3GData(string id, IEnumerable<string> info)
         {
             var details = info.ToArray();
             Id = id;

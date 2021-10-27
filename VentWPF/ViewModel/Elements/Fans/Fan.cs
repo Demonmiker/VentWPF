@@ -16,13 +16,11 @@ namespace VentWPF.ViewModel
         }
 
         [Browsable(false)]
-        public Fan_Direction Direction
+        public FanDirection Direction
         {
-            get => (Fan_Direction)SubType;
+            get => (FanDirection)SubType;
             set => SubType = (int)value;
         }
-
-        public override string Image => Path.GetFullPath($"Assets/Images/Fans/Directions/{Direction}.png");
 
         [Category(Data)]
         [DisplayName("Данные уточняющие запрос")]

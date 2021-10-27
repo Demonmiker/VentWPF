@@ -1,6 +1,6 @@
 ﻿namespace VentWPF.ViewModel
 {
-    public enum Fan_Direction
+    public enum FanDirection
     {
         LeftRight,
 

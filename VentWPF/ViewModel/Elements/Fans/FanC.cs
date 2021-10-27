@@ -6,12 +6,12 @@ using VentWPF.Model.Calculations;
 
 namespace VentWPF.ViewModel
 {
-    internal class Fan_C : Fan
+    internal class FanC : Fan
     {
-        public Fan_C()
+        public FanC()
         {
             DeviceType = typeof(FanCData);
-            Query = new FanQuery_C()
+            Query = new FanCQuery()
             {
                 Source = new FanCRequest()
                 {
@@ -33,7 +33,13 @@ namespace VentWPF.ViewModel
             };
         }
 
+        public override string Image => ImagePath($"FanC/{Direction}");
+
         public override int Length => 980;
+
+        public override int Width => (int)((DeviceData as FanCData)?.INSTALLATION_WIDTH_MM ?? 0);
+
+        public override int Height => (int)((DeviceData as FanCData)?.INSTALLATION_HEIGHT_MM ?? 0);
 
         public override string Name => "Вентилятор";
 

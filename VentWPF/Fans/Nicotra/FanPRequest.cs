@@ -4,7 +4,7 @@ using VentWPF.ViewModel;
 using VentWPF.Model.Calculations;
 namespace VentWPF.Fans.Nicotra
 {
-    internal class NicotraRequest : IRequest<double[]>
+    internal class FanPRequest : IRequest<double[]>
     {
         public static ProjectInfoVM Project { get; set; } = ProjectVM.Current?.ProjectInfo;
         public double Option { get; set; } = 1; //1 - Air volume and static pressure 2 - Air volume and total pressure

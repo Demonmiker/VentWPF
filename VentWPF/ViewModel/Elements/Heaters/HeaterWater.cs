@@ -11,9 +11,9 @@ namespace VentWPF.ViewModel
     /// <summary>
     /// Нагреватель водяной
     /// </summary>
-    internal class Heater_Water : Heater
+    internal class HeaterWater : Heater
     {
-        public Heater_Water()
+        public HeaterWater()
         {
             DeviceType = typeof(ВодаТепло);
             Query = new DatabaseQuery<ВодаТепло>
@@ -22,7 +22,7 @@ namespace VentWPF.ViewModel
             };
         }
 
-        public override string SchemeImage => ImagePath("Heaters/SH_Heater_Water.png");
+        public override string Image => ImagePath("Heaters/Water");
 
         public override int Width => (int)((DeviceData as ВодаТепло)?.ШиринаЖс ?? 0);
 

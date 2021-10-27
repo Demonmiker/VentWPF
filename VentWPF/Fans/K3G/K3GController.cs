@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 
 namespace VentWPF.Fans.K3G
 {
-    internal class K3GController : IController<K3GRequest, List<K3GData>>
+    internal class K3GController : IController<FanK3GRequest, List<FanK3GData>>
     {
 #pragma warning disable CS0618
 
@@ -27,15 +27,15 @@ namespace VentWPF.Fans.K3G
 
         string[] Keys;
 
-        public List<K3GData> GetResponce(K3GRequest request)
+        public List<FanK3GData> GetResponce(FanK3GRequest request)
         {
             Connection();
             Keys ??= GetIDs().ToArray();
-            List<K3GData> res = new();
+            List<FanK3GData> res = new();
             foreach (var id in Keys)
             {
                 var list = GetFanInfo(id, request);
-                K3GData data = new K3GData(id, list);
+                FanK3GData data = new FanK3GData(id, list);
                 res.Add(data);
             }
             return res;
@@ -64,7 +64,7 @@ namespace VentWPF.Fans.K3G
             return str.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Where(x => !x.StartsWith("K3G"));
         }
 
-        public IEnumerable<string> GetFanInfo(string id, K3GRequest req)
+        public IEnumerable<string> GetFanInfo(string id, FanK3GRequest req)
         {
             req.ID = id;
             var bufferInfo = new string(new Char(), 4000);

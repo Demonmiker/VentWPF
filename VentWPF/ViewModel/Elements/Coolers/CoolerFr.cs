@@ -10,9 +10,9 @@ namespace VentWPF.ViewModel
     /// <summary>
     /// Представление Охладитель фреоновый
     /// </summary>
-    internal class Cooler_Fr : Cooler
+    internal class CoolerFr : Cooler
     {
-        public Cooler_Fr()
+        public CoolerFr()
         {
             DeviceType = typeof(ФреонХолод);
             Query = new DatabaseQuery<ФреонХолод>
@@ -20,6 +20,8 @@ namespace VentWPF.ViewModel
                 Source = from o in VentContext.Instance.ФреонХолодs select o
             };
         }
+
+        public override string Image => ImagePath("Coolers/Fr");
 
         public override int Length => 500;
 

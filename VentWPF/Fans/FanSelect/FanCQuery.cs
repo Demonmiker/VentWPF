@@ -4,7 +4,7 @@ using VentWPF.Tools;
 
 namespace VentWPF.ViewModel
 {
-    internal class FanQuery_C : Query
+    internal class FanCQuery : Query
     {
         protected override IList Fill(object q)//Request
         {

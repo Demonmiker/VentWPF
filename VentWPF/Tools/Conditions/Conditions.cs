@@ -10,7 +10,7 @@ namespace VentWPF.ViewModel.Elements
         public static Dictionary<Type, Dictionary<string, IValueConverter>> dict = new()
         {
             {
-                typeof(Heater_Water),
+                typeof(HeaterWater),
                 new()
                 {
                     { "LВозд", new Condition<double>(x => x >= Project.VFlow) },
@@ -20,7 +20,7 @@ namespace VentWPF.ViewModel.Elements
                 }
             },
             {
-                typeof(Cooler_Water),
+                typeof(CoolerWater),
                 new()
                 {
                     { "LВозд", new Condition<double>(x => x >= Project.VFlow) },
@@ -30,7 +30,7 @@ namespace VentWPF.ViewModel.Elements
                 }
             },
             {
-                typeof(Cooler_Fr),
+                typeof(CoolerFr),
                 new()
                 {
                     { "LВозд", new Condition<double>(x => x >= Project.VFlow) },
@@ -40,7 +40,7 @@ namespace VentWPF.ViewModel.Elements
                 }
             },
             {
-                typeof(Fan_C),
+                typeof(FanC),
                 new()
                 {
                     { "NDiff", new Condition<double>(x => x is < 200 and > 0) },

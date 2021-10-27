@@ -3,11 +3,13 @@
     /// <summary>
     /// Представление Фильтр клапанный
     /// </summary>
-    internal class Filter_Valve : Filter
+    internal class FilterValve : Filter
     {
-        public Filter_Valve()
+        public FilterValve()
         {
         }
+
+        public override string Image => ImagePath("Filters/Valve");
 
         public override int Length => 680;
 

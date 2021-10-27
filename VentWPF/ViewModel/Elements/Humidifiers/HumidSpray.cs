@@ -6,11 +6,13 @@ namespace VentWPF.ViewModel
     /// <summary>
     /// Увлажнитель форсуночный
     /// </summary>
-    internal class Humid_Spray : Humid
+    internal class HumidSpray : Humid
     {
-        public Humid_Spray()
+        public HumidSpray()
         {
         }
+
+        public override string Image => ImagePath("Humidifiers/Spray");
 
         public override int Length => 650;
 

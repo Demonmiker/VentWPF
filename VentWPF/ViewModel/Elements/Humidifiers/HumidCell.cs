@@ -7,13 +7,13 @@ namespace VentWPF.ViewModel
     /// <summary>
     /// Увлажнитель сотовый
     /// </summary>
-    internal class Humid_Cell : Humid
+    internal class HumidCell : Humid
     {
-        public Humid_Cell()
+        public HumidCell()
         {
         }
 
-        public override string SchemeImage => ImagePath("Humidifiers/SH_Humid_Cell.png");
+        public override string Image => ImagePath("Humidifiers/Cell");
 
         public override int Length => 650;
 

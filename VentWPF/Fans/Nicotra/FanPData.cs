@@ -5,9 +5,9 @@ using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.Fans.Nicotra
 {
-    internal class NicotraData
+    internal class FanPData
     {
-        public NicotraData(string KEY, IEnumerable<double> OUT)
+        public FanPData(string KEY, IEnumerable<double> OUT)
         {
             double[] details = OUT.ToArray();
             Id = KEY;

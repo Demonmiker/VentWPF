@@ -4,14 +4,14 @@ using PropertyTools.DataAnnotations;
 
 namespace VentWPF.ViewModel
 {
-    internal class Fan_K3G : Fan
+    internal class FanK3G : Fan
     {
-        public Fan_K3G()
+        public FanK3G()
         {
-            DeviceType = typeof(K3GData);
-            Query = new K3GQuery()
+            DeviceType = typeof(FanK3GData);
+            Query = new FanK3GQuery()
             {
-                Source = new K3GRequest()
+                Source = new FanK3GRequest()
                 {
                     AirDens = 1.14f,
                     AirTemperature = 24,
@@ -24,6 +24,8 @@ namespace VentWPF.ViewModel
                 }
             };
         }
+
+        public override string Image => ImagePath($"FanK3G/{Direction}");
 
         public override int Length => 980;
 

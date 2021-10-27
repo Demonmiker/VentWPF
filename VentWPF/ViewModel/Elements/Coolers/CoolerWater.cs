@@ -10,9 +10,9 @@ namespace VentWPF.ViewModel
     /// <summary>
     /// Представление Охладитель жидкостный
     /// </summary>
-    internal class Cooler_Water : Cooler
+    internal class CoolerWater : Cooler
     {
-        public Cooler_Water()
+        public CoolerWater()
         {
             DeviceType = typeof(ВодаХолод);
             Query = new DatabaseQuery<ВодаХолод>
@@ -20,6 +20,8 @@ namespace VentWPF.ViewModel
                 Source = from o in VentContext.Instance.ВодаХолодs select o
             };
         }
+
+        public override string Image => ImagePath("Coolers/Water");
 
         public override int Length => 500;
 

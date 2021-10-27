@@ -3,11 +3,13 @@
     /// <summary>
     /// Представление Фильтр Короткий
     /// </summary>
-    internal class Filter_Short : Filter
+    internal class FilterShort : Filter
     {
-        public Filter_Short()
+        public FilterShort()
         {
         }
+
+        public override string Image => ImagePath("Filters/Short");
 
         public override int Length => 680;
 
