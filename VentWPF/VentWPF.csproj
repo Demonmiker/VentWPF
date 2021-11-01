@@ -367,187 +367,187 @@
     <None Update="Database\Database_log.ldf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog.xWS">
+    <None Update="Fans\FanC\DLL\DLL\catalog.xWS">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\DB\release01.db3">
+    <None Update="Fans\FanC\DLL\DLL\catalog\DB\release01.db3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\DB\release02.db3">
+    <None Update="Fans\FanC\DLL\DLL\catalog\DB\release02.db3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\plugin\ekplot_plugin.dll">
+    <None Update="Fans\FanC\DLL\DLL\catalog\plugin\ekplot_plugin.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\plugin\gsl_plugin.dll">
+    <None Update="Fans\FanC\DLL\DLL\catalog\plugin\gsl_plugin.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\plugin\zaplot_plugin.dll">
+    <None Update="Fans\FanC\DLL\DLL\catalog\plugin\zaplot_plugin.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\Config.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\Config.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\DBQuery.es">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\DBQuery.es">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\DRAW_CHART.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\DRAW_CHART.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\EASYGUITRANSFORM.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\EASYGUITRANSFORM.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\EASYGUITRANSFORM_BASE_OBJ.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\EASYGUITRANSFORM_BASE_OBJ.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\HANDLE_REQUEST.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\HANDLE_REQUEST.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\INIT_CATALOG.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\INIT_CATALOG.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\INIT_SESSION.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\INIT_SESSION.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\LGS.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\LGS.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ONCLOSE_BROWSER.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ONCLOSE_BROWSER.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\process.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\process.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\RUN_CATALOG.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\RUN_CATALOG.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\XmlChecker.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\XmlChecker.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_Ausgabe.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_Ausgabe.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_AusgabePdf.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_AusgabePdf.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_AusgabeRtf.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_AusgabeRtf.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_Calc.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_Calc.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_CalcAMCA.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_CalcAMCA.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_CalcTools.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_CalcTools.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_Chart.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_Chart.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_ChartTools.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_ChartTools.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_Database.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_Database.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_Details.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_Details.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_Details_Kennlinie.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_Details_Kennlinie.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_Details_Kennlinie_Sized.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_Details_Kennlinie_Sized.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_Details_LCC.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_Details_LCC.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_Details_Massblatt.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_Details_Massblatt.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_Details_Stempeldaten.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_Details_Stempeldaten.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_DllRequest.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_DllRequest.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_DocumentPdf.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_DocumentPdf.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_DocumentRtf.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_DocumentRtf.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_Doku.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_Doku.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_Einheitensystem.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_Einheitensystem.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_FileCache.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_FileCache.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_KennfeldExport.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_KennfeldExport.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_Kennlinien.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_Kennlinien.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_Konstanten.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_Konstanten.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_Login.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_Login.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_Massblatt.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_Massblatt.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_Merkliste.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_Merkliste.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_ObserveDllRequest.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_ObserveDllRequest.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_Portfolio.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_Portfolio.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_ProcessDllRequest.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_ProcessDllRequest.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_ProcessZRVDllRequest.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_ProcessZRVDllRequest.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_Produktspektrum.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_Produktspektrum.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_Tables.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_Tables.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_UnitCalc.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_UnitCalc.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_Utils.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_Utils.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_Ventilatorauswahl.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_Ventilatorauswahl.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_Vorauswahl.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_Vorauswahl.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_WebUpdate.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_WebUpdate.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\catalog\System\SCRIPTS_SERVER\ZA_Zubehoer.b">
+    <None Update="Fans\FanC\DLL\DLL\catalog\System\SCRIPTS_SERVER\ZA_Zubehoer.b">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\FANselect.dll">
+    <None Update="Fans\FanC\DLL\DLL\FANselect.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\sqlite2ps.dll">
+    <None Update="Fans\FanC\DLL\DLL\sqlite2ps.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Fans\FanSelect\DLL\sqlite3ps.dll">
+    <None Update="Fans\FanC\DLL\DLL\sqlite3ps.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Fans\K3G\DLL\Data.sqlite">
@@ -560,7 +560,6 @@
 
   <ItemGroup>
     <Folder Include="Assets\Images\Scheme\Recuperators\" />
-    <Folder Include="Fans\FanC\DLL\" />
     <Folder Include="Fans\K3G\DLL\" />
   </ItemGroup>
 
