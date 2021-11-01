@@ -16,7 +16,9 @@ namespace VentWPF.ViewModel
 
         public bool Visible { get; set; } = false;
 
-        public ObservableCollection<ElementPair> Elements { get; init; } = new ObservableCollection<ElementPair>();
+        public ObservableCollection<Element> TopElements { get; set; } = new ObservableCollection<Element>();
+
+        public ObservableCollection<Element> BottomElements { get; set; } = new ObservableCollection<Element>();
 
         public bool TwoRows { get; set; } = true;
 
@@ -30,20 +32,11 @@ namespace VentWPF.ViewModel
 
         public void Init()
         {
-            Sum = Elements.Select(x => Math.Max(x.Top?.Length ?? 0, x.Bottom?.Length ?? 0)).Sum();
+            Sum = BottomElements.Select(x => x.Length).Sum();
             if (TwoRows)
                 WidthSum = WidthTop + WidthBottom;
             else
                 WidthSum = WidthBottom;
         }
-    }
-
-    internal struct ElementPair
-    {
-        public Element Top { get; init; }
-
-        public Element Bottom { get; init; }
-
-        public bool TwoRows { get; init; }
     }
 }

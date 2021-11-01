@@ -119,11 +119,6 @@ namespace VentWPF.ViewModel
         protected virtual float GeneratedPressureDrop => 0;
 
         /// <summary>
-        /// Поле с изображением по умолчанию
-        /// </summary>
-        protected string image = "Empty.png";
-
-        /// <summary>
         /// Скрытое поле для свойства InfoTable (для кэширования)
         /// </summary>
         private Table _InfoTable = null;
@@ -146,8 +141,17 @@ namespace VentWPF.ViewModel
         /// Свойство с изображением этого элемента в конструкторе
         /// </summary>
         [Browsable(false)]
-        [DependsOn("SubType")]
-        public virtual string Image => Path.GetFullPath("Assets/Images/" + image);
+        [DependsOn(nameof(SubType))]
+        public virtual string Image => ImagePath("_Menu/Empty");
+
+        [Browsable(false)]
+        [DependsOn(nameof(SubType))]
+        public virtual string SchemeImage => Image.Replace("Icons", "Scheme");
+
+        protected string ImagePath(string path) // пример Heaters/Electric
+        {
+            return Path.GetFullPath("Assets/Images/Icons/" + path + ".png");
+        }
 
         /// <summary>
         /// Свойство под типа элемента
@@ -224,16 +228,7 @@ namespace VentWPF.ViewModel
         public virtual int Height => 0;
 
         [Browsable(false)]
-        [DependsOn(nameof(DeviceIndex))]
-        public virtual string SchemeImage => "";
-
-        [Browsable(false)]
         public bool CorrectSize => Width <= Project.Width && Height <= Project.Height;
-
-        protected string ImagePath(string path) // пример Heaters/Heater_Electric.png
-        {
-            return Path.GetFullPath("Assets/Images/" + path);
-        }
 
         [Browsable(false)]
         public Command<object> CmdUpdateQuery { get; init; }

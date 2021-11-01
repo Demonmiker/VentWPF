@@ -15,29 +15,29 @@ namespace VentWPF.ViewModel
         {
             Menus = new()
             {
-                new("Клапан", "Valves/Valves.png", new Valve_Hor(), new Valve_Hor_Heat(), new Valve_Ver(), new Valve_Ver_Heat()),
-                new("Фильтр", "Filters/Filters.png", new Filter_Section(), new Filter_Short(), new Filter_Valve()),
-                new("Нагревателm", "Heaters/Heaters.png", new Heater_Water(), new Heater_Gas(), new Heater_Electric()),
-                new("Охладитель", "Coolers/Coolers.png", new Cooler_Fr(), new Cooler_Water()),
-                new("Вентилятор", "Fans/Fan_C.png",
-                    new Fan_C() { Direction = Fan_Direction.LeftRight },
-                    new Fan_C() { Direction = Fan_Direction.LeftUp },
-                    new Fan_C() { Direction = Fan_Direction.RightLeft },
-                    new Fan_C() { Direction = Fan_Direction.UpLeft }
+                new("Клапан", "Valve", new ValveHorizontal(), new ValveHorizontalHeat(), new ValveVertical(), new ValveVerticalHeat()),
+                new("Фильтр", "Filter", new FilterSection(), new FilterShort(), new FilterValve()),
+                new("Нагревателm", "Heater", new HeaterWater(), new HeaterGas(), new HeaterElectric()),
+                new("Охладитель", "Cooler", new CoolerFr(), new CoolerWater()),
+                new("Вентилятор", "FanC",
+                    new FanC() { Direction = FanDirection.LeftRight },
+                    new FanC() { Direction = FanDirection.LeftUp },
+                    new FanC() { Direction = FanDirection.RightLeft },
+                    new FanC() { Direction = FanDirection.UpLeft }
                 ),
-                new("Вентилятор улиточный", "Fans/Fan_P.png",
-                    new Fan_P { Direction = Fan_Direction.LeftRight },
-                    new Fan_P { Direction = Fan_Direction.LeftUpLeft },
-                    new Fan_P { Direction = Fan_Direction.LeftUpRight },
-                    new Fan_P { Direction = Fan_Direction.RightLeft },
-                    new Fan_P { Direction = Fan_Direction.RightUpLeft }
+                new("Вентилятор улиточный", "FanP",
+                    new FanP { Direction = FanDirection.LeftRight },
+                    new FanP { Direction = FanDirection.LeftUpLeft },
+                    new FanP { Direction = FanDirection.LeftUpRight },
+                    new FanP { Direction = FanDirection.RightLeft },
+                    new FanP { Direction = FanDirection.RightUpLeft }
                 ),
-                new("Вентилятор потоковый", "Fans/Fan_K3G.png",
-                    new Fan_K3G() { Direction = Fan_Direction.LeftRight },
-                    new Fan_K3G() { Direction = Fan_Direction.LeftUp },
-                    new Fan_K3G() { Direction = Fan_Direction.RightLeft }
+                new("Вентилятор потоковый", "FanK3G",
+                    new FanK3G() { Direction = FanDirection.LeftRight },
+                    new FanK3G() { Direction = FanDirection.LeftUp },
+                    new FanK3G() { Direction = FanDirection.RightLeft }
                 ),
-                new("Секция", "Sections/Sections.png",
+                new("Секция", "Section",
                     new Section() { Direction = SectionType.LR },
                     new Section() { Direction = SectionType.LUD },
                     new Section() { Direction = SectionType.LD },
@@ -49,9 +49,9 @@ namespace VentWPF.ViewModel
                     new Section() { Direction = SectionType.LR_Valve },
                     new Section() { Direction = SectionType.LUR_Valve }
                 ),
-                new("Шумоглушитель", "Mufflers/Mufflers.png", new Muffler_Classic(), new Muffler_Corrector()),
-                new("Увлажнитель", "Humidifiers/Humidifiers.png", new Humid_Cell(), new Humid_Spray(), new Humid_Steam()),
-                new("Рекуператор", "Recuperators/Recuperators.png"),
+                new("Шумоглушитель", "Muffler", new MufflerDefault(), new MufflerCorrector()),
+                new("Увлажнитель", "Humidifier", new HumidCell(), new HumidSpray(), new HumidSteam()),
+                new("Рекуператор", "Recuperator"),
             };
         }
 
@@ -63,7 +63,7 @@ namespace VentWPF.ViewModel
         public CreateMenu(string name, string image, params Element[] elements)
         {
             Name = name;
-            Image = Path.GetFullPath($"Assets/Images/{image}");
+            Image = Path.GetFullPath($"Assets/Images/Icons/_Menu/{image}.png");
             Elements = elements.Select(x => new CreateButton(x)).ToList();
             CmdOpenPopup = new Command<Popup>(OpenPopup);
         }

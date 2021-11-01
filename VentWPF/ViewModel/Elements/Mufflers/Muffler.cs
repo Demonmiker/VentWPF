@@ -13,7 +13,6 @@ namespace VentWPF.ViewModel
     {
         public Muffler()
         {
-            image = "Mufflers/Muffler.png";
             ShowPR = true;
             ShowPD = true;
         }
@@ -32,7 +31,7 @@ namespace VentWPF.ViewModel
 
         public override List<string> InfoProperties => new()
         {
-            nameof(SectionLen ),
+            nameof(SectionLen),
         };
 
         [DependsOn(nameof(SectionLen))]
