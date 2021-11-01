@@ -1,6 +1,8 @@
 ﻿using PropertyTools.DataAnnotations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using VentWPF.ViewModel;
 using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.Fans.K3G
@@ -22,30 +24,46 @@ namespace VentWPF.Fans.K3G
             LwAssSoll = details[8];
             LwAdsSoll = details[9];
             PtotSoll = details[26];
+            RotateNom = details[39];
+            CurrentDraw = details[38];
+            IPower = details[37];
+            Type = details[40];
         }
-
-        [DisplayName("ID")]
+        public static ProjectInfoVM Project { get; set; } = ProjectVM.Current?.ProjectInfo;
+        
         public string Id { get; set; }
 
-        [DisplayName("Обороты в мин.")]
+        [DisplayName("Тип")]
+        public string Type { get; set; }
+
+        [DisplayName("Номинальные обороты")]
+        [FormatString(fRotate)]
+        public string RotateNom { get; set; }
+
+        [DisplayName("Обороты расчётное")]
         [FormatString(fRotate)]
         public string nSoll { get; set; } //0 n/1/min
 
-        [DisplayName("Pe/W")]
-        [FormatString(fNull)]
+        [DisplayName("Мощность")]
+        [FormatString(fW)]
+        public string IPower { get; set; }
+
+        [DisplayName("Расчётная мощность")]
+        [FormatString(fW)]
         public string P1Soll { get; set; } //1 Pe/W
 
-        [DisplayName("I/A")]
+        [DisplayName("CurrentDraw")]
+        public string CurrentDraw { get; set; }        
+
+        [DisplayName("Ток A")]
         [FormatString(fNull)]
         public string ISoll { get; set; } //2 I/A
 
-        [DisplayName("КПД")]
+        [DisplayName("КПД лопасти")]
         [FormatString(fper)]
         public string EtaSoll { get; set; }//3 nu o/%
-
-        [DisplayName("Напряжение сети")]
-        [FormatString(fV)]
-        public string UstSoll { get; set; }//4 Voltage
+                
+        public string UstSoll { get; set; }//4 Voltage Ucontrol
 
         [DisplayName("Md/Ncm")]
         [FormatString(fNull)]
@@ -55,9 +73,13 @@ namespace VentWPF.Fans.K3G
         [FormatString(fper)]
         public string EtaMSoll { get; set; }//6  nu o/% Motor
 
-        [DisplayName("m^3/s")]
+        [DisplayName("Воздушный поток")]
         [FormatString(fm3Ps)]
         public string LwASoll { get; set; }//7  (in+out) m^3/s
+
+        [DisplayName("kW / m^3/s")]
+        //[FormatString(fm3Ps)]
+        public double SPF => (Convert.ToDouble(P1Soll) / (Convert.ToDouble(Project.VFlow) / 3600)) / Convert.ToDouble(LwASoll);
 
         [DisplayName("Шум на входе")]
         [FormatString(fdB)]

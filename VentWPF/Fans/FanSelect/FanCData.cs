@@ -154,7 +154,7 @@ namespace VentWPF.Fans
 
         public int INDEX { get; set; }
 
-        [DisplayName("ID")]
+        //[DisplayName("ID")]
         public string ARTICLE_NO { get; set; }
 
         [DisplayName("Тип")]
@@ -188,20 +188,27 @@ namespace VentWPF.Fans
         [FormatString(fper)]
         public double ZA_ETAF_L { get; set; }
 
+        [DisplayName("Сеть")]
+        [FormatString(fHzFS)]
+        public double ZA_FBP { get; set; }
+
         [DisplayName("Шум на выходе дБ")]
         [FormatString(fdB)]
         public double ZA_LW6 { get; set; }
 
         [DisplayName("Длина установки")]
         [FormatString(fmm)]
+        [Browsable(false)]
         public double INSTALLATION_LENGTH_MM { get; set; }
 
         [DisplayName("Высота установки")]
         [FormatString(fmm)]
+        [Browsable(false)]
         public double INSTALLATION_HEIGHT_MM { get; set; }
 
         [DisplayName("Ширина установки")]
         [FormatString(fmm)]
+        [Browsable(false)]
         public double INSTALLATION_WIDTH_MM { get; set; }
 
         [DisplayName("Размер")]
