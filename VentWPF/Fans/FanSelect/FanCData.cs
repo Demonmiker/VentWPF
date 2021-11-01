@@ -184,7 +184,7 @@ namespace VentWPF.Fans
         [FormatString(fkPa)]
         public double ZA_PF { get; set; }
 
-        [DisplayName("Общий КПД %")]
+        [DisplayName("Общий КПД")]
         [FormatString(fper)]
         public double ZA_ETAF_L { get; set; }
 
