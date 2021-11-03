@@ -56,20 +56,18 @@ namespace VentWPF.ViewModel
 
         public override List<string> InfoProperties => new()
         {
+            "Vflow",
             "TempIn",
             "TempOut",
             "TempBegin",
             "TempEnd",
-            "HumidityIn",
-            "Power",
+            "HumidityIn",            
             "HumidOutAbs",
             "HumidOutRel",
             "DeviceData.LВозд",
+            "Consumption",
             "DeviceData.NКвт",
-            "DeviceData.Скорость",
-            "DeviceData.ВысотаГабарит",
-            "DeviceData.ШиринаГабарит",
-            "Fr",
+            "DeviceData.Скорость",           
         };
     }
 }

@@ -1,7 +1,8 @@
-﻿using System.ComponentModel;
+﻿//using System.ComponentModel;
 using System.IO;
 using static VentWPF.ViewModel.Strings;
 using VentWPF.Model.Calculations;
+using PropertyTools.DataAnnotations;
 
 namespace VentWPF.ViewModel
 {
@@ -27,11 +28,18 @@ namespace VentWPF.ViewModel
         public float Test { get; set; } = 4;
 
         [Category(Info)]
+        [FormatString(fkPa)]
         [DisplayName("Падение давления системы")]
         public float PressureDropSystem => Calculations.GPD();
 
-        [DisplayName("Повышение давления")]
-        public float PressureRaise => PressureDrop;
+        [Category(Info)]
+        [FormatString(fm3Ph)]
+        [DisplayName("Производительность")]
+        public int Power => Project.VFlow;
+
+        [DisplayName("Падение давления общее")]
+        [FormatString(fkPa)]
+        public float PressureRaise => Project.PFlow + Calculations.GPD();
 
         protected override float GeneratedPressureDrop => 0;
 

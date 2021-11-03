@@ -47,9 +47,10 @@ namespace VentWPF.ViewModel
 
         public override List<string> InfoProperties => new()
         {
+            "DeviceData.TYPE",
+            "Power",
             "PressureDropSystem",
             "PressureRaise",
-            "DeviceData.TYPE",
             "DeviceData.POWER_OUTPUT_HP",
             "DeviceData.ZA_N",
             "DeviceData.ZA_NMAX",
@@ -57,10 +58,7 @@ namespace VentWPF.ViewModel
             "DeviceData.ZA_PF",
             "DeviceData.ZA_ETAF_L",
             "DeviceData.ZA_FBP",
-            "DeviceData.ZA_LW6",
-            "DeviceData.INSTALLATION_LENGTH_MM",
-            "DeviceData.INSTALLATION_HEIGHT_MM",
-            "DeviceData.INSTALLATION_WIDTH_MM",
+            "DeviceData.ZA_LW6",            
         };
     }
 }

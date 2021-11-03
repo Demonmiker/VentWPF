@@ -14,7 +14,7 @@ namespace VentWPF.Fans.FanSelect
         }
 
         [DllImport(
-            "Fans/FanSelect/DLL/FANselect.dll",
+            "Fans/FanC/DLL/FANselect.dll",
             EntryPoint = "ZAJsonRequestW",
             CharSet = CharSet.Unicode,
             ExactSpelling = true,

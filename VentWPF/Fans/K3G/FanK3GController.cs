@@ -38,7 +38,7 @@ namespace VentWPF.Fans.K3G
                 var details = list.ToArray();
                 if (details[0] != "0,00")
                 {
-                    K3GData data = new K3GData(id, list);
+                    FanK3GData data = new FanK3GData(id, list);
                     res.Add(data);
                 }
             }

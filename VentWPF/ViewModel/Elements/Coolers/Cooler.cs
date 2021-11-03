@@ -1,5 +1,6 @@
 ﻿using PropertyTools.DataAnnotations;
 using System;
+using VentWPF.Model.Calculations;
 using VentWPF.Tools;
 using static VentWPF.ViewModel.Strings;
 
@@ -17,6 +18,12 @@ namespace VentWPF.ViewModel
         }
 
         protected override float GeneratedPressureDrop => (70f / (4f / ((Project.VFlow / 3600f) / AB)));
+
+        [Category(Data)]
+        [DisplayName("Производительность")]
+        [Browsable(false)]
+        [FormatString(fm3Ph)]
+        public float Vflow => Project.VFlow;
 
         [Category(Data)]
         [SortIndex(-1)]
@@ -38,23 +45,26 @@ namespace VentWPF.ViewModel
         [Category(Info)]
         [DisplayName("Мощность")]
         [FormatString(fkW)]
-        public float Power => (Project.VFlow * (353f / (273.15f + TempOut)) / 3600000f * 1009f * Math.Abs(TempIn - TempOut));
+        public float Power => ((float)(Project.VFlow / 3600 * (float)1.2) * (EnthalpyIn - EnthalpyOut));
 
         [DisplayName("Абс. влажность на выходе")]
         [FormatString(f2)]
-        public float HumidOutAbs => ((0.6222f * (HumidityIn / 100f) * pD) / (Project.PressOut - (HumidityIn / 100f) * pD / 1000f));
+        public float HumidOutAbs => (EnthalpyOut - (float)1.01 * TempOut) / ((float)2501 + (float)1.86 * TempOut) * 1000;
 
         [DisplayName("Отн. влажность на выходе")]
         [FormatString(fper)]
-        public float HumidOutRel => ((Project.PressOut / pD2 * 1000f / (0.6222f / HumidOutAbs * 1000f + 1)) * 100f);
+        public float HumidOutRel => Project.PressOut / pD2 * 1000 / ((float)0.6222 / (HumidOutAbs * 1000 + 1));
 
         [Browsable(false)]
         public virtual float AB => (((float)Project.Width / 1000) * ((float)Project.Height / 1000));
 
-        [Browsable(false)]
-        public virtual float pD => (float)(Math.Exp((1500.3 + 23.5 * TempIn) / (234 + TempIn)));
+        [Browsable(true)]
+        public virtual float EnthalpyIn => Calculations.Entolpy(HumidOutRel, TempIn);
 
-        [Browsable(false)]
-        public virtual float pD2 => (float)(Math.Exp((1500.3 + 23.5 * TempOut) / (234 + TempOut)));
+        [Browsable(true)]
+        public virtual float EnthalpyOut => Calculations.Entolpy(HumidOutRel, TempOut);
+
+        [Browsable(true)]
+        public virtual float pD2 => Calculations.HumidOut(TempOut);
     }
 }

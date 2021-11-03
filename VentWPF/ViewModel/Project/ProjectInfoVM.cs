@@ -236,7 +236,8 @@ namespace VentWPF.ViewModel
 
         // TODO Непонятно
         [Browsable(false)]
-        public float PressOut { get; set; } = 100;
+        [DisplayName("Атмосферное давление")]
+        public float PressOut { get; set; } = 95;
 
         // TODO Непонятно
         [Browsable(false)]
