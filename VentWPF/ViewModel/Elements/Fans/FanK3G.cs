@@ -8,7 +8,6 @@ namespace VentWPF.ViewModel
     {
         public override void UpdateQuery()
         {
-            Query = new FanK3GQuery();
             DeviceType = typeof(FanK3GData);
             Query = new FanK3GQuery()
             {
