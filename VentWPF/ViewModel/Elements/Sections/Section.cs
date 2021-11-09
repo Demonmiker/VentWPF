@@ -21,6 +21,6 @@ namespace VentWPF.ViewModel
         [DependsOn(nameof(DeviceData))]
         public override string Name => $"Секция";
 
-        public override string Image => Path.GetFullPath($"Assets/Images/Sections/Section_{Direction}.png");
+        public override string Image => Path.GetFullPath($"Assets/Images/Icons/Sections/{Direction}.png");
     }
 }
