@@ -21,6 +21,8 @@ namespace VentWPF.ViewModel
                     State = QueryState.Process;
                     ProjectVM.Current.TaskManager.Add(() =>
                     {
+                        if (Source is null)
+                            throw new System.Exception("Source was 'null'");
                         Cache = Fill(Source);
                         State = Cache switch
                         {
