@@ -49,21 +49,21 @@ namespace VentWPF.ViewModel
 
         [DisplayName("Абс. влажность на выходе")]
         [FormatString(f2)]
-        public float HumidOutAbs => (EnthalpyOut - (float)1.01 * TempOut) / ((float)2501 + (float)1.86 * TempOut) * 1000;
+        public float HumidOutAbs => (float)0.6222 * (HumidOutRel / 100) * Calculations.HumidOut(TempOut) / (Project.PressOut - (HumidOutRel / 100) * Calculations.HumidOut(TempOut) / 1000);//(EnthalpyOut - 1.01f * TempOut) / ((float)2501 + (float)1.86 * TempOut) * 1000;
 
         //TODO Исправить ошибку переполнения стека
         [DisplayName("Отн. влажность на выходе")]
         [FormatString(fper)]
-        public float HumidOutRel => 0;//Project.PressOut / pD2 * 1000 / ((float)0.6222 / (HumidOutAbs * 1000 + 1));
+        public float HumidOutRel => Project.PressOut / pD2 * 1000 / ((float)0.6222 / (HumidOutAbs * 1000 + 1));
 
         [Browsable(false)]
         public virtual float AB => (((float)Project.Width / 1000) * ((float)Project.Height / 1000));
 
         [Browsable(true)]
-        public virtual float EnthalpyIn => Calculations.Entolpy(HumidOutRel, TempIn);
+        public virtual float EnthalpyIn => Calculations.Entolpy(HumidOutAbs, TempIn);
 
         [Browsable(true)]
-        public virtual float EnthalpyOut => Calculations.Entolpy(HumidOutRel, TempOut);
+        public virtual float EnthalpyOut => Calculations.Entolpy(HumidOutAbs, TempOut);
 
         [Browsable(true)]
         public virtual float pD2 => Calculations.HumidOut(TempOut);

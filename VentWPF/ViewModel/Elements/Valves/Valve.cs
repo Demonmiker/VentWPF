@@ -1,4 +1,5 @@
 ﻿using PropertyTools.DataAnnotations;
+using VentWPF.Model;
 using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
@@ -24,6 +25,14 @@ namespace VentWPF.ViewModel
         [Category(Data)]
         [FormatString(fmm)]
         [DisplayName("Высота")]
-        public int HeightValve { get; set; } = 150;
+        public SizeType HeightValve
+        {
+            get => Project.SizeType;
+            set
+            {
+                Project.SizeType = value;
+                HeightValve = value.GetSize();
+            }
+        }
     }
 }

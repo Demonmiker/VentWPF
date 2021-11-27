@@ -93,14 +93,25 @@ namespace VentWPF.Model.Calculations
             return HumidOut;
         }
 
-        public static float Entolpy(float Humid, float temp)
+        public static float Entolpy(float HumidOutAbs, float temp)
         {
-            float OUT = 0;
-            float fi = Humid / 100;
-            float x = (float)0.6222 * fi * HumidOut(temp) / (Project.PressOut - fi * HumidOut(temp) / 1000);
+            float OUT;
+            //float fi = Humid / 100;
+            //float x = (float)0.6222 * fi * HumidOut(temp) / (Project.PressOut - fi * HumidOut(temp) / 1000);
+            float x = HumidOutAbs;
             OUT = (float)1.01 * temp + (2501 + (float)1.86 * temp) * x / 1000;
             return OUT;
         }
+
+        public static float HumidOutRel(float TempOut)
+        {
+            float EnthalpyOut = 0;//Calculations.Entolpy(HumidOutRel, TempOut);
+            float HumidOutAbs = (EnthalpyOut - 1.01f * TempOut) / ((float)2501 + (float)1.86 * TempOut) * 1000;
+            float OUT = Project.PressOut / HumidOut(TempOut) * 1000 / ((float)0.6222 / (HumidOutAbs * 1000 + 1));
+
+            return OUT;
+        }
+
 
         #endregion
 
