@@ -146,14 +146,14 @@ namespace VentWPF.ViewModel
         /// </summary>
         [DisplayName("Ширина")]
         [FormatString(fmm)]
-        public int Width { get; set; } = 500;
+        public int Width { get; set; } = 1050;
 
         /// <summary>
         /// Высота установки
         /// </summary>
         [DisplayName("Высота")]
         [FormatString(fmm)]
-        public int Height { get; set; } = 600;
+        public int Height { get; set; } = 700;
 
         [Category("Настройки|")]
         [DisplayName("Толщина панели")]

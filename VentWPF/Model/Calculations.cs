@@ -93,25 +93,37 @@ namespace VentWPF.Model.Calculations
             return HumidOut;
         }
 
-        public static float Entolpy(float HumidOutAbs, float temp)
+        public static float Entolpy(float Humid, float temp)
         {
             float OUT;
-            //float fi = Humid / 100;
-            //float x = (float)0.6222 * fi * HumidOut(temp) / (Project.PressOut - fi * HumidOut(temp) / 1000);
-            float x = HumidOutAbs;
+            float fi = Humid / 100;
+            float x = (float)0.6222 * fi * HumidOut(temp) / (Project.PressOut - fi * HumidOut(temp) / 1000);            
             OUT = (float)1.01 * temp + (2501 + (float)1.86 * temp) * x / 1000;
             return OUT;
         }
 
-        public static float HumidOutRel(float TempOut)
+        public static float HumidOutAbs(float Humid, float TempIn, float TempOut, float TempCoolant)
         {
-            float EnthalpyOut = 0;//Calculations.Entolpy(HumidOutRel, TempOut);
-            float HumidOutAbs = (EnthalpyOut - 1.01f * TempOut) / ((float)2501 + (float)1.86 * TempOut) * 1000;
-            float OUT = Project.PressOut / HumidOut(TempOut) * 1000 / ((float)0.6222 / (HumidOutAbs * 1000 + 1));
-
-            return OUT;
+            return (EntolpyOut(Humid, TempIn, TempOut, TempCoolant) - 1.01f * TempOut) / (2501 + 1.868f * TempOut) * 1000;
         }
 
+        public static float EntolpyOut(float Humid, float TempIn, float TempOut, float TempCoolant)
+        {
+            float ent = Entolpy(Humid, TempIn);
+            return ent - (ent - hIn(TempCoolant)) * (TempOut - TempIn) / (TempCoolant - TempIn);
+        }
+
+        private static float hIn(float TempCoolant) //правильное
+        {
+            return 1.01f * TempCoolant + (2501 + 1.86f * TempCoolant) * xPov(TempCoolant) / 1000;
+        }
+
+        private static float xPov(float temp) //проверено
+        {
+            float test = HumidOut(temp);
+            float OUT = 0.6222f * test / (Project.PressOut - test / 1000);
+            return OUT;
+        }
 
         #endregion
 

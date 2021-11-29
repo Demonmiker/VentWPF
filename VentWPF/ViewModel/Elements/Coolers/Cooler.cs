@@ -42,30 +42,16 @@ namespace VentWPF.ViewModel
         [Range(0, 100)]
         public float HumidityIn { get; set; } = 42;
 
-        [Category(Info)]
-        [DisplayName("Мощность")]
-        [FormatString(fkW)]
-        public float Power => ((float)(Project.VFlow / 3600 * (float)1.2) * (EnthalpyIn - EnthalpyOut));
+        
 
-        [DisplayName("Абс. влажность на выходе")]
-        [FormatString(f2)]
-        public float HumidOutAbs => (float)0.6222 * (HumidOutRel / 100) * Calculations.HumidOut(TempOut) / (Project.PressOut - (HumidOutRel / 100) * Calculations.HumidOut(TempOut) / 1000);//(EnthalpyOut - 1.01f * TempOut) / ((float)2501 + (float)1.86 * TempOut) * 1000;
-
-        //TODO Исправить ошибку переполнения стека
-        [DisplayName("Отн. влажность на выходе")]
-        [FormatString(fper)]
-        public float HumidOutRel => Project.PressOut / pD2 * 1000 / ((float)0.6222 / (HumidOutAbs * 1000 + 1));
+        
 
         [Browsable(false)]
         public virtual float AB => (((float)Project.Width / 1000) * ((float)Project.Height / 1000));
 
-        [Browsable(true)]
-        public virtual float EnthalpyIn => Calculations.Entolpy(HumidOutAbs, TempIn);
+        
 
-        [Browsable(true)]
-        public virtual float EnthalpyOut => Calculations.Entolpy(HumidOutAbs, TempOut);
-
-        [Browsable(true)]
+        [Browsable(false)]
         public virtual float pD2 => Calculations.HumidOut(TempOut);
     }
 }
