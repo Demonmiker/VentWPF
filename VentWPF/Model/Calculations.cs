@@ -113,12 +113,12 @@ namespace VentWPF.Model.Calculations
             return ent - (ent - hIn(TempCoolant)) * (TempOut - TempIn) / (TempCoolant - TempIn);
         }
 
-        private static float hIn(float TempCoolant) //правильное
+        private static float hIn(float TempCoolant)
         {
             return 1.01f * TempCoolant + (2501 + 1.86f * TempCoolant) * xPov(TempCoolant) / 1000;
         }
 
-        private static float xPov(float temp) //проверено
+        private static float xPov(float temp)
         {
             float test = HumidOut(temp);
             float OUT = 0.6222f * test / (Project.PressOut - test / 1000);

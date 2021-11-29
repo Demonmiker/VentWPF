@@ -53,20 +53,24 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         [DisplayName("Расход теплоносителя")]
         [FormatString(MasFr)]
+        [DependsOn(nameof(TempIn), nameof(TempOut))]
         public float Consumption => (float)(Power * 1000 / (4198 * Math.Abs(TempBegin - TempEnd))) * 3600;
 
         [DisplayName("Абс. влажность на выходе")]
         [FormatString(f2)]
-        public float HumidOutAbs => Calculations.HumidOutAbs(HumidityIn, TempIn, TempOut, TempBegin);//(float)0.6222 * (HumidOutRel / 100) * Calculations.HumidOut(TempOut) / (Project.PressOut - (HumidOutRel / 100) * Calculations.HumidOut(TempOut) / 1000);//(EnthalpyOut - 1.01f * TempOut) / ((float)2501 + (float)1.86 * TempOut) * 1000;
+        [DependsOn(nameof(TempIn), nameof(TempOut))]
+        public float HumidOutAbs => Calculations.HumidOutAbs(HumidityIn, TempIn, TempOut, TempBegin);
 
         //TODO Исправить ошибку переполнения стека
         [DisplayName("Отн. влажность на выходе")]
         [FormatString(fper)]
-        public float HumidOutRel => Project.PressOut / pD2 / ((float)0.6222 / (HumidOutAbs * 1000 + 1)) / 10; //Project.PressOut / pD2 * 1000 / ((float)0.6222 / (HumidOutAbs * 1000 + 1));
+        [DependsOn(nameof(TempIn), nameof(TempOut))]
+        public float HumidOutRel => Project.PressOut / pD2 / ((float)0.6222 / (HumidOutAbs * 1000 + 1)) / 10;
 
         [Category(Info)]
         [DisplayName("Мощность")]
         [FormatString(fkW)]
+        [DependsOn(nameof(TempIn), nameof(TempOut))]
         public float Power => (Project.VFlow / 3600f * 1.2f) * (EnthalpyIn - EnthalpyOut);
 
         [Browsable(false)]
