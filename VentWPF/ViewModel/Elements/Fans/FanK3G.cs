@@ -35,6 +35,21 @@ namespace VentWPF.ViewModel
         {
             "PressureDropSystem",
             "PressureRaise",
+            "DeviceData.Type",
+            "DeviceData.RotateNom",
+            "DeviceData.nSoll",
+            "DeviceData.IPower",
+            "DeviceData.P1Soll",
+            "DeviceData.CurrentDraw",
+            "DeviceData.ISoll",
+            "DeviceData.EtaSoll",
+            "DeviceData.MdSoll",
+            "DeviceData.EtaMSoll",
+            "DeviceData.LwASoll",
+            "DeviceData.SPF",
+            "DeviceData.LwAssSoll",
+            "DeviceData.LwAdsSoll",
+            "DeviceData.PtotSoll",
         };
     }
 }
