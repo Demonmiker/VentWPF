@@ -20,12 +20,6 @@ namespace VentWPF.ViewModel
         protected override float GeneratedPressureDrop => (70f / (4f / ((Project.VFlow / 3600f) / AB)));
 
         [Category(Data)]
-        [DisplayName("Производительность")]
-        [Browsable(false)]
-        [FormatString(fm3Ph)]
-        public float Vflow => Project.VFlow;
-
-        [Category(Data)]
         [SortIndex(-1)]
         [DisplayName("т. на входе")]
         [FormatString(fT)]
@@ -42,14 +36,8 @@ namespace VentWPF.ViewModel
         [Range(0, 100)]
         public float HumidityIn { get; set; } = 42;
 
-        
-
-        
-
         [Browsable(false)]
         public virtual float AB => (((float)Project.Width / 1000) * ((float)Project.Height / 1000));
-
-        
 
         [Browsable(false)]
         public virtual float pD2 => Calculations.HumidOut(TempOut);

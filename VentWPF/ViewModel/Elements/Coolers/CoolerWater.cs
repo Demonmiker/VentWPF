@@ -74,10 +74,10 @@ namespace VentWPF.ViewModel
         public float Power => (Project.VFlow / 3600f * 1.2f) * (EnthalpyIn - EnthalpyOut);
 
         [Browsable(false)]
-        public virtual float EnthalpyIn => Calculations.Entolpy(HumidityIn, TempIn);
+        public float EnthalpyIn => Calculations.Entolpy(HumidityIn, TempIn);
 
         [Browsable(false)]
-        public virtual float EnthalpyOut => Calculations.EntolpyOut(HumidityIn, TempIn, TempOut, TempBegin);
+        public float EnthalpyOut => Calculations.EntolpyOut(HumidityIn, TempIn, TempOut, TempBegin);
         
 
         public override List<string> InfoProperties => new()
