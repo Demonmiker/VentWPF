@@ -3,6 +3,7 @@ using PropertyTools.DataAnnotations;
 using System.Collections.Generic;
 using System.Linq;
 using VentWPF.Model;
+using VentWPF.Model.Calculations;
 using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
@@ -38,6 +39,42 @@ namespace VentWPF.ViewModel
         [Category(Data)]
         [DisplayName("Тип Фреона")]
         public FrType Fr { get; set; }
+
+        /// <summary>
+        /// Температура теплоносителя в начале
+        /// </summary>
+        [Category(Data)]
+        [DisplayName("т. теплоносителя нач.")]
+        public float TempBegin => 7;
+
+        /// <summary>
+        /// Температура теплоносителя в конце
+        /// </summary>
+        [DisplayName("т. теплоносителя кон.")]
+        public float TempEnd => 12;
+
+        [DisplayName("Абс. влажность на выходе")]
+        [FormatString(f2)]
+        [DependsOn(nameof(TempIn), nameof(TempOut))]
+        public float HumidOutAbs => Calculations.HumidOutAbs(HumidityIn, TempIn, TempOut, TempBegin);
+
+        //TODO Исправить ошибку переполнения стека
+        [DisplayName("Отн. влажность на выходе")]
+        [FormatString(fper)]
+        [DependsOn(nameof(TempIn), nameof(TempOut))]
+        public float HumidOutRel => Project.PressOut / pD2 / ((float)0.6222 / (HumidOutAbs * 1000 + 1)) / 10;
+
+        [Category(Info)]
+        [DisplayName("Мощность")]
+        [FormatString(fkW)]
+        [DependsOn(nameof(TempIn), nameof(TempOut))]
+        public float Power => (Project.VFlow / 3600f * 1.2f) * (EnthalpyIn - EnthalpyOut);
+
+        [Browsable(false)]
+        public float EnthalpyIn => Calculations.Entolpy(HumidityIn, TempIn);
+
+        [Browsable(false)]
+        public float EnthalpyOut => Calculations.EntolpyOut(HumidityIn, TempIn, TempOut, TempBegin);
 
         public override List<string> InfoProperties => new()
         {
