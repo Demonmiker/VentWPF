@@ -33,23 +33,24 @@ namespace VentWPF.ViewModel
 
         public override List<string> InfoProperties => new()
         {
-            "PressureDropSystem",
-            "PressureRaise",
             "DeviceData.Type",
+            "Power",
+            //"DeviceData.LwASoll",
+            "PressureDropSystem",
+            "PressureRaise",            
             "DeviceData.RotateNom",
             "DeviceData.nSoll",
             "DeviceData.IPower",
             "DeviceData.P1Soll",
-            "DeviceData.CurrentDraw",
-            "DeviceData.ISoll",
+            //"DeviceData.CurrentDraw",
+            //"DeviceData.ISoll",
             "DeviceData.EtaSoll",
-            "DeviceData.MdSoll",
-            "DeviceData.EtaMSoll",
-            "DeviceData.LwASoll",
-            "DeviceData.SPF",
-            "DeviceData.LwAssSoll",
-            "DeviceData.LwAdsSoll",
-            "DeviceData.PtotSoll",
+            //"DeviceData.MdSoll",
+            "DeviceData.EtaMSoll",            
+            //"DeviceData.SPF",
+            //"DeviceData.LwAssSoll",
+            //"DeviceData.LwAdsSoll",
+            //"DeviceData.PtotSoll",
         };
     }
 }
