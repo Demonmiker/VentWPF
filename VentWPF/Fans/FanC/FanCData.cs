@@ -168,23 +168,23 @@ namespace VentWPF.Fans
         [FormatString(f2)]
         public double NDiff => ZA_NMAX - ZA_N;
 
-        [DisplayName("Обороты номинал")]
+        [DisplayName("Обороты колеса")]
         [FormatString(fRotate)]
         public double ZA_N { get; set; }
 
-        [DisplayName("Обороты максимальные")]
+        [DisplayName("Номинальные обороты")]
         [FormatString(fRotate)]
         public double ZA_NMAX { get; set; }
 
         [DisplayName("Динамическое сопротивление")]
-        [FormatString(fkPa)]
+        [FormatString(fPa)]
         public double ZA_PD { get; set; }
 
         [DisplayName("Суммарное сопротивление")]
-        [FormatString(fkPa)]
+        [FormatString(fPa)]
         public double ZA_PF { get; set; }
 
-        [DisplayName("Общий КПД")]
+        [DisplayName("КПД")]
         [FormatString(fper)]
         public double ZA_ETAF_L { get; set; }
 

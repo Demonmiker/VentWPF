@@ -50,14 +50,14 @@ namespace VentWPF.ViewModel
             "DeviceData.TYPE",
             "Power",
             "PressureDropSystem",
-            "PressureRaise",
-            "DeviceData.POWER_OUTPUT_HP",
+            "PressureRaise",            
             "DeviceData.ZA_N",
+            "DeviceData.POWER_OUTPUT_HP",
+            "DeviceData.ZA_FBP",
             "DeviceData.ZA_NMAX",
             "DeviceData.ZA_PD",
             "DeviceData.ZA_PF",
-            "DeviceData.ZA_ETAF_L",
-            "DeviceData.ZA_FBP",
+            "DeviceData.ZA_ETAF_L",            
             "DeviceData.ZA_LW6",            
         };
     }
