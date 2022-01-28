@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using VentWPF.Fans.K3G;
 using PropertyTools.DataAnnotations;
+using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
 {
@@ -13,7 +14,7 @@ namespace VentWPF.ViewModel
             {
                 Source = new FanK3GRequest()
                 {
-                    AirDens = 1.14f,
+                    AirDens = 1.15f,
                     AirTemperature = 24,
                     Altitude = 0,
                     Installation = InstallationType.DIDO,
@@ -24,6 +25,13 @@ namespace VentWPF.ViewModel
                 }
             };
         }
+
+
+        [Category(Info)]
+        [FormatString(fm3Ph)]
+        [DisplayName("Плотность воздуха")]
+        public float AirDensity => 1.15f;
+
 
         public override string Image => ImagePath($"FanK3G/{Direction}");
 
