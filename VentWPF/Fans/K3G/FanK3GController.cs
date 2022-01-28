@@ -82,14 +82,12 @@ namespace VentWPF.Fans.K3G
             int n = SEARCH_PRODUCTS(fanString, ref bufferIDs);
             //int n = GET_PRODUCTS_PC(ref bufferIDs);
             var str = bufferIDs.ToString();            
-            var splitstring = str.Split(new[] { ";0;", ";-5;"  }, StringSplitOptions.RemoveEmptyEntries);
-            string[] OUTIDs = new string[splitstring.Length];
+            var splitstring = str.Split(new[] { ";0;", ";-5;"  }, StringSplitOptions.RemoveEmptyEntries);            
             for (int i = 0; i < splitstring.Length; i++)
             {
-                OUTIDs[i] = splitstring[i].Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries)[0];
+                var OUTIDs = splitstring[i].Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries)[0];
+                yield return OUTIDs;
             }
-
-            return OUTIDs;//str.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Where(x => !x.StartsWith("K3G"));
         }
 
         public IEnumerable<string> GetFanInfo(string id, FanK3GRequest req)
