@@ -1,4 +1,5 @@
 ﻿using PropertyTools.DataAnnotations;
+using System;
 using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.Fans
@@ -61,7 +62,7 @@ namespace VentWPF.Fans
 
         public string MAX_CURRENT;
 
-        public string MAX_FREQUENCY;
+        //public string MAX_FREQUENCY;
 
         public string MAX_TEMPERATURE_C;
 
@@ -77,7 +78,7 @@ namespace VentWPF.Fans
 
         public string NOMINAL_CURRENT;
 
-        public double NOMINAL_FREQUENCY;
+        //public double NOMINAL_FREQUENCY;
 
         public double NOMINAL_SPEED;
 
@@ -87,11 +88,9 @@ namespace VentWPF.Fans
 
         public string PHASE_DIFFERENCE;
 
-        public string POWER_INPUT_HP;
+        public string POWER_INPUT_HP;        
 
-        public string POWER_INPUT_KW;
-
-        public string POWER_OUTPUT_KW;
+        //public string POWER_OUTPUT_HP;
 
         public string PRODUCT_IMG;
 
@@ -150,9 +149,15 @@ namespace VentWPF.Fans
         public double ZA_U;
 
         public double ZA_WEIGHT;
-
+                
+        public int CALC_PL_MAX { get; set; }
 
         public int INDEX { get; set; }
+
+        public string POWER_OUTPUT_KW;
+
+        //public double ZA_UN;
+                
 
         //[DisplayName("ID")]
         public string ARTICLE_NO { get; set; }
@@ -160,9 +165,13 @@ namespace VentWPF.Fans
         [DisplayName("Тип")]
         public string TYPE { get; set; }
 
-        [DisplayName("Мощность")]
+        [DisplayName("Номинальная мощность")]
         [FormatString(fkW)]
         public double POWER_OUTPUT_HP { get; set; }
+
+        [DisplayName("Механическая мощность")]
+        [FormatString(fkW)]
+        public double POWER_CALC_KW => CALC_PL_MAX / 1000f;
 
         [DisplayName("Разница оборотов")]
         [FormatString(f2)]
@@ -175,6 +184,18 @@ namespace VentWPF.Fans
         [DisplayName("Номинальные обороты")]
         [FormatString(fRotate)]
         public double ZA_NMAX { get; set; }
+        
+        [DisplayName("Частота номинальная")]
+        [FormatString(fHz)]
+        public string NOMINAL_FREQUENCY { get; set; }
+
+        [DisplayName("Частота расчетная")]
+        [FormatString(fHz)]
+        public int MAX_FREQUENCY { get; set; }
+
+        [DisplayName("Сеть")]
+        [FormatString(fFS)]
+        public int ZA_UN { get; set; }
 
         [DisplayName("Динамическое сопротивление")]
         [FormatString(fPa)]
@@ -188,9 +209,7 @@ namespace VentWPF.Fans
         [FormatString(fper)]
         public double ZA_ETAF_L { get; set; }
 
-        [DisplayName("Сеть")]
-        [FormatString(fHzFS)]
-        public double ZA_FBP { get; set; }
+                       
 
         [DisplayName("Шум на выходе дБ")]
         [FormatString(fdB)]

@@ -4,6 +4,7 @@ using PropertyTools.DataAnnotations;
 using VentWPF.Fans;
 using VentWPF.Model.Calculations;
 using PropertyChanged;
+using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
 {
@@ -27,12 +28,18 @@ namespace VentWPF.ViewModel
                     PressureDrop = Calculations.GPD() + Project.PFlow,
                     SearchTolerance = 10,
                     UnitSystem = "m",
-                    Voltage = 230, // TODO Не динамично нельзя будет изменить
+                    Voltage = Voltage, // TODO Не динамично нельзя будет изменить
                     VFlow = Project.VFlow,
                     FanType = "ER"
                 }
             };
         }
+        //TODO надо enum на выбор вольтажа (в скобках)
+        [Category(Data)]
+        [FormatString(fm3Ph)]
+        [DisplayName("Вольтаж (230/460)")]
+        public int Voltage { get; set; } = 230;
+
 
         public override int Width => (int)((DeviceData as FanCData)?.INSTALLATION_WIDTH_MM ?? 0);
 
@@ -53,12 +60,15 @@ namespace VentWPF.ViewModel
             "PressureRaise",            
             "DeviceData.ZA_N",
             "DeviceData.POWER_OUTPUT_HP",
-            "DeviceData.ZA_FBP",
+            "DeviceData.POWER_CALC_KW",            
             "DeviceData.ZA_NMAX",
             "DeviceData.ZA_PD",
             "DeviceData.ZA_PF",
             "DeviceData.ZA_ETAF_L",            
-            "DeviceData.ZA_LW6",            
+            "DeviceData.ZA_LW6",
+            "DeviceData.MAX_FREQUENCY",
+            "DeviceData.NOMINAL_FREQUENCY",
+            "DeviceData.ZA_UN",
         };
     }
 }

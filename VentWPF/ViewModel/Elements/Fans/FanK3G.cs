@@ -14,7 +14,7 @@ namespace VentWPF.ViewModel
             {
                 Source = new FanK3GRequest()
                 {
-                    AirDens = 1.15f,
+                    AirDens = AirDensity, //1.15f,
                     AirTemperature = 24,
                     Altitude = 0,
                     Installation = InstallationType.DIDO,
@@ -27,7 +27,7 @@ namespace VentWPF.ViewModel
         }
 
 
-        [Category(Info)]
+        [Category(Data)]
         [FormatString(fm3Ph)]
         [DisplayName("Плотность воздуха")]
         public float AirDensity => 1.15f;
