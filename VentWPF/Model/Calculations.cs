@@ -69,6 +69,65 @@ namespace VentWPF.Model.Calculations
         }
         #endregion
 
+        #region[Coolers]
+        public static float HumidOut(float temp)
+        {
+            float HumidOut = 0;
+            if (temp < -50)
+            {
+                return 0;
+            }
+            if (temp <= 0 && temp > -50)
+            {
+                HumidOut = (float)Math.Exp((1738.4 + 28.74 * temp) / (271 + temp));
+            }
+            if (temp > 0 && temp < 100)
+            {
+                HumidOut = (float)Math.Exp((1500.3 + 23.5 * temp) / (234 + temp));
+            }
+            if (temp > 100)
+            {
+                return 0;
+            }
+
+            return HumidOut;
+        }
+
+        public static float Entolpy(float Humid, float temp)
+        {
+            float OUT;
+            float fi = Humid / 100;
+            float x = (float)0.6222 * fi * HumidOut(temp) / (Project.PressOut - fi * HumidOut(temp) / 1000);            
+            OUT = (float)1.01 * temp + (2501 + (float)1.86 * temp) * x / 1000;
+            return OUT;
+        }
+
+        public static float HumidOutAbs(float Humid, float TempIn, float TempOut, float TempCoolant)
+        {
+            return (EntolpyOut(Humid, TempIn, TempOut, TempCoolant) - 1.01f * TempOut) / (2501 + 1.868f * TempOut) * 1000;
+        }
+
+        public static float EntolpyOut(float Humid, float TempIn, float TempOut, float TempCoolant)
+        {
+            float ent = Entolpy(Humid, TempIn);
+            return ent - (ent - hIn(TempCoolant)) * (TempOut - TempIn) / (TempCoolant - TempIn);
+        }
+
+        private static float hIn(float TempCoolant)
+        {
+            return 1.01f * TempCoolant + (2501 + 1.86f * TempCoolant) * xPov(TempCoolant) / 1000;
+        }
+
+        private static float xPov(float temp)
+        {
+            float test = HumidOut(temp);
+            float OUT = 0.6222f * test / (Project.PressOut - test / 1000);
+            return OUT;
+        }
+
+        #endregion
+
+
         #region[Frame]
         static public string[] FrameOutCalcWitdh(int width)
         {

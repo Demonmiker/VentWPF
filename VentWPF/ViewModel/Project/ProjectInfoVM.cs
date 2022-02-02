@@ -146,14 +146,14 @@ namespace VentWPF.ViewModel
         /// </summary>
         [DisplayName("Ширина")]
         [FormatString(fmm)]
-        public int Width { get; set; } = 500;
+        public int Width { get; set; } = 1050;
 
         /// <summary>
         /// Высота установки
         /// </summary>
         [DisplayName("Высота")]
         [FormatString(fmm)]
-        public int Height { get; set; } = 600;
+        public int Height { get; set; } = 700;
 
         [Category("Настройки|")]
         [DisplayName("Толщина панели")]
@@ -236,7 +236,8 @@ namespace VentWPF.ViewModel
 
         // TODO Непонятно
         [Browsable(false)]
-        public float PressOut { get; set; } = 100;
+        [DisplayName("Атмосферное давление")]
+        public float PressOut { get; set; } = 95;
 
         // TODO Непонятно
         [Browsable(false)]

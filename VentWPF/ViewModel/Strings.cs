@@ -28,9 +28,15 @@
 
         public const string fkW = "{0:0.00} кВт";
 
+        public const string fW = "{0:0.00} Вт";
+
         public const string fkPa = "{0:0.00} кПа";
 
         public const string fPa = "{0:0.00} Па";
+
+        public const string fHz = "{0} Hz";
+
+        public const string fHzFS = "220v/{0} Hz";
 
         public const string fper = "{0:0.00} %";
 
