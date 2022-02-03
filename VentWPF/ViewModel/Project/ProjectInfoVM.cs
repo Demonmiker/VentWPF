@@ -171,7 +171,7 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Количество рядов
         /// </summary>
-        private Rows rows = Rows.Двухярусный;
+        private Rows rows = Rows.Одноярусный;
 
         [Category("Вид|")]
         [DisplayName("Кол-во рядов")]

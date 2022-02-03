@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using VentWPF.Fans.K3G;
 using PropertyTools.DataAnnotations;
+using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
 {
@@ -13,7 +14,7 @@ namespace VentWPF.ViewModel
             {
                 Source = new FanK3GRequest()
                 {
-                    AirDens = 1.14f,
+                    AirDens = AirDensity, //1.15f,
                     AirTemperature = 24,
                     Altitude = 0,
                     Installation = InstallationType.DIDO,
@@ -25,6 +26,13 @@ namespace VentWPF.ViewModel
             };
         }
 
+
+        [Category(Data)]
+        [FormatString(fm3Ph)]
+        [DisplayName("Плотность воздуха")]
+        public float AirDensity => 1.15f;
+
+
         public override string Image => ImagePath($"FanK3G/{Direction}");
 
         public override int Length => 980;
@@ -33,23 +41,24 @@ namespace VentWPF.ViewModel
 
         public override List<string> InfoProperties => new()
         {
-            "PressureDropSystem",
-            "PressureRaise",
             "DeviceData.Type",
+            "Power",
+            //"DeviceData.LwASoll",
+            "PressureDropSystem",
+            "PressureRaise",            
             "DeviceData.RotateNom",
             "DeviceData.nSoll",
             "DeviceData.IPower",
             "DeviceData.P1Soll",
-            "DeviceData.CurrentDraw",
-            "DeviceData.ISoll",
+            //"DeviceData.CurrentDraw",
+            //"DeviceData.ISoll",
             "DeviceData.EtaSoll",
-            "DeviceData.MdSoll",
-            "DeviceData.EtaMSoll",
-            "DeviceData.LwASoll",
-            "DeviceData.SPF",
-            "DeviceData.LwAssSoll",
-            "DeviceData.LwAdsSoll",
-            "DeviceData.PtotSoll",
+            //"DeviceData.MdSoll",
+            "DeviceData.EtaMSoll",            
+            //"DeviceData.SPF",
+            //"DeviceData.LwAssSoll",
+            //"DeviceData.LwAdsSoll",
+            //"DeviceData.PtotSoll",
         };
     }
 }

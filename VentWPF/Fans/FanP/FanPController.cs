@@ -65,7 +65,7 @@ namespace VentWPF.Fans.Nicotra
             {
                 OUT[i] = 0;
             }
-            GET_CALCULATION_FANALONE(s1, s2, r, KEY, z1, z2, OUT);
+            GET_CALCULATION_FANALONE(s1, s2, r, id, z1, z2, OUT);
             return OUT;
         }
     }

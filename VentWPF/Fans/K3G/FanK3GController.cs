@@ -4,6 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
+using VentWPF.Model.Calculations;
+using VentWPF.ViewModel;
 
 namespace VentWPF.Fans.K3G
 {
@@ -23,7 +26,17 @@ namespace VentWPF.Fans.K3G
         [DllImport(@"Fans/K3G/DLL/EbmPapstFan.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public static extern int GET_CCSI_DATA([MarshalAsAttribute(UnmanagedType.AnsiBStr)] string fanDescription, ref string buffer);
 
+        [DllImport("EbmPapstFan.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        public static extern int SEARCH_PRODUCTS([MarshalAs(UnmanagedType.AnsiBStr)] string fanDescription, ref string buffer);
+        /*
+         * работает лучше, определяет заранее подходящие вентиляторы
+         * на вход строка:
+         *VFlow;Давленее(общее);критерий поиска(в %);Ширина уст(мм);Длина уст(мм);критерий поиска(в %);тип; (последние два можно не вводить, уточняется)
+         */
+
 #pragma warning restore CS0618
+
+        public static ProjectInfoVM Project { get; set; } = ProjectVM.Current?.ProjectInfo;
 
         private string[] Keys;
 
@@ -60,12 +73,21 @@ namespace VentWPF.Fans.K3G
             }
         }
 
+        //TODO оптимизировать нововведения
         public IEnumerable<string> GetIDs()
         {
-            var bufferIDs = new string(new Char(), 4000);
-            int n = GET_PRODUCTS_PC(ref bufferIDs);
-            var str = bufferIDs.ToString();
-            return str.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Where(x => !x.StartsWith("K3G"));
+            //var bufferIDs = new string(new Char(), 4000);
+            String bufferIDs = new String('0', 4000);
+            String fanString = Convert.ToString(Project.VFlow) + ";" + Convert.ToString(Project.PFlow + Calculations.GPD()) + ";" + "50" + ";" + "1.15" + ";" + Convert.ToString(Project.Width) + ";" + Convert.ToString(Project.Height) + ";";
+            int n = SEARCH_PRODUCTS(fanString, ref bufferIDs);
+            //int n = GET_PRODUCTS_PC(ref bufferIDs);
+            var str = bufferIDs.ToString();            
+            var splitstring = str.Split(new[] { ";0;", ";-5;"  }, StringSplitOptions.RemoveEmptyEntries);            
+            for (int i = 0; i < splitstring.Length; i++)
+            {
+                var OUTIDs = splitstring[i].Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries)[0];
+                yield return OUTIDs;
+            }
         }
 
         public IEnumerable<string> GetFanInfo(string id, FanK3GRequest req)

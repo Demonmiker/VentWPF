@@ -255,7 +255,7 @@ namespace VentWPF.Model.Calculations
 
         #endregion
 
-
+        //TODO: @Demonmiker сделать расчет давления элементов по ярусам
         public static int GPD()
         {
             int sum = 0;
