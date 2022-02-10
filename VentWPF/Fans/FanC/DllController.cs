@@ -7,6 +7,7 @@ namespace VentWPF.Fans.FanSelect
 {
     internal class DllController : IController<FanCRequest, List<FanCData>>
     {
+        //TODO удалить дубликаты
         public List<FanCData> GetResponce(FanCRequest request)
         {
             string response = Request(request.GetRequest());
