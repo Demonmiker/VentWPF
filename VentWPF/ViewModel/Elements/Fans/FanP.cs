@@ -10,6 +10,8 @@ namespace VentWPF.ViewModel
             DeviceType = typeof(FanPData);
             Query = new FanPQuery()
             {
+                // TODO: @stigGGGer Никуда не годится такой запрос
+                // Данные  должны объявлятся тут а не по умолчанию
                 Source = new FanPRequest()
             };
         }

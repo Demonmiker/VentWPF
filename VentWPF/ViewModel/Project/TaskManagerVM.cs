@@ -29,7 +29,7 @@ namespace VentWPF.ViewModel
             if (!IsWorking)
             {
                 IsWorking = true;
-                _ = Task.Run(() => DoTasks());
+                Task.Run(() => DoTasks());
             }
         }
 
@@ -39,7 +39,6 @@ namespace VentWPF.ViewModel
             Sw.Restart();
             while (Tasks.Count > 0)
             {
-                Debug.WriteLine($"TM: {Tasks.Count}");
                 Action action = Tasks[0];
                 Tasks.RemoveAt(0);
                 action.Invoke();
