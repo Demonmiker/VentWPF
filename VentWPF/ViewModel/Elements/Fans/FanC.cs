@@ -3,6 +3,7 @@ using VentWPF.Fans.FanSelect;
 using PropertyTools.DataAnnotations;
 using VentWPF.Fans;
 using VentWPF.Model.Calculations;
+using VentWPF.Model;
 using PropertyChanged;
 using static VentWPF.ViewModel.Strings;
 
@@ -27,19 +28,19 @@ namespace VentWPF.ViewModel
                     PressureDrop = Calculations.GPD(Project.Grid.InTopRow(this)) + ProjectInfo.PFlow,
                     SearchTolerance = 10,
                     UnitSystem = "m",
-                    Voltage = Voltage, // TODO Не динамично нельзя будет изменить
-                    VFlow = Project.VFlow,
+                    Voltage = (int)Voltage,
+                    VFlow = ProjectInfo.VFlow,
                     Freq = "50",
                     Spec = "PF_57",
                     FanType = "ER*DN*1R",
                 }
             };
         }
-        //TODO надо enum на выбор вольтажа (в скобках)
+
         [Category(Data)]
         [FormatString(fm3Ph)]
-        [DisplayName("Вольтаж (230/460)")]
-        public int Voltage { get; set; } = 400;
+        [DisplayName("Вольтаж")]
+        public VoltageType Voltage { get; set; } = VoltageType.V400;
 
         public override int Width => (int)((DeviceData as FanCData)?.INSTALLATION_WIDTH_MM ?? 0);
 

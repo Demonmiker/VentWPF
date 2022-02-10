@@ -30,7 +30,6 @@ namespace VentWPF.ViewModel
         [Category(Info)]
         [FormatString(fkPa)]
         [DisplayName("Падение давления системы")] // TODO: Теперь это наверно яруса?
-        //TODO: GPD
         public float PressureDropSystem => Calculations.GPD(Project.Grid.InTopRow(this));
 
         [Category(Info)]
@@ -40,7 +39,6 @@ namespace VentWPF.ViewModel
 
         [DisplayName("Падение давления общее")]
         [FormatString(fkPa)]
-        // TODO: GPD
         public float PressureRaise => ProjectInfo.PFlow + Calculations.GPD(Project.Grid.InTopRow(this));
 
         protected override float GeneratedPressureDrop => 0;

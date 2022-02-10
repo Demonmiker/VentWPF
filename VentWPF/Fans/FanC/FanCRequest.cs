@@ -27,16 +27,10 @@ namespace VentWPF.Fans.FanSelect
 
         [JsonPropertyName("password")]
         [DataType(DataType.Password)]
-        public string Password { get; set; } = "bnexg5";
+        public string Password { get; set; }
 
         [JsonPropertyName("psf")]
         public double PressureDrop { get; set; }
-
-        //[JsonPropertyName("installation_height_mm")]
-        //public double InstHeight { get; set; } = Project.Height;
-
-        //[JsonPropertyName("installation_width_mm")]
-        //public double InstWidth { get; set; } = Project.Width;
 
         [JsonPropertyName("search_tolerance")]
         public double SearchTolerance { get; set; } = 10;
@@ -45,19 +39,19 @@ namespace VentWPF.Fans.FanSelect
         public string UnitSystem { get; set; } = "m";
 
         [JsonPropertyName("voltage")]
-        public double Voltage { get; set; } = 230;
+        public double Voltage { get; set; }
 
         [JsonPropertyName("username")]
-        public string Username { get; set; } = "ZAFS19946";
+        public string Username { get; set; }
 
         [JsonPropertyName("qv")]
-        public double VFlow { get; set; } = Project.VFlow;
+        public double VFlow { get; set; }
                         
         [JsonPropertyName("nominal_frequency")]
-        public string Freq { get; set; } = "50";
+        public string Freq { get; set; }
 
         [JsonPropertyName("spec_products")]
-        public string Spec { get; set; } = "PF_57";
+        public string Spec { get; set; }
 
 
         [JsonPropertyName("fan_type")]

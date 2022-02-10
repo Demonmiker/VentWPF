@@ -1,22 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.Json;
 
 namespace VentWPF.Fans.FanSelect
 {
-    internal class DllController : IController<FanCRequest, List<FanCData>>
+    internal class FanCController : IController<FanCRequest, List<FanCData>>
     {
         //TODO удалить дубликаты
         public List<FanCData> GetResponce(FanCRequest request,out string error)
-
         {
             error = null;
             try
             {
                 string response = Request(request.GetRequest());
-                return response[0] != '[' ? null : JsonSerializer.Deserialize<List<FanCData>>(response);
+
+                var result = response[0] != '[' ? null : JsonSerializer.Deserialize<List<FanCData>>(response);
+                result = result.Distinct().ToList();
+                return result;
             }
             catch (Exception ex)
             {

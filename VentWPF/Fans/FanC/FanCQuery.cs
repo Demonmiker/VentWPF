@@ -8,7 +8,7 @@ namespace VentWPF.ViewModel
     {
         protected override QueryResult Fill(object q)//Request
         {
-            var resp = new DllController().GetResponce(q as FanCRequest,out string error);
+            var resp = new FanCController().GetResponce(q as FanCRequest,out string error);
                 return new QueryResult() { ErrorMessage = error ,List = resp };
 
         }

@@ -7,157 +7,9 @@ namespace VentWPF.Fans
     /// <summary>
     /// Информация по вентиляторам
     /// </summary>
-    public class FanCData
+    public class FanCData : IEquatable<FanCData>
     {
-        public double CALC_AIR_DENSITY;
-
-        public double CALC_ALTITUDE;
-
-        public string CALC_LW5_OKT;
-
-        public string CALC_LW6_OKT;
-
-        public string CALC_LWA5_OKT;
-
-        public string CALC_LWA6_OKT;
-
-        public double CALC_N_RATED;
-
-        //public string MOTOR_IE_CLASS { get; set; }
-        public double CALC_NOZZLE_PRESSURE;
-
-        public double CALC_PSYS_MAX;
-
-        public string CAPACITOR_CAPACITANCE;
-
-        public string CAPACITOR_VOLTAGE;
-
-        public string CHART_VIEWER_URL;
-
-        public string CIRCUIT;
-
-        public string COSPHI;
-
-        public string CURRENT_PHASE;
-
-        public string DENSITY_INFLUENCE;
-
-        public string DRAWING_FILE;
-
-        public string EC_TYPE;
-
-        public string EFFICIENCY_STAT;
-
-        public string EFFICIENCY_TOT;
-
-        public string ERP_CLASS;
-
-        public string GRILL_INFLUENCE;
-
-        public string INCREASE_OF_CURRENT;
-
-        public string IS_EC;
-
-        public double KFACTOR;
-
-        public string MAX_CURRENT;
-
-        //public string MAX_FREQUENCY;
-
-        public string MAX_TEMPERATURE_C;
-
-        public string MAX_VOLTAGE;
-
-        public string MIN_CURRENT;
-
-        public string MIN_PSF;
-
-        public string MIN_TEMPERATURE_C;
-
-        public string MIN_VOLTAGE;
-
-        public string NOMINAL_CURRENT;
-
-        //public double NOMINAL_FREQUENCY;
-
-        //public double NOMINAL_SPEED;
-
-        public string NOMINAL_VOLTAGE;
-
-        public string NOZZLE_GUARD;
-
-        public string PHASE_DIFFERENCE;
-
-        public string POWER_INPUT_HP;        
-
-        //public string POWER_OUTPUT_HP;
-
-        public string PRODUCT_IMG;
-
-        public string PROTECTION_CLASS_IP;
-
-        public string PROTECTION_CLASS_THCL;
-
-        public string VOLTAGE_TOLERANCE;
-
-        public string ZA_ERPKONFTEXT;
-
-        public double ZA_ETAF;
-
-        public double ZA_ETAF_L_MAINS_OPERATD;
-
-        public double ZA_ETAF_SYS;
-
-        public double ZA_ETAF_SYS_MAINS_OPERATED;
-
-        public double ZA_ETAM;
-
-        public double ZA_ETASF;
-
-        public double ZA_ETASF_L;
-
-        public double ZA_ETASF_L_MAINS_OPERATED;
-
-        public double ZA_ETASF_SYS;
-
-        public double ZA_ETASF_SYS_MAINS_OPERATED;
-
-        public double ZA_I;
-
-        public double ZA_LW5;
-
-        public double ZA_LWA5;
-
-        public double ZA_LWA6;
-
-        public double ZA_PF_MAINS_OPERATED;
-
-        public double ZA_PSF;
-
-        public double ZA_PSF_MAINS_OPERATED;
-
-        public double ZA_PSYS;
-
-        public double ZA_QV;
-
-        public double ZA_QV_MAINS_OPERATED;
-
-        public double ZA_SFP;
-
-        public string ZA_SFP_CLASS;
-
-        public double ZA_U;
-
-        public double ZA_WEIGHT;
-                
         public int CALC_PL_MAX { get; set; }
-
-        public int INDEX { get; set; }
-
-        //public string POWER_OUTPUT_KW;
-
-        //public double ZA_UN;
-                
 
         //[DisplayName("ID")]
         public string ARTICLE_NO { get; set; }
@@ -168,11 +20,6 @@ namespace VentWPF.Fans
         [DisplayName("Номинальная мощность")]
         [FormatString(fkW)]
         public double POWER_OUTPUT_KW { get; set; }
-
-        [DisplayName("Механическая мощность")]
-
-        [FormatString(fkW)]
-        public double POWER_CALC_KW => CALC_PL_MAX / 1000f;
 
         [DisplayName("Механическая мощность")]
         [FormatString(fkW)]
@@ -189,7 +36,7 @@ namespace VentWPF.Fans
         [DisplayName("Номинальные обороты")]
         [FormatString(fRotate)]
         public string NOMINAL_SPEED { get; set; }
-        
+
         [DisplayName("Частота номинальная")]
         [FormatString(fHz)]
         public string NOMINAL_FREQUENCY { get; set; }
@@ -214,8 +61,6 @@ namespace VentWPF.Fans
         [FormatString(fper)]
         public double ZA_ETAF_L { get; set; }
 
-                       
-
         [DisplayName("Шум на выходе дБ")]
         [FormatString(fdB)]
         public double ZA_LW6 { get; set; }
@@ -239,7 +84,58 @@ namespace VentWPF.Fans
         [FormatString(fmm)]
         public double ZA_BG { get; set; }
 
-
         public string ZA_MAINS_SUPPLY { get; set; }
+
+        public bool Equals(FanCData other)
+        {
+            if (
+                 CALC_PL_MAX == other.CALC_PL_MAX &&
+                 ARTICLE_NO == other.ARTICLE_NO &&
+                 TYPE == other.TYPE &&
+                 POWER_OUTPUT_KW == other.POWER_OUTPUT_KW &&
+                 ZA_N == other.ZA_N &&
+                 NOMINAL_SPEED == other.NOMINAL_SPEED &&
+                 NOMINAL_FREQUENCY == other.NOMINAL_FREQUENCY &&
+                 MAX_FREQUENCY == other.MAX_FREQUENCY &&
+                 ZA_UN == other.ZA_UN &&
+                 ZA_PD == other.ZA_PD &&
+                 ZA_PF == other.ZA_PF &&
+                 ZA_ETAF_L == other.ZA_ETAF_L &&
+                 ZA_LW6 == other.ZA_LW6 &&
+                 INSTALLATION_LENGTH_MM == other.INSTALLATION_LENGTH_MM &&
+                 INSTALLATION_HEIGHT_MM == other.INSTALLATION_HEIGHT_MM &&
+                 INSTALLATION_WIDTH_MM == other.INSTALLATION_WIDTH_MM &&
+                 ZA_BG == other.ZA_BG &&
+                 ZA_MAINS_SUPPLY == other.ZA_MAINS_SUPPLY)
+                return true;
+            else
+                return false;
+        }
+
+        public override int GetHashCode()
+        {
+             int hash = 23;
+             hash = hash * 59 + (CALC_PL_MAX.GetHashCode());
+             hash = hash * 59 + (ARTICLE_NO.GetHashCode());
+             hash = hash * 59 + (TYPE.GetHashCode());
+             hash = hash * 59 + (POWER_OUTPUT_KW.GetHashCode());
+             hash = hash * 59 + (ZA_N.GetHashCode());
+             hash = hash * 59 + (NOMINAL_SPEED.GetHashCode());
+             hash = hash * 59 + (NOMINAL_FREQUENCY.GetHashCode());
+             hash = hash * 59 + (MAX_FREQUENCY.GetHashCode());
+             hash = hash * 59 + (ZA_UN.GetHashCode());
+             hash = hash * 59 + (ZA_PD.GetHashCode());
+             hash = hash * 59 + (ZA_PF.GetHashCode());
+             hash = hash * 59 + (ZA_ETAF_L.GetHashCode());
+             hash = hash * 59 + (ZA_LW6.GetHashCode());
+             hash = hash * 59 + (INSTALLATION_LENGTH_MM.GetHashCode());
+             hash = hash * 59 + (INSTALLATION_HEIGHT_MM.GetHashCode());
+             hash = hash * 59 + (INSTALLATION_WIDTH_MM.GetHashCode());
+             hash = hash * 59 + (ZA_BG.GetHashCode());
+             hash = hash * 59 + (ZA_MAINS_SUPPLY.GetHashCode());
+            return hash;
+        }
+
+
     }
 }
