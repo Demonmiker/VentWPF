@@ -24,15 +24,14 @@ namespace VentWPF.ViewModel
                     //TODO: Безопасность на высшем уровне
                     Password = "bnexg5",
                     Username = "ZAFS19946",
-                    InstHeight = ProjectInfo.Height,
-                    InstWidth = ProjectInfo.Width,
-                    //TODO: GPD
                     PressureDrop = Calculations.GPD(Project.Grid.InTopRow(this)) + ProjectInfo.PFlow,
                     SearchTolerance = 10,
                     UnitSystem = "m",
                     Voltage = Voltage, // TODO Не динамично нельзя будет изменить
-                    VFlow = ProjectInfo.VFlow,
-                    FanType = "ER"
+                    VFlow = Project.VFlow,
+                    Freq = "50",
+                    Spec = "PF_57",
+                    FanType = "ER*DN*1R",
                 }
             };
         }
@@ -40,8 +39,7 @@ namespace VentWPF.ViewModel
         [Category(Data)]
         [FormatString(fm3Ph)]
         [DisplayName("Вольтаж (230/460)")]
-        public int Voltage { get; set; } = 230;
-
+        public int Voltage { get; set; } = 400;
 
         public override int Width => (int)((DeviceData as FanCData)?.INSTALLATION_WIDTH_MM ?? 0);
 
@@ -62,8 +60,8 @@ namespace VentWPF.ViewModel
             "PressureRaise",            
             "DeviceData.ZA_N",
             "DeviceData.POWER_OUTPUT_HP",
-            "DeviceData.POWER_CALC_KW",            
-            "DeviceData.ZA_NMAX",
+            "DeviceData.POWER_CALC_KW",
+            "DeviceData.NOMINAL_SPEED",
             "DeviceData.ZA_PD",
             "DeviceData.ZA_PF",
             "DeviceData.ZA_ETAF_L",            

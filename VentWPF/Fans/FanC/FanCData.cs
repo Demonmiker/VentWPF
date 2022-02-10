@@ -80,7 +80,7 @@ namespace VentWPF.Fans
 
         //public double NOMINAL_FREQUENCY;
 
-        public double NOMINAL_SPEED;
+        //public double NOMINAL_SPEED;
 
         public string NOMINAL_VOLTAGE;
 
@@ -154,7 +154,7 @@ namespace VentWPF.Fans
 
         public int INDEX { get; set; }
 
-        public string POWER_OUTPUT_KW;
+        //public string POWER_OUTPUT_KW;
 
         //public double ZA_UN;
                 
@@ -167,7 +167,12 @@ namespace VentWPF.Fans
 
         [DisplayName("Номинальная мощность")]
         [FormatString(fkW)]
-        public double POWER_OUTPUT_HP { get; set; }
+        public double POWER_OUTPUT_KW { get; set; }
+
+        [DisplayName("Механическая мощность")]
+
+        [FormatString(fkW)]
+        public double POWER_CALC_KW => CALC_PL_MAX / 1000f;
 
         [DisplayName("Механическая мощность")]
         [FormatString(fkW)]
@@ -175,7 +180,7 @@ namespace VentWPF.Fans
 
         [DisplayName("Разница оборотов")]
         [FormatString(f2)]
-        public double NDiff => ZA_NMAX - ZA_N;
+        public double NDiff => Convert.ToDouble(NOMINAL_SPEED) - ZA_N;
 
         [DisplayName("Обороты колеса")]
         [FormatString(fRotate)]
@@ -183,7 +188,7 @@ namespace VentWPF.Fans
 
         [DisplayName("Номинальные обороты")]
         [FormatString(fRotate)]
-        public double ZA_NMAX { get; set; }
+        public string NOMINAL_SPEED { get; set; }
         
         [DisplayName("Частота номинальная")]
         [FormatString(fHz)]
