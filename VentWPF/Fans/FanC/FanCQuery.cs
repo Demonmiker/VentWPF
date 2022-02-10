@@ -6,9 +6,11 @@ namespace VentWPF.ViewModel
 {
     internal class FanCQuery : Query
     {
-        protected override IList Fill(object q)//Request
+        protected override QueryResult Fill(object q)//Request
         {
-            return new DllController().GetResponce(q as FanCRequest);
+            var resp = new DllController().GetResponce(q as FanCRequest,out string error);
+                return new QueryResult() { ErrorMessage = error ,List = resp };
+
         }
     }
 }

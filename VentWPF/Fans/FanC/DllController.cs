@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text.Json;
 
@@ -8,10 +9,20 @@ namespace VentWPF.Fans.FanSelect
     internal class DllController : IController<FanCRequest, List<FanCData>>
     {
         //TODO удалить дубликаты
-        public List<FanCData> GetResponce(FanCRequest request)
+        public List<FanCData> GetResponce(FanCRequest request,out string error)
+
         {
-            string response = Request(request.GetRequest());
-            return response[0] != '[' ? null : JsonSerializer.Deserialize<List<FanCData>>(response);
+            error = null;
+            try
+            {
+                string response = Request(request.GetRequest());
+                return response[0] != '[' ? null : JsonSerializer.Deserialize<List<FanCData>>(response);
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+                return null;
+            }
         }
 
         [DllImport(
@@ -27,5 +38,6 @@ namespace VentWPF.Fans.FanSelect
         {
             return Marshal.PtrToStringUni(_ZAJsonRequest(req));
         }
+
     }
 }

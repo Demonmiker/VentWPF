@@ -29,17 +29,19 @@ namespace VentWPF.ViewModel
 
         [Category(Info)]
         [FormatString(fkPa)]
-        [DisplayName("Падение давления системы")]
-        public float PressureDropSystem => Calculations.GPD();
+        [DisplayName("Падение давления системы")] // TODO: Теперь это наверно яруса?
+        //TODO: GPD
+        public float PressureDropSystem => Calculations.GPD(Project.Grid.InTopRow(this));
 
         [Category(Info)]
         [FormatString(fm3Ph)]
         [DisplayName("Производительность")]
-        public int Power => Project.VFlow;
+        public int Power => ProjectInfo.VFlow;
 
         [DisplayName("Падение давления общее")]
         [FormatString(fkPa)]
-        public float PressureRaise => Project.PFlow + Calculations.GPD();
+        // TODO: GPD
+        public float PressureRaise => ProjectInfo.PFlow + Calculations.GPD(Project.Grid.InTopRow(this));
 
         protected override float GeneratedPressureDrop => 0;
 

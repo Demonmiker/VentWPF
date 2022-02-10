@@ -21,7 +21,8 @@ namespace VentWPF.Fans.Nicotra
 
         public double StaticPressure { get; set; } = Project.PFlow; //Статическое сопр давления
 
-        public double TotalPressure { get; set; } = Calculations.GPD(); //Тотальное(?)
+        //TODO: GPD
+        public double TotalPressure { get; set; } //Тотальное(?)
 
         public double Speed { get; set; } = 0; //оставить 0
 

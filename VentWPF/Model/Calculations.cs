@@ -1,7 +1,6 @@
 ﻿using System;
 using VentWPF.ViewModel;
 using PropertyTools.DataAnnotations;
-using vm = VentWPF.ViewModel;
 
 namespace VentWPF.Model.Calculations
 {
@@ -10,7 +9,9 @@ namespace VentWPF.Model.Calculations
     /// </summary>
     internal static class Calculations
     {
-        #region[Constants]
+        // TODO: @stigGGGer Перенести всё связанное с каркасом отдельно
+
+        #region Constants 
         [DisplayName("Плотность воздуха")]
         static float airCapacity { get; set; } = 1005;
 
@@ -37,10 +38,10 @@ namespace VentWPF.Model.Calculations
 
         #endregion
 
-        public static ProjectInfoVM Project { get; set; } = ProjectVM.Current?.ProjectInfo;
-        public static vm.ProjectVM ProjectIT { get; set; } = vm.ProjectVM.Current;
+        private static ProjectInfoVM ProjectInfo { get; set; } = ProjectVM.Current?.ProjectInfo;
+        private static ProjectVM Project { get; set; } = ProjectVM.Current;
 
-        #region[Heaters]
+        #region Формулы для нагревателей 
         static public float heaterConsumption(float Power, float TempBegin, float TempEnd)
         {
             float Out = (float)(Power * 1000 / (4198 * (TempBegin - TempEnd))) * 3600;
@@ -50,26 +51,26 @@ namespace VentWPF.Model.Calculations
         static public float heaterHumidOutAbs(float HumidIn, float TempIn)
         {
             float pD = (float)Math.Exp((1500.3 + 23.5 * TempIn) / (234 + TempIn));
-            float Out = (float)(0.6222f * (HumidIn / 100f) * pD / (Project.PressOut - HumidIn / 100f * pD / 1000f));
+            float Out = (float)(0.6222f * (HumidIn / 100f) * pD / (ProjectInfo.PressOut - HumidIn / 100f * pD / 1000f));
             return Out;
         }
 
         static public float heaterHumidOutRel(float TempOut, float HumidOutAbs)
         {
             float pD2 = (float)Math.Exp((1500.3 + 23.5 * TempOut) / (234 + TempOut));
-            float Out = Project.PressOut / pD2 * 1000f / (0.6222f / HumidOutAbs * 1000f + 1f) * 100f;
+            float Out = ProjectInfo.PressOut / pD2 * 1000f / (0.6222f / HumidOutAbs * 1000f + 1f) * 100f;
             return Out;
         }
 
         static public float heaterPower(float TempOut, float TempIn)
         {
             float pConst = 353f / (273.15f + TempOut);
-            float Out = (float)((Project.VFlow * pConst * airCapacity * Math.Abs(TempIn - TempOut)) / 3600000f);
+            float Out = (float)((ProjectInfo.VFlow * pConst * airCapacity * Math.Abs(TempIn - TempOut)) / 3600000f);
             return Out;
         }
         #endregion
 
-        #region[Coolers]
+        #region Формулы для охладителей
         public static float HumidOut(float temp)
         {
             float HumidOut = 0;
@@ -97,7 +98,7 @@ namespace VentWPF.Model.Calculations
         {
             float OUT;
             float fi = Humid / 100;
-            float x = (float)0.6222 * fi * HumidOut(temp) / (Project.PressOut - fi * HumidOut(temp) / 1000);            
+            float x = (float)0.6222 * fi * HumidOut(temp) / (ProjectInfo.PressOut - fi * HumidOut(temp) / 1000);            
             OUT = (float)1.01 * temp + (2501 + (float)1.86 * temp) * x / 1000;
             return OUT;
         }
@@ -121,14 +122,13 @@ namespace VentWPF.Model.Calculations
         private static float xPov(float temp)
         {
             float test = HumidOut(temp);
-            float OUT = 0.6222f * test / (Project.PressOut - test / 1000);
+            float OUT = 0.6222f * test / (ProjectInfo.PressOut - test / 1000);
             return OUT;
         }
 
         #endregion
 
-
-        #region[Frame]
+        #region Подсчёт деталей каркаса
         static public string[] FrameOutCalcWitdh(int width)
         {
             int count = width - error;
@@ -255,20 +255,21 @@ namespace VentWPF.Model.Calculations
 
         #endregion
 
-
-        public static int GPD()
+        /// <summary>
+        /// Функция подсчитывает падение давления в текущем проекте
+        /// </summary>
+        /// <returns> Возвращает значения в верхней и нижней части </returns>
+        public static float GPD(bool top)
         {
-            int sum = 0;
-            //foreach (int i in ProjectVM.Current.Grid.Elements.Count)
-            //{
-               // sum += Convert.ToInt32(Project.Grid.Elements[i].PressureDrop);
-            //}       
-            for (int i = 0; i < ProjectVM.Current.Grid.Elements.Count; i++)
-            {
-                sum += Convert.ToInt32(ProjectIT.Grid.Elements[i].PressureDrop);
-            }
-
-            return sum;
+            var grid = Project.Grid.Elements;
+            var result = 0f;
+            if (top)    // Подсчитываем первые десять элементов (верхний или единственный)
+                for (int i = 0; i < 10; i++)
+                    result += grid[i].PressureDrop;
+            else        // Подсчитываем вторые десять если они есть или будет 0
+                for (int i = 10; i < grid.Count; i++)
+                    result += grid[i].PressureDrop;
+            return result;
         }
     }
 }

@@ -31,16 +31,14 @@ namespace VentWPF.ViewModel
 
         private float pressureDrop = 0;
 
-        /// <summary>
-        /// Ссылка на Проект которому принадлежит элемент
-        /// </summary>
-        public static ProjectInfoVM Project { get; set; } = ProjectVM.Current?.ProjectInfo;
+        protected static ProjectInfoVM ProjectInfo { get; set; } = ProjectVM.Current?.ProjectInfo;
+        protected static ProjectVM Project { get; set; } = ProjectVM.Current;
 
         /// <summary>
         /// Название элемента системы вентиляции
         /// </summary>
         [Browsable(false)]
-        [DependsOn("DeviceIndex")]
+        [DependsOn("DeviceData")]
         public virtual string Name => "";
 
         /// <summary>
@@ -53,7 +51,7 @@ namespace VentWPF.ViewModel
         [VisibleBy(nameof(ShowPR))]
         [SortIndex(-3)]
         [DisplayName("Производительность")]
-        public virtual float Performance { get; set; } = Project.VFlow;
+        public virtual float Performance { get; set; } = ProjectInfo.VFlow;
 
         /// <summary>
         /// Падение давления
@@ -87,7 +85,7 @@ namespace VentWPF.ViewModel
         /// Информация о выбраной модели
         /// </summary>
         [Browsable(false)]
-        public object DeviceData => DeviceIndex >= 0 ? Query.Result?[DeviceIndex] : null;
+        public object DeviceData { get; set; } = null;
 
         /// <summary>
         /// Содержит данные о форматировании этого элемента @@warn Можно убрать
@@ -220,15 +218,15 @@ namespace VentWPF.ViewModel
         public virtual int Length => 0;
 
         [Browsable(false)]
-        [DependsOn(nameof(DeviceIndex))]
+        [DependsOn(nameof(DeviceData))]
         public virtual int Width => 0;
 
         [Browsable(false)]
-        [DependsOn(nameof(DeviceIndex))]
+        [DependsOn(nameof(DeviceData))]
         public virtual int Height => 0;
 
         [Browsable(false)]
-        public bool CorrectSize => Width <= Project.Width && Height <= Project.Height;
+        public bool CorrectSize => Width <= ProjectInfo.Width && Height <= ProjectInfo.Height;
 
         [Browsable(false)]
         public Command<object> CmdUpdateQuery { get; init; }

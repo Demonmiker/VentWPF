@@ -46,6 +46,7 @@ namespace VentWPF.ViewModel
 
         public SchemeVM Scheme { get; private set; }
 
+        // TODO: Реализовать сохранение и загрузку проекта
         public void LoadProject(object o)
         {
             throw new NotImplementedException();

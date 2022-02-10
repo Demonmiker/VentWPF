@@ -33,18 +33,18 @@ namespace VentWPF.Fans.K3G
         
         public string Id { get; set; }
 
-        [DisplayName("Тип")]
+        [DisplayName("Вентилятор")]
         public string Type { get; set; }
 
         [DisplayName("Номинальные обороты")]
         [FormatString(fRotate)]
         public string RotateNom { get; set; }
 
-        [DisplayName("Обороты расчётное")]
+        [DisplayName("Обороты колеса")]
         [FormatString(fRotate)]
         public string nSoll { get; set; } //0 n/1/min
 
-        [DisplayName("Мощность")]
+        [DisplayName("Номинальная мощность")]
         [FormatString(fW)]
         public string IPower { get; set; }
 
@@ -52,7 +52,7 @@ namespace VentWPF.Fans.K3G
         [FormatString(fW)]
         public string P1Soll { get; set; } //1 Pe/W
 
-        [DisplayName("CurrentDraw")]
+        //[DisplayName("CurrentDraw")]
         public string CurrentDraw { get; set; }        
 
         [DisplayName("Ток A")]
@@ -73,7 +73,7 @@ namespace VentWPF.Fans.K3G
         [FormatString(fper)]
         public string EtaMSoll { get; set; }//6  nu o/% Motor
 
-        [DisplayName("Воздушный поток")]
+        [DisplayName("Производительность")]
         [FormatString(fm3Ps)]
         public string LwASoll { get; set; }//7  (in+out) m^3/s
 
@@ -81,12 +81,12 @@ namespace VentWPF.Fans.K3G
         //[FormatString(fm3Ps)]
         public double SPF => (Convert.ToDouble(P1Soll) / (Convert.ToDouble(Project.VFlow) / 3600)) / Convert.ToDouble(LwASoll);
 
-        [DisplayName("Шум на входе")]
-        [FormatString(fdB)]
+        //[DisplayName("Шум на входе")]
+        //[FormatString(fdB)]
         public string LwAssSoll { get; set; }//8   dB in
 
-        [DisplayName("Шум на выходе")]
-        [FormatString(fdB)]
+        //[DisplayName("Шум на выходе")]
+        //[FormatString(fdB)]
         public string LwAdsSoll { get; set; }//9 dB Out
 
         #region[Noize]
@@ -125,8 +125,8 @@ namespace VentWPF.Fans.K3G
         public string Lwds8000_Soll;//25
         #endregion
 
-        [DisplayName("pf/Pa")]
-        [FormatString(fPa)]
+        //[DisplayName("pf/Pa")]
+        //[FormatString(fPa)]
         public string PtotSoll { get; set; }//26 pf/Pa
     }
 }

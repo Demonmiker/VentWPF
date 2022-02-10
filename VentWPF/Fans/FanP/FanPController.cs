@@ -31,10 +31,19 @@ namespace VentWPF.Fans.Nicotra
 
         private static string[] Keys;
 
-        public List<FanPData> GetResponce(FanPRequest request)
+        public List<FanPData> GetResponce(FanPRequest request,out string error)
         {
-            Keys ??= GetKeys().ToArray();
-            return Keys.Select(x => new FanPData(x, GetFanInfo(x, request))).ToList();
+            error = null;
+            try
+            {
+                Keys ??= GetKeys().ToArray();
+                return Keys.Select(x => new FanPData(x, GetFanInfo(x, request))).ToList();
+            }
+            catch (Exception ex)
+            {
+                error=ex.Message;
+                return null; 
+            }
         }
 
         public IEnumerable<string> GetKeys()
@@ -65,7 +74,7 @@ namespace VentWPF.Fans.Nicotra
             {
                 OUT[i] = 0;
             }
-            GET_CALCULATION_FANALONE(s1, s2, r, KEY, z1, z2, OUT);
+            GET_CALCULATION_FANALONE(s1, s2, r, id, z1, z2, OUT);
             return OUT;
         }
     }

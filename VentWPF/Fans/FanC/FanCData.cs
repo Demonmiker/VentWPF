@@ -170,6 +170,11 @@ namespace VentWPF.Fans
         public double POWER_OUTPUT_KW { get; set; }
 
         [DisplayName("Механическая мощность")]
+
+        [FormatString(fkW)]
+        public double POWER_CALC_KW => CALC_PL_MAX / 1000f;
+
+        [DisplayName("Механическая мощность")]
         [FormatString(fkW)]
         public double POWER_CALC_KW => CALC_PL_MAX / 1000f;
 

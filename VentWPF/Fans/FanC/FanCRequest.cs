@@ -12,7 +12,6 @@ namespace VentWPF.Fans.FanSelect
     /// </summary>
     internal class FanCRequest : BaseViewModel, IRequest<string>
     {
-        public static ProjectInfoVM Project { get; set; } = ProjectVM.Current?.ProjectInfo;
         [Category("Запрос")]
         [JsonPropertyName("insert_geo_data")]
         public bool InsertGeoData { get; set; } = true;
@@ -31,7 +30,7 @@ namespace VentWPF.Fans.FanSelect
         public string Password { get; set; } = "bnexg5";
 
         [JsonPropertyName("psf")]
-        public double PressureDrop { get; set; } = Calculations.GPD() + Project.PFlow;
+        public double PressureDrop { get; set; }
 
         //[JsonPropertyName("installation_height_mm")]
         //public double InstHeight { get; set; } = Project.Height;
@@ -59,6 +58,7 @@ namespace VentWPF.Fans.FanSelect
 
         [JsonPropertyName("spec_products")]
         public string Spec { get; set; } = "PF_57";
+
 
         [JsonPropertyName("fan_type")]
         public string FanType { get; set; }

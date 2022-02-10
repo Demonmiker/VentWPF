@@ -36,7 +36,7 @@
 
         public const string fHz = "{0} Hz";
 
-        public const string fHzFS = "220v/{0} Hz";
+        public const string fFS = "{0}v";
 
         public const string fper = "{0:0.00} %";
 
