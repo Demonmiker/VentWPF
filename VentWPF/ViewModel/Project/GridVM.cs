@@ -117,5 +117,13 @@ namespace VentWPF.ViewModel
             if (Selected?.InfoTable is not null)
                 InfoBox.Document.Blocks.Add(_Selected.InfoTable);
         }
+
+        public bool InTopRow(Element e) => Elements.IndexOf(e) switch
+        {
+            >= 0 and < 10 => true,
+            >= 10 and < 20 => false,
+            _ => throw new Exception("Элемент не найден")
+        };
+
     }
 }

@@ -7,9 +7,11 @@ namespace VentWPF.Fans.K3G
 {
     internal class FanK3GQuery : Query
     {
-        protected override IList Fill(object q)//Request
+        protected override QueryResult Fill(object q)//Request
         {
-            return new FanK3GController().GetResponce(q as FanK3GRequest);
+            var resp = new FanK3GController().GetResponce(q as FanK3GRequest,out string error);
+            return new QueryResult() { List = resp ,ErrorMessage=error};
+
         }
     }
 }

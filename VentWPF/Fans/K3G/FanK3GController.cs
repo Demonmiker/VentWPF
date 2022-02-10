@@ -36,29 +36,38 @@ namespace VentWPF.Fans.K3G
 
 #pragma warning restore CS0618
 
-        public static ProjectInfoVM Project { get; set; } = ProjectVM.Current?.ProjectInfo;
+        public static ProjectInfoVM ProjectInfo { get; set; } = ProjectVM.Current?.ProjectInfo;
 
         private string[] Keys;
 
-        public List<FanK3GData> GetResponce(FanK3GRequest request)
+        public List<FanK3GData> GetResponce(FanK3GRequest request,out string error)
         {
-            Connection();
-            Keys ??= GetIDs().ToArray();
-            List<FanK3GData> res = new();
-            foreach (var id in Keys)
+            error = null;
+            try
             {
-                var list = GetFanInfo(id, request);
-                var details = list.ToArray();
-                if (details[0] != "0,00")
+                Connection(request);
+                Keys ??= GetIDs(request).ToArray();
+                List<FanK3GData> res = new();
+                foreach (var id in Keys)
                 {
-                    FanK3GData data = new FanK3GData(id, list);
-                    res.Add(data);
+                    var list = GetFanInfo(id, request);
+                    var details = list.ToArray();
+                    if (details[0] != "0,00")
+                    {
+                        FanK3GData data = new FanK3GData(id, list);
+                        res.Add(data);
+                    }
                 }
+                return res;
             }
-            return res;
+            catch (Exception ex)
+            {
+                error = ex.Message;
+                return null;
+            }
         }
 
-        public void Connection()
+        public void Connection(FanK3GRequest request)
         {
             string path = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             path += @"\Fans\K3G\DLL";
@@ -74,13 +83,11 @@ namespace VentWPF.Fans.K3G
         }
 
         //TODO оптимизировать нововведения
-        public IEnumerable<string> GetIDs()
+        public IEnumerable<string> GetIDs(FanK3GRequest request)
         {
-            //var bufferIDs = new string(new Char(), 4000);
-            String bufferIDs = new String('0', 4000);
-            String fanString = Convert.ToString(Project.VFlow) + ";" + Convert.ToString(Project.PFlow + Calculations.GPD()) + ";" + "50" + ";" + "1.15" + ";" + Convert.ToString(Project.Width) + ";" + Convert.ToString(Project.Height) + ";";
+            string bufferIDs = new String('0', 4000);
+            string fanString = $"{ProjectInfo.VFlow};{request.RequiredPressure};50;1.15;{ProjectInfo.Width};{ProjectInfo.Height};";
             int n = SEARCH_PRODUCTS(fanString, ref bufferIDs);
-            //int n = GET_PRODUCTS_PC(ref bufferIDs);
             var str = bufferIDs.ToString();            
             var splitstring = str.Split(new[] { ";0;", ";-5;"  }, StringSplitOptions.RemoveEmptyEntries);            
             for (int i = 0; i < splitstring.Length; i++)

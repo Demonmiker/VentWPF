@@ -5,7 +5,10 @@ namespace VentWPF.ViewModel
 {
     internal abstract class Query : BaseViewModel
     {
-        private IList _Cache;
+        private QueryResult _Cache = new QueryResult();
+
+        [DependsOn("Cache")]
+        public string ErrorMessage => _Cache.ErrorMessage;
 
         public object Source { get; init; }
 
@@ -24,27 +27,32 @@ namespace VentWPF.ViewModel
                         if (Source is null)
                             throw new System.Exception("Source was 'null'");
                         Cache = Fill(Source);
-                        State = Cache switch
+                        if(Cache.ErrorMessage is not null)
                         {
-                            null => QueryState.Error,
-                            { Count: 0 } => QueryState.Empty,
-                            _ => QueryState.Success,
-                        };
+                            State = QueryState.Error;
+                        }
+                        else
+                        {
+                            if (Cache.List.Count == 0) 
+                                State = QueryState.Empty;
+                            else 
+                                State = QueryState.Success;
+                        }
                     });
                 }
 
-                return Cache;
+                return Cache.List;
             }
         }
 
-        private IList Cache
+        private QueryResult Cache
 
         {
             get => _Cache;
             set => _Cache = value;
         }
 
-        protected abstract IList Fill(object q);
+        protected abstract QueryResult Fill(object q);
     }
 
     internal enum QueryState
@@ -54,5 +62,11 @@ namespace VentWPF.ViewModel
         Success,
         Empty,
         Error,
+    }
+
+    internal class QueryResult
+    {
+        public IList List { get; init; }
+        public string ErrorMessage { get; init; }
     }
 }

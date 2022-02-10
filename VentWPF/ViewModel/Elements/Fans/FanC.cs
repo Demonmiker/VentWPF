@@ -21,15 +21,17 @@ namespace VentWPF.ViewModel
                     InsertMotorData = true,
                     InsertNominalValues = true,
                     Language = "RU",
+                    //TODO: Безопасность на высшем уровне
                     Password = "bnexg5",
                     Username = "ZAFS19946",
-                    InstHeight = Project.Height,
-                    InstWidth = Project.Width,
-                    PressureDrop = Calculations.GPD() + Project.PFlow,
+                    InstHeight = ProjectInfo.Height,
+                    InstWidth = ProjectInfo.Width,
+                    //TODO: GPD
+                    PressureDrop = Calculations.GPD(Project.Grid.InTopRow(this)) + ProjectInfo.PFlow,
                     SearchTolerance = 10,
                     UnitSystem = "m",
                     Voltage = Voltage, // TODO Не динамично нельзя будет изменить
-                    VFlow = Project.VFlow,
+                    VFlow = ProjectInfo.VFlow,
                     FanType = "ER"
                 }
             };

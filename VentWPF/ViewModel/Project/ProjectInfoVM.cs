@@ -234,12 +234,10 @@ namespace VentWPF.ViewModel
         [DisplayName("Клапан")]
         public ValvePos Valve { get; set; } = ValvePos.Снаружи;
 
-        // TODO Непонятно
         [Browsable(false)]
         [DisplayName("Атмосферное давление")]
         public float PressOut { get; set; } = 95;
 
-        // TODO Непонятно
         [Browsable(false)]
         public int Temp { get; set; } = -30;
     }
