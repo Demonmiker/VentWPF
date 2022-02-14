@@ -36,7 +36,6 @@
       <Grid ToolTip="{Binding Name}">
          <Grid.Style>
             <Style TargetType="{x:Type Grid}">
-               <Setter Property="Visibility" Value="Visible" />
                <Style.Triggers>
                   <MultiDataTrigger>
                      <MultiDataTrigger.Conditions>
@@ -77,6 +76,19 @@
 
       </DataTemplate.Resources>
       <Grid Margin="-1" Background="{StaticResource MaterialDesignToolBackground}">
+         <Grid.Style>
+            <Style TargetType="{x:Type Grid}">
+               <Style.Triggers>
+                  <MultiDataTrigger>
+                     <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Source={x:Static vm:ProjectVM.Current}, Path=ProjectInfo.Rows}" Value="Одноярусный" />
+                        <Condition Binding="{Binding Path=TwoRowsOnly}" Value="true" />
+                     </MultiDataTrigger.Conditions>
+                     <Setter Property="Visibility" Value="Collapsed" />
+                  </MultiDataTrigger>
+               </Style.Triggers>
+            </Style>
+         </Grid.Style>
          <Button Command="{Binding CmdAdd}">
             <Image Source="{Binding Element.Image}" />
          </Button>

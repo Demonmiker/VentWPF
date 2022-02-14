@@ -48,6 +48,7 @@ namespace VentWPF.ViewModel
                     new Section() { Direction = SectionType.LeftRightShort },
                     new Section() { Direction = SectionType.LeftRightValve },
                     new Section() { Direction = SectionType.LeftUpRightValve }
+                    //new Section() { Direction = SectionType.LeftRightShort , TwoRowsOnly=true},//Для только двухярусных
                 ),
                 new("Шумоглушитель", "Muffler", new MufflerDefault(), new MufflerCorrector()),
                 new("Увлажнитель", "Humidifier", new HumidCell(), new HumidSpray(), new HumidSteam()),
@@ -100,11 +101,14 @@ namespace VentWPF.ViewModel
         {
             CmdAdd = new Command<object>((x) => Add());
             Element = el;
+            TwoRowsOnly = el.TwoRowsOnly;
         }
 
-        public Element Element { get; set; }
+        public Element Element { get; init; }
 
-        public Command<object> CmdAdd { get; set; } = new Command<object>();
+        public bool TwoRowsOnly { get; init; }
+
+        public Command<object> CmdAdd { get; init; } = new Command<object>();
 
         // Добавляет элемент
         private void Add()
