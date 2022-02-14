@@ -86,6 +86,5 @@
    <Style TargetType="{x:Type pt:PropertyGrid}">
       <Setter Property="TabVisibility" Value="Collapsed" />
       <Setter Property="EnumAsRadioButtonsLimit" Value="1" />
-      <Setter Property="ShowDeclaredOnly" Value="True" />
    </Style>
 </ResourceDictionary>
