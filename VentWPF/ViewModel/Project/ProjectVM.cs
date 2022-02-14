@@ -75,9 +75,9 @@ namespace VentWPF.ViewModel
             ErrorManager.Add(ProjectInfo, "Информация о проекте");
             Grid = new();
             Grid.ErrorManager = ErrorManager;
-            Frame = new(500, ProjectInfo.Width, ProjectInfo.Height);
+            Frame = new(500, ProjectInfo.Settings.Width, ProjectInfo.Settings.Height);
             Frame.Parent = this;
-            Grid.Init(ProjectInfo.Rows);
+            Grid.Init(ProjectInfo.View.Rows);
         }
 
         public Command<object> CmdScheme { get; init; }
@@ -86,9 +86,9 @@ namespace VentWPF.ViewModel
         {
             if (Scheme is null) { Scheme = new SchemeVM(); Scheme.Parent = this; }
             var result = Scheme;
-            result.TwoRows = ProjectInfo.Rows == Model.Rows.Двухярусный;
-            result.WidthBottom = ProjectInfo.Height;
-            result.WidthTop = ProjectInfo.Height + 100; //TODO Исправить на нормальное значение
+            result.TwoRows = ProjectInfo.View.Rows == Model.Rows.Двухярусный;
+            result.WidthBottom = ProjectInfo.Settings.Height;
+            result.WidthTop = ProjectInfo.Settings.Height + 100; //TODO Исправить на нормальное значение
             result.TopElements.Clear();
             result.BottomElements.Clear();
             if (result.TwoRows)

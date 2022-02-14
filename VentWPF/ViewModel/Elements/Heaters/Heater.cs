@@ -32,7 +32,7 @@ namespace VentWPF.ViewModel
         [SortIndex(-1)]
         [DisplayName("т. на входе")]
         [FormatString(fT)]
-        public float TempIn => ProjectInfo.Temp;
+        public float TempIn => ProjectInfo.Settings.Temp;
 
         /// <summary>
         /// Влажность воздуха на входе
@@ -65,10 +65,10 @@ namespace VentWPF.ViewModel
         [FormatString(fkW)]
         public float Power => Calculations.heaterPower(TempOut, TempIn);
 
-        protected override float GeneratedPressureDrop => 70f / (4f / (ProjectInfo.VFlow / 3600f / AB));
+        protected override float GeneratedPressureDrop => 70f / (4f / (ProjectInfo.Settings.VFlow / 3600f / AB));
 
         [Browsable(false)]
-        protected float AB => (ProjectInfo.Width / 1000f) * (ProjectInfo.Height / 1000f);
+        protected float AB => (ProjectInfo.Settings.Width / 1000f) * (ProjectInfo.Settings.Height / 1000f);
 
         [Browsable(false)]
         protected float pD2 => (float)Math.Exp((1500.3 + 23.5 * TempOut) / (234 + TempOut));

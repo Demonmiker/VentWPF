@@ -7,7 +7,7 @@ using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.Fans.K3G
 {
-    public class FanK3GData
+    internal class FanK3GData
     {
         public FanK3GData(string id, IEnumerable<string> info)
         {
@@ -29,7 +29,7 @@ namespace VentWPF.Fans.K3G
             IPower = details[37];
             Type = details[40];
         }
-        public static ProjectInfoVM Project { get; set; } = ProjectVM.Current?.ProjectInfo;
+        public static ProjectInfoVM ProjectInfo { get; set; } = ProjectVM.Current?.ProjectInfo;
         
         public string Id { get; set; }
 
@@ -79,7 +79,7 @@ namespace VentWPF.Fans.K3G
 
         [DisplayName("kW / m^3/s")]
         //[FormatString(fm3Ps)]
-        public double SPF => (Convert.ToDouble(P1Soll) / (Convert.ToDouble(Project.VFlow) / 3600)) / Convert.ToDouble(LwASoll);
+        public double SPF => (Convert.ToDouble(P1Soll) / (Convert.ToDouble(ProjectInfo.Settings.VFlow) / 3600)) / Convert.ToDouble(LwASoll);
 
         //[DisplayName("Шум на входе")]
         //[FormatString(fdB)]

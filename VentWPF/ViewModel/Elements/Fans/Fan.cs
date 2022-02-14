@@ -35,11 +35,11 @@ namespace VentWPF.ViewModel
         [Category(Info)]
         [FormatString(fm3Ph)]
         [DisplayName("Производительность")]
-        public int Power => ProjectInfo.VFlow;
+        public int Power => ProjectInfo.Settings.VFlow;
 
         [DisplayName("Падение давления общее")]
         [FormatString(fkPa)]
-        public float PressureRaise => ProjectInfo.PFlow + Calculations.GPD(Project.Grid.InTopRow(this));
+        public float PressureRaise => ProjectInfo.Settings.PFlow + Calculations.GPD(Project.Grid.InTopRow(this));
 
         protected override float GeneratedPressureDrop => 0;
 

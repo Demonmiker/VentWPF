@@ -53,7 +53,7 @@ namespace VentWPF.ViewModel
         [VisibleBy(nameof(ShowPR))]
         [SortIndex(-3)]
         [DisplayName("Производительность")]
-        public virtual float Performance { get; set; } = ProjectInfo.VFlow;
+        public virtual float Performance { get; set; } = ProjectInfo.Settings.VFlow;
 
         /// <summary>
         /// Падение давления
@@ -236,7 +236,7 @@ namespace VentWPF.ViewModel
         public virtual int Height => 0;
 
         [Browsable(false)]
-        public bool CorrectSize => Width <= ProjectInfo.Width && Height <= ProjectInfo.Height;
+        public bool CorrectSize => Width <= ProjectInfo.Settings.Width && Height <= ProjectInfo.Settings.Height;
 
         [Browsable(false)]
         public Command<object> CmdUpdateQuery { get; init; }

@@ -25,11 +25,11 @@ namespace VentWPF.ViewModel
                     //TODO: Безопасность на высшем уровне
                     Password = "bnexg5",
                     Username = "ZAFS19946",
-                    PressureDrop = Calculations.GPD(Project.Grid.InTopRow(this)) + ProjectInfo.PFlow,
+                    PressureDrop = Calculations.GPD(Project.Grid.InTopRow(this)) + ProjectInfo.Settings.PFlow,
                     SearchTolerance = 10,
                     UnitSystem = "m",
                     Voltage = (int)Voltage,
-                    VFlow = ProjectInfo.VFlow,
+                    VFlow = ProjectInfo.Settings.VFlow,
                     Freq = "50",
                     Spec = "PF_57",
                     FanType = "ER*DN*1R",
