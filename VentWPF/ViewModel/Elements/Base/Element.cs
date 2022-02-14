@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Documents;
 using VentWPF.Tools;
@@ -173,7 +174,7 @@ namespace VentWPF.ViewModel
         {
             List<TableRow> rowList = new();
             TableRow header = new();
-            header.Cells.Add(new(new Paragraph(new Run(this.Name)) { FontSize = 20 }));
+            header.Cells.Add(new(new Paragraph(new Run(this.Name)) { FontSize = 20 ,TextAlignment=TextAlignment.Left}));
             rowList.Add(header);
             List<InfoLine> infos = InfoLine.GenerateInfoLines(this, DeviceType, InfoProperties).ToList();
             while (infos.Count % columns > 0)
@@ -186,7 +187,10 @@ namespace VentWPF.ViewModel
                 {
                     Paragraph par = infos?[i + j * rows]?.ToParagraph(isDynamic);
                     if (par is not null)
+                    {
+                        par.FontSize = 14;
                         row.Cells.Add(new TableCell(par));
+                    }
                 }
                 rowList.Add(row);
             }
