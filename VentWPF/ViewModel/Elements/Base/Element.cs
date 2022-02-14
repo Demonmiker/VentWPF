@@ -239,7 +239,7 @@ namespace VentWPF.ViewModel
         public bool CorrectSize => Width <= ProjectInfo.Settings.Width && Height <= ProjectInfo.Settings.Height;
 
         [Browsable(false)]
-        public Command<object> CmdUpdateQuery { get; init; }
+        public Command<object> CmdUpdateQuery { get; private init; }
 
         public virtual void UpdateQuery()
         {

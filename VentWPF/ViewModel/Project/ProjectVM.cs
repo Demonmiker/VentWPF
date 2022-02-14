@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -49,19 +50,41 @@ namespace VentWPF.ViewModel
         // TODO: Реализовать сохранение и загрузку проекта
         public void LoadProject(object o)
         {
-            throw new NotImplementedException();
-            //var sfd = new OpenFileDialog{ DefaultExt = ".prj", Filter = "Projects (.prj)|*.prj" };
+            //var sfd = new OpenFileDialog { DefaultExt = ".json", /*Filter = "Projects (.json)|*.json"*/ };
             //if (sfd.ShowDialog() == true)
             //{
-            //    var project = IOManager.LoadAsJson<Project>(sfd.FileName);
-            //    ProjectInfo = project.ProjectInfo;
-            //    Grid = new ObservableCollection<Element>(project.Grid);
             //}
+            var pp = IOManager.LoadAsJson<PackedProject>("project.json");
+            pp.Order.InitParent(this.ProjectInfo);
+            pp.Order.InitParent(this.ProjectInfo);
+            pp.Order.InitParent(this.ProjectInfo);
+            // PI
+            ProjectInfo.Order = pp.Order;
+            ProjectInfo.Settings = pp.Settings;
+            ProjectInfo.View = pp.View;
+
+            Grid.Init(this.ProjectInfo.View.Rows);
+            for (int i = 0; i < pp.Elements.Length; i++)
+                if (pp.Elements[i] is not null)
+                {
+                    Grid.Elements[i] = pp.Elements[i];
+                    //Grid.Elements[i].UpdateQuery();
+                    ErrorManager.Add(Grid.Elements[i], $"[{i % 10 + 1},{i / 10 + 1}]");
+                }
+            // Каркас пока не сохраняется
         }
 
         public void SaveProject(object o)
         {
-            throw new NotImplementedException();
+            PackedProject pp = new PackedProject()
+            {
+                Order = this.ProjectInfo.Order,
+                Settings = this.ProjectInfo.Settings,
+                View = this.ProjectInfo.View,
+                Elements = this.Grid.Elements.Select(x => x.Name == "" ? null : x).ToArray(),
+            };
+            IOManager.SaveAsJson(pp, "project.json");
+            System.Diagnostics.Process.Start("powershell", "code project.json");
         }
 
         /// <summary>

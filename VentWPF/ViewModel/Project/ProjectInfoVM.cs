@@ -11,7 +11,12 @@ namespace VentWPF.ViewModel
     {
 
         [Browsable(false)]
-        public ProjectInfoVM Parent { get; init; }
+        public ProjectInfoVM Parent { get; private set; } //Нельзя открывать будет цикл
+
+        public void InitParent(ProjectInfoVM parent)
+        {
+            Parent = parent;
+        }
 
         /// <summary>
         /// Дата начала проекта
@@ -71,9 +76,14 @@ namespace VentWPF.ViewModel
 
     internal class Settings : ValidViewModel
     {
-        [Browsable(false)]
-        public ProjectInfoVM Parent { get; init; }
 
+        [Browsable(false)]
+        public ProjectInfoVM Parent { get; private set; } //Нельзя открывать будет цикл
+
+        public void InitParent(ProjectInfoVM parent)
+        {
+            Parent = parent;
+        }
         /// <summary>
         /// Объем притока
         /// </summary>
@@ -111,6 +121,7 @@ namespace VentWPF.ViewModel
         }
 
         private int vFlow = 6000;
+
 
         /// <summary>
         /// Сопротивление сети притока
@@ -184,8 +195,13 @@ namespace VentWPF.ViewModel
 
     internal class View : ValidViewModel
     {
+        public void InitParent(ProjectInfoVM parent)
+        {
+            Parent = parent;
+        }
+
         [Browsable(false)]
-        public ProjectInfoVM Parent { get; init; }
+        public ProjectInfoVM Parent { get; private set; } //Нельзя открывать будет цикл
 
         [Category("Вид")]
         [DisplayName("Кол-во рядов")]
@@ -264,9 +280,9 @@ namespace VentWPF.ViewModel
 
         public ProjectInfoVM()
         {
-            Order = new() { Parent = this };
-            Settings = new() { Parent = this };
-            View = new() { Parent = this };
+            Order = new(); Order.InitParent(this);
+            Settings = new(); Settings.InitParent(this);
+            View = new(); View.InitParent(this);
         }
 
         public Order Order { get; set; }
