@@ -51,7 +51,7 @@ namespace VentWPF.ViewModel
                 ),
                 new("Шумоглушитель", "Muffler", new MufflerDefault(), new MufflerCorrector()),
                 new("Увлажнитель", "Humidifier", new HumidCell(), new HumidSpray(), new HumidSteam()),
-                new("Рекуператор", "Recuperator"),
+                new("Рекуператор", "Recuperator",true),
             };
         }
 
@@ -68,9 +68,20 @@ namespace VentWPF.ViewModel
             CmdOpenPopup = new Command<Popup>(OpenPopup);
         }
 
+        public CreateMenu(string name, string image,bool twoRowsOnly, params Element[] elements)
+        {
+            TwoRowsOnly = twoRowsOnly;
+            Name = name;
+            Image = Path.GetFullPath($"Assets/Images/Icons/_Menu/{image}.png");
+            Elements = elements.Select(x => new CreateButton(x)).ToList();
+            CmdOpenPopup = new Command<Popup>(OpenPopup);
+        }
+
         public string Name { get; set; }
 
         public string Image { get; set; }
+
+        public bool TwoRowsOnly { get; set; } = false;
 
         public List<CreateButton> Elements { get; set; }
 

@@ -207,6 +207,11 @@ namespace VentWPF.ViewModel
             return table;
         }
 
+        /// <summary>
+        /// Обозначает что элемент можем быть только в установке с двумя рядами
+        /// </summary>
+        public bool TwoRowsExclusive { get; set; } = false;
+
         public static T GetInstance<T>(T o)
         {
             return (T)Activator.CreateInstance(o.GetType());
