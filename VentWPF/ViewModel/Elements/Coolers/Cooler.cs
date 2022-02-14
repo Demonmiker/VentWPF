@@ -17,7 +17,7 @@ namespace VentWPF.ViewModel
             ShowPD = true;
         }
 
-        protected override float GeneratedPressureDrop => (70f / (4f / ((ProjectInfo.VFlow / 3600f) / AB)));
+        protected override float GeneratedPressureDrop => (70f / (4f / ((ProjectInfo.Settings.VFlow / 3600f) / AB)));
 
         [Category(Data)]
         [SortIndex(-1)]
@@ -37,7 +37,7 @@ namespace VentWPF.ViewModel
         public float HumidityIn { get; set; } = 42;
 
         [Browsable(false)]
-        public virtual float AB => (((float)ProjectInfo.Width / 1000) * ((float)ProjectInfo.Height / 1000));
+        public virtual float AB => (((float)ProjectInfo.Settings.Width / 1000) * ((float)ProjectInfo.Settings.Height / 1000));
 
         [Browsable(false)]
         public virtual float pD2 => Calculations.HumidOut(TempOut);

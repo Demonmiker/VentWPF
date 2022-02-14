@@ -13,9 +13,9 @@ namespace VentWPF.ViewModel.Elements
                 typeof(HeaterWater),
                 new()
                 {
-                    { "LВозд", new Condition<double>(x => x >= Project.VFlow) },
-                    { "ШиринаГабарит", new Condition<double>(x => x <= Project.Width) },
-                    { "ВысотаГабарит", new Condition<double>(x => x <= Project.Height) },
+                    { "LВозд", new Condition<double>(x => x >= Project.Settings.VFlow) },
+                    { "ШиринаГабарит", new Condition<double>(x => x <= Project.Settings.Width) },
+                    { "ВысотаГабарит", new Condition<double>(x => x <= Project.Settings.Height) },
                     { "Скорость", new Condition<double>(x => x is > 2.5 and < 4.5) },
                 }
             },
@@ -23,9 +23,9 @@ namespace VentWPF.ViewModel.Elements
                 typeof(CoolerWater),
                 new()
                 {
-                    { "LВозд", new Condition<double>(x => x >= Project.VFlow) },
-                    { "ШиринаГабарит", new Condition<double>(x => x <= Project.Width) },
-                    { "ВысотаГабарит", new Condition<double>(x => x <= Project.Height) },
+                    { "LВозд", new Condition<double>(x => x >= Project.Settings.VFlow) },
+                    { "ШиринаГабарит", new Condition<double>(x => x <= Project.Settings.Width) },
+                    { "ВысотаГабарит", new Condition<double>(x => x <= Project.Settings.Height) },
                     { "Скорость", new Condition<double>(x => x is > 2.5 and < 4.5) },
                 }
             },
@@ -33,9 +33,9 @@ namespace VentWPF.ViewModel.Elements
                 typeof(CoolerFr),
                 new()
                 {
-                    { "LВозд", new Condition<double>(x => x >= Project.VFlow) },
-                    { "ШиринаГабарит", new Condition<double>(x => x <= Project.Width) },
-                    { "ВысотаГабарит", new Condition<double>(x => x <= Project.Height) },
+                    { "LВозд", new Condition<double>(x => x >= Project.Settings.VFlow) },
+                    { "ШиринаГабарит", new Condition<double>(x => x <= Project.Settings.Width) },
+                    { "ВысотаГабарит", new Condition<double>(x => x <= Project.Settings.Height) },
                     { "Скорость", new Condition<double>(x => x is > 2.5 and < 4.5) },
                 }
             },
@@ -44,8 +44,8 @@ namespace VentWPF.ViewModel.Elements
                 new()
                 {
                     { "NDiff", new Condition<double>(x => x is < 200 and > 0) },
-                    { "INSTALLATION_WIDTH_MM", new Condition<double>(x => x <= Project.Width) },
-                    { "INSTALLATION_HEIGHT_MM", new Condition<double>(x => x <= Project.Height) },
+                    { "INSTALLATION_WIDTH_MM", new Condition<double>(x => x <= Project.Settings.Width) },
+                    { "INSTALLATION_HEIGHT_MM", new Condition<double>(x => x <= Project.Settings.Height) },
                 }
             }
         };

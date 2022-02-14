@@ -51,21 +51,21 @@ namespace VentWPF.Model.Calculations
         static public float heaterHumidOutAbs(float HumidIn, float TempIn)
         {
             float pD = (float)Math.Exp((1500.3 + 23.5 * TempIn) / (234 + TempIn));
-            float Out = (float)(0.6222f * (HumidIn / 100f) * pD / (ProjectInfo.PressOut - HumidIn / 100f * pD / 1000f));
+            float Out = (float)(0.6222f * (HumidIn / 100f) * pD / (ProjectInfo.Settings.PressOut - HumidIn / 100f * pD / 1000f));
             return Out;
         }
 
         static public float heaterHumidOutRel(float TempOut, float HumidOutAbs)
         {
             float pD2 = (float)Math.Exp((1500.3 + 23.5 * TempOut) / (234 + TempOut));
-            float Out = ProjectInfo.PressOut / pD2 * 1000f / (0.6222f / HumidOutAbs * 1000f + 1f) * 100f;
+            float Out = ProjectInfo.Settings.PressOut / pD2 * 1000f / (0.6222f / HumidOutAbs * 1000f + 1f) * 100f;
             return Out;
         }
 
         static public float heaterPower(float TempOut, float TempIn)
         {
             float pConst = 353f / (273.15f + TempOut);
-            float Out = (float)((ProjectInfo.VFlow * pConst * airCapacity * Math.Abs(TempIn - TempOut)) / 3600000f);
+            float Out = (float)((ProjectInfo.Settings.VFlow * pConst * airCapacity * Math.Abs(TempIn - TempOut)) / 3600000f);
             return Out;
         }
         #endregion
@@ -98,7 +98,7 @@ namespace VentWPF.Model.Calculations
         {
             float OUT;
             float fi = Humid / 100;
-            float x = (float)0.6222 * fi * HumidOut(temp) / (ProjectInfo.PressOut - fi * HumidOut(temp) / 1000);            
+            float x = (float)0.6222 * fi * HumidOut(temp) / (ProjectInfo.Settings.PressOut - fi * HumidOut(temp) / 1000);            
             OUT = (float)1.01 * temp + (2501 + (float)1.86 * temp) * x / 1000;
             return OUT;
         }
@@ -122,7 +122,7 @@ namespace VentWPF.Model.Calculations
         private static float xPov(float temp)
         {
             float test = HumidOut(temp);
-            float OUT = 0.6222f * test / (ProjectInfo.PressOut - test / 1000);
+            float OUT = 0.6222f * test / (ProjectInfo.Settings.PressOut - test / 1000);
             return OUT;
         }
 

@@ -7,7 +7,7 @@ namespace VentWPF.Fans.K3G
         public static ProjectInfoVM Info { get; set; } = ProjectVM.Current?.ProjectInfo;
         public string ID { get; set; }
 
-        public float Volumenstrom { get; set; } = Info.VFlow / 3600;
+        public float Volumenstrom { get; set; } = Info.Settings.VFlow / 3600;
 
         public InstallationType Installation { get; set; } = InstallationType.DIDO;
 

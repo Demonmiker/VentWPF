@@ -330,17 +330,17 @@ namespace VentWPF.DocX
             string Datastat = null;
             string Datastat2 = null;
 
-            string Date = "Время заказа: " + Convert.ToString(pjct.Date) + "\n";
-            string Worker = "Исполнитель: " + pjct.Worker + "\n";
-            string OrderName = "Заказ: " + pjct.OrderName + "\n";
+            string Date = "Время заказа: " + Convert.ToString(pjct.Order.Date) + "\n";
+            string Worker = "Исполнитель: " + pjct.Order.Worker + "\n";
+            string OrderName = "Заказ: " + pjct.Order.OrderName + "\n";
             string Foots = "Ножки: " + "???" + "\n";
-            string Realization = "Исполнение: " + pjct.Realization + "\n";
-            string Maintenance = "Сторона обслуживания: " + Convert.ToString(pjct.Maintenance);
+            string Realization = "Исполнение: " + pjct.View.Realization + "\n";
+            string Maintenance = "Сторона обслуживания: " + Convert.ToString(pjct.View.Maintenance);
 
-            string BuildName = "Обозначение установки: " + pjct.BuildName + "\n";
-            string Customer = "Заказчик: " + pjct.Customer + "\n";
-            string Object = "Объект: " + pjct.Object + "\n";
-            string Number = "Телефон заказчика: " + pjct.Number + "\n";
+            string BuildName = "Обозначение установки: " + pjct.Order.BuildName + "\n";
+            string Customer = "Заказчик: " + pjct.Order.Customer + "\n";
+            string Object = "Объект: " + pjct.Order.Object + "\n";
+            string Number = "Телефон заказчика: " + pjct.Order.Number + "\n";
 
             Datastat = Date + Worker + OrderName + Foots + Realization + Maintenance;
             Datastat2 = BuildName + Customer + Object + Number;

@@ -21,6 +21,7 @@ namespace VentWPF.ViewModel
         public GridVM()
         {
             CmdRemove = new(x => RemoveElement());
+            CmdRemoveShift = new(x => RemoveElementAndShift());
         }
 
         /// <summary>
@@ -96,6 +97,19 @@ namespace VentWPF.ViewModel
             ErrorManager.Add(Elements[Index], $"[{Index % 10 + 1},{Index / 10 + 1}]");
         }
 
+
+        /// <summary>
+        /// Добавить элемент в установку
+        /// </summary>
+        /// <param name="el">добавляемый элементы</param>
+        public void InsertElement(Element el)
+        {
+            int n = Index < 10 ? 9 : 19;
+            for (int i = n; i > Index; i--)
+                Elements[i] = Elements[i - 1];
+            AddElement(el);
+        }
+
         public Command<object> CmdRemove { get; set; }
 
         /// <summary>
@@ -104,8 +118,31 @@ namespace VentWPF.ViewModel
         /// <param name="el">удаляемый элемент</param>
         public void RemoveElement()
         {
+            var index = Index;
             if (Index >= 0 && Index < Elements.Count)
                 Elements[Index] = new Element();
+            Index = index;
+        }
+
+        public Command<object> CmdRemoveShift { get; set; }
+
+        /// <summary>
+        /// Удалить элемент и сдвинуть ярус на один влево
+        /// </summary>
+        /// <param name="el">удаляемый элемент</param>
+        public void RemoveElementAndShift()
+        {
+            if (Index >= 0 && Index < Elements.Count)
+            {
+                var index = Index;
+                int n = Index < 10 ? 9 : 19; //Смещаем только до конца текущего яруса
+                for (int i = Index; i < n; i++)
+                {
+                    Elements[i] = Elements[i + 1];
+                }
+                Elements[n] = new Element();
+                Index = index;
+            }
         }
 
         /// <summary>

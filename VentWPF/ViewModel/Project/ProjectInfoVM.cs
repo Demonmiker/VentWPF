@@ -1,22 +1,22 @@
 ﻿using PropertyChanged;
 using PropertyTools.DataAnnotations;
 using System;
-using System.Collections.ObjectModel;
 using VentWPF.Model;
 using static VentWPF.ViewModel.Strings;
 using valid = VentWPF.Tools;
 
 namespace VentWPF.ViewModel
 {
-    /// <summary>
-    /// Информация о проекте
-    /// </summary>
-    public class ProjectInfoVM : ValidViewModel
+    internal class Order : ValidViewModel
     {
+
+        [Browsable(false)]
+        public ProjectInfoVM Parent { get; init; }
+
         /// <summary>
         /// Дата начала проекта
         /// </summary>
-        [Category("Заказ|")]
+        [Category("Заказ")]
         [DisplayName("Дата")]
         [FormatString(fDate)]
         public DateTime Date { get; set; } = DateTime.Now;
@@ -24,7 +24,7 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Исполнитель
         /// </summary>
-        [Category("Заказ|")]
+        [Category("Заказ")]
         [DisplayName("Исполнитель")]
         [valid.Required]
         public string Worker { get; set; }
@@ -32,7 +32,7 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Заказ
         /// </summary>
-        [Category("Заказ|")]
+        [Category("Заказ")]
         [DisplayName("Заказ")]
         [valid.Required]
         public string OrderName { get; set; }
@@ -40,7 +40,7 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Обозначение установки
         /// </summary>
-        [Category("Заказ|")]
+        [Category("Заказ")]
         [DisplayName("Обозначение установки")]
         [valid.Required]
         public string BuildName { get; set; }
@@ -48,7 +48,7 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Заказчик
         /// </summary>
-        [Category("Заказ|")]
+        [Category("Заказ")]
         [DisplayName("Заказчик")]
         [valid.Required]
         public string Customer { get; set; }
@@ -56,7 +56,7 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Объект
         /// </summary>
-        [Category("Заказ|")]
+        [Category("Заказ")]
         [DisplayName("Объект")]
         [valid.Required]
         public string Object { get; set; }
@@ -64,15 +64,20 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Номер телефона заказчика
         /// </summary>
-        [Category("Заказ|")]
+        [Category("Заказ")]
         [DisplayName("Номер")]
-        //[valid.Phone]
         public string Number { get; set; }
+    }
+
+    internal class Settings : ValidViewModel
+    {
+        [Browsable(false)]
+        public ProjectInfoVM Parent { get; init; }
 
         /// <summary>
         /// Объем притока
         /// </summary>
-        [Category("Настройки|")]
+        [Category("Настройки")]
         [DisplayName("Объём притока")]
         [FormatString(fm3)]
         public int VFlow
@@ -81,7 +86,7 @@ namespace VentWPF.ViewModel
             set
             {
                 vFlow = value;
-                SizeType = value switch
+                Parent.View.SizeType = value switch
                 {
                     < 1200 => SizeType.ТипоРазмер1,
                     < 2200 => SizeType.ТипоРазмер2,
@@ -110,7 +115,7 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Сопротивление сети притока
         /// </summary>
-        [Category("Настройки|")]
+        [Category("Настройки")]
         [DisplayName("Сопр. сети притока")]
         [FormatString(fPa)]
         public float PFlow { get; set; } = 0;
@@ -118,7 +123,7 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Объем вытяжки/резерва
         /// </summary>
-        [Category("Настройки|")]
+        [Category("Настройки")]
         [EnableBy("Rows", Rows.Двухярусный)]
         [DisplayName("Объём вытяжки/резерва")]
         [FormatString(fm3)]
@@ -127,7 +132,7 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Сопротивление сети вытяжки
         /// </summary>
-        [Category("Настройки|")]
+        [Category("Настройки")]
         [EnableBy("Rows", Rows.Двухярусный)]
         [DisplayName("Сопр. сети вытяжки")]
         [FormatString(fPa)]
@@ -136,7 +141,7 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Количество блоков
         /// </summary>
-        [Category("Настройки|")]
+        [Category("Настройки")]
         [DisplayName("Кол-во блоков")]
         [FormatString(fc)]
         public int Blocks { get; set; } = 3;
@@ -155,7 +160,7 @@ namespace VentWPF.ViewModel
         [FormatString(fmm)]
         public int Height { get; set; } = 700;
 
-        [Category("Настройки|")]
+        [Category("Настройки")]
         [DisplayName("Толщина панели")]
         [FormatString(fmm)]
         public int PanelWidth { get; set; } = 45;
@@ -163,29 +168,44 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Влажность
         /// </summary>
-        [Category("Настройки|")]
+        [Category("Настройки")]
         [DisplayName("Влажность")]
         [FormatString(fper)]
         public int Humid { get; set; } = 85;
+
+        [Browsable(false)]
+        [DisplayName("Атмосферное давление")]
+        public float PressOut { get; set; } = 95;
+
+
+        [Browsable(false)]
+        public int Temp { get; set; } = -30;
+    }
+
+    internal class View : ValidViewModel
+    {
+        [Browsable(false)]
+        public ProjectInfoVM Parent { get; init; }
+
+        [Category("Вид")]
+        [DisplayName("Кол-во рядов")]
+        public Rows Rows
+        { get => rows; set { rows = value; ProjectVM.Current.Grid.Init(value); } }
 
         /// <summary>
         /// Количество рядов
         /// </summary>
         private Rows rows = Rows.Одноярусный;
 
-        [Category("Вид|")]
-        [DisplayName("Кол-во рядов")]
-        public Rows Rows { get => rows; set { rows = value; ProjectVM.Current.Grid.Init(value); } }
-
         /// <summary>
         /// Реализация
         /// </summary>
-        [Category("Вид|")]
+        [Category("Вид")]
         [DisplayName("Исполнение")]
         public Realization Realization { get; set; } = Realization.ТРЕНД;
 
-        [DependsOn("Realization")]
-        [Category("Вид|")]
+        [DependsOn(nameof(Realization))]
+        [Category("Вид")]
         [DisplayName("Типоразмер")]
         public SizeType SizeType
         {
@@ -193,7 +213,7 @@ namespace VentWPF.ViewModel
             set
             {
                 sizeType = value;
-                (Width, Height) = value.GetSize();
+                (Parent.Settings.Width,Parent.Settings.Height) = value.GetSize();
             }
         }
 
@@ -202,43 +222,57 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Сторона обслуживания
         /// </summary>
-        [Category("Вид|")]
+        [Category("Вид")]
         [DisplayName("Сторона обслуживания")]
         public Maintenance Maintenance { get; set; } = Maintenance.Справа;
 
         /// <summary>
         /// Медицинское
         /// </summary>
-        [Category("Вид|")]
+        [Category("Вид")]
         [DisplayName("Медицинское")]
         public bool Medic { get; set; } = false;
 
         /// <summary>
         /// Наружное
         /// </summary>
-        [Category("Вид|")]
+        [Category("Вид")]
         [DisplayName("Наружное")]
         public bool Out { get; set; } = false;
 
         /// <summary>
         /// Взрывозащизённое
         /// </summary>
-        [Category("Вид|")]
+        [Category("Вид")]
         [DisplayName("Взрывозащ.")]
         public bool ExpProof { get; set; } = false;
 
         /// <summary>
         /// Клапан Снаружи/Внутри
         /// </summary>
-        [Category("Вид|")]
+        [Category("Вид")]
         [DisplayName("Клапан")]
         public ValvePos Valve { get; set; } = ValvePos.Снаружи;
 
-        [Browsable(false)]
-        [DisplayName("Атмосферное давление")]
-        public float PressOut { get; set; } = 95;
+    }
 
-        [Browsable(false)]
-        public int Temp { get; set; } = -30;
+    /// <summary>
+    /// Информация о проекте
+    /// </summary>
+    internal class ProjectInfoVM : ValidViewModel
+    {
+
+        public ProjectInfoVM()
+        {
+            Order = new() { Parent = this };
+            Settings = new() { Parent = this };
+            View = new() { Parent = this };
+        }
+
+        public Order Order { get; set; }
+
+        public Settings Settings { get; set; }
+
+        public View View { get; set; }
     }
 }

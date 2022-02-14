@@ -62,13 +62,13 @@ namespace VentWPF.ViewModel
         [DisplayName("Отн. влажность на выходе")]
         [FormatString(fper)]
         [DependsOn(nameof(TempIn), nameof(TempOut))]
-        public float HumidOutRel => ProjectInfo.PressOut / pD2 / ((float)0.6222 / (HumidOutAbs * 1000 + 1)) / 10;
+        public float HumidOutRel => ProjectInfo.Settings.PressOut / pD2 / ((float)0.6222 / (HumidOutAbs * 1000 + 1)) / 10;
 
         [Category(Info)]
         [DisplayName("Мощность")]
         [FormatString(fkW)]
         [DependsOn(nameof(TempIn), nameof(TempOut))]
-        public float Power => (ProjectInfo.VFlow / 3600f * 1.2f) * (EnthalpyIn - EnthalpyOut);
+        public float Power => (ProjectInfo.Settings.VFlow / 3600f * 1.2f) * (EnthalpyIn - EnthalpyOut);
 
         [Browsable(false)]
         public float EnthalpyIn => Calculations.Entolpy(HumidityIn, TempIn);

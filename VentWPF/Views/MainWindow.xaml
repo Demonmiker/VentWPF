@@ -10,6 +10,7 @@
    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
    xmlns:vm="clr-namespace:VentWPF.ViewModel"
    Title="MainWindow"
+   MinHeight="500"
    Background="{DynamicResource MaterialDesignPaper}"
    FontFamily="{md:MaterialDesignFont}"
    TextElement.FontSize="14"
@@ -137,12 +138,17 @@
                            Visibility="{Binding Project.ProjectInfo.HasErrors}" />
                      </StackPanel>
                   </TabItem.Header>
-                  <pt:PropertyGrid
-                     Width="400"
-                     HorizontalAlignment="Left"
-                     EnumAsRadioButtonsLimit="1"
-                     SelectedObject="{Binding Project.ProjectInfo}"
-                     ShowDeclaredOnly="True" />
+                  <StackPanel>
+                     <Expander Width="auto" ExpandDirection="Right">
+                        <pt:PropertyGrid SelectedObject="{Binding Project.ProjectInfo.Settings}" />
+                     </Expander>
+                     <Expander ExpandDirection="Right">
+                        <pt:PropertyGrid SelectedObject="{Binding Project.ProjectInfo.Order}" />
+                     </Expander>
+                     <Expander ExpandDirection="Right">
+                        <pt:PropertyGrid SelectedObject="{Binding Project.ProjectInfo.View}" />
+                     </Expander>
+                  </StackPanel>
                </TabItem>
                <!--  Информация  -->
                <TabItem>
@@ -171,16 +177,7 @@
                         Height="300"
                         HorizontalAlignment="Stretch"
                         BorderThickness="2"
-                        BorderBrush="Black">
-                        <!-- <Border.Background>
-                                    <ImageBrush
-                                        ImageSource="C:\Users\stig1\source\repos\VentWPF\VentWPF\Assets\Images\Sections\Section_LRD.png"
-                                        TileMode="Tile"
-                                        Viewport="0 0 100 100"
-                                        ViewportUnits="Absolute"/>
-                                </Border.Background>
-                        -->
-                     </Border>
+                        BorderBrush="Black" />
                      <GridSplitter Width="6" VerticalAlignment="Stretch" />
 
                   </Grid>
@@ -328,11 +325,7 @@
                      TextWrapping="WrapWithOverflow" />
                </Grid>
                <ScrollViewer Grid.Row="1" Margin="7,5,0,5">
-                  <pt:PropertyGrid
-                     EnableLabelWidthResizing="True"
-                     EnumAsRadioButtonsLimit="1"
-                     SelectedObject="{Binding Project.Grid.Selected}"
-                     TabVisibility="Collapsed" />
+                  <pt:PropertyGrid EnableLabelWidthResizing="True" SelectedObject="{Binding Project.Grid.Selected}" />
                </ScrollViewer>
                <GridSplitter Grid.Row="1"
                   Height="6"

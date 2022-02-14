@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls.Primitives;
 using VentWPF.Tools;
 
@@ -48,10 +45,11 @@ namespace VentWPF.ViewModel
                     new Section() { Direction = SectionType.LeftRightShort },
                     new Section() { Direction = SectionType.LeftRightValve },
                     new Section() { Direction = SectionType.LeftUpRightValve }
+                    //new Section() { Direction = SectionType.LeftRightShort , TwoRowsOnly=true},//Для только двухярусных
                 ),
                 new("Шумоглушитель", "Muffler", new MufflerDefault(), new MufflerCorrector()),
                 new("Увлажнитель", "Humidifier", new HumidCell(), new HumidSpray(), new HumidSteam()),
-                new("Рекуператор", "Recuperator"),
+                new("Рекуператор", "Recuperator", true),
             };
         }
 
@@ -68,9 +66,20 @@ namespace VentWPF.ViewModel
             CmdOpenPopup = new Command<Popup>(OpenPopup);
         }
 
+        public CreateMenu(string name, string image, bool twoRowsOnly, params Element[] elements)
+        {
+            TwoRowsOnly = twoRowsOnly;
+            Name = name;
+            Image = Path.GetFullPath($"Assets/Images/Icons/_Menu/{image}.png");
+            Elements = elements.Select(x => new CreateButton(x)).ToList();
+            CmdOpenPopup = new Command<Popup>(OpenPopup);
+        }
+
         public string Name { get; set; }
 
         public string Image { get; set; }
+
+        public bool TwoRowsOnly { get; set; } = false;
 
         public List<CreateButton> Elements { get; set; }
 
@@ -88,17 +97,26 @@ namespace VentWPF.ViewModel
         public CreateButton(Element el)
         {
             CmdAdd = new Command<object>((x) => Add());
+            CmdInsert = new Command<object>((x) => Insert());
             Element = el;
+            TwoRowsOnly = el.TwoRowsOnly;
         }
 
-        public Element Element { get; set; }
+        public Element Element { get; init; }
 
-        public Command<object> CmdAdd { get; set; } = new Command<object>();
+        public bool TwoRowsOnly { get; init; }
+
+        public Command<object> CmdAdd { get; init; } = new Command<object>();
 
         // Добавляет элемент
         private void Add()
         {
             ProjectVM.Current.Grid.AddElement(Element);
+        }
+        public Command<object> CmdInsert { get; init; } = new Command<object>();
+        private void Insert()
+        {
+            ProjectVM.Current.Grid.InsertElement(Element);
         }
     }
 }

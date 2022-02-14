@@ -17,9 +17,9 @@ namespace VentWPF.Fans.Nicotra
 
         public double Height { get; set; } = 1; //высота в метрах
 
-        public double FlowRate { get; set; } = Project.VFlow; //VFlow
+        public double FlowRate { get; set; } = Project.Settings.VFlow; //VFlow
 
-        public double StaticPressure { get; set; } = Project.PFlow; //Статическое сопр давления
+        public double StaticPressure { get; set; } = Project.Settings.PFlow; //Статическое сопр давления
 
         public double TotalPressure { get; set; } //Тотальное(?)
 

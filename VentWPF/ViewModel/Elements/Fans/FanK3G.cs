@@ -19,9 +19,9 @@ namespace VentWPF.ViewModel
                     Altitude = 0,
                     Installation = InstallationType.DIDO,
                     Pressure = PressureType.Static,//чо
-                    RequiredPressure = ProjectInfo.PReserv,
+                    RequiredPressure = ProjectInfo.Settings.PReserv,
                     V = 0,
-                    Volumenstrom = ProjectInfo.VFlow / 3600.0f,
+                    Volumenstrom = ProjectInfo.Settings.VFlow / 3600.0f,
                 }
             };
         }
