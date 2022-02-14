@@ -56,8 +56,8 @@ namespace VentWPF.ViewModel
             //}
             var pp = IOManager.LoadAsJson<PackedProject>("project.json");
             pp.Order.InitParent(this.ProjectInfo);
-            pp.Order.InitParent(this.ProjectInfo);
-            pp.Order.InitParent(this.ProjectInfo);
+            pp.Settings.InitParent(this.ProjectInfo);
+            pp.View.InitParent(this.ProjectInfo);
             // PI
             ProjectInfo.Order = pp.Order;
             ProjectInfo.Settings = pp.Settings;
@@ -68,7 +68,7 @@ namespace VentWPF.ViewModel
                 if (pp.Elements[i] is not null)
                 {
                     Grid.Elements[i] = pp.Elements[i];
-                    //Grid.Elements[i].UpdateQuery();
+                    Grid.Elements[i].UpdateQuery();
                     ErrorManager.Add(Grid.Elements[i], $"[{i % 10 + 1},{i / 10 + 1}]");
                 }
             // Каркас пока не сохраняется
@@ -95,7 +95,9 @@ namespace VentWPF.ViewModel
             ProjectInfo = new();
             TaskManager = new();
             ErrorManager = new();
-            ErrorManager.Add(ProjectInfo, "Информация о проекте");
+            ErrorManager.Add(ProjectInfo.Order, "Заказ");
+            ErrorManager.Add(ProjectInfo.Settings, "Настройки");
+            ErrorManager.Add(ProjectInfo.View, "Вид");
             Grid = new();
             Grid.ErrorManager = ErrorManager;
             Frame = new(500, ProjectInfo.Settings.Width, ProjectInfo.Settings.Height);

@@ -211,6 +211,7 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Обозначает что элемент можем быть только в установке с двумя рядами
         /// </summary>
+        [Browsable(false)]
         public bool TwoRowsOnly { get; init; } = false;
 
         public static T GetInstance<T>(T o)

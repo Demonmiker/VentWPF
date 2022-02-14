@@ -21,6 +21,16 @@
    <Window.DataContext>
       <vm:MainViewModel />
    </Window.DataContext>
+   <Window.InputBindings>
+      <KeyBinding
+         Key="O"
+         Modifiers="Control"
+         Command="{Binding CmdLoad}" />
+      <KeyBinding
+         Key="S"
+         Modifiers="Control"
+         Command="{Binding CmdSave}" />
+   </Window.InputBindings>
    <b:Interaction.Triggers>
       <b:EventTrigger EventName="Closed">
          <b:InvokeCommandAction Command="{Binding CmdWindowClosed}" PassEventArgsToCommand="True" />
@@ -30,8 +40,14 @@
       <!--  Верхнее контекстное меню  -->
       <Menu DockPanel.Dock="Top">
          <MenuItem Header="Файл">
-            <MenuItem Command="{Binding CmdSave}" Header="Сохранить" />
-            <MenuItem Command="{Binding CmdLoad}" Header="Загрузить" />
+            <MenuItem
+               Command="{Binding CmdSave}"
+               Header="Сохранить"
+               InputGestureText="Ctrl + S" />
+            <MenuItem
+               Command="{Binding CmdLoad}"
+               Header="Загрузить"
+               InputGestureText="Ctrl + O" />
          </MenuItem>
          <MenuItem Header="Настройки">
             <MenuItem Command="{Binding CmdConfig}" Header="Запрос" />
@@ -138,17 +154,16 @@
                            Visibility="{Binding Project.ProjectInfo.HasErrors}" />
                      </StackPanel>
                   </TabItem.Header>
-                  <StackPanel>
-                     <Expander Width="auto" ExpandDirection="Right">
-                        <pt:PropertyGrid SelectedObject="{Binding Project.ProjectInfo.Settings}" />
-                     </Expander>
-                     <Expander ExpandDirection="Right">
+                  <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                     <StackPanel>
+                        <!--<Expander Width="auto" ExpandDirection="Right">
+                           <pt:PropertyGrid SelectedObject="{Binding Project.ProjectInfo.Settings}" />
+                        </Expander>-->
                         <pt:PropertyGrid SelectedObject="{Binding Project.ProjectInfo.Order}" />
-                     </Expander>
-                     <Expander ExpandDirection="Right">
+                        <pt:PropertyGrid SelectedObject="{Binding Project.ProjectInfo.Settings}" />
                         <pt:PropertyGrid SelectedObject="{Binding Project.ProjectInfo.View}" />
-                     </Expander>
-                  </StackPanel>
+                     </StackPanel>
+                  </ScrollViewer>
                </TabItem>
                <!--  Информация  -->
                <TabItem>
