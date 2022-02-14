@@ -91,6 +91,9 @@
          </Grid.Style>
          <Button Command="{Binding CmdAdd}">
             <Image Source="{Binding Element.Image}" />
+            <Button.InputBindings>
+               <MouseBinding Gesture="RightClick" Command="{Binding CmdInsert}" />
+            </Button.InputBindings>
          </Button>
 
       </Grid>

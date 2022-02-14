@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls.Primitives;
 using VentWPF.Tools;
 
@@ -52,7 +49,7 @@ namespace VentWPF.ViewModel
                 ),
                 new("Шумоглушитель", "Muffler", new MufflerDefault(), new MufflerCorrector()),
                 new("Увлажнитель", "Humidifier", new HumidCell(), new HumidSpray(), new HumidSteam()),
-                new("Рекуператор", "Recuperator",true),
+                new("Рекуператор", "Recuperator", true),
             };
         }
 
@@ -69,7 +66,7 @@ namespace VentWPF.ViewModel
             CmdOpenPopup = new Command<Popup>(OpenPopup);
         }
 
-        public CreateMenu(string name, string image,bool twoRowsOnly, params Element[] elements)
+        public CreateMenu(string name, string image, bool twoRowsOnly, params Element[] elements)
         {
             TwoRowsOnly = twoRowsOnly;
             Name = name;
@@ -100,6 +97,7 @@ namespace VentWPF.ViewModel
         public CreateButton(Element el)
         {
             CmdAdd = new Command<object>((x) => Add());
+            CmdInsert = new Command<object>((x) => Insert());
             Element = el;
             TwoRowsOnly = el.TwoRowsOnly;
         }
@@ -114,6 +112,11 @@ namespace VentWPF.ViewModel
         private void Add()
         {
             ProjectVM.Current.Grid.AddElement(Element);
+        }
+        public Command<object> CmdInsert { get; init; } = new Command<object>();
+        private void Insert()
+        {
+            ProjectVM.Current.Grid.InsertElement(Element);
         }
     }
 }

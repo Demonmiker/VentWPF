@@ -33,6 +33,7 @@ namespace VentWPF.ViewModel
         private float pressureDrop = 0;
 
         protected static ProjectInfoVM ProjectInfo { get; set; } = ProjectVM.Current?.ProjectInfo;
+
         protected static ProjectVM Project { get; set; } = ProjectVM.Current;
 
         /// <summary>
@@ -174,7 +175,7 @@ namespace VentWPF.ViewModel
         {
             List<TableRow> rowList = new();
             TableRow header = new();
-            header.Cells.Add(new(new Paragraph(new Run(this.Name)) { FontSize = 20 ,TextAlignment=TextAlignment.Left}));
+            header.Cells.Add(new(new Paragraph(new Run(this.Name)) { FontSize = 20, TextAlignment = TextAlignment.Left }));
             rowList.Add(header);
             List<InfoLine> infos = InfoLine.GenerateInfoLines(this, DeviceType, InfoProperties).ToList();
             while (infos.Count % columns > 0)

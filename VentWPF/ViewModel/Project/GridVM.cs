@@ -97,6 +97,19 @@ namespace VentWPF.ViewModel
             ErrorManager.Add(Elements[Index], $"[{Index % 10 + 1},{Index / 10 + 1}]");
         }
 
+
+        /// <summary>
+        /// Добавить элемент в установку
+        /// </summary>
+        /// <param name="el">добавляемый элементы</param>
+        public void InsertElement(Element el)
+        {
+            int n = Index < 10 ? 9 : 19;
+            for (int i = n; i > Index; i--)
+                Elements[i] = Elements[i - 1];
+            AddElement(el);
+        }
+
         public Command<object> CmdRemove { get; set; }
 
         /// <summary>
