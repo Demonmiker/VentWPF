@@ -22,6 +22,7 @@
       <vm:MainViewModel />
    </Window.DataContext>
    <Window.InputBindings>
+      <KeyBinding Gesture="Ctrl+Shift+N" Command="{Binding CmdNew}" />
       <KeyBinding Gesture="Ctrl+O" Command="{Binding CmdLoad}" />
       <KeyBinding
          Gesture="Ctrl+S"
@@ -41,7 +42,10 @@
       <!--  Верхнее контекстное меню  -->
       <Menu DockPanel.Dock="Top">
          <MenuItem Header="Файл">
-            <MenuItem Header="Новый" InputGestureText="Ctrl+Shift+N" />
+            <MenuItem
+               Header="Новый"
+               InputGestureText="Ctrl+Shift+N"
+               Command="{Binding CmdNew}" />
             <MenuItem
                Command="{Binding CmdSave}"
                CommandParameter="{Binding Project.Path}"

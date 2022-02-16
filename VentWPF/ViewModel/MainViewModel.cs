@@ -18,6 +18,7 @@ namespace VentWPF.ViewModel
             CmdWindowClosed = new(OnWindowClosed);
             CmdSave = new Command<string>(ProjectVM.Current.SaveProject);
             CmdLoad = new Command<object>(ProjectVM.Current.LoadProject);
+            CmdNew = new Command<object>(ProjectVM.Current.NewProject);
             CmdUpdateReport = new Command<object>(UpdateReport);
             CmdSaveReport = new Command<object>(SaveReport);
             ReportViewer.Document = ReportDocument;
@@ -38,6 +39,8 @@ namespace VentWPF.ViewModel
         public Command<string> CmdSave { get; init; }
 
         public Command<object> CmdLoad { get; init; }
+
+        public Command<object> CmdNew { get; init; }
 
         public Command<string> CmdConfig { get; init; }
 
