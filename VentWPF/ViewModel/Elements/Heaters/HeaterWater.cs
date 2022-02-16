@@ -1,4 +1,5 @@
 ﻿using PropertyTools.DataAnnotations;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,12 +16,13 @@ namespace VentWPF.ViewModel
     {
         public override void UpdateQuery()
         {
-            DeviceType = typeof(ВодаТепло);
             Query = new DatabaseQuery<ВодаТепло>
             {
                 Source = from h in VentContext.Instance.ВодаТеплоs select h
             };
         }
+
+        public override Type DeviceType => typeof(ВодаТепло);
 
         public override string Image => ImagePath("Heaters/Water");
 
