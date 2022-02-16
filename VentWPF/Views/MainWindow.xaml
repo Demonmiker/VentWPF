@@ -22,14 +22,15 @@
       <vm:MainViewModel />
    </Window.DataContext>
    <Window.InputBindings>
+      <KeyBinding Gesture="Ctrl+O" Command="{Binding CmdLoad}" />
       <KeyBinding
-         Key="O"
-         Modifiers="Control"
-         Command="{Binding CmdLoad}" />
+         Gesture="Ctrl+S"
+         Command="{Binding CmdSave}"
+         CommandParameter="{Binding Project.Path}" />
       <KeyBinding
-         Key="S"
-         Modifiers="Control"
-         Command="{Binding CmdSave}" />
+         Gesture="Ctrl+Shift+S"
+         Command="{Binding CmdSave}"
+         CommandParameter="{x:Null}" />
    </Window.InputBindings>
    <b:Interaction.Triggers>
       <b:EventTrigger EventName="Closed">
@@ -40,14 +41,21 @@
       <!--  Верхнее контекстное меню  -->
       <Menu DockPanel.Dock="Top">
          <MenuItem Header="Файл">
+            <MenuItem Header="Новый" InputGestureText="Ctrl+Shift+N" />
             <MenuItem
                Command="{Binding CmdSave}"
+               CommandParameter="{Binding Project.Path}"
                Header="Сохранить"
-               InputGestureText="Ctrl + S" />
+               InputGestureText="Ctrl+S" />
+            <MenuItem
+               Command="{Binding CmdSave}"
+               CommandParameter="{x:Null}"
+               Header="Сохранить как"
+               InputGestureText="Ctrl+Shift+S" />
             <MenuItem
                Command="{Binding CmdLoad}"
                Header="Загрузить"
-               InputGestureText="Ctrl + O" />
+               InputGestureText="Ctrl+O" />
          </MenuItem>
          <MenuItem Header="Настройки">
             <MenuItem Command="{Binding CmdConfig}" Header="Запрос" />
@@ -56,26 +64,37 @@
          </MenuItem>
       </Menu>
       <!--  Статус бар внизу  -->
-      <StatusBar DockPanel.Dock="Bottom">
-         <TextBlock>
-            <Run Text="Очередь запросов" />
-            <Run Text="{Binding Project.TaskManager.Count, Mode=OneWay}" />
-         </TextBlock>
-         <fa5:SvgAwesome
-            Width="20"
-            Height="18"
-            Foreground="{Binding Project.ErrorManager.HasErrors, Converter={StaticResource brGR}}">
-            <fa5:SvgAwesome.Style>
-               <Style TargetType="{x:Type fa5:SvgAwesome}">
-                  <Setter Property="Icon" Value="Solid_ExclamationTriangle" />
-                  <Style.Triggers>
-                     <DataTrigger Binding="{Binding Project.ErrorManager.HasErrors}" Value="false">
-                        <Setter Property="Icon" Value="Solid_CheckCircle" />
-                     </DataTrigger>
-                  </Style.Triggers>
-               </Style>
-            </fa5:SvgAwesome.Style>
-         </fa5:SvgAwesome>
+      <StatusBar DockPanel.Dock="Bottom"
+         Padding="4,2"
+         FontSize="14">
+         <!--  Статус ошибок проекта  -->
+         <StackPanel ToolTip="Индикатор ошибок в проекте" Orientation="Horizontal">
+            <fa5:SvgAwesome Height="18" Foreground="{Binding Project.ErrorManager.HasErrors, Converter={StaticResource brGR}}">
+               <fa5:SvgAwesome.Style>
+                  <Style TargetType="{x:Type fa5:SvgAwesome}" BasedOn="{StaticResource query-icon}">
+                     <Setter Property="Icon" Value="Solid_ExclamationTriangle" />
+                     <Style.Triggers>
+                        <DataTrigger Binding="{Binding Project.ErrorManager.HasErrors}" Value="false">
+                           <Setter Property="Icon" Value="Solid_CheckCircle" />
+                        </DataTrigger>
+                     </Style.Triggers>
+                  </Style>
+               </fa5:SvgAwesome.Style>
+            </fa5:SvgAwesome>
+            <TextBlock
+               Margin="4,0,0,0"
+               Text="{Binding Project.ErrorManager.ErrorCount}"
+               Visibility="{Binding Project.ErrorManager.ErrorCount, Converter={StaticResource NotZeroToVisibilityConverter}}" />
+         </StackPanel>
+         <!--    -->
+         <StackPanel Orientation="Horizontal" Visibility="{Binding Project.TaskManager.Count, Converter={StaticResource NotZeroToVisibilityConverter}}">
+            <fa5:SvgAwesome Icon="Solid_Download" />
+            <TextBlock>
+               <Run Text="{Binding Project.TaskManager.Count, Mode=OneWay}" />
+            </TextBlock>
+         </StackPanel>
+         <!--    -->
+         <TextBlock MinWidth="50" Text="{Binding Project.Status}" />
       </StatusBar>
       <Grid Margin="0,0,0,0">
          <Grid.ColumnDefinitions>

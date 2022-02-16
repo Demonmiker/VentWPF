@@ -6,17 +6,17 @@
    <Application.Resources>
       <ResourceDictionary>
          <ResourceDictionary.MergedDictionaries>
-            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml"/>
-            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml"/>
-            <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml"/>
-            <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml"/>
-            <ResourceDictionary Source="Views/Resourses/Converters.xaml"/>
-            <ResourceDictionary Source="Views/Resourses/Styles.xaml"/>
-            <ResourceDictionary Source="Views/FrameView.xaml"/>
-            <ResourceDictionary Source="Views/CreateView.xaml"/>
-            <ResourceDictionary Source="Views/GridView.xaml"/>
-            <ResourceDictionary Source="Views/FrameSideView.xaml"/>
-            <ResourceDictionary Source="Views/SchemeView.xaml"/>
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+            <ResourceDictionary Source="Views/Resourses/Converters.xaml" />
+            <ResourceDictionary Source="Views/Resourses/Styles.xaml" />
+            <ResourceDictionary Source="Views/FrameView.xaml" />
+            <ResourceDictionary Source="Views/CreateView.xaml" />
+            <ResourceDictionary Source="Views/GridView.xaml" />
+            <ResourceDictionary Source="Views/FrameSideView.xaml" />
+            <ResourceDictionary Source="Views/SchemeView.xaml" />
          </ResourceDictionary.MergedDictionaries>
       </ResourceDictionary>
    </Application.Resources>

@@ -13,13 +13,13 @@ namespace VentWPF.ViewModel
         public ObservableCollection<string> Errors { get; init; } = new ObservableCollection<string>();
 
         [DependsOn("errorCount")]
-        public bool HasErrors => errorCount > 0;
+        public bool HasErrors => ErrorCount > 0;
 
         private List<ValidViewModel> ValidModels { get; init; } = new();
 
         private List<string> Names { get; init; } = new();
 
-        private int errorCount { get; set; } = 0;
+        public int ErrorCount { get; private set; } = 0;
 
         public void Add(ValidViewModel o, string name)
         {
@@ -62,9 +62,9 @@ namespace VentWPF.ViewModel
             bool old = Errors[ind].Length > 0;
             bool cur = error.Length > 0;
             if (cur && !old)
-                errorCount++;
+                ErrorCount++;
             else if (!cur && old)
-                errorCount--;
+                ErrorCount--;
             if (error != "")
             {
                 Errors[ind] = $"\n{(Names[ind] != null ? Names[ind] + "\n" : "")}{error}";
