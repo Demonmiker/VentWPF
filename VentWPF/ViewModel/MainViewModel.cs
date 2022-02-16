@@ -89,20 +89,20 @@ namespace VentWPF.ViewModel
                         Binding = new Binding(header) { Converter = format },
                         Value = true,
                         Setters =
-                {
-                    new Setter() { Property = DataGridCell.BackgroundProperty, Value = Brushes.PaleGreen},
-                    new Setter() { Property = DataGridCell.ForegroundProperty, Value = Brushes.DarkGreen},
-                }
+                        {
+                            new Setter() { Property = DataGridCell.BackgroundProperty, Value = Brushes.PaleGreen},
+                            new Setter() { Property = DataGridCell.ForegroundProperty, Value = Brushes.DarkGreen},
+                        }
                     });
                     style.Triggers.Add(new DataTrigger()
                     {
                         Binding = new Binding(header) { Converter = format },
                         Value = false,
                         Setters =
-                {
-                    new Setter() { Property = DataGridCell.BackgroundProperty, Value = Brushes.Pink},
-                    new Setter() { Property = DataGridCell.ForegroundProperty, Value = Brushes.DarkRed},
-                }
+                        {
+                            new Setter() { Property = DataGridCell.BackgroundProperty, Value = Brushes.Pink},
+                            new Setter() { Property = DataGridCell.ForegroundProperty, Value = Brushes.DarkRed},
+                        }
                     });
                     e.Column.CellStyle = style;
                 }

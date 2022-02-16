@@ -174,7 +174,7 @@
                         <fa5:SvgAwesome
                            Foreground="Red"
                            Icon="Solid_ExclamationCircle"
-                           Visibility="{Binding Project.ProjectInfo.HasErrors}" />
+                           Visibility="{Binding Project.ProjectInfo.HasErrors, Converter={StaticResource visConv}}" />
                      </StackPanel>
                   </TabItem.Header>
                   <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
@@ -226,7 +226,7 @@
                   <ContentControl x:Name="frame" Content="{Binding Project.Frame}" />
                   <b:Interaction.Triggers>
                      <b:EventTrigger EventName="Loaded">
-                        <b:InvokeCommandAction Command="{Binding CmdLinkGui}" CommandParameter="{Binding ElementName=frame}" />
+                        <b:InvokeCommandAction Command="{Binding Project.CmdLinkGui}" CommandParameter="{Binding ElementName=frame}" />
                      </b:EventTrigger>
                   </b:Interaction.Triggers>
                   <TabItem.Header>
