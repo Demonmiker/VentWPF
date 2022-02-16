@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using VentWPF.Fans.Nicotra;
 
 namespace VentWPF.ViewModel
@@ -7,7 +8,6 @@ namespace VentWPF.ViewModel
     {
         public override void UpdateQuery()
         {
-            DeviceType = typeof(FanPData);
             Query = new FanPQuery()
             {
                 // TODO: @stigGGGer Никуда не годится такой запрос
@@ -15,6 +15,8 @@ namespace VentWPF.ViewModel
                 Source = new FanPRequest()
             };
         }
+
+        public override Type DeviceType => typeof(FanPData);
 
         public override string Image => ImagePath($"FanP/{Direction}");
 

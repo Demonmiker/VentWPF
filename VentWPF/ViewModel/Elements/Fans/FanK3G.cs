@@ -2,6 +2,7 @@
 using VentWPF.Fans.K3G;
 using PropertyTools.DataAnnotations;
 using static VentWPF.ViewModel.Strings;
+using System;
 
 namespace VentWPF.ViewModel
 {
@@ -9,7 +10,6 @@ namespace VentWPF.ViewModel
     {
         public override void UpdateQuery()
         {
-            DeviceType = typeof(FanK3GData);
             Query = new FanK3GQuery()
             {
                 Source = new FanK3GRequest()
@@ -25,6 +25,8 @@ namespace VentWPF.ViewModel
                 }
             };
         }
+
+        public override Type DeviceType => typeof(FanK3GData);
 
 
         [Category(Data)]

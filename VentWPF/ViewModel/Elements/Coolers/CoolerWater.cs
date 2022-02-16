@@ -15,12 +15,13 @@ namespace VentWPF.ViewModel
     {
         public override void UpdateQuery()
         {
-            DeviceType = typeof(ВодаХолод);
             Query = new DatabaseQuery<ВодаХолод>
             {
                 Source = from o in VentContext.Instance.ВодаХолодs select o
             };
         }
+
+        public override Type DeviceType => typeof(ВодаХолод);
 
         public override int Width => (int)((DeviceData as ВодаХолод)?.ШиринаГабарит ?? 0);
 

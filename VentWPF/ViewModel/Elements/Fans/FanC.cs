@@ -6,6 +6,7 @@ using VentWPF.Model.Calculations;
 using VentWPF.Model;
 using PropertyChanged;
 using static VentWPF.ViewModel.Strings;
+using System;
 
 namespace VentWPF.ViewModel
 {
@@ -13,7 +14,6 @@ namespace VentWPF.ViewModel
     {
         public override void UpdateQuery()
         {
-            DeviceType = typeof(FanCData);
             Query = new FanCQuery()
             {
                 Source = new FanCRequest()
@@ -36,6 +36,8 @@ namespace VentWPF.ViewModel
                 }
             };
         }
+
+        public override Type DeviceType => typeof(FanCData);
 
         [Category(Data)]
         [FormatString(fm3Ph)]

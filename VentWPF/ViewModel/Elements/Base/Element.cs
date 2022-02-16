@@ -28,7 +28,7 @@ namespace VentWPF.ViewModel
         /// Тип модели реализации класса
         /// </summary>
         [Browsable(false)]
-        public Type DeviceType { get; protected set; }
+        public virtual Type DeviceType => null;
 
         private float pressureDrop = 0;
 
