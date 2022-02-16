@@ -89,6 +89,21 @@
                   </ListBox.ItemTemplate>
                </ListBox>
             </ScrollViewer>
+            <StackPanel Margin="3,0,0,0" VerticalAlignment="Center">
+               <TextBox
+                  MinWidth="80"
+                  Padding="10,0"
+                  Text="{Binding Project.ProjectInfo.Settings.Width}"
+                  TextAlignment="Center"
+                  Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+               <TextBlock Text="x" TextAlignment="Center" />
+               <TextBox
+                  MinWidth="80"
+                  Padding="10,0"
+                  Text="{Binding Project.ProjectInfo.Settings.Height}"
+                  TextAlignment="Center"
+                  Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+            </StackPanel>
          </StackPanel>
 
       </md:Card>
