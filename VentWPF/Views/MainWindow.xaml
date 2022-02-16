@@ -182,9 +182,9 @@
                         <!--<Expander Width="auto" ExpandDirection="Right">
                            <pt:PropertyGrid SelectedObject="{Binding Project.ProjectInfo.Settings}" />
                         </Expander>-->
-                        <pt:PropertyGrid SelectedObject="{Binding Project.ProjectInfo.Order}" />
-                        <pt:PropertyGrid SelectedObject="{Binding Project.ProjectInfo.Settings}" />
-                        <pt:PropertyGrid SelectedObject="{Binding Project.ProjectInfo.View}" />
+                        <pt:PropertyGrid Width="350" SelectedObject="{Binding Project.ProjectInfo.Order}" />
+                        <pt:PropertyGrid Width="350" SelectedObject="{Binding Project.ProjectInfo.Settings}" />
+                        <pt:PropertyGrid Width="350" SelectedObject="{Binding Project.ProjectInfo.View}" />
                      </StackPanel>
                   </ScrollViewer>
                </TabItem>
