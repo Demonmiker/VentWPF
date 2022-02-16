@@ -26,7 +26,7 @@ namespace VentWPF.ViewModel
 
         public FlowDocumentScrollViewer ReportViewer { get; private set; } = new FlowDocumentScrollViewer();
 
-        public FlowDocument ReportDocument { get; init; } = new FlowDocument() { FontFamily = new FontFamily("Times New Roman") };
+        public FlowDocument ReportDocument { get; init; } = new FlowDocument() {  FontFamily = new FontFamily("Times New Roman") };
 
         public int DeviceIndex => ProjectVM.Current.Grid.Selected.DeviceIndex;
 

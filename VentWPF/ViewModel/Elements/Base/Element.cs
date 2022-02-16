@@ -41,6 +41,8 @@ namespace VentWPF.ViewModel
         /// </summary>
         [Browsable(false)]
         [DependsOn("DeviceData")]
+        // TODO: @stigGGGer  Name снова работает в info панели
+        // нужно переопределить на элементах с девайсами
         public virtual string Name => "";
 
         /// <summary>
@@ -175,7 +177,9 @@ namespace VentWPF.ViewModel
         {
             List<TableRow> rowList = new();
             TableRow header = new();
-            header.Cells.Add(new(new Paragraph(new Run(this.Name)) { FontSize = 20, TextAlignment = TextAlignment.Left }));
+            var p = new InfoLine(this, "Name").ToParagraph(true,true);
+            p.FontSize = 20; p.TextAlignment = TextAlignment.Left;
+            header.Cells.Add(new(p));
             rowList.Add(header);
             List<InfoLine> infos = InfoLine.GenerateInfoLines(this, DeviceType, InfoProperties).ToList();
             while (infos.Count % columns > 0)
