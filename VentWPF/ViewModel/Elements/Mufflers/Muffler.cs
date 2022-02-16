@@ -22,7 +22,7 @@ namespace VentWPF.ViewModel
         [FormatString(fmm)]
         public SectionLength SectionLen { get; set; }
 
-        protected override float GeneratedPressureDrop => SectionLen switch
+        protected override float GenPD() => SectionLen switch
         {
             SectionLength.секция500 => 25,
             SectionLength.секция1000 => 55,

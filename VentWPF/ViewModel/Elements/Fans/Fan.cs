@@ -41,8 +41,5 @@ namespace VentWPF.ViewModel
         [FormatString(fkPa)]
         public float PressureRaise => ProjectInfo.Settings.PFlow + Calculations.GPD(Project.Grid.InTopRow(this));
 
-        protected override float GeneratedPressureDrop => 0;
-
-        // тут типо вычисляяю всё
     }
 }

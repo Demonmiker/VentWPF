@@ -73,7 +73,7 @@
                            <TextBlock
                               HorizontalAlignment="Stretch"
                               VerticalAlignment="Bottom"
-                              Visibility="{Binding DeviceData, Converter={StaticResource visConv}}"
+                              Visibility="{Binding Width, Converter={StaticResource visConv}}"
                               TextAlignment="Center"
                               Background="#a000"
                               Foreground="{Binding CorrectSize, Converter={StaticResource brRG}}">

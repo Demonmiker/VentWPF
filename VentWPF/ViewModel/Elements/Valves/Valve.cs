@@ -15,7 +15,7 @@ namespace VentWPF.ViewModel
             ShowPD = true;
         }
 
-        protected override float GeneratedPressureDrop => 15;
+        protected override float GenPD() => 15;
 
         [Category(Data)]
         [FormatString(fmm)]
@@ -47,5 +47,9 @@ namespace VentWPF.ViewModel
             SizeType.ТипоРазмер100 => (2210),
             _ => (0)
         };
+
+
+        public override int Width => WidthValve;
+        public override int Height => HeightValve;
     }
 }
