@@ -2,6 +2,9 @@
 {
     internal record PackedProject
     {
+
+        public string ProjectPath { get; init; }
+
         public Order Order { get; init; }
 
         public Settings Settings {get; init;} 

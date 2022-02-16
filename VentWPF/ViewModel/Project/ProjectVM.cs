@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using VentWPF.Tools;
@@ -50,11 +51,25 @@ namespace VentWPF.ViewModel
         // TODO: Реализовать сохранение и загрузку проекта
         public void LoadProject(object o)
         {
-            //var sfd = new OpenFileDialog { DefaultExt = ".json", /*Filter = "Projects (.json)|*.json"*/ };
-            //if (sfd.ShowDialog() == true)
-            //{
-            //}
-            var pp = IOManager.LoadAsJson<PackedProject>("project.json");
+            Status = "Загружаем...";
+            var workdir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\VentProjects";
+            var sfd = new OpenFileDialog
+            {
+                DefaultExt = ".json",
+                Filter = "Projects (.json)|*.json",
+                FileName = Path is not null ? Path : "",
+                InitialDirectory = workdir,
+            };
+            if (sfd.ShowDialog() == false) { Status = ""; return; }
+            PackedProject pp = new PackedProject();
+            try
+            {
+                pp = IOManager.LoadAsJson<PackedProject>(sfd.FileName);
+            }
+            catch (Exception ex)
+            {
+                Status = "Ошибка при загрузке";
+            }
             pp.Order.InitParent(this.ProjectInfo);
             pp.Settings.InitParent(this.ProjectInfo);
             pp.View.InitParent(this.ProjectInfo);
@@ -62,7 +77,10 @@ namespace VentWPF.ViewModel
             ProjectInfo.Order = pp.Order;
             ProjectInfo.Settings = pp.Settings;
             ProjectInfo.View = pp.View;
-
+            ErrorManager.Add(ProjectInfo.Order, "Заказ");
+            ErrorManager.Add(ProjectInfo.Settings, "Настройки");
+            ErrorManager.Add(ProjectInfo.View, "Вид");
+            Path = pp.ProjectPath;
             Grid.Init(this.ProjectInfo.View.Rows);
             for (int i = 0; i < pp.Elements.Length; i++)
                 if (pp.Elements[i] is not null)
@@ -71,20 +89,57 @@ namespace VentWPF.ViewModel
                     Grid.Elements[i].UpdateQuery();
                     ErrorManager.Add(Grid.Elements[i], $"[{i % 10 + 1},{i / 10 + 1}]");
                 }
+            Status = "Проект загружен";
             // Каркас пока не сохраняется
         }
 
-        public void SaveProject(object o)
+        public string Path { get; set; } = null;
+
+        public string Status { get; set; } = "Новый проект";
+
+        public void SaveProject(string path)
         {
+            Status = "Сохраняем...";
+            if (path is null)
+            {
+                var workdir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\VentProjects";
+                if(!Directory.Exists(workdir))
+                    Directory.CreateDirectory(workdir);
+                var fileName = ProjectInfo.Order.OrderName is not null ? ProjectInfo.Order.OrderName : "project";
+                SaveFileDialog diag = new SaveFileDialog() 
+                {
+                    FileName = fileName,
+                    Title="Сохранение проекта",
+                    DefaultExt=".json",
+                    InitialDirectory=workdir,
+                };
+                var res = diag.ShowDialog();
+                if (res == true)
+                    path = diag.FileName;
+                else
+                {
+                    Status = "";
+                    return;
+                }
+            }
             PackedProject pp = new PackedProject()
             {
+                ProjectPath = path,
                 Order = this.ProjectInfo.Order,
                 Settings = this.ProjectInfo.Settings,
                 View = this.ProjectInfo.View,
                 Elements = this.Grid.Elements.Select(x => x.Name == "" ? null : x).ToArray(),
             };
-            IOManager.SaveAsJson(pp, "project.json");
-            System.Diagnostics.Process.Start("powershell", "code project.json");
+            try
+            {
+                IOManager.SaveAsJson(pp, path);
+            }
+            catch (Exception ex)
+            {
+                Status = "Ошибка при сохранении";
+            }
+            Path = path;
+            Status = "Проект сохранён";
         }
 
         /// <summary>

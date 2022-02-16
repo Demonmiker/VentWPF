@@ -16,7 +16,7 @@ namespace VentWPF.ViewModel
             ProjectVM.Current?.TaskManager.Add(() => { Microsoft.EntityFrameworkCore.DbSet<ВодаХолод> l = VentContext.Instance.ВодаХолодs; });
             CmdAutoColumns = new(AutoColumns);
             CmdWindowClosed = new(OnWindowClosed);
-            CmdSave = new Command<object>(ProjectVM.Current.SaveProject);
+            CmdSave = new Command<string>(ProjectVM.Current.SaveProject);
             CmdLoad = new Command<object>(ProjectVM.Current.LoadProject);
             CmdUpdateReport = new Command<object>(UpdateReport);
             CmdSaveReport = new Command<object>(SaveReport);
@@ -35,7 +35,7 @@ namespace VentWPF.ViewModel
 
         public Command<object> CmdWindowClosed { get; init; }
 
-        public Command<object> CmdSave { get; init; }
+        public Command<string> CmdSave { get; init; }
 
         public Command<object> CmdLoad { get; init; }
 

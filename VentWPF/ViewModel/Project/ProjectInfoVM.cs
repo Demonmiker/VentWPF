@@ -19,6 +19,14 @@ namespace VentWPF.ViewModel
         }
 
         /// <summary>
+        /// Заказ
+        /// </summary>
+        [Category("Заказ")]
+        [DisplayName("Заказ")]
+        [valid.Required]
+        public string OrderName { get; set; }
+
+        /// <summary>
         /// Дата начала проекта
         /// </summary>
         [Category("Заказ")]
@@ -34,13 +42,6 @@ namespace VentWPF.ViewModel
         [valid.Required]
         public string Worker { get; set; }
 
-        /// <summary>
-        /// Заказ
-        /// </summary>
-        [Category("Заказ")]
-        [DisplayName("Заказ")]
-        [valid.Required]
-        public string OrderName { get; set; }
 
         /// <summary>
         /// Обозначение установки
