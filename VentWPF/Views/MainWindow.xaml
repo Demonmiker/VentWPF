@@ -102,11 +102,11 @@
       </StatusBar>
       <Grid Margin="0,0,0,0">
          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*" MinWidth="600" />
+            <ColumnDefinition Width="5*" MinWidth="150" />
             <ColumnDefinition Width="2*">
                <ColumnDefinition.Style>
                   <Style TargetType="{x:Type ColumnDefinition}">
-                     <Setter Property="MaxWidth" Value="800" />
+                     <Setter Property="MaxWidth" Value="1500" />
                      <Setter Property="MinWidth" Value="400" />
                      <Style.Triggers>
                         <DataTrigger Binding="{Binding Path=Project.Grid.Index}" Value="-1">
@@ -182,9 +182,18 @@
                         <!--<Expander Width="auto" ExpandDirection="Right">
                            <pt:PropertyGrid SelectedObject="{Binding Project.ProjectInfo.Settings}" />
                         </Expander>-->
-                        <pt:PropertyGrid Width="350" SelectedObject="{Binding Project.ProjectInfo.Order}" />
-                        <pt:PropertyGrid Width="350" SelectedObject="{Binding Project.ProjectInfo.Settings}" />
-                        <pt:PropertyGrid Width="350" SelectedObject="{Binding Project.ProjectInfo.View}" />
+                        <pt:PropertyGrid
+                           Width="350"
+                           Margin="-5,0,0,0"
+                           SelectedObject="{Binding Project.ProjectInfo.Settings}" />
+                        <pt:PropertyGrid
+                           Width="350"
+                           Margin="-5,0,0,0"
+                           SelectedObject="{Binding Project.ProjectInfo.View}" />
+                        <pt:PropertyGrid
+                           Width="350"
+                           Margin="-5,0,0,0"
+                           SelectedObject="{Binding Project.ProjectInfo.Order}" />
                      </StackPanel>
                   </ScrollViewer>
                </TabItem>
@@ -324,6 +333,8 @@
             </TabControl>
          </DockPanel>
          <!--  Боковая Панель  -->
+         <!--  TODO: Нет поддержки горизонтального скрола тачпада  -->
+         <!--  TODO: У девайсов из бд не все элементы сртируются  -->
          <md:Card Grid.Column="1" md:ShadowAssist.ShadowEdges="All">
             <Grid Margin="0,2,0,0" Visibility="{Binding Project.Grid.Selected.Name, Converter={StaticResource visConv}}">
                <Grid.RowDefinitions>
@@ -346,23 +357,29 @@
                      </RowDefinition.Style>
                   </RowDefinition>
                </Grid.RowDefinitions>
-               <Grid Grid.Row="0" Margin="7,0">
-                  <Grid.ColumnDefinitions>
-                     <ColumnDefinition Width="auto" />
-                     <ColumnDefinition />
-                  </Grid.ColumnDefinitions>
-                  <Image
-                     Width="50"
-                     Height="50"
-                     Source="{Binding Project.Grid.Selected.Image}" />
-                  <TextBlock Grid.Column="1"
-                     Margin="4,0"
-                     VerticalAlignment="Bottom"
-                     Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
-                     Text="{Binding Project.Grid.Selected.Name}"
-                     TextWrapping="WrapWithOverflow" />
-               </Grid>
-               <ScrollViewer Grid.Row="1" Margin="7,5,0,5">
+               <md:Card Grid.Row="0"
+                  Padding="5"
+                  md:ShadowAssist.ShadowEdges="Bottom">
+                  <Grid Margin="7,0">
+                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition />
+                     </Grid.ColumnDefinitions>
+                     <Image
+                        Width="50"
+                        Height="50"
+                        Source="{Binding Project.Grid.Selected.Image}" />
+                     <TextBlock Grid.Column="1"
+                        Margin="4,0"
+                        VerticalAlignment="Bottom"
+                        Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
+                        Text="{Binding Project.Grid.Selected.Name}"
+                        TextWrapping="WrapWithOverflow" />
+                  </Grid>
+               </md:Card>
+               <ScrollViewer Grid.Row="1"
+                  Margin="-1,5,0,5"
+                  VerticalScrollBarVisibility="Auto">
                   <pt:PropertyGrid EnableLabelWidthResizing="True" SelectedObject="{Binding Project.Grid.Selected}" />
                </ScrollViewer>
                <GridSplitter Grid.Row="1"

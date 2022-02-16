@@ -69,9 +69,9 @@
       <Setter Property="Height" Value="75" />
       <Setter Property="Width" Value="75" />
    </Style>
-   <!--<Style BasedOn="{StaticResource MaterialDesignGroupBox}" TargetType="GroupBox">
-      <Setter Property="FontSize" Value="13"/>
-   </Style>-->
+   <Style BasedOn="{StaticResource MaterialDesignGroupBox}" TargetType="GroupBox">
+      <Setter Property="BorderThickness" Value="0" />
+   </Style>
    <Style TargetType="{x:Type fa5:SvgAwesome}">
       <Setter Property="Foreground" Value="{StaticResource PrimaryHueDarkBrush}" />
       <Setter Property="Height" Value="12" />
