@@ -221,7 +221,7 @@ namespace VentWPF.ViewModel
 
         protected override string OnValidation()
         {
-            return (DeviceType is not null && DeviceData is null ? "Не выбрана модель устройства\n" : "") +
+            return (DeviceType is not null && DeviceData is null ? "Не выбрана модель устройства" : "") +
                           (!CorrectSize ? "Не подходит по размерам" : "");
         }
 

@@ -41,7 +41,7 @@
                   SelectedItem="{Binding Selected}">
                   <ListBox.ItemsPanel>
                      <ItemsPanelTemplate>
-                        <UniformGrid Columns="10" Rows="{Binding Project.ProjectInfo.View.Rows}" />
+                        <UniformGrid Columns="10" />
                      </ItemsPanelTemplate>
                   </ListBox.ItemsPanel>
                   <ListBox.ItemContainerStyle>

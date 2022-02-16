@@ -29,6 +29,7 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Дата начала проекта
         /// </summary>
+        // TODO: Формат вводишь mm/dd/yyyy а получаешь dd/mm/yyyy Конфузит?!
         [Category("Заказ")]
         [DisplayName("Дата")]
         [FormatString(fDate)]
