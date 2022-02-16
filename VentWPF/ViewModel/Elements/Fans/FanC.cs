@@ -30,9 +30,9 @@ namespace VentWPF.ViewModel
                     UnitSystem = "m",
                     Voltage = (int)Voltage,
                     VFlow = ProjectInfo.Settings.VFlow,
-                    Freq = "50",
+                    Freq = Freq,
                     Spec = "PF_57",
-                    FanType = "ER*DN*1R",
+                    FanType = FanType,
                 }
             };
         }
@@ -41,6 +41,14 @@ namespace VentWPF.ViewModel
         [FormatString(fm3Ph)]
         [DisplayName("Вольтаж")]
         public VoltageType Voltage { get; set; } = VoltageType.V400;
+
+        [Category(Data)]
+        [DisplayName("Частота")]
+        public string Freq { get; set; } = "50";
+
+        [Category(Data)]        
+        [DisplayName("Поисковый запрос")]
+        public string FanType { get; set; } = "ER*DN*1R";
 
         public override int Width => (int)((DeviceData as FanCData)?.INSTALLATION_WIDTH_MM ?? 0);
 
