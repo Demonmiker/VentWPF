@@ -17,6 +17,7 @@ namespace VentWPF.ViewModel
         {
             Current = new ProjectVM();
             Current.Init();
+            Current.NewProject(null);
         }
 
         public Command<FrameworkElement> CmdLinkGui { get; set; }
@@ -34,6 +35,18 @@ namespace VentWPF.ViewModel
             CmdLinkGui = new Command<FrameworkElement>(SetLink);
         }
 
+        internal void NewProject(object obj)
+        {
+            if (File.Exists("new.json"))
+            {
+                LoadProjectFile("new.json");
+                Path = null;
+            }
+            else
+                Init();
+            Status = "Новый проект";
+        }
+
         public static ProjectVM Current { get; private set; }
 
         public ProjectInfoVM ProjectInfo { get; private set; }
@@ -48,7 +61,7 @@ namespace VentWPF.ViewModel
 
         public SchemeVM Scheme { get; private set; }
 
-        // TODO: Реализовать сохранение и загрузку проекта
+        // TODO: @MikeKondr99 Сохранение и загрузка каркаса
         public void LoadProject(object o)
         {
             Status = "Загружаем...";
@@ -60,42 +73,22 @@ namespace VentWPF.ViewModel
                 FileName = Path is not null ? Path : "",
                 InitialDirectory = workdir,
             };
-            if (sfd.ShowDialog() == false) { Status = ""; return; }
+            if (sfd.ShowDialog() == false) { Status = ""; return; } // Если была отмена
+            Status = LoadProjectFile(sfd.FileName) ? "Проект загружен" : "Ошибка при загрузке";
+        }
+
+        private bool LoadProjectFile(string path)
+        {
             PackedProject pp = new PackedProject();
-            try
-            {
-                pp = IOManager.LoadAsJson<PackedProject>(sfd.FileName);
-            }
-            catch (Exception ex)
-            {
-                Status = "Ошибка при загрузке";
-            }
-            pp.Order.InitParent(this.ProjectInfo);
-            pp.Settings.InitParent(this.ProjectInfo);
-            pp.View.InitParent(this.ProjectInfo);
-            // PI
-            ProjectInfo.Order = pp.Order;
-            ProjectInfo.Settings = pp.Settings;
-            ProjectInfo.View = pp.View;
-            ErrorManager.Add(ProjectInfo.Order, "Заказ");
-            ErrorManager.Add(ProjectInfo.Settings, "Настройки");
-            ErrorManager.Add(ProjectInfo.View, "Вид");
-            Path = pp.ProjectPath;
-            Grid.Init(this.ProjectInfo.View.Rows);
-            for (int i = 0; i < pp.Elements.Length; i++)
-                if (pp.Elements[i] is not null)
-                {
-                    Grid.Elements[i] = pp.Elements[i];
-                    Grid.Elements[i].UpdateQuery();
-                    ErrorManager.Add(Grid.Elements[i], $"[{i % 10 + 1},{i / 10 + 1}]");
-                }
-            Status = "Проект загружен";
-            // Каркас пока не сохраняется
+            try { pp = IOManager.LoadAsJson<PackedProject>(path); }
+            catch (Exception ex) { return false; }
+            PackedProject.Unpack(pp, this);
+            return true;
         }
 
         public string Path { get; set; } = null;
 
-        public string Status { get; set; } = "Новый проект";
+        public string Status { get; set; }
 
         public void SaveProject(string path)
         {
@@ -103,15 +96,16 @@ namespace VentWPF.ViewModel
             if (path is null)
             {
                 var workdir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\VentProjects";
-                if(!Directory.Exists(workdir))
+                if (!Directory.Exists(workdir))
                     Directory.CreateDirectory(workdir);
+                // TODO: @MikeKondr99 OrderName может содержать недопустимые для файла символы
                 var fileName = ProjectInfo.Order.OrderName is not null ? ProjectInfo.Order.OrderName : "project";
-                SaveFileDialog diag = new SaveFileDialog() 
+                SaveFileDialog diag = new SaveFileDialog()
                 {
                     FileName = fileName,
-                    Title="Сохранение проекта",
-                    DefaultExt=".json",
-                    InitialDirectory=workdir,
+                    Title = "Сохранение проекта",
+                    DefaultExt = ".json",
+                    InitialDirectory = workdir,
                 };
                 var res = diag.ShowDialog();
                 if (res == true)
@@ -122,22 +116,9 @@ namespace VentWPF.ViewModel
                     return;
                 }
             }
-            PackedProject pp = new PackedProject()
-            {
-                ProjectPath = path,
-                Order = this.ProjectInfo.Order,
-                Settings = this.ProjectInfo.Settings,
-                View = this.ProjectInfo.View,
-                Elements = this.Grid.Elements.Select(x => x.Name == "" ? null : x).ToArray(),
-            };
-            try
-            {
-                IOManager.SaveAsJson(pp, path);
-            }
-            catch (Exception ex)
-            {
-                Status = "Ошибка при сохранении";
-            }
+            PackedProject pp = PackedProject.Pack(this, path);
+            try { IOManager.SaveAsJson(pp, path); }
+            catch (Exception ex) { Status = "Ошибка при сохранении"; }
             Path = path;
             Status = "Проект сохранён";
         }
