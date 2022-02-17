@@ -21,6 +21,18 @@
    <Window.DataContext>
       <vm:MainViewModel />
    </Window.DataContext>
+   <Window.InputBindings>
+      <KeyBinding Gesture="Ctrl+Shift+N" Command="{Binding CmdNew}" />
+      <KeyBinding Gesture="Ctrl+O" Command="{Binding CmdLoad}" />
+      <KeyBinding
+         Gesture="Ctrl+S"
+         Command="{Binding CmdSave}"
+         CommandParameter="{Binding Project.Path}" />
+      <KeyBinding
+         Gesture="Ctrl+Shift+S"
+         Command="{Binding CmdSave}"
+         CommandParameter="{x:Null}" />
+   </Window.InputBindings>
    <b:Interaction.Triggers>
       <b:EventTrigger EventName="Closed">
          <b:InvokeCommandAction Command="{Binding CmdWindowClosed}" PassEventArgsToCommand="True" />
@@ -30,8 +42,24 @@
       <!--  Верхнее контекстное меню  -->
       <Menu DockPanel.Dock="Top">
          <MenuItem Header="Файл">
-            <MenuItem Command="{Binding CmdSave}" Header="Сохранить" />
-            <MenuItem Command="{Binding CmdLoad}" Header="Загрузить" />
+            <MenuItem
+               Header="Новый"
+               InputGestureText="Ctrl+Shift+N"
+               Command="{Binding CmdNew}" />
+            <MenuItem
+               Command="{Binding CmdSave}"
+               CommandParameter="{Binding Project.Path}"
+               Header="Сохранить"
+               InputGestureText="Ctrl+S" />
+            <MenuItem
+               Command="{Binding CmdSave}"
+               CommandParameter="{x:Null}"
+               Header="Сохранить как"
+               InputGestureText="Ctrl+Shift+S" />
+            <MenuItem
+               Command="{Binding CmdLoad}"
+               Header="Загрузить"
+               InputGestureText="Ctrl+O" />
          </MenuItem>
          <MenuItem Header="Настройки">
             <MenuItem Command="{Binding CmdConfig}" Header="Запрос" />
@@ -40,34 +68,45 @@
          </MenuItem>
       </Menu>
       <!--  Статус бар внизу  -->
-      <StatusBar DockPanel.Dock="Bottom">
-         <TextBlock>
-            <Run Text="Очередь запросов" />
-            <Run Text="{Binding Project.TaskManager.Count, Mode=OneWay}" />
-         </TextBlock>
-         <fa5:SvgAwesome
-            Width="20"
-            Height="18"
-            Foreground="{Binding Project.ErrorManager.HasErrors, Converter={StaticResource brGR}}">
-            <fa5:SvgAwesome.Style>
-               <Style TargetType="{x:Type fa5:SvgAwesome}">
-                  <Setter Property="Icon" Value="Solid_ExclamationTriangle" />
-                  <Style.Triggers>
-                     <DataTrigger Binding="{Binding Project.ErrorManager.HasErrors}" Value="false">
-                        <Setter Property="Icon" Value="Solid_CheckCircle" />
-                     </DataTrigger>
-                  </Style.Triggers>
-               </Style>
-            </fa5:SvgAwesome.Style>
-         </fa5:SvgAwesome>
+      <StatusBar DockPanel.Dock="Bottom"
+         Padding="4,2"
+         FontSize="14">
+         <!--  Статус ошибок проекта  -->
+         <StackPanel ToolTip="Индикатор ошибок в проекте" Orientation="Horizontal">
+            <fa5:SvgAwesome Height="18" Foreground="{Binding Project.ErrorManager.HasErrors, Converter={StaticResource brGR}}">
+               <fa5:SvgAwesome.Style>
+                  <Style TargetType="{x:Type fa5:SvgAwesome}" BasedOn="{StaticResource query-icon}">
+                     <Setter Property="Icon" Value="Solid_ExclamationTriangle" />
+                     <Style.Triggers>
+                        <DataTrigger Binding="{Binding Project.ErrorManager.HasErrors}" Value="false">
+                           <Setter Property="Icon" Value="Solid_CheckCircle" />
+                        </DataTrigger>
+                     </Style.Triggers>
+                  </Style>
+               </fa5:SvgAwesome.Style>
+            </fa5:SvgAwesome>
+            <TextBlock
+               Margin="4,0,0,0"
+               Text="{Binding Project.ErrorManager.ErrorCount}"
+               Visibility="{Binding Project.ErrorManager.ErrorCount, Converter={StaticResource NotZeroToVisibilityConverter}}" />
+         </StackPanel>
+         <!--    -->
+         <StackPanel Orientation="Horizontal" Visibility="{Binding Project.TaskManager.Count, Converter={StaticResource NotZeroToVisibilityConverter}}">
+            <fa5:SvgAwesome Icon="Solid_Download" />
+            <TextBlock>
+               <Run Text="{Binding Project.TaskManager.Count, Mode=OneWay}" />
+            </TextBlock>
+         </StackPanel>
+         <!--    -->
+         <TextBlock MinWidth="50" Text="{Binding Project.Status}" />
       </StatusBar>
       <Grid Margin="0,0,0,0">
          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*" MinWidth="600" />
+            <ColumnDefinition Width="5*" MinWidth="150" />
             <ColumnDefinition Width="2*">
                <ColumnDefinition.Style>
                   <Style TargetType="{x:Type ColumnDefinition}">
-                     <Setter Property="MaxWidth" Value="800" />
+                     <Setter Property="MaxWidth" Value="1500" />
                      <Setter Property="MinWidth" Value="400" />
                      <Style.Triggers>
                         <DataTrigger Binding="{Binding Path=Project.Grid.Index}" Value="-1">
@@ -135,20 +174,28 @@
                         <fa5:SvgAwesome
                            Foreground="Red"
                            Icon="Solid_ExclamationCircle"
-                           Visibility="{Binding Project.ProjectInfo.HasErrors}" />
+                           Visibility="{Binding Project.ProjectInfo.HasErrors, Converter={StaticResource visConv}}" />
                      </StackPanel>
                   </TabItem.Header>
-                  <StackPanel>
-                     <Expander Width="auto" ExpandDirection="Right">
-                        <pt:PropertyGrid SelectedObject="{Binding Project.ProjectInfo.Settings}" />
-                     </Expander>
-                     <Expander ExpandDirection="Right">
-                        <pt:PropertyGrid SelectedObject="{Binding Project.ProjectInfo.Order}" />
-                     </Expander>
-                     <Expander ExpandDirection="Right">
-                        <pt:PropertyGrid SelectedObject="{Binding Project.ProjectInfo.View}" />
-                     </Expander>
-                  </StackPanel>
+                  <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                     <StackPanel>
+                        <!--<Expander Width="auto" ExpandDirection="Right">
+                           <pt:PropertyGrid SelectedObject="{Binding Project.ProjectInfo.Settings}" />
+                        </Expander>-->
+                        <pt:PropertyGrid
+                           Width="350"
+                           Margin="-5,0,0,0"
+                           SelectedObject="{Binding Project.ProjectInfo.Settings}" />
+                        <pt:PropertyGrid
+                           Width="350"
+                           Margin="-5,0,0,0"
+                           SelectedObject="{Binding Project.ProjectInfo.View}" />
+                        <pt:PropertyGrid
+                           Width="350"
+                           Margin="-5,0,0,0"
+                           SelectedObject="{Binding Project.ProjectInfo.Order}" />
+                     </StackPanel>
+                  </ScrollViewer>
                </TabItem>
                <!--  Информация  -->
                <TabItem>
@@ -188,7 +235,7 @@
                   <ContentControl x:Name="frame" Content="{Binding Project.Frame}" />
                   <b:Interaction.Triggers>
                      <b:EventTrigger EventName="Loaded">
-                        <b:InvokeCommandAction Command="{Binding CmdLinkGui}" CommandParameter="{Binding ElementName=frame}" />
+                        <b:InvokeCommandAction Command="{Binding Project.CmdLinkGui}" CommandParameter="{Binding ElementName=frame}" />
                      </b:EventTrigger>
                   </b:Interaction.Triggers>
                   <TabItem.Header>
@@ -286,6 +333,8 @@
             </TabControl>
          </DockPanel>
          <!--  Боковая Панель  -->
+         <!--  TODO: Нет поддержки горизонтального скрола тачпада  -->
+         <!--  TODO: У девайсов из бд не все элементы сртируются  -->
          <md:Card Grid.Column="1" md:ShadowAssist.ShadowEdges="All">
             <Grid Margin="0,2,0,0" Visibility="{Binding Project.Grid.Selected.Name, Converter={StaticResource visConv}}">
                <Grid.RowDefinitions>
@@ -308,23 +357,29 @@
                      </RowDefinition.Style>
                   </RowDefinition>
                </Grid.RowDefinitions>
-               <Grid Grid.Row="0" Margin="7,0">
-                  <Grid.ColumnDefinitions>
-                     <ColumnDefinition Width="auto" />
-                     <ColumnDefinition />
-                  </Grid.ColumnDefinitions>
-                  <Image
-                     Width="50"
-                     Height="50"
-                     Source="{Binding Project.Grid.Selected.Image}" />
-                  <TextBlock Grid.Column="1"
-                     Margin="4,0"
-                     VerticalAlignment="Bottom"
-                     Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
-                     Text="{Binding Project.Grid.Selected.Name}"
-                     TextWrapping="WrapWithOverflow" />
-               </Grid>
-               <ScrollViewer Grid.Row="1" Margin="7,5,0,5">
+               <md:Card Grid.Row="0"
+                  Padding="5"
+                  md:ShadowAssist.ShadowEdges="Bottom">
+                  <Grid Margin="7,0">
+                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition />
+                     </Grid.ColumnDefinitions>
+                     <Image
+                        Width="50"
+                        Height="50"
+                        Source="{Binding Project.Grid.Selected.Image}" />
+                     <TextBlock Grid.Column="1"
+                        Margin="4,0"
+                        VerticalAlignment="Bottom"
+                        Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
+                        Text="{Binding Project.Grid.Selected.Name}"
+                        TextWrapping="WrapWithOverflow" />
+                  </Grid>
+               </md:Card>
+               <ScrollViewer Grid.Row="1"
+                  Margin="-1,5,0,5"
+                  VerticalScrollBarVisibility="Auto">
                   <pt:PropertyGrid EnableLabelWidthResizing="True" SelectedObject="{Binding Project.Grid.Selected}" />
                </ScrollViewer>
                <GridSplitter Grid.Row="1"

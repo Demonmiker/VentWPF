@@ -1,5 +1,6 @@
 ﻿using PropertyChanged;
 using PropertyTools.DataAnnotations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using VentWPF.Model;
@@ -15,12 +16,13 @@ namespace VentWPF.ViewModel
     {
         public override void UpdateQuery()
         {
-            DeviceType = typeof(ФреонХолод);
             Query = new DatabaseQuery<ФреонХолод>
             {
                 Source = from o in VentContext.Instance.ФреонХолодs select o
             };
         }
+
+        public override Type DeviceType => typeof(ФреонХолод);
 
         public override int Width => (int)((DeviceData as ФреонХолод)?.ШиринаГабарит ?? 0);
 

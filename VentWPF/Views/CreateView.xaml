@@ -39,7 +39,7 @@
                <Style.Triggers>
                   <MultiDataTrigger>
                      <MultiDataTrigger.Conditions>
-                        <Condition Binding="{Binding Source={x:Static vm:ProjectVM.Current}, Path=ProjectInfo.Rows}" Value="Одноярусный" />
+                        <Condition Binding="{Binding Source={x:Static vm:ProjectVM.Current}, Path=ProjectInfo.View.Rows}" Value="Одноярусный" />
                         <Condition Binding="{Binding Path=TwoRowsOnly}" Value="true" />
                      </MultiDataTrigger.Conditions>
                      <Setter Property="Visibility" Value="Collapsed" />
@@ -81,7 +81,7 @@
                <Style.Triggers>
                   <MultiDataTrigger>
                      <MultiDataTrigger.Conditions>
-                        <Condition Binding="{Binding Source={x:Static vm:ProjectVM.Current}, Path=ProjectInfo.Rows}" Value="Одноярусный" />
+                        <Condition Binding="{Binding Source={x:Static vm:ProjectVM.Current}, Path=ProjectInfo.View.Rows}" Value="Одноярусный" />
                         <Condition Binding="{Binding Path=TwoRowsOnly}" Value="true" />
                      </MultiDataTrigger.Conditions>
                      <Setter Property="Visibility" Value="Collapsed" />

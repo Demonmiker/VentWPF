@@ -41,7 +41,7 @@
                   SelectedItem="{Binding Selected}">
                   <ListBox.ItemsPanel>
                      <ItemsPanelTemplate>
-                        <UniformGrid Columns="10" Rows="{Binding Project.ProjectInfo.Rows}" />
+                        <UniformGrid Columns="10" />
                      </ItemsPanelTemplate>
                   </ListBox.ItemsPanel>
                   <ListBox.ItemContainerStyle>
@@ -73,7 +73,7 @@
                            <TextBlock
                               HorizontalAlignment="Stretch"
                               VerticalAlignment="Bottom"
-                              Visibility="{Binding DeviceData, Converter={StaticResource visConv}}"
+                              Visibility="{Binding Width, Converter={StaticResource visConv}}"
                               TextAlignment="Center"
                               Background="#a000"
                               Foreground="{Binding CorrectSize, Converter={StaticResource brRG}}">
@@ -89,6 +89,21 @@
                   </ListBox.ItemTemplate>
                </ListBox>
             </ScrollViewer>
+            <StackPanel Margin="3,0,0,0" VerticalAlignment="Center">
+               <TextBox
+                  MinWidth="80"
+                  Padding="10,0"
+                  Text="{Binding Project.ProjectInfo.Settings.Width}"
+                  TextAlignment="Center"
+                  Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+               <TextBlock Text="x" TextAlignment="Center" />
+               <TextBox
+                  MinWidth="80"
+                  Padding="10,0"
+                  Text="{Binding Project.ProjectInfo.Settings.Height}"
+                  TextAlignment="Center"
+                  Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+            </StackPanel>
          </StackPanel>
 
       </md:Card>

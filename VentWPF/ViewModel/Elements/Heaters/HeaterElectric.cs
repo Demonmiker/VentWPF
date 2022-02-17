@@ -17,12 +17,14 @@ namespace VentWPF.ViewModel
     {
         public override void UpdateQuery()
         {
-            DeviceType = typeof(Тэнры);
             Query = new DatabaseQuery<Тэнры>
             {
                 Source = from o in VentContext.Instance.Tэнрыs select o
             };
         }
+
+        public override Type DeviceType => typeof(Тэнры);
+
 
         public override string Image => ImagePath("Heaters/Electric");
 

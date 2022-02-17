@@ -16,6 +16,9 @@ namespace VentWPF.ViewModel
             ProjectVM.Current?.TaskManager.Add(() => { Microsoft.EntityFrameworkCore.DbSet<ВодаХолод> l = VentContext.Instance.ВодаХолодs; });
             CmdAutoColumns = new(AutoColumns);
             CmdWindowClosed = new(OnWindowClosed);
+            CmdSave = new Command<string>(ProjectVM.Current.SaveProject);
+            CmdLoad = new Command<object>(ProjectVM.Current.LoadProject);
+            CmdNew = new Command<object>(ProjectVM.Current.NewProject);
             CmdUpdateReport = new Command<object>(UpdateReport);
             CmdSaveReport = new Command<object>(SaveReport);
             ReportViewer.Document = ReportDocument;
@@ -23,7 +26,7 @@ namespace VentWPF.ViewModel
 
         public FlowDocumentScrollViewer ReportViewer { get; private set; } = new FlowDocumentScrollViewer();
 
-        public FlowDocument ReportDocument { get; init; } = new FlowDocument() { FontFamily = new FontFamily("Times New Roman") };
+        public FlowDocument ReportDocument { get; init; } = new FlowDocument() {  FontFamily = new FontFamily("Times New Roman") };
 
         public int DeviceIndex => ProjectVM.Current.Grid.Selected.DeviceIndex;
 
@@ -33,9 +36,11 @@ namespace VentWPF.ViewModel
 
         public Command<object> CmdWindowClosed { get; init; }
 
-        public Command<object> CmdSave { get; init; }
+        public Command<string> CmdSave { get; init; }
 
         public Command<object> CmdLoad { get; init; }
+
+        public Command<object> CmdNew { get; init; }
 
         public Command<string> CmdConfig { get; init; }
 
@@ -84,20 +89,20 @@ namespace VentWPF.ViewModel
                         Binding = new Binding(header) { Converter = format },
                         Value = true,
                         Setters =
-                {
-                    new Setter() { Property = DataGridCell.BackgroundProperty, Value = Brushes.PaleGreen},
-                    new Setter() { Property = DataGridCell.ForegroundProperty, Value = Brushes.DarkGreen},
-                }
+                        {
+                            new Setter() { Property = DataGridCell.BackgroundProperty, Value = Brushes.PaleGreen},
+                            new Setter() { Property = DataGridCell.ForegroundProperty, Value = Brushes.DarkGreen},
+                        }
                     });
                     style.Triggers.Add(new DataTrigger()
                     {
                         Binding = new Binding(header) { Converter = format },
                         Value = false,
                         Setters =
-                {
-                    new Setter() { Property = DataGridCell.BackgroundProperty, Value = Brushes.Pink},
-                    new Setter() { Property = DataGridCell.ForegroundProperty, Value = Brushes.DarkRed},
-                }
+                        {
+                            new Setter() { Property = DataGridCell.BackgroundProperty, Value = Brushes.Pink},
+                            new Setter() { Property = DataGridCell.ForegroundProperty, Value = Brushes.DarkRed},
+                        }
                     });
                     e.Column.CellStyle = style;
                 }

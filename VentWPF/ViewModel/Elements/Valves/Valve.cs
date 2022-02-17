@@ -15,17 +15,30 @@ namespace VentWPF.ViewModel
             ShowPD = true;
         }
 
-        protected override float GeneratedPressureDrop => 15;
+        protected override float GenPD() => 15;
 
         [Category(Data)]
         [FormatString(fmm)]
         [DisplayName("Ширина")]
         public int WidthValve { get; set; } = ProjectInfo.Settings.Width;
 
+
+        [Browsable(false)]
+        public bool GenHeightValve { get; set; }
+
+        private int heightValve;
+
         [Category(Data)]
         [FormatString(fmm)]
         [DisplayName("Высота")]
-        public int HeightValve { get; set; } = ProjectInfo.View.SizeType switch
+        [Optional(nameof(GenHeightValve))]
+        public virtual int HeightValve
+        {
+            get => !GenHeightValve ? (heightValve = GenHeight()) : heightValve;
+            set => heightValve = value;
+        }
+
+        private int GenHeight() => ProjectInfo.View.SizeType switch
         {
             SizeType.ТипоРазмер1 => (420),
             SizeType.ТипоРазмер2 => (310),
@@ -47,5 +60,10 @@ namespace VentWPF.ViewModel
             SizeType.ТипоРазмер100 => (2210),
             _ => (0)
         };
+
+
+
+        public override int Width => WidthValve;
+        public override int Height => HeightValve;
     }
 }

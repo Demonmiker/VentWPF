@@ -14,6 +14,8 @@ using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
 {
+    // TODO: @stigGGGer проверь обновляется ли везде Падение давления
+
     /// <summary>
     /// Базовый класс элемента вентиляции
     /// </summary>
@@ -28,7 +30,7 @@ namespace VentWPF.ViewModel
         /// Тип модели реализации класса
         /// </summary>
         [Browsable(false)]
-        public Type DeviceType { get; protected set; }
+        public virtual Type DeviceType => null;
 
         private float pressureDrop = 0;
 
@@ -41,6 +43,8 @@ namespace VentWPF.ViewModel
         /// </summary>
         [Browsable(false)]
         [DependsOn("DeviceData")]
+        // TODO: @stigGGGer  Name снова работает в info панели
+        // нужно переопределить на элементах с девайсами
         public virtual string Name => "";
 
         /// <summary>
@@ -59,23 +63,23 @@ namespace VentWPF.ViewModel
         /// Падение давления
         /// </summary>
         [Category(Info)]
-        [VisibleBy("ShowPD")]
+        [VisibleBy(nameof(ShowPD))]
         [SortIndex(-2)]
-        [Optional("ManualPD")]
+        [Optional(nameof(GenPressureDrop))]
         [DisplayName("Падение давления")]
         [FormatString(fkPa)]
         public virtual float PressureDrop
         {
-            get => !ManualPD ? (pressureDrop = GeneratedPressureDrop) : pressureDrop;
+            get => !GenPressureDrop ? (pressureDrop = GenPD()) : pressureDrop;
             set => pressureDrop = value;
         }
 
         /// <summary>
         /// Определяет вводится ли Падение давления вручную
         /// </summary>
-        [VisibleBy("ShowPD")]
+        [VisibleBy(nameof(ShowPD))]
         [Browsable(false)]
-        public bool ManualPD { get; set; } = false;
+        public bool GenPressureDrop { get; set; } = false;
 
         /// <summary>
         /// Индекс выбранной модели в коллекции запроса
@@ -116,7 +120,7 @@ namespace VentWPF.ViewModel
         /// Свойство для получения Падения давления по формуле
         /// </summary>
         [Browsable(false)]
-        protected virtual float GeneratedPressureDrop => 0;
+        protected virtual float GenPD() => 0;
 
         /// <summary>
         /// Скрытое поле для свойства InfoTable (для кэширования)
@@ -175,7 +179,9 @@ namespace VentWPF.ViewModel
         {
             List<TableRow> rowList = new();
             TableRow header = new();
-            header.Cells.Add(new(new Paragraph(new Run(this.Name)) { FontSize = 20, TextAlignment = TextAlignment.Left }));
+            var p = new InfoLine(this, "Name").ToParagraph(true,true);
+            p.FontSize = 20; p.TextAlignment = TextAlignment.Left;
+            header.Cells.Add(new(p));
             rowList.Add(header);
             List<InfoLine> infos = InfoLine.GenerateInfoLines(this, DeviceType, InfoProperties).ToList();
             while (infos.Count % columns > 0)
@@ -211,6 +217,7 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Обозначает что элемент можем быть только в установке с двумя рядами
         /// </summary>
+        [Browsable(false)]
         public bool TwoRowsOnly { get; init; } = false;
 
         public static T GetInstance<T>(T o)
@@ -220,7 +227,7 @@ namespace VentWPF.ViewModel
 
         protected override string OnValidation()
         {
-            return (DeviceType is not null && DeviceData is null ? "Не выбрана модель устройства\n" : "") +
+            return (DeviceType is not null && DeviceData is null ? "Не выбрана модель устройства" : "") +
                           (!CorrectSize ? "Не подходит по размерам" : "");
         }
 
@@ -239,7 +246,7 @@ namespace VentWPF.ViewModel
         public bool CorrectSize => Width <= ProjectInfo.Settings.Width && Height <= ProjectInfo.Settings.Height;
 
         [Browsable(false)]
-        public Command<object> CmdUpdateQuery { get; init; }
+        public Command<object> CmdUpdateQuery { get; private init; }
 
         public virtual void UpdateQuery()
         {

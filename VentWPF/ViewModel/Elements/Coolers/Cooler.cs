@@ -17,7 +17,7 @@ namespace VentWPF.ViewModel
             ShowPD = true;
         }
 
-        protected override float GeneratedPressureDrop => (70f / (4f / ((ProjectInfo.Settings.VFlow / 3600f) / AB)));
+        protected override float GenPD() => (70f / (4f / ((ProjectInfo.Settings.VFlow / 3600f) / AB)));
 
         [Category(Data)]
         [SortIndex(-1)]

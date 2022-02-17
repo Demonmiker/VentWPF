@@ -43,6 +43,10 @@
       <Setter Property="TextAlignment" Value="Center" />
    </Style>
    <Style BasedOn="{StaticResource {x:Type ToolTip}}" TargetType="ToolTip">
+      <Setter Property="Background" Value="{DynamicResource PrimaryHueDarkBrush}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueLightBrush}" />
+      <Setter Property="FontSize" Value="13" />
+      <Setter Property="BorderThickness" Value="10" />
       <Style.Triggers>
          <Trigger Property="Content" Value="{x:Static sys:String.Empty}">
             <Setter Property="Visibility" Value="Collapsed" />
@@ -65,9 +69,9 @@
       <Setter Property="Height" Value="75" />
       <Setter Property="Width" Value="75" />
    </Style>
-   <!--<Style BasedOn="{StaticResource MaterialDesignGroupBox}" TargetType="GroupBox">
-      <Setter Property="FontSize" Value="13"/>
-   </Style>-->
+   <Style BasedOn="{StaticResource MaterialDesignGroupBox}" TargetType="GroupBox">
+      <Setter Property="BorderThickness" Value="0" />
+   </Style>
    <Style TargetType="{x:Type fa5:SvgAwesome}">
       <Setter Property="Foreground" Value="{StaticResource PrimaryHueDarkBrush}" />
       <Setter Property="Height" Value="12" />
@@ -79,13 +83,8 @@
       <Setter Property="VerticalAlignment" Value="Center" />
       <Setter Property="Panel.ZIndex" Value="3" />
    </Style>
-   <Style x:Key="tbe" TargetType="{x:Type pt:TextBoxEx}">
-      <!--<EventSetter Event="GotFocus" Handler="TbxGotFocus"/>-->
-      <Setter Property="Background" Value="Red" />
-   </Style>
    <Style TargetType="{x:Type pt:PropertyGrid}">
       <Setter Property="TabVisibility" Value="Collapsed" />
       <Setter Property="EnumAsRadioButtonsLimit" Value="1" />
-      <Setter Property="ShowDeclaredOnly" Value="True" />
    </Style>
 </ResourceDictionary>

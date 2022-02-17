@@ -1,5 +1,7 @@
-﻿using System;
+﻿using PropertyChanged;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -15,9 +17,9 @@ namespace VentWPF.ViewModel
 
         private bool IsWorking = false;
 
-        public int Count => Tasks.Count;
 
-        private List<Action> Tasks { get; init; } = new List<Action>();
+        public int Count { get; set; }
+        private ObservableCollection<Action> Tasks { get; init; } = new ObservableCollection<Action>();
 
         /// <summary>
         /// Добавить операцию на выполнение
@@ -26,6 +28,7 @@ namespace VentWPF.ViewModel
         public void Add(Action t)
         {
             Tasks.Add(t);
+            Count = Tasks.Count;
             if (!IsWorking)
             {
                 IsWorking = true;
@@ -42,6 +45,7 @@ namespace VentWPF.ViewModel
                 Action action = Tasks[0];
                 Tasks.RemoveAt(0);
                 action.Invoke();
+                Count = Tasks.Count;
             }
             Sw.Stop();
             IsWorking = false;

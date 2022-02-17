@@ -95,7 +95,7 @@ namespace VentWPF.ViewModel
         /// </summary>
         /// <param name="isDynamic">Определяет будет ли параграф автообновляемым или статичным</param>
         /// <returns>Параграф с информацией</returns>
-        public Paragraph ToParagraph(bool isDynamic = false)
+        public Paragraph ToParagraph(bool isDynamic = false,bool noHeader = false)
         {
             Run runH = new(Header);
             Run runV = new();
@@ -110,7 +110,10 @@ namespace VentWPF.ViewModel
             }
 
             Paragraph res = new();
-            res.Inlines.AddRange(new[] { runH, new Run(": "), runV });
+            if (!noHeader)
+                res.Inlines.AddRange(new[] { runH, new Run(": "), runV });
+            else
+                res.Inlines.AddRange(new[] { runV });
             return res;
         }
 

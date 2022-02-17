@@ -22,6 +22,31 @@ namespace VentWPF.ViewModel
         {
             CmdRemove = new(x => RemoveElement());
             CmdRemoveShift = new(x => RemoveElementAndShift());
+            CmdSelectShift = new Command<object>(SelectShift);
+        }
+
+        public enum Direction
+        {
+            Left,
+            Right,
+            Top,
+            Bottom,
+        }
+
+        public Command<object> CmdSelectShift { get; private init; }
+
+        public void SelectShift(object x) // 0  
+        {
+            int a = int.Parse(x.ToString());
+            int res = Index + (Direction)a switch
+            {
+                Direction.Left => -1,
+                Direction.Right => +1,
+                Direction.Top => -10,
+                Direction.Bottom => +10,
+            };
+            if(res>0 && res<Elements.Count)
+                Index = res; ;
         }
 
         /// <summary>
@@ -92,9 +117,9 @@ namespace VentWPF.ViewModel
                 Index = ind;
                 Elements[Index].SubType = el.SubType;
                 Elements[Index].UpdateQuery();
+                ErrorManager.Add(Elements[Index], $"[{Index % 10 + 1},{Index / 10 + 1}]");
             }
             Index = ind;
-            ErrorManager.Add(Elements[Index], $"[{Index % 10 + 1},{Index / 10 + 1}]");
         }
 
 

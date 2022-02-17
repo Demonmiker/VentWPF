@@ -65,7 +65,7 @@ namespace VentWPF.ViewModel
         [FormatString(fkW)]
         public float Power => Calculations.heaterPower(TempOut, TempIn);
 
-        protected override float GeneratedPressureDrop => 70f / (4f / (ProjectInfo.Settings.VFlow / 3600f / AB));
+        protected override float GenPD() => 70f / (4f / (ProjectInfo.Settings.VFlow / 3600f / AB));
 
         [Browsable(false)]
         protected float AB => (ProjectInfo.Settings.Width / 1000f) * (ProjectInfo.Settings.Height / 1000f);

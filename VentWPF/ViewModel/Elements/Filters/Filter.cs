@@ -30,10 +30,7 @@ namespace VentWPF.ViewModel
             "GeneratedPressureDrop",
         };
 
-        [Category(Info)]
-        [DisplayName("Падение давления при загряз. 50%")]
-        [FormatString(fkPa)]
-        protected override float GeneratedPressureDrop => FC switch
+        protected override float GenPD() => FC switch
         {
             FilterClassType.G4 => 175,
             FilterClassType.F5 => 225,
@@ -42,6 +39,9 @@ namespace VentWPF.ViewModel
         };
 
         [DependsOn(nameof(FC))]
+        [Category(Info)]
+        [DisplayName("Падение давления при загряз. 50%")]
+        [FormatString(fkPa)]
         public override float PressureDrop { get => base.PressureDrop; set => base.PressureDrop = value; }
     }
 }
