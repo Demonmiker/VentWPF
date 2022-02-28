@@ -33,6 +33,7 @@ namespace VentWPF.ViewModel
         {
             CmdScheme = new Command<object>(GenearateScheme);
             CmdLinkGui = new Command<FrameworkElement>(SetLink);
+            CmdExpand = new Command<BaseViewModel>(ExpandView);
         }
 
         internal void NewProject(object obj)
@@ -60,6 +61,20 @@ namespace VentWPF.ViewModel
         public ErrorManagerVM ErrorManager { get; private set; }
 
         public SchemeVM Scheme { get; private set; }
+
+        public BaseViewModel ExpandedViewModel { get; set; }
+
+        /// <summary>
+        /// Разворачивает отображение на полный экран или сворачивает если уже развернуто
+        /// </summary>
+        /// <param name="vm">Модель Отображения</param>
+        private void ExpandView(BaseViewModel vm)
+        {
+            if (ExpandedViewModel != vm)
+                ExpandedViewModel = vm;
+            else
+                ExpandedViewModel = null;
+        }
 
         // TODO: @MikeKondr99 Сохранение и загрузка каркаса
         public void LoadProject(object o)
@@ -142,6 +157,7 @@ namespace VentWPF.ViewModel
         }
 
         public Command<object> CmdScheme { get; init; }
+        public Command<BaseViewModel> CmdExpand { get; private init; }
 
         public void GenearateScheme(object o)
         {

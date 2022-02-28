@@ -34,8 +34,8 @@
          CommandParameter="{x:Null}" />
       <KeyBinding
          Gesture="Ctrl+F"
-         Command="{Binding CmdExpand}"
-         CommandParameter="{Binding Project.Scheme}" />
+         Command="{Binding Project.CmdExpand}"
+         CommandParameter="{Binding Project.Frame}" />
 
    </Window.InputBindings>
    <b:Interaction.Triggers>
@@ -106,7 +106,7 @@
          <TextBlock MinWidth="50" Text="{Binding Project.Status}" />
       </StatusBar>
       <Grid Margin="0,0,0,0">
-         <Grid Visibility="{Binding ExpandedViewModel, Converter={StaticResource visConvrev}}">
+         <Grid Visibility="{Binding Project.ExpandedViewModel, Converter={StaticResource visConvrev}}">
             <Grid.ColumnDefinitions>
                <ColumnDefinition Width="5*" MinWidth="150" />
                <ColumnDefinition Width="2*">
@@ -525,7 +525,7 @@
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             Panel.ZIndex="1"
-            Content="{Binding ExpandedViewModel}" />
+            Content="{Binding Project.ExpandedViewModel}" />
       </Grid>
    </DockPanel>
 </Window>
