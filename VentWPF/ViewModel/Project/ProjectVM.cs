@@ -154,6 +154,7 @@ namespace VentWPF.ViewModel
             Frame = new(500, ProjectInfo.Settings.Width, ProjectInfo.Settings.Height);
             Frame.Parent = this;
             Grid.Init(ProjectInfo.View.Rows);
+            CmdScheme.Execute(null);
         }
 
         public Command<object> CmdScheme { get; init; }

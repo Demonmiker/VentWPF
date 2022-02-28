@@ -1,6 +1,8 @@
 ﻿<ResourceDictionary
    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+   xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+   xmlns:fa5="http://schemas.fontawesome.com/icons/"
    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
    xmlns:vm="clr-namespace:VentWPF.ViewModel">
    <ItemsPanelTemplate x:Key="dd">
@@ -22,105 +24,123 @@
       </StackPanel>
    </DataTemplate>
    <DataTemplate DataType="{x:Type vm:SchemeVM}">
-      <Grid>
-         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition />
-         </Grid.ColumnDefinitions>
-         <Grid Grid.Column="0"
-            x:Name="scheme"
-            Width="auto"
-            VerticalAlignment="Center"
-            ShowGridLines="True">
-            <b:Interaction.Triggers>
-               <b:EventTrigger EventName="Loaded">
-                  <b:InvokeCommandAction Command="{Binding Parent.CmdLinkGui}" CommandParameter="{Binding ElementName=scheme}" />
-               </b:EventTrigger>
-            </b:Interaction.Triggers>
-            <Grid.RowDefinitions>
-               <RowDefinition Height="auto" />
-               <RowDefinition Height="auto" />
-               <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
+      <StackPanel Orientation="Vertical">
+         <md:Card Width="auto" Height="auto">
+            <DockPanel HorizontalAlignment="Stretch">
+               <Button DockPanel.Dock="Left"
+                  Style="{StaticResource vmBtn}"
+                  Command="{Binding Parent.CmdScheme}">
+                  <fa5:SvgAwesome Icon="Solid_Sync" />
+               </Button>
+               <Button DockPanel.Dock="Right"
+                  Style="{StaticResource vmBtn}"
+                  Command="{Binding Parent.CmdExpand}"
+                  CommandParameter="{Binding}">
+                  <fa5:SvgAwesome Icon="Solid_Expand" />
+               </Button>
+               <Grid />
+            </DockPanel>
+         </md:Card>
+         <Grid>
             <Grid.ColumnDefinitions>
                <ColumnDefinition Width="auto" />
-               <ColumnDefinition Width="auto" />
-               <ColumnDefinition Width="auto" />
+               <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <!--  Верхние элементы  -->
-            <ItemsControl Grid.Row="0" Grid.Column="3"
-               ItemsPanel="{StaticResource dd}"
-               ItemTemplate="{StaticResource t}"
-               ItemsSource="{Binding TopElements}" />
-            <!--  Нижние элементы  -->
-            <ItemsControl Grid.Row="1" Grid.Column="3"
-               ItemsPanel="{StaticResource dd}"
-               ItemTemplate="{StaticResource b}"
-               ItemsSource="{Binding BottomElements}" />
-            <!--  Левый верхний текст  -->
-            <Canvas Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
-               Width="30"
-               Visibility="{Binding TwoRows, Mode=OneWay, Converter={StaticResource visConv}}">
-               <TextBox
-                  Width="300"
-                  Height="25"
-                  Margin="30,0,0,0"
-                  HorizontalAlignment="Left"
-                  VerticalAlignment="Top"
-                  ClipToBounds="False"
-                  IsHitTestVisible="False"
-                  Style="{StaticResource under}"
-                  Text="{Binding WidthTop, Mode=OneWay}"
-                  TextAlignment="Center">
-                  <TextBox.RenderTransform>
-                     <RotateTransform Angle="90" />
-                  </TextBox.RenderTransform>
-               </TextBox>
-            </Canvas>
-            <Canvas Grid.Row="0" Grid.Column="1"
-               Width="30"
-               Visibility="{Binding TwoRows, Mode=OneWay, Converter={StaticResource visConv}}">
-               <TextBox
-                  Width="150"
-                  Height="25"
-                  Margin="30,0,0,0"
-                  HorizontalAlignment="Left"
-                  VerticalAlignment="Top"
-                  ClipToBounds="False"
-                  IsHitTestVisible="False"
-                  Style="{StaticResource under}"
-                  Text="{Binding WidthTop, Mode=OneWay}"
-                  TextAlignment="Center">
-                  <TextBox.RenderTransform>
-                     <RotateTransform Angle="90" />
-                  </TextBox.RenderTransform>
-               </TextBox>
-            </Canvas>
-            <Canvas Grid.Row="1" Grid.Column="1"
-               Width="30"
-               Visibility="{Binding TwoRows, Mode=OneWay, Converter={StaticResource visConv}}">
-               <TextBox
-                  Width="150"
-                  Height="25"
-                  Margin="30,0,0,0"
-                  HorizontalAlignment="Left"
-                  VerticalAlignment="Top"
-                  ClipToBounds="False"
-                  IsHitTestVisible="False"
-                  Style="{StaticResource under}"
-                  Text="{Binding WidthTop, Mode=OneWay}"
-                  TextAlignment="Center">
-                  <TextBox.RenderTransform>
-                     <RotateTransform Angle="90" />
-                  </TextBox.RenderTransform>
-               </TextBox>
-            </Canvas>
-            <!--  Левый общий текст  -->
-            <TextBox Grid.Row="2" Grid.Column="2"
-               Text="{Binding Sum, Mode=OneWay}"
-               Style="{StaticResource under}" />
+            <Grid Grid.Column="0"
+               x:Name="scheme"
+               Width="auto"
+               VerticalAlignment="Center"
+               ShowGridLines="True">
+               <b:Interaction.Triggers>
+                  <b:EventTrigger EventName="Loaded">
+                     <b:InvokeCommandAction Command="{Binding Parent.CmdLinkGui}" CommandParameter="{Binding ElementName=scheme}" />
+                  </b:EventTrigger>
+               </b:Interaction.Triggers>
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="auto" />
+                  <RowDefinition Height="auto" />
+                  <RowDefinition Height="auto" />
+               </Grid.RowDefinitions>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="auto" />
+               </Grid.ColumnDefinitions>
+               <!--  Верхние элементы  -->
+               <ItemsControl Grid.Row="0" Grid.Column="3"
+                  ItemsPanel="{StaticResource dd}"
+                  ItemTemplate="{StaticResource t}"
+                  ItemsSource="{Binding TopElements}" />
+               <!--  Нижние элементы  -->
+               <ItemsControl Grid.Row="1" Grid.Column="3"
+                  ItemsPanel="{StaticResource dd}"
+                  ItemTemplate="{StaticResource b}"
+                  ItemsSource="{Binding BottomElements}" />
+               <!--  Левый верхний текст  -->
+               <Canvas Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
+                  Width="30"
+                  Visibility="{Binding TwoRows, Mode=OneWay, Converter={StaticResource visConv}}">
+                  <TextBox
+                     Width="300"
+                     Height="25"
+                     Margin="30,0,0,0"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Top"
+                     ClipToBounds="False"
+                     IsHitTestVisible="False"
+                     Style="{StaticResource under}"
+                     Text="{Binding WidthTop, Mode=OneWay}"
+                     TextAlignment="Center">
+                     <TextBox.RenderTransform>
+                        <RotateTransform Angle="90" />
+                     </TextBox.RenderTransform>
+                  </TextBox>
+               </Canvas>
+               <Canvas Grid.Row="0" Grid.Column="1"
+                  Width="30"
+                  Visibility="{Binding TwoRows, Mode=OneWay, Converter={StaticResource visConv}}">
+                  <TextBox
+                     Width="150"
+                     Height="25"
+                     Margin="30,0,0,0"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Top"
+                     ClipToBounds="False"
+                     IsHitTestVisible="False"
+                     Style="{StaticResource under}"
+                     Text="{Binding WidthTop, Mode=OneWay}"
+                     TextAlignment="Center">
+                     <TextBox.RenderTransform>
+                        <RotateTransform Angle="90" />
+                     </TextBox.RenderTransform>
+                  </TextBox>
+               </Canvas>
+               <Canvas Grid.Row="1" Grid.Column="1"
+                  Width="30"
+                  Visibility="{Binding TwoRows, Mode=OneWay, Converter={StaticResource visConv}}">
+                  <TextBox
+                     Width="150"
+                     Height="25"
+                     Margin="30,0,0,0"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Top"
+                     ClipToBounds="False"
+                     IsHitTestVisible="False"
+                     Style="{StaticResource under}"
+                     Text="{Binding WidthTop, Mode=OneWay}"
+                     TextAlignment="Center">
+                     <TextBox.RenderTransform>
+                        <RotateTransform Angle="90" />
+                     </TextBox.RenderTransform>
+                  </TextBox>
+               </Canvas>
+               <!--  Левый общий текст  -->
+               <TextBox Grid.Row="2" Grid.Column="2"
+                  Text="{Binding Sum, Mode=OneWay}"
+                  Style="{StaticResource under}" />
+            </Grid>
          </Grid>
-      </Grid>
+      </StackPanel>
 
 
 

@@ -259,22 +259,7 @@
                         </StackPanel>
                      </TabItem.Header>
                      <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                        <Grid>
-                           <ContentControl Content="{Binding Project.Scheme, Mode=OneWay}" />
-                           <md:Card
-                              Width="auto"
-                              Height="auto"
-                              HorizontalAlignment="Left"
-                              VerticalAlignment="Top">
-                              <Button
-                                 Width="auto"
-                                 Height="auto"
-                                 Padding="10"
-                                 Command="{Binding Project.CmdScheme}">
-                                 <fa5:SvgAwesome Icon="Solid_Sync" />
-                              </Button>
-                           </md:Card>
-                        </Grid>
+                        <ContentControl Content="{Binding Project.Scheme, Mode=OneWay}" />
                      </ScrollViewer>
                   </TabItem>
                   <!--  Отчет  -->
