@@ -36,6 +36,10 @@
          Gesture="Ctrl+F"
          Command="{Binding Project.CmdExpand}"
          CommandParameter="{Binding Project.Grid.Selected}" />
+      <KeyBinding
+         Gesture="Esc"
+         Command="{Binding Project.CmdExpand}"
+         CommandParameter="{x:Null}" />
 
    </Window.InputBindings>
    <b:Interaction.Triggers>

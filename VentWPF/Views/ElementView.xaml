@@ -69,8 +69,35 @@
             Panel.ZIndex="2"
             Background="Transparent"
             Visibility="{Binding Project.Grid.Selected.Query, Converter={StaticResource visConv}}" />
-         <md:Card Grid.Row="2" Margin="0,0,0,5">
-            <Grid>
+         <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+               <RowDefinition Height="auto" />
+               <RowDefinition />
+            </Grid.RowDefinitions>
+            <md:Card Grid.Row="0"
+               Width="auto"
+               Height="auto"
+               HorizontalAlignment="Stretch"
+               VerticalAlignment="Top">
+               <DockPanel>
+                  <Button DockPanel.Dock="Left"
+                     Width="auto"
+                     Height="auto"
+                     Padding="10"
+                     Command="{Binding Project.Grid.Selected.CmdUpdateQuery}">
+                     <fa5:SvgAwesome Icon="Solid_Sync" />
+                  </Button>
+                  <Button DockPanel.Dock="Left"
+                     Width="auto"
+                     Height="auto"
+                     Padding="10"
+                     Command="{Binding Project.Grid.Selected.CmdUpdateQuery}">
+                     <fa5:SvgAwesome Icon="Solid_Filter" />
+                  </Button>
+                  <Grid />
+               </DockPanel>
+            </md:Card>
+            <Grid Grid.Row="1">
                <DataGrid
                   Name="dg"
                   Height="auto"
@@ -102,7 +129,7 @@
                   </DataGrid.ItemContainerStyle>
                   <b:Interaction.Triggers>
                      <b:EventTrigger EventName="AutoGeneratingColumn">
-                        <b:InvokeCommandAction Command="{Binding CmdAutoColumns}" PassEventArgsToCommand="True" />
+                        <b:InvokeCommandAction Command="{Binding Project.CmdAutoColumns}" PassEventArgsToCommand="True" />
                      </b:EventTrigger>
                   </b:Interaction.Triggers>
                   <DataGrid.Style>
@@ -177,21 +204,8 @@
                      </fa5:SvgAwesome.Style>
                   </fa5:SvgAwesome>
                </StackPanel>
-               <md:Card
-                  Width="auto"
-                  Height="auto"
-                  HorizontalAlignment="Right"
-                  VerticalAlignment="Top">
-                  <Button
-                     Width="auto"
-                     Height="auto"
-                     Padding="10"
-                     Command="{Binding Project.Grid.Selected.CmdUpdateQuery}">
-                     <fa5:SvgAwesome Icon="Solid_Sync" />
-                  </Button>
-               </md:Card>
             </Grid>
-         </md:Card>
+         </Grid>
       </Grid>
    </DataTemplate>
 </ResourceDictionary>

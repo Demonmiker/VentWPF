@@ -14,7 +14,6 @@ namespace VentWPF.ViewModel
     {
         public MainViewModel()
         {
-            CmdAutoColumns = new(AutoColumns);
             CmdWindowClosed = new(OnWindowClosed);
             CmdSave = new Command<string>(ProjectVM.Current.SaveProject);
             CmdLoad = new Command<object>(ProjectVM.Current.LoadProject);
@@ -32,7 +31,6 @@ namespace VentWPF.ViewModel
 
         public int DeviceIndex => ProjectVM.Current.Grid.Selected.DeviceIndex;
 
-        public Command<DataGridAutoGeneratingColumnEventArgs> CmdAutoColumns { get; init; }
 
         public Command<Popup> CmdOpenPopup { get; init; }
 
@@ -52,64 +50,6 @@ namespace VentWPF.ViewModel
 
         public ProjectVM Project { get; set; } = ProjectVM.Current;
 
-        private void AutoColumns(DataGridAutoGeneratingColumnEventArgs e)
-        {
-            string header = e.Column.Header.ToString();
-            // Получчение имени из тэга
-            if (ProjectVM.Current.Grid.Selected.Query.Result.Count == 0) return;
-            object[] atrs = ProjectVM.Current.Grid.Selected.Query.Result[0].GetType()
-                    .GetProperty(header).GetCustomAttributes(typeof(DisplayNameAttribute), true);
-            if (atrs.Length > 0)
-            {
-                e.Column.Header = (atrs[0] as DisplayNameAttribute).DisplayName ?? e.Column.Header;
-            }
-            else
-            {
-                e.Cancel = true;
-                return;
-            }
-            //Получение форматирования из тэга
-            object[] atrs2 = ProjectVM.Current.Grid.Selected.Query.Result[0].GetType()
-                .GetProperty(header).GetCustomAttributes(typeof(FormatStringAttribute), true);
-            if (atrs2.Length > 0 && e.Column is DataGridTextColumn)
-            {
-                DataGridTextColumn col = e.Column as DataGridTextColumn;
-                col.Binding.StringFormat = (atrs2[0] as FormatStringAttribute).FormatString;
-            }
-
-            if (ProjectVM.Current.Grid.Selected.Format == null)
-                return;
-            if (ProjectVM.Current.Grid.Selected.Format.ContainsKey(header))
-            {
-                IValueConverter format = ProjectVM.Current.Grid.Selected.Format[header];
-                if (format != null)
-                {
-                    Style defaultStyle = Application.Current.TryFindResource(typeof(DataGridCell)) as Style;
-                    Style style = new(typeof(DataGridCell), defaultStyle);
-                    style.Triggers.Add(new DataTrigger()
-                    {
-                        Binding = new Binding(header) { Converter = format },
-                        Value = true,
-                        Setters =
-                        {
-                            new Setter() { Property = DataGridCell.BackgroundProperty, Value = Brushes.PaleGreen},
-                            new Setter() { Property = DataGridCell.ForegroundProperty, Value = Brushes.DarkGreen},
-                        }
-                    });
-                    style.Triggers.Add(new DataTrigger()
-                    {
-                        Binding = new Binding(header) { Converter = format },
-                        Value = false,
-                        Setters =
-                        {
-                            new Setter() { Property = DataGridCell.BackgroundProperty, Value = Brushes.Pink},
-                            new Setter() { Property = DataGridCell.ForegroundProperty, Value = Brushes.DarkRed},
-                        }
-                    });
-                    e.Column.CellStyle = style;
-                }
-            }
-        }
 
         public void UpdateReport(object _)
         {
