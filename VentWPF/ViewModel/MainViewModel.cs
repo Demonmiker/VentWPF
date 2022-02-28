@@ -1,4 +1,5 @@
 ﻿using PropertyTools.DataAnnotations;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -19,10 +20,25 @@ namespace VentWPF.ViewModel
             CmdSave = new Command<string>(ProjectVM.Current.SaveProject);
             CmdLoad = new Command<object>(ProjectVM.Current.LoadProject);
             CmdNew = new Command<object>(ProjectVM.Current.NewProject);
+            CmdExpand = new Command<BaseViewModel>(ExpandView);
             CmdUpdateReport = new Command<object>(UpdateReport);
             CmdSaveReport = new Command<object>(SaveReport);
             ReportViewer.Document = ReportDocument;
         }
+
+        /// <summary>
+        /// Разворачивает отображение на полный экран или сворачивает если уже развернуто
+        /// </summary>
+        /// <param name="vm">Модель Отображения</param>
+        private void ExpandView(BaseViewModel vm)
+        {
+            if (ExpandedViewModel != vm)
+                ExpandedViewModel = vm;
+            else
+                ExpandedViewModel = null;
+        }
+
+        public BaseViewModel ExpandedViewModel { get; set; }
 
         public FlowDocumentScrollViewer ReportViewer { get; private set; } = new FlowDocumentScrollViewer();
 
@@ -41,6 +57,8 @@ namespace VentWPF.ViewModel
         public Command<object> CmdLoad { get; init; }
 
         public Command<object> CmdNew { get; init; }
+
+        public Command<BaseViewModel> CmdExpand { get; init; }
 
         public Command<string> CmdConfig { get; init; }
 
