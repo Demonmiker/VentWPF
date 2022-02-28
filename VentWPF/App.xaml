@@ -15,6 +15,7 @@
             <ResourceDictionary Source="Views/FrameView.xaml" />
             <ResourceDictionary Source="Views/CreateView.xaml" />
             <ResourceDictionary Source="Views/GridView.xaml" />
+            <ResourceDictionary Source="Views/ElementView.xaml" />
             <ResourceDictionary Source="Views/FrameSideView.xaml" />
             <ResourceDictionary Source="Views/SchemeView.xaml" />
          </ResourceDictionary.MergedDictionaries>

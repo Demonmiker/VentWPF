@@ -34,9 +34,10 @@ namespace VentWPF.ViewModel
 
         private float pressureDrop = 0;
 
-        protected static ProjectInfoVM ProjectInfo { get; set; } = ProjectVM.Current?.ProjectInfo;
+        public static ProjectInfoVM ProjectInfo { get; private set; } = ProjectVM.Current?.ProjectInfo;
 
-        protected static ProjectVM Project { get; set; } = ProjectVM.Current;
+        [Browsable(false)]
+        public ProjectVM Project { get; private set; } = ProjectVM.Current;
 
         /// <summary>
         /// Название элемента системы вентиляции
