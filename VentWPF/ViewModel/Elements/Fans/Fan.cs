@@ -23,9 +23,6 @@ namespace VentWPF.ViewModel
             set => SubType = (int)value;
         }
 
-        [Category(Data)]
-        [DisplayName("Данные уточняющие запрос")]
-        public float Test { get; set; } = 4;
 
         [Category(Info)]
         [FormatString(fkPa)]

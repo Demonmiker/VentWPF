@@ -330,7 +330,7 @@
             <!--  TODO: Нет поддержки горизонтального скрола тачпада  -->
             <!--  TODO: У девайсов из бд не все элементы сртируются  -->
             <md:Card Grid.Column="1" md:ShadowAssist.ShadowEdges="All">
-               <ContentControl Content="{Binding Project.Grid.Selected}" />
+               <ContentPresenter ContentTemplate="{StaticResource side}" Content="{Binding Project.Grid.Selected}" />
             </md:Card>
          </Grid>
          <ContentPresenter
