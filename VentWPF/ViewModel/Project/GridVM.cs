@@ -62,7 +62,6 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Выбранный элемент в установке
         /// </summary>
-        [DependsOn(nameof(Index))]
         public Element Selected
         {
             get => _Selected;
@@ -70,13 +69,43 @@ namespace VentWPF.ViewModel
             {
                 _Selected = value;
                 ChangeInfo();
+                if (_Selected != null)
+                {
+                    if (_Selected.TwoRowsOnly)
+                    {
+                        Elements[Index - 10].IsSelected = true;
+                    }
+                    if (_Selected is DecoyElement)
+                    {
+                        Index = Index + 10;
+                        Selected = Elements[Index];
+                    }
+                }
+
             }
         }
 
+
+        private int index;
         /// <summary>
         /// Индекс выбранного элемента
         /// </summary>
-        public int Index { get; set; }
+        public int Index
+        {
+            get => index;
+            set
+            {
+
+                foreach (var el in Elements)
+                    el.IsSelected = false; //Очищаем все выбранные
+                index = value;
+                if (index >= 0)
+                {
+                    Elements[index].IsSelected = true; //Выбираем кликнутый
+                }
+            }
+
+        }
 
         /// <summary>
         /// Текстовое поле для показа информации
@@ -110,6 +139,13 @@ namespace VentWPF.ViewModel
         /// <param name="el">добавляемый элементы</param>
         public void AddElement(Element el)
         {
+            if (el.TwoRowsOnly)
+            {
+                if (Elements.Count != 20) throw new Exception("Попытка добавить двойной элемент в одноярусную установку");
+                int top = Index = index > 9 ? index-10 : index;
+                Elements[top] = new DecoyElement(el);
+                Index = top + 10;
+            }
             int ind = Index;
             if (Index >= 0 && Index < Elements.Count)
             {
@@ -129,11 +165,47 @@ namespace VentWPF.ViewModel
         /// <param name="el">добавляемый элементы</param>
         public void InsertElement(Element el)
         {
-            int n = Index < 10 ? 9 : 19;
-            for (int i = n; i > Index; i--)
-                Elements[i] = Elements[i - 1];
-            AddElement(el);
+            int ind = Index;
+            if (HasDouble(Index) || el.TwoRowsOnly)
+            {
+                (int top, int bot) = IndexTopBottom(Index);
+                ShiftRowRight(top);
+                ShiftRowRight(bot);
+            }
+            else
+            {
+                ShiftRowRight(Index);
+            }
+            Index = ind;
+           AddElement(el);
         }
+
+
+        private (int top, int bottom) IndexTopBottom(int index)
+        {
+            int top = index > 9 ? index - 10 : index;
+            int bottom = index < 10 ? index + 10 : index;
+            return (top, bottom);
+
+        }
+
+        private void ShiftRowRight(int index)
+        {
+            int n = index < 10 ? 9 : 19;
+            for (int i = n; i > index; i--)
+                Elements[i] = Elements[i - 1];
+            Elements[index] = new Element();
+        }
+
+        private bool HasDouble(int start)
+        {
+            int top = index > 9 ? index - 10 : index;
+            for (int i = top; i < 10; i++)
+                if (Elements[i] is DecoyElement)
+                    return true;
+            return false;
+        }
+
 
         public Command<object> CmdRemove { get; set; }
 

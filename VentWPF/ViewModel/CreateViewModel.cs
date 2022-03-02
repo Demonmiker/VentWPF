@@ -44,7 +44,8 @@ namespace VentWPF.ViewModel
                     new Section() { Direction = SectionType.LeftRightDown },
                     new Section() { Direction = SectionType.LeftRightShort },
                     new Section() { Direction = SectionType.LeftRightValve },
-                    new Section() { Direction = SectionType.LeftUpRightValve }
+                    new Section() { Direction = SectionType.LeftUpRightValve },
+                    new SectionDouble() { Direction = SectionType.LeftRight}
                     //new Section() { Direction = SectionType.LeftRightShort , TwoRowsOnly=true},//Для только двухярусных
                 ),
                 new("Шумоглушитель", "Muffler", new MufflerDefault(), new MufflerCorrector()),

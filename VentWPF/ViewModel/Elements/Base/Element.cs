@@ -219,7 +219,7 @@ namespace VentWPF.ViewModel
         /// Обозначает что элемент можем быть только в установке с двумя рядами
         /// </summary>
         [Browsable(false)]
-        public bool TwoRowsOnly { get; init; } = false;
+        public virtual bool TwoRowsOnly => false;
 
         public static T GetInstance<T>(T o)
         {
@@ -248,6 +248,11 @@ namespace VentWPF.ViewModel
 
         [Browsable(false)]
         public Command<object> CmdUpdateQuery { get; private init; }
+
+
+        // TODO: Можно в SEt указываеть дополнительные селекты для двойных элементов
+        [Browsable(false)]
+        public bool IsSelected { get; set; }
 
         public virtual void UpdateQuery()
         {
