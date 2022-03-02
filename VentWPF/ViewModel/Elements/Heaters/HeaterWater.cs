@@ -45,12 +45,14 @@ namespace VentWPF.ViewModel
         /// Температура теплоносителя начальная
         /// </summary>
         [DisplayName("т. теплоносителя нач.")]
+        [FormatString(Strings.fT)]
         public float TempBegin { get; set; } = 95;
 
         /// <summary>
         /// Температура теплоносителя конечная
         /// </summary>
         [DisplayName("т. теплоносителя кон.")]
+        [FormatString(Strings.fT)]
         public float TempEnd { get; set; } = 70;
 
         /// <summary>

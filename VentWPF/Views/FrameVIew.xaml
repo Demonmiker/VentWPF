@@ -19,27 +19,36 @@
       </DataTemplate.Resources>
       <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
          <StackPanel Orientation="Vertical">
-            <md:Card
-               Width="auto"
-               Height="auto"
-               Margin="5,0,0,0"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Top">
-               <StackPanel Margin="2,2" Orientation="Horizontal">
-
-                  <Button
-                     Width="auto"
-                     Height="auto"
-                     Padding="10"
+            <md:Card>
+               <DockPanel>
+                  <Button DockPanel.Dock="Left"
+                     Style="{StaticResource vmBtn}"
                      Command="{Binding CmdCreateReport}">
                      <fa5:SvgAwesome Icon="Solid_FileWord" />
                   </Button>
-                  <TextBox Style="{StaticResource utb}" Text="{Binding Width}" />
-                  <TextBlock Style="{StaticResource utbb}" Text="x" />
-                  <TextBox Style="{StaticResource utb}" Text="{Binding Height}" />
-                  <TextBlock Style="{StaticResource utbb}" Text="x" />
-                  <TextBox Style="{StaticResource utb}" Text="{Binding Length}" />
-               </StackPanel>
+                  <TextBox DockPanel.Dock="Left"
+                     Style="{StaticResource utb}"
+                     Text="{Binding Width}" />
+                  <TextBlock DockPanel.Dock="Left"
+                     Style="{StaticResource utbb}"
+                     Text="x" />
+                  <TextBox DockPanel.Dock="Left"
+                     Style="{StaticResource utb}"
+                     Text="{Binding Height}" />
+                  <TextBlock DockPanel.Dock="Left"
+                     Style="{StaticResource utbb}"
+                     Text="x" />
+                  <TextBox DockPanel.Dock="Left"
+                     Style="{StaticResource utb}"
+                     Text="{Binding Length}" />
+                  <Button DockPanel.Dock="Right"
+                     Style="{StaticResource vmBtn}"
+                     Command="{Binding Parent.CmdExpand}"
+                     CommandParameter="{Binding}">
+                     <fa5:SvgAwesome Icon="Solid_Expand" />
+                  </Button>
+                  <Grid />
+               </DockPanel>
             </md:Card>
             <GroupBox Header="Верхняя" Style="{x:Null}">
                <Grid>

@@ -69,6 +69,14 @@
       <Setter Property="Height" Value="75" />
       <Setter Property="Width" Value="75" />
    </Style>
+   <Style
+      x:Key="vmBtn"
+      BasedOn="{StaticResource MaterialDesignFlatButton}"
+      TargetType="{x:Type Button}">
+      <Setter Property="Height" Value="auto" />
+      <Setter Property="Width" Value="auto" />
+      <Setter Property="Padding" Value="10" />
+   </Style>
    <Style BasedOn="{StaticResource MaterialDesignGroupBox}" TargetType="GroupBox">
       <Setter Property="BorderThickness" Value="0" />
    </Style>
