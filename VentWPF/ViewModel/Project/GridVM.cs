@@ -1,5 +1,4 @@
-﻿using PropertyChanged;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Controls;
@@ -20,8 +19,8 @@ namespace VentWPF.ViewModel
 
         public GridVM()
         {
-            CmdRemove = new(x => RemoveElement());
-            CmdRemoveShift = new(x => RemoveElementAndShift());
+            CmdRemove = new(RemoveElement,CanRemove);
+            CmdRemoveShift = new Command(RemoveElementAndShift, CanRemoveAndShift);
             CmdSelectShift = new Command<object>(SelectShift);
         }
 
@@ -45,7 +44,7 @@ namespace VentWPF.ViewModel
                 Direction.Top => -10,
                 Direction.Bottom => +10,
             };
-            if(res>0 && res<Elements.Count)
+            if (res > 0 && res < Elements.Count)
                 Index = res; ;
         }
 
@@ -77,8 +76,9 @@ namespace VentWPF.ViewModel
                     }
                     if (_Selected is DecoyElement)
                     {
-                        Index = Index + 10;
-                        Selected = Elements[Index];
+                        Elements[Index + 10].IsSelected = true;
+                        //Index = Index + 10;
+                        //Selected = Elements[Index];
                     }
                 }
 
@@ -112,8 +112,10 @@ namespace VentWPF.ViewModel
         /// </summary>
         public RichTextBox InfoBox { get; init; } = new RichTextBox() { Focusable = false, Document = new FlowDocument() };
 
+        public Rows RowNumber { get; private set; }
         public void Init(Rows rows)
         {
+            RowNumber = rows;
             if (rows == Rows.Одноярусный)
             {
                 Elements = new ObservableCollection<Element>()
@@ -142,7 +144,7 @@ namespace VentWPF.ViewModel
             if (el.TwoRowsOnly)
             {
                 if (Elements.Count != 20) throw new Exception("Попытка добавить двойной элемент в одноярусную установку");
-                int top = Index = index > 9 ? index-10 : index;
+                int top = Index = index > 9 ? index - 10 : index;
                 Elements[top] = new DecoyElement(el);
                 Index = top + 10;
             }
@@ -177,7 +179,7 @@ namespace VentWPF.ViewModel
                 ShiftRowRight(Index);
             }
             Index = ind;
-           AddElement(el);
+            AddElement(el);
         }
 
 
@@ -196,10 +198,17 @@ namespace VentWPF.ViewModel
                 Elements[i] = Elements[i - 1];
             Elements[index] = new Element();
         }
+        private void ShiftRowLeft(int start)
+        {
+            int n = start < 10 ? 9 : 19;
+            for (int i = start; i < n; i++)
+                Elements[i] = Elements[i + 1];
+            Elements[n] = new Element();
+        }
 
         private bool HasDouble(int start)
         {
-            int top = index > 9 ? index - 10 : index;
+            int top = start > 9 ? start - 10 : start;
             for (int i = top; i < 10; i++)
                 if (Elements[i] is DecoyElement)
                     return true;
@@ -207,7 +216,7 @@ namespace VentWPF.ViewModel
         }
 
 
-        public Command<object> CmdRemove { get; set; }
+        public Command CmdRemove { get; set; }
 
         /// <summary>
         /// Удалить элемент
@@ -217,11 +226,17 @@ namespace VentWPF.ViewModel
         {
             var index = Index;
             if (Index >= 0 && Index < Elements.Count)
+            {
+                if (Elements[Index].TwoRowsOnly)
+                    Elements[Index - 10] = new Element();
+                if (Elements[Index] is DecoyElement)
+                    Elements[Index + 10] = new Element();
                 Elements[Index] = new Element();
+            }
             Index = index;
         }
 
-        public Command<object> CmdRemoveShift { get; set; }
+        public Command CmdRemoveShift { get; set; }
 
         /// <summary>
         /// Удалить элемент и сдвинуть ярус на один влево
@@ -232,14 +247,38 @@ namespace VentWPF.ViewModel
             if (Index >= 0 && Index < Elements.Count)
             {
                 var index = Index;
-                int n = Index < 10 ? 9 : 19; //Смещаем только до конца текущего яруса
-                for (int i = Index; i < n; i++)
+                if (HasDouble(Index))
                 {
-                    Elements[i] = Elements[i + 1];
+                    (int top, int bot) = IndexTopBottom(Index);
+                    ShiftRowLeft(top);
+                    ShiftRowLeft(bot);
                 }
-                Elements[n] = new Element();
+                else
+                {
+                    ShiftRowLeft(Index);
+                }
                 Index = index;
             }
+        }
+
+        public bool CanRemoveAndShift()
+        {
+            if (Index < 0) return false;
+            if(RowNumber==Rows.Двухярусный)
+            {
+                if (HasDouble(Index))
+                {
+                    if (Elements[Index].TwoRowsOnly || Elements[Index] is DecoyElement)
+                        return true;
+                    var opposite = Index < 10 ? Elements[Index + 10] : Elements[Index - 10];
+                    return opposite.Name == "";
+                }
+            }
+            return true;
+        }
+        public bool CanRemove()
+        {
+            return Index>=0 && Index < Elements.Count;
         }
 
         /// <summary>

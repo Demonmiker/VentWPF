@@ -24,36 +24,4 @@ namespace VentWPF.ViewModel
 
         public override string Image => Path.GetFullPath($"Assets/Images/Icons/Sections/{Direction}.png");
     }
-
-    internal class SectionDouble : Section , IDoubleElement
-    {
-        public override string Name => $"Двухярусная секция";
-        public override string Image => Path.GetFullPath($"Assets/Images/Icons/Sections/DoubleBottom.png");
-
-        public override bool TwoRowsOnly => true;
-
-        [Browsable(false)]
-        public string TopImage => Path.GetFullPath($"Assets/Images/Icons/Sections/DoubleTop.png");
-    }
-
-    internal interface IDoubleElement
-    {
-        string TopImage { get; }
-    }
-
-
-    internal class DecoyElement : Element
-    {
-
-        public DecoyElement(Element parent)
-        {
-            this.parent = parent;
-        }
-        override public string Name => parent.Name;
-
-        private Element parent;
-
-        public override string Image => (parent as IDoubleElement).TopImage;
-
-    }
 }
