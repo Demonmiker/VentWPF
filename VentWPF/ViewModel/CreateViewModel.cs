@@ -145,6 +145,7 @@ namespace VentWPF.ViewModel
             var grid = ProjectVM.Current.Grid;
             var els = ProjectVM.Current.Grid.Elements;
             var sel = ProjectVM.Current.Grid.Selected;
+            if (grid.Index < 0 || sel is null) return false;
             Debug.WriteLine($"Проверяю {Element.Name}");
             if (grid.RowNumber == Rows.Двухярусный)
             {

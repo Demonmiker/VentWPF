@@ -159,6 +159,13 @@ namespace VentWPF.ViewModel
             }
             Index = ind;
         }
+        public void AddElement(Element el,int index)
+        {
+            int ind = Index;
+            Index = index;
+            AddElement(el);
+            Index = ind;
+        }
 
 
         /// <summary>
