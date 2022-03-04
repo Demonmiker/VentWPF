@@ -225,31 +225,7 @@ namespace VentWPF.ViewModel
         }
         public void GenearateScheme(object o)
         {
-            if (Scheme is null) { Scheme = new SchemeVM(); Scheme.Parent = this; }
-            var result = Scheme;
-            result.TwoRows = ProjectInfo.View.Rows == Model.Rows.Двухярусный;
-            result.WidthBottom = ProjectInfo.Settings.Height;
-            result.WidthTop = ProjectInfo.Settings.Height + 100; //TODO Исправить на нормальное значение
-            result.TopElements.Clear();
-            result.BottomElements.Clear();
-            if (result.TwoRows)
-            {
-                int i = 0;
-                while (Grid.Elements[i].Name != "" && i < 10)
-                    result.TopElements.Add(Grid.Elements[i++]);
-                i = 10;
-                while (Grid.Elements[i].Name != "" && i < 20)
-                    result.BottomElements.Add(Grid.Elements[i++]);
-                MessageBox.Show(result.TopElements.Sum(x => x.Length).ToString());
-            }
-            else
-            {
-                int i = 0;
-                while (Grid.Elements[i].Name != "" && i < 10)
-                    result.BottomElements.Add(Grid.Elements[i++]);
-            }
-            result.Init();
-            Scheme = result;
+            if (Scheme is null) { Scheme = new SchemeVM();}
         }
     }
 }

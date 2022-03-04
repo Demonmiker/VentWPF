@@ -5,27 +5,12 @@
    xmlns:fa5="http://schemas.fontawesome.com/icons/"
    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
    xmlns:vm="clr-namespace:VentWPF.ViewModel">
-   <ItemsPanelTemplate x:Key="dd">
-      <StackPanel
-         Width="auto"
-         VerticalAlignment="Center"
-         Orientation="Horizontal" />
-   </ItemsPanelTemplate>
-   <DataTemplate x:Key="t" DataType="{x:Type vm:Element}">
-      <Image Height="150" Source="{Binding SchemeImage}" />
-   </DataTemplate>
-   <DataTemplate x:Key="b" DataType="{x:Type vm:Element}">
-      <StackPanel>
-         <Image
-            Height="150"
-            Stretch="Fill"
-            Source="{Binding SchemeImage}" />
-         <TextBox Text="{Binding Length, Mode=OneWay}" Style="{StaticResource under}" />
-      </StackPanel>
-   </DataTemplate>
+   <!--  Вкладка схемы  -->
    <DataTemplate DataType="{x:Type vm:SchemeVM}">
-      <StackPanel Orientation="Vertical">
-         <md:Card Width="auto" Height="auto">
+      <DockPanel>
+         <md:Card DockPanel.Dock="Top"
+            Width="auto"
+            Height="auto">
             <DockPanel HorizontalAlignment="Stretch">
                <Button DockPanel.Dock="Left"
                   Style="{StaticResource vmBtn}"
@@ -43,106 +28,91 @@
          </md:Card>
          <Grid>
             <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="100" />
                <ColumnDefinition Width="auto" />
-               <ColumnDefinition />
+               <ColumnDefinition Width="100" />
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0"
-               x:Name="scheme"
+            <Grid.RowDefinitions>
+               <RowDefinition />
+               <RowDefinition Height="auto" />
+               <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="1" Grid.Column="1"
                Width="auto"
-               VerticalAlignment="Center"
-               ShowGridLines="True">
-               <b:Interaction.Triggers>
-                  <b:EventTrigger EventName="Loaded">
-                     <b:InvokeCommandAction Command="{Binding Parent.CmdLinkGui}" CommandParameter="{Binding ElementName=scheme}" />
-                  </b:EventTrigger>
-               </b:Interaction.Triggers>
-               <Grid.RowDefinitions>
-                  <RowDefinition Height="auto" />
-                  <RowDefinition Height="auto" />
-                  <RowDefinition Height="auto" />
-               </Grid.RowDefinitions>
-               <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="auto" />
-                  <ColumnDefinition Width="auto" />
-                  <ColumnDefinition Width="auto" />
-               </Grid.ColumnDefinitions>
-               <!--  Верхние элементы  -->
-               <ItemsControl Grid.Row="0" Grid.Column="3"
-                  ItemsPanel="{StaticResource dd}"
-                  ItemTemplate="{StaticResource t}"
-                  ItemsSource="{Binding TopElements}" />
-               <!--  Нижние элементы  -->
-               <ItemsControl Grid.Row="1" Grid.Column="3"
-                  ItemsPanel="{StaticResource dd}"
-                  ItemTemplate="{StaticResource b}"
-                  ItemsSource="{Binding BottomElements}" />
-               <!--  Левый верхний текст  -->
-               <Canvas Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
-                  Width="30"
-                  Visibility="{Binding TwoRows, Mode=OneWay, Converter={StaticResource visConv}}">
-                  <TextBox
-                     Width="300"
-                     Height="25"
-                     Margin="30,0,0,0"
-                     HorizontalAlignment="Left"
-                     VerticalAlignment="Top"
-                     ClipToBounds="False"
-                     IsHitTestVisible="False"
-                     Style="{StaticResource under}"
-                     Text="{Binding WidthTop, Mode=OneWay}"
-                     TextAlignment="Center">
-                     <TextBox.RenderTransform>
-                        <RotateTransform Angle="90" />
-                     </TextBox.RenderTransform>
-                  </TextBox>
-               </Canvas>
-               <Canvas Grid.Row="0" Grid.Column="1"
-                  Width="30"
-                  Visibility="{Binding TwoRows, Mode=OneWay, Converter={StaticResource visConv}}">
-                  <TextBox
-                     Width="150"
-                     Height="25"
-                     Margin="30,0,0,0"
-                     HorizontalAlignment="Left"
-                     VerticalAlignment="Top"
-                     ClipToBounds="False"
-                     IsHitTestVisible="False"
-                     Style="{StaticResource under}"
-                     Text="{Binding WidthTop, Mode=OneWay}"
-                     TextAlignment="Center">
-                     <TextBox.RenderTransform>
-                        <RotateTransform Angle="90" />
-                     </TextBox.RenderTransform>
-                  </TextBox>
-               </Canvas>
-               <Canvas Grid.Row="1" Grid.Column="1"
-                  Width="30"
-                  Visibility="{Binding TwoRows, Mode=OneWay, Converter={StaticResource visConv}}">
-                  <TextBox
-                     Width="150"
-                     Height="25"
-                     Margin="30,0,0,0"
-                     HorizontalAlignment="Left"
-                     VerticalAlignment="Top"
-                     ClipToBounds="False"
-                     IsHitTestVisible="False"
-                     Style="{StaticResource under}"
-                     Text="{Binding WidthTop, Mode=OneWay}"
-                     TextAlignment="Center">
-                     <TextBox.RenderTransform>
-                        <RotateTransform Angle="90" />
-                     </TextBox.RenderTransform>
-                  </TextBox>
-               </Canvas>
-               <!--  Левый общий текст  -->
-               <TextBox Grid.Row="2" Grid.Column="2"
-                  Text="{Binding Sum, Mode=OneWay}"
-                  Style="{StaticResource under}" />
-            </Grid>
+               Height="auto"
+               BorderBrush="Red"
+               BorderThickness="4">
+               <ContentPresenter
+                  Width="auto"
+                  Height="auto"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Content="{Binding SchemeImage}" />
+            </Border>
          </Grid>
+      </DockPanel>
+   </DataTemplate>
+   <!--  Схема для одиночного элемента  -->
+   <DataTemplate x:Key="single" DataType="{x:Type vm:Element}">
+      <Image Height="150" Source="{Binding SchemeImage}" />
+   </DataTemplate>
+   <!--  Схема для двойного элемента  -->
+   <DataTemplate x:Key="double" DataType="{x:Type vm:ElementTuple}">
+      <StackPanel Orientation="Vertical">
+         <Image Height="150" Source="{Binding Top.Image}" />
+         <Image Height="150" Source="{Binding Bottom.Image}" />
       </StackPanel>
-
-
-
+   </DataTemplate>
+   <!--  Блок одиночных элементов  -->
+   <DataTemplate DataType="{x:Type vm:SchemeSingleBlock}">
+      <Border BorderBrush="Green" BorderThickness="3">
+         <StackPanel Orientation="Vertical">
+            <ItemsControl
+               HorizontalAlignment="{Binding Align}"
+               ItemsSource="{Binding Top}"
+               ItemTemplate="{StaticResource single}">
+               <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                     <StackPanel Orientation="Horizontal" />
+                  </ItemsPanelTemplate>
+               </ItemsControl.ItemsPanel>
+            </ItemsControl>
+            <ItemsControl
+               HorizontalAlignment="{Binding Align}"
+               ItemsSource="{Binding Bottom}"
+               ItemTemplate="{StaticResource single}">
+               <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                     <StackPanel Orientation="Horizontal" />
+                  </ItemsPanelTemplate>
+               </ItemsControl.ItemsPanel>
+            </ItemsControl>
+         </StackPanel>
+      </Border>
+   </DataTemplate>
+   <!--  Блок двойных элементов  -->
+   <DataTemplate DataType="{x:Type vm:SchemeDoubleBlock}">
+      <Border BorderBrush="Purple" BorderThickness="3">
+         <StackPanel Orientation="Vertical">
+            <ItemsControl ItemsSource="{Binding Doubles}" ItemTemplate="{StaticResource double}">
+               <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                     <StackPanel Orientation="Horizontal" />
+                  </ItemsPanelTemplate>
+               </ItemsControl.ItemsPanel>
+            </ItemsControl>
+         </StackPanel>
+      </Border>
+   </DataTemplate>
+   <!--  Изображение схемы  -->
+   <DataTemplate DataType="{x:Type vm:SchemeImageVM}">
+      <ItemsControl ItemsSource="{Binding Blocks}">
+         <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+               <StackPanel Orientation="Horizontal" />
+            </ItemsPanelTemplate>
+         </ItemsControl.ItemsPanel>
+      </ItemsControl>
    </DataTemplate>
 </ResourceDictionary>

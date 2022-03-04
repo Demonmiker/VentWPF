@@ -10,33 +10,83 @@ using VentWPF.Tools;
 
 namespace VentWPF.ViewModel
 {
-    internal class SchemeVM : BaseViewModel
+    internal class SchemeVM : BaseViewModel //ViewModel для самой вкладки а не изображения схемы
     {
-        public ProjectVM Parent { get; set; }
 
-        public bool Visible { get; set; } = false;
-
-        public ObservableCollection<Element> TopElements { get; set; } = new ObservableCollection<Element>();
-
-        public ObservableCollection<Element> BottomElements { get; set; } = new ObservableCollection<Element>();
-
-        public bool TwoRows { get; set; } = true;
-
-        public int Sum { get; private set; }
-
-        public int WidthTop { get; set; }
-
-        public int WidthBottom { get; set; }
-
-        public int WidthSum { get; private set; }
-
-        public void Init()
+        public SchemeVM()
         {
-            Sum = BottomElements.Select(x => x.Length).Sum();
-            if (TwoRows)
-                WidthSum = WidthTop + WidthBottom;
-            else
-                WidthSum = WidthBottom;
+            var sd = new SectionDouble();
+            //Здесь тестовая схема
+            SchemeImage = new SchemeImageVM()
+            {
+                Blocks = new SchemeBlock[]
+                {
+                    new SchemeSingleBlock()
+                    {
+                        Top = new Element[] { new HeaterWater(), new FanC() },
+                        Bottom = new Element[] { new HeaterElectric(), new HumidCell(), new FanP() },
+                        Align = HorizontalAlignment.Right,
+                    },
+                    new SchemeDoubleBlock()
+                    {
+                        Doubles = new ElementTuple[]
+                        {
+                            new ElementTuple() {Bottom= sd,Top=new DecoyElement(sd)}
+                        }
+                    },
+                    new SchemeSingleBlock()
+                    {
+                        Top = new Element[] { new HeaterWater(), new FanC() },
+                        Bottom = new Element[] { new HeaterElectric(), new HumidCell(), new FanP() },
+                        Align = HorizontalAlignment.Center,
+                    },
+                    new SchemeDoubleBlock()
+                    {
+                        Doubles = new ElementTuple[]
+                        {
+                            new ElementTuple() {Bottom= sd,Top=new DecoyElement(sd)}
+                        }
+                    },
+                    new SchemeSingleBlock()
+                    {
+                        Top = new Element[] { new HeaterWater(), new FanC() },
+                        Bottom = new Element[] { new HeaterElectric(), new HumidCell(), new FanP() },
+                        Align = HorizontalAlignment.Left,
+                    },
+
+                }
+                
+            };
+
         }
+        public SchemeImageVM SchemeImage { get; set; }
+    }
+
+    internal class SchemeImageVM : BaseViewModel
+    {
+        public SchemeBlock[] Blocks { get; set; }
+    }
+
+    internal abstract class SchemeBlock { }
+
+    internal class SchemeDoubleBlock : SchemeBlock
+    {
+        public ElementTuple[] Doubles { get; set; }
+    }
+
+    internal class ElementTuple
+    {
+        public Element Top { get; set; }
+        public Element Bottom { get; set; }
+
+    }
+
+    internal class SchemeSingleBlock : SchemeBlock
+    {
+        public Element[] Top{ get; set; }
+
+        public Element[] Bottom { get; set; }
+
+        public HorizontalAlignment Align { get; set; }
     }
 }
