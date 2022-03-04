@@ -39,6 +39,7 @@
                   ItemsSource="{Binding Elements}"
                   SelectedIndex="{Binding Index}"
                   SelectedItem="{Binding Selected}">
+
                   <ListBox.ItemsPanel>
                      <ItemsPanelTemplate>
                         <UniformGrid Columns="10" />
@@ -46,6 +47,8 @@
                   </ListBox.ItemsPanel>
                   <ListBox.ItemContainerStyle>
                      <Style BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+                        <Setter Property="Margin" Value="-0.15" />
                         <Style.Triggers>
                            <Trigger Property="IsSelected" Value="True">
                               <Setter Property="Background" Value="{DynamicResource PrimaryHueLightBrush}" />
@@ -55,7 +58,7 @@
                   </ListBox.ItemContainerStyle>
                   <ListBox.ItemTemplate>
                      <DataTemplate DataType="ElementVM">
-                        <Grid Margin="-6">
+                        <Grid Margin="-7.7">
                            <Image Source="{Binding Image}" ToolTip="{Binding Name}" />
                            <Border
                               Width="auto"

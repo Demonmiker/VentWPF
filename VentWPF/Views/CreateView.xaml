@@ -75,7 +75,10 @@
          </Style>
 
       </DataTemplate.Resources>
-      <Grid Margin="-1" Background="{StaticResource MaterialDesignToolBackground}">
+      <Grid
+         Margin="-1"
+         Background="{StaticResource MaterialDesignToolBackground}"
+         ToolTip="{Binding Element.Name}">
          <Grid.Style>
             <Style TargetType="{x:Type Grid}">
                <Style.Triggers>
@@ -90,7 +93,18 @@
             </Style>
          </Grid.Style>
          <Button Command="{Binding CmdAdd}">
-            <Image Source="{Binding Element.Image}" />
+            <Image>
+               <Image.Style>
+                  <Style TargetType="{x:Type Image}" BasedOn="{StaticResource {x:Type Image}}">
+                     <Setter Property="Source" Value="{Binding Image}" />
+                     <Style.Triggers>
+                        <DataTrigger Binding="{Binding Image}" Value="{x:Null}">
+                           <Setter Property="Source" Value="{Binding Element.Image}" />
+                        </DataTrigger>
+                     </Style.Triggers>
+                  </Style>
+               </Image.Style>
+            </Image>
             <Button.InputBindings>
                <MouseBinding Gesture="RightClick" Command="{Binding CmdInsert}" />
             </Button.InputBindings>

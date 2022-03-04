@@ -18,6 +18,7 @@ namespace VentWPF.ViewModel
             set => SubType = (int)value;
         }
 
+        // TODO: Добавить изменение названия из-за подтипа
         [DependsOn(nameof(DeviceData))]
         public override string Name => $"Секция";
 

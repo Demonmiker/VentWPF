@@ -23,7 +23,7 @@ namespace VentWPF.ViewModel
                 Order = project.ProjectInfo.Order,
                 Settings = project.ProjectInfo.Settings,
                 View = project.ProjectInfo.View,
-                Elements = project.Grid.Elements.Select(x => x.Name == "" ? null : x).ToArray(),
+                Elements = project.Grid.Elements.Select(x => x.Name == "" || x is DecoyElement ? null : x).ToArray(),
             };
         }
 
@@ -46,11 +46,7 @@ namespace VentWPF.ViewModel
             project.Grid.Init(project.ProjectInfo.View.Rows);
             for (int i = 0; i < packed.Elements.Length; i++)
                 if (packed.Elements[i] is not null)
-                {
-                    project.Grid.Elements[i] = packed.Elements[i];
-                    project.Grid.Elements[i].UpdateQuery();
-                    project.ErrorManager.Add(project.Grid.Elements[i], $"[{i % 10 + 1},{i / 10 + 1}]");
-                }
+                    project.Grid.AddElement(packed.Elements[i], i);
             return project;
         }
         
