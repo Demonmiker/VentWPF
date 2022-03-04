@@ -6,9 +6,7 @@
     public enum Realization
     {
         ТРЕНД,
-
         Климат,
-
         Эксперт
     }
 }

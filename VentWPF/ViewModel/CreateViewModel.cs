@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
+using VentWPF.Model;
 using VentWPF.Tools;
 
 namespace VentWPF.ViewModel
@@ -105,41 +108,78 @@ namespace VentWPF.ViewModel
         {
             p.VerticalOffset = 80;
             p.IsOpen = true;
+            CommandManager.InvalidateRequerySuggested();
         }
+
     }
 
     internal class CreateButton
     {
         public CreateButton(Element el)
         {
-            CmdAdd = new Command<object>((x) => Add());
-            CmdInsert = new Command<object>((x) => Insert());
+            CmdAdd = new Command(Add,CanAdd);
+            CmdInsert = new Command(Insert);
             Element = el;
             TwoRowsOnly = el.TwoRowsOnly;
         }
         public CreateButton(Element el,string image)
         {
             Image = image;
-            CmdAdd = new Command<object>((x) => Add());
-            CmdInsert = new Command<object>((x) => Insert());
+            CmdAdd = new Command(Add,CanAdd);
+            CmdInsert = new Command(Insert);
             Element = el;
             TwoRowsOnly = el.TwoRowsOnly;
         }
 
-        public Element Element { get; init; }
+        public Element Element { get; set; }
 
         public string Image { get; init; }
 
         public bool TwoRowsOnly { get; init; }
 
-        public Command<object> CmdAdd { get; init; } = new Command<object>();
+        public Command CmdAdd { get; init; } = new Command();
+        public Command CmdInsert { get; init; } = new Command();
 
+        private bool CanAdd()
+        {
+            var grid = ProjectVM.Current.Grid;
+            if (grid.RowNumber == Rows.Одноярусный) return true;
+            var els = ProjectVM.Current.Grid.Elements;
+            var sel = ProjectVM.Current.Grid.Selected;
+            Debug.WriteLine($"Проверяю {Element.Name}");
+            // TODO: Проверка на направление вентилятора
+            if (Element is Fan fan)
+            {
+                var row = grid.Index < 10 ? MainRow.Верхний : MainRow.Нижний;
+                var expt = ProjectVM.Current.ProjectInfo.View.FlowRow == row;
+                if (fan.Direction.ToString().StartsWith("Left") != expt)
+                    return false;
+            }
+            //Проверка на совместимость размеров
+            if (Element.TwoRowsOnly)
+            { 
+                if (!sel.TwoRowsOnly)
+                {
+                    (int top, int bot) = grid.IndexTopBottom(grid.Index);
+                    if (els[top].Name != "" || els[bot].Name != "")
+                        return false;
+                }
+            }
+            else
+            { 
+                if (sel.TwoRowsOnly)
+                    return false;
+            }
+
+
+            return true;
+
+        }
         // Добавляет элемент
         private void Add()
         {
             ProjectVM.Current.Grid.AddElement(Element);
         }
-        public Command<object> CmdInsert { get; init; } = new Command<object>();
         private void Insert()
         {
             ProjectVM.Current.Grid.InsertElement(Element);

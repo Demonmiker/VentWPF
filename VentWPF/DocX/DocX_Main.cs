@@ -334,7 +334,7 @@ namespace VentWPF.DocX
             string Worker = "Исполнитель: " + pjct.Order.Worker + "\n";
             string OrderName = "Заказ: " + pjct.Order.OrderName + "\n";
             string Foots = "Ножки: " + "???" + "\n";
-            string Realization = "Исполнение: " + pjct.View.Realization + "\n";
+            string Realization = "Исполнение: ТРЕНД\n";
             string Maintenance = "Сторона обслуживания: " + Convert.ToString(pjct.View.Maintenance);
 
             string BuildName = "Обозначение установки: " + pjct.Order.BuildName + "\n";

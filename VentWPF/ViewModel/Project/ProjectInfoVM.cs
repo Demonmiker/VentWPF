@@ -78,6 +78,8 @@ namespace VentWPF.ViewModel
 
     internal class Settings : ValidViewModel
     {
+        [Browsable (false)]
+        public Rows Rows { get; set; }
 
         [Browsable(false)]
         public ProjectInfoVM Parent { get; private set; } //Нельзя открывать будет цикл
@@ -137,7 +139,7 @@ namespace VentWPF.ViewModel
         /// Объем вытяжки/резерва
         /// </summary>
         [Category("Настройки")]
-        [EnableBy("Rows", Rows.Двухярусный)]
+        [VisibleBy(nameof(Rows), Rows.Двухярусный)]
         [DisplayName("Объём вытяжки/резерва")]
         [FormatString(fm3)]
         public int VReserv { get; set; } = 6000;
@@ -146,7 +148,7 @@ namespace VentWPF.ViewModel
         /// Сопротивление сети вытяжки
         /// </summary>
         [Category("Настройки")]
-        [EnableBy("Rows", Rows.Двухярусный)]
+        [VisibleBy(nameof(Rows), Rows.Двухярусный)]
         [DisplayName("Сопр. сети вытяжки")]
         [FormatString(fPa)]
         public float PReserv { get; set; } = 0;
@@ -208,7 +210,16 @@ namespace VentWPF.ViewModel
         [Category("Вид")]
         [DisplayName("Кол-во рядов")]
         public Rows Rows
-        { get => rows; set { rows = value; ProjectVM.Current.Grid.Init(value); } }
+        { 
+            get => rows; 
+            set 
+            {
+                if(Parent is not null)
+                    Parent.Settings.Rows = value;
+                rows = value;
+                ProjectVM.Current.Grid.Init(value); 
+            } 
+        }
 
         /// <summary>
         /// Количество рядов
@@ -219,10 +230,10 @@ namespace VentWPF.ViewModel
         /// Реализация
         /// </summary>
         [Category("Вид")]
-        [DisplayName("Исполнение")]
-        public Realization Realization { get; set; } = Realization.ТРЕНД;
+        [DisplayName("Ярус притока")]
+        [VisibleBy(nameof(Rows),Rows.Двухярусный)]
+        public MainRow FlowRow { get; set; } = MainRow.Верхний;
 
-        [DependsOn(nameof(Realization))]
         [Category("Вид")]
         [DisplayName("Типоразмер")]
         public SizeType SizeType

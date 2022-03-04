@@ -183,7 +183,7 @@ namespace VentWPF.ViewModel
         }
 
 
-        private (int top, int bottom) IndexTopBottom(int index)
+        public (int top, int bottom) IndexTopBottom(int index)
         {
             int top = index > 9 ? index - 10 : index;
             int bottom = index < 10 ? index + 10 : index;
