@@ -15,38 +15,38 @@ namespace VentWPF.ViewModel
         {
             Menus = new()
             {
-                new("Клапан", "Valve",false,
+                new("Клапан", "Valve", false,
                     new(new ValveHorizontal()),
                     new(new ValveHorizontalHeat()),
                     new(new ValveVertical()),
                     new(new ValveVerticalHeat())),
-                new("Фильтр", "Filter",false,
+                new("Фильтр", "Filter", false,
                     new(new FilterSection()),
                     new(new FilterShort()),
                     new(new FilterValve())),
-                new("Нагревателm", "Heater",false,
+                new("Нагревателm", "Heater", false,
                     new(new HeaterWater()),
                     new(new HeaterGas()),
                     new(new HeaterElectric())),
-                new("Охладитель", "Cooler",false,
+                new("Охладитель", "Cooler", false,
                     new(new CoolerFr()),
                     new(new CoolerWater())),
-                new("Вентилятор", "FanC",false,
+                new("Вентилятор", "FanC", false,
                     new(new FanC() { Direction = FanDirection.LeftRight }),
                     new(new FanC() { Direction = FanDirection.LeftUp }),
                     new(new FanC() { Direction = FanDirection.RightLeft }),
                     new(new FanC() { Direction = FanDirection.UpLeft })),
-                new("Вентилятор улиточный", "FanP",false,
+                new("Вентилятор улиточный", "FanP", false,
                     new(new FanP { Direction = FanDirection.LeftRight }),
                     new(new FanP { Direction = FanDirection.LeftUpLeft }),
                     new(new FanP { Direction = FanDirection.LeftUpRight }),
                     new(new FanP { Direction = FanDirection.RightLeft }),
                     new(new FanP { Direction = FanDirection.RightUpLeft })),
-                new("Вентилятор потоковый", "FanK3G",false,
+                new("Вентилятор потоковый", "FanK3G", false,
                     new(new FanK3G() { Direction = FanDirection.LeftRight }),
                     new(new FanK3G() { Direction = FanDirection.LeftUp }),
                     new(new FanK3G() { Direction = FanDirection.RightLeft })),
-                new("Секция", "Section",false,
+                new("Секция", "Section", false,
                     new(new Section() { Direction = SectionType.LeftRight }),
                     new(new Section() { Direction = SectionType.LeftUpDown }),
                     new(new Section() { Direction = SectionType.LeftDown }),
@@ -57,9 +57,9 @@ namespace VentWPF.ViewModel
                     new(new Section() { Direction = SectionType.LeftRightShort }),
                     new(new Section() { Direction = SectionType.LeftRightValve }),
                     new(new Section() { Direction = SectionType.LeftUpRightValve }),
-                    new(new SectionDouble() { Direction = SectionType.LeftRight},
+                    new(new SectionDouble() { Direction = SectionType.LeftRight },
                         Path.GetFullPath($"Assets/Images/Icons/Sections/Double.png"))
-                    //new Section() { Direction = SectionType.LeftRightShort , TwoRowsOnly=true},//Для только двухярусных
+                //new Section() { Direction = SectionType.LeftRightShort , TwoRowsOnly=true},//Для только двухярусных
                 ),
                 new("Шумоглушитель", "Muffler", false,
                     new(new MufflerDefault()),
@@ -117,15 +117,15 @@ namespace VentWPF.ViewModel
     {
         public CreateButton(Element el)
         {
-            CmdAdd = new Command(Add,CanAdd);
+            CmdAdd = new Command(Add, CanAdd);
             CmdInsert = new Command(Insert);
             Element = el;
             TwoRowsOnly = el.TwoRowsOnly;
         }
-        public CreateButton(Element el,string image)
+        public CreateButton(Element el, string image)
         {
             Image = image;
-            CmdAdd = new Command(Add,CanAdd);
+            CmdAdd = new Command(Add, CanAdd);
             CmdInsert = new Command(Insert);
             Element = el;
             TwoRowsOnly = el.TwoRowsOnly;
@@ -143,33 +143,45 @@ namespace VentWPF.ViewModel
         private bool CanAdd()
         {
             var grid = ProjectVM.Current.Grid;
-            if (grid.RowNumber == Rows.Одноярусный) return true;
             var els = ProjectVM.Current.Grid.Elements;
             var sel = ProjectVM.Current.Grid.Selected;
             Debug.WriteLine($"Проверяю {Element.Name}");
-            // TODO: Проверка на направление вентилятора
-            if (Element is Fan fan)
+            if (grid.RowNumber == Rows.Двухярусный)
             {
-                var row = grid.Index < 10 ? MainRow.Верхний : MainRow.Нижний;
-                var expt = ProjectVM.Current.ProjectInfo.View.FlowRow == row;
-                if (fan.Direction.ToString().StartsWith("Left") != expt)
-                    return false;
-            }
-            //Проверка на совместимость размеров
-            if (Element.TwoRowsOnly)
-            { 
-                if (!sel.TwoRowsOnly)
+                // Проверка на направление вентилятора
+                if (Element is Fan fan)
                 {
-                    (int top, int bot) = grid.IndexTopBottom(grid.Index);
-                    if (els[top].Name != "" || els[bot].Name != "")
+                    var row = grid.Index < 10 ? MainRow.Верхний : MainRow.Нижний;
+                    var expt = ProjectVM.Current.ProjectInfo.View.FlowRow == row;
+                    if (fan.Direction.ToString().StartsWith("Left") != expt)
                         return false;
                 }
-            }
-            else
-            { 
-                if (sel.TwoRowsOnly)
+                //Проверка на совместимость размеров
+                if (Element.TwoRowsOnly)
+                {
+                    if (!sel.TwoRowsOnly)
+                    {
+                        (int top, int bot) = grid.IndexTopBottom(grid.Index);
+                        if (els[top].Name != "" || els[bot].Name != "")
+                            return false;
+                    }
+                }
+                else
+                    if (sel.TwoRowsOnly)
                     return false;
             }
+            //Проверка на положение клапана
+            if (Element is Valve)
+            {
+                int start = grid.Index < 10 ? 0 : 10;
+                for (int i = start; i < grid.Index; i++)
+                {
+                    if (els[i].Name != "")
+                        return false;
+                }
+
+            }
+
 
 
             return true;
