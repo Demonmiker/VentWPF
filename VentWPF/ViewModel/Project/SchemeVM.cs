@@ -23,40 +23,45 @@ namespace VentWPF.ViewModel
                 {
                     new SchemeSingleBlock()
                     {
-                        Top = new Element[] { new HeaterWater(), new FanC() },
-                        Bottom = new Element[] { new HeaterElectric(), new HumidCell(), new FanP() },
-                        Align = HorizontalAlignment.Right,
+                        Top = new ElementLen[] { new(new HeaterWater()), new(new FanC()) },
+                        Bottom = new ElementLen[] { new(new HeaterElectric()), new(new HumidCell()) },
                     },
                     new SchemeDoubleBlock()
                     {
-                        Doubles = new ElementTuple[]
+                        Doubles = new ElementTupleLen[]
                         {
-                            new ElementTuple() {Bottom= sd,Top=new DecoyElement(sd)}
+                            new ElementTupleLen(new DecoyElement(sd),sd),
                         }
                     },
                     new SchemeSingleBlock()
                     {
-                        Top = new Element[] { new HeaterWater(), new FanC() },
-                        Bottom = new Element[] { new HeaterElectric(), new HumidCell(), new FanP() },
-                        Align = HorizontalAlignment.Center,
+                        Top = new ElementLen[] { new(new HeaterElectric()), new(new HumidCell()) },
+                        Bottom = new ElementLen[] { new(new HeaterWater()), new(new FanC()) },
                     },
                     new SchemeDoubleBlock()
                     {
-                        Doubles = new ElementTuple[]
+                        Doubles = new ElementTupleLen[]
                         {
-                            new ElementTuple() {Bottom= sd,Top=new DecoyElement(sd)}
+                            new ElementTupleLen(new DecoyElement(sd),sd),
                         }
                     },
                     new SchemeSingleBlock()
                     {
-                        Top = new Element[] { new HeaterWater(), new FanC() },
-                        Bottom = new Element[] { new HeaterElectric(), new HumidCell(), new FanP() },
-                        Align = HorizontalAlignment.Left,
+                        Top = new ElementLen[] { new(new HeaterWater()), new(new FanC()) },
+                        Bottom = new ElementLen[] { new(new HeaterElectric()), new(new HumidCell()) },
                     },
 
                 }
-                
             };
+            SchemeImage.Blocks[0].First = true;
+            if( SchemeImage.Blocks[0] is SchemeSingleBlock ssb2)
+            {
+                ssb2.Align = HorizontalAlignment.Right;
+            }
+            if( SchemeImage.Blocks[^1] is SchemeSingleBlock ssb)
+            {
+                ssb.Align = HorizontalAlignment.Left;
+            }
 
         }
         public SchemeImageVM SchemeImage { get; set; }
@@ -67,26 +72,49 @@ namespace VentWPF.ViewModel
         public SchemeBlock[] Blocks { get; set; }
     }
 
-    internal abstract class SchemeBlock { }
+    internal abstract class SchemeBlock 
+    {
+        public bool First { get; set; }
+    }
 
     internal class SchemeDoubleBlock : SchemeBlock
     {
-        public ElementTuple[] Doubles { get; set; }
+        public ElementTupleLen[] Doubles { get; set; }
     }
 
-    internal class ElementTuple
+    internal class ElementTupleLen
     {
         public Element Top { get; set; }
         public Element Bottom { get; set; }
+        public int Length { get; set; }
+
+        public ElementTupleLen(Element top, Element bottom)
+        {
+            Top = top;
+            Bottom = bottom;
+            Length = Math.Max(Top.Length, Bottom.Length);
+        }
+
+    }
+    internal class ElementLen
+    {
+        public Element Element { get; set; }
+        public int Length { get; set; }
+
+        public ElementLen(Element el)
+        {
+            Element = el;
+            Length = el.Length;
+        }
 
     }
 
     internal class SchemeSingleBlock : SchemeBlock
     {
-        public Element[] Top{ get; set; }
+        public ElementLen[] Top{ get; set; }
 
-        public Element[] Bottom { get; set; }
+        public ElementLen[] Bottom { get; set; }
 
-        public HorizontalAlignment Align { get; set; }
+        public HorizontalAlignment Align { get; set; } = HorizontalAlignment.Center;
     }
 }

@@ -37,12 +37,9 @@
                <RowDefinition Height="auto" />
                <RowDefinition />
             </Grid.RowDefinitions>
-
             <Border Grid.Row="1" Grid.Column="1"
                Width="auto"
-               Height="auto"
-               BorderBrush="Red"
-               BorderThickness="4">
+               Height="auto">
                <ContentPresenter
                   Width="auto"
                   Height="auto"
@@ -54,34 +51,34 @@
       </DockPanel>
    </DataTemplate>
    <!--  Схема для одиночного элемента  -->
-   <DataTemplate x:Key="single" DataType="{x:Type vm:Element}">
-      <Image Height="150" Source="{Binding SchemeImage}" />
+   <DataTemplate x:Key="single" DataType="{x:Type vm:ElementLen}">
+      <Image Height="150" Source="{Binding Element.SchemeImage}" />
+   </DataTemplate>
+   <!--  Схема для одиночного элемента с размером снизу  -->
+   <DataTemplate x:Key="single-text" DataType="{x:Type vm:ElementLen}">
+      <StackPanel Orientation="Vertical">
+         <Image Height="150" Source="{Binding Element.SchemeImage}" />
+         <TextBox Text="{Binding Length}" Style="{StaticResource under}" />
+      </StackPanel>
    </DataTemplate>
    <!--  Схема для двойного элемента  -->
-   <DataTemplate x:Key="double" DataType="{x:Type vm:ElementTuple}">
+   <DataTemplate x:Key="double" DataType="{x:Type vm:ElementTupleLen}">
       <StackPanel Orientation="Vertical">
          <Image Height="150" Source="{Binding Top.Image}" />
          <Image Height="150" Source="{Binding Bottom.Image}" />
+         <TextBox Text="{Binding Length}" Style="{StaticResource under}" />
       </StackPanel>
    </DataTemplate>
    <!--  Блок одиночных элементов  -->
    <DataTemplate DataType="{x:Type vm:SchemeSingleBlock}">
-      <Border BorderBrush="Green" BorderThickness="3">
-         <StackPanel Orientation="Vertical">
-            <ItemsControl
-               HorizontalAlignment="{Binding Align}"
-               ItemsSource="{Binding Top}"
-               ItemTemplate="{StaticResource single}">
-               <ItemsControl.ItemsPanel>
-                  <ItemsPanelTemplate>
-                     <StackPanel Orientation="Horizontal" />
-                  </ItemsPanelTemplate>
-               </ItemsControl.ItemsPanel>
-            </ItemsControl>
-            <ItemsControl
-               HorizontalAlignment="{Binding Align}"
-               ItemsSource="{Binding Bottom}"
-               ItemTemplate="{StaticResource single}">
+      <StackPanel Orientation="Vertical">
+         <!--  Верхний слой  -->
+         <StackPanel HorizontalAlignment="{Binding Align}" Orientation="Horizontal">
+            <TextBox
+               Text="100"
+               Style="{StaticResource under-left}"
+               Visibility="{Binding First, Converter={StaticResource visConv}}" />
+            <ItemsControl ItemsSource="{Binding Top}" ItemTemplate="{StaticResource single}">
                <ItemsControl.ItemsPanel>
                   <ItemsPanelTemplate>
                      <StackPanel Orientation="Horizontal" />
@@ -89,21 +86,62 @@
                </ItemsControl.ItemsPanel>
             </ItemsControl>
          </StackPanel>
-      </Border>
+         <!--  Нижний слой  -->
+         <StackPanel HorizontalAlignment="{Binding Align}" Orientation="Horizontal">
+            <Grid>
+               <Grid.RowDefinitions>
+                  <RowDefinition />
+                  <RowDefinition Height="auto" />
+               </Grid.RowDefinitions>
+               <TextBox
+                  Margin="0,0,0,1"
+                  Text="100"
+                  Style="{StaticResource under-left}"
+                  Visibility="{Binding First, Converter={StaticResource visConv}}" />
+               <TextBox Grid.Row="1"
+                  Width="0"
+                  Visibility="Hidden" />
+            </Grid>
+            <ItemsControl ItemsSource="{Binding Bottom}" ItemTemplate="{StaticResource single-text}">
+               <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                     <StackPanel Orientation="Horizontal" />
+                  </ItemsPanelTemplate>
+               </ItemsControl.ItemsPanel>
+            </ItemsControl>
+         </StackPanel>
+      </StackPanel>
    </DataTemplate>
    <!--  Блок двойных элементов  -->
    <DataTemplate DataType="{x:Type vm:SchemeDoubleBlock}">
-      <Border BorderBrush="Purple" BorderThickness="3">
-         <StackPanel Orientation="Vertical">
-            <ItemsControl ItemsSource="{Binding Doubles}" ItemTemplate="{StaticResource double}">
-               <ItemsControl.ItemsPanel>
-                  <ItemsPanelTemplate>
-                     <StackPanel Orientation="Horizontal" />
-                  </ItemsPanelTemplate>
-               </ItemsControl.ItemsPanel>
-            </ItemsControl>
-         </StackPanel>
-      </Border>
+      <StackPanel Orientation="Horizontal">
+         <Grid>
+            <Grid.RowDefinitions>
+               <RowDefinition />
+               <RowDefinition />
+               <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <TextBox Grid.Row="0"
+               Text="100"
+               Style="{StaticResource under-left}"
+               Visibility="{Binding First, Converter={StaticResource visConv}}" />
+            <TextBox Grid.Row="1"
+               Text="100"
+               Style="{StaticResource under-left}"
+               Visibility="{Binding First, Converter={StaticResource visConv}}" />
+            <TextBox Grid.Row="2"
+               Width="0"
+               Visibility="Hidden"
+               Style="{StaticResource under}" />
+         </Grid>
+         <ItemsControl ItemsSource="{Binding Doubles}" ItemTemplate="{StaticResource double}">
+            <ItemsControl.ItemsPanel>
+               <ItemsPanelTemplate>
+                  <StackPanel Orientation="Horizontal" />
+               </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+         </ItemsControl>
+      </StackPanel>
    </DataTemplate>
    <!--  Изображение схемы  -->
    <DataTemplate DataType="{x:Type vm:SchemeImageVM}">

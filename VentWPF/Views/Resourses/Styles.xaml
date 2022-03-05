@@ -42,6 +42,26 @@
       </Setter>
       <Setter Property="TextAlignment" Value="Center" />
    </Style>
+   <Style
+      x:Key="under-left"
+      BasedOn="{StaticResource under}"
+      TargetType="{x:Type TextBox}">
+      <Setter Property="LayoutTransform">
+         <Setter.Value>
+            <RotateTransform Angle="90" />
+         </Setter.Value>
+      </Setter>
+   </Style>
+   <Style
+      x:Key="under-right"
+      BasedOn="{StaticResource under}"
+      TargetType="{x:Type TextBox}">
+      <Setter Property="LayoutTransform">
+         <Setter.Value>
+            <RotateTransform Angle="-90" />
+         </Setter.Value>
+      </Setter>
+   </Style>
    <Style BasedOn="{StaticResource {x:Type ToolTip}}" TargetType="ToolTip">
       <Setter Property="Background" Value="{DynamicResource PrimaryHueDarkBrush}" />
       <Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueLightBrush}" />
