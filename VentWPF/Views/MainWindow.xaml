@@ -230,12 +230,6 @@
                            <ColumnDefinition />
                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <Border
-                           Height="300"
-                           HorizontalAlignment="Stretch"
-                           BorderThickness="2"
-                           BorderBrush="Black" />
-                        <GridSplitter Width="6" VerticalAlignment="Stretch" />
                      </Grid>
 
                   </TabItem>

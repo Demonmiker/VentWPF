@@ -14,6 +14,7 @@ namespace VentWPF.ViewModel
     {
         public ProjectVM Parent { get; init; } = ProjectVM.Current;
 
+
         public SchemeVM()
         {
             var sd = new SectionDouble();

@@ -28,7 +28,7 @@
                <Grid />
             </DockPanel>
          </md:Card>
-         <ScrollViewer>
+         <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
             <Grid>
                <Grid.ColumnDefinitions>
                   <ColumnDefinition Width="100" />
@@ -77,45 +77,105 @@
    <DataTemplate DataType="{x:Type vm:SchemeSingleBlock}">
       <StackPanel Orientation="Vertical">
          <!--  Верхний слой  -->
-         <StackPanel HorizontalAlignment="{Binding Align}" Orientation="Horizontal">
-            <TextBox
-               Height="100"
-               HorizontalContentAlignment="Left"
+         <Grid HorizontalAlignment="{Binding Align}">
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="auto" />
+               <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0"
+               Height="60"
+               HorizontalAlignment="Right"
+               VerticalContentAlignment="Bottom"
+               Text="500"
+               Style="{StaticResource under-left}"
+               Visibility="{Binding First, Converter={StaticResource visConv}}" />
+            <TextBox Grid.Column="0"
+               Margin="8,0,0,8"
+               HorizontalAlignment="Right"
+               VerticalContentAlignment="Bottom"
                Text="100"
                Style="{StaticResource under-left}"
                Visibility="{Binding First, Converter={StaticResource visConv}}" />
-            <ItemsControl ItemsSource="{Binding Top}" ItemTemplate="{StaticResource single}">
-               <ItemsControl.ItemsPanel>
-                  <ItemsPanelTemplate>
-                     <StackPanel Orientation="Horizontal" />
-                  </ItemsPanelTemplate>
-               </ItemsControl.ItemsPanel>
-            </ItemsControl>
-         </StackPanel>
+            <Grid Grid.Column="1">
+               <Grid.Background>
+                  <ImageBrush
+                     ImageSource="{Binding BackImage}"
+                     TileMode="Tile"
+                     AlignmentY="Top"
+                     Stretch="Uniform"
+                     ViewportUnits="Absolute"
+                     Viewport="0,0,75,200" />
+               </Grid.Background>
+               <StackPanel Grid.Column="1"
+                  HorizontalAlignment="Center"
+                  Orientation="Horizontal">
+                  <ItemsControl ItemsSource="{Binding Top}" ItemTemplate="{StaticResource single}">
+                     <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                           <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                     </ItemsControl.ItemsPanel>
+                  </ItemsControl>
+               </StackPanel>
+            </Grid>
+         </Grid>
          <!--  Нижний слой  -->
-         <StackPanel HorizontalAlignment="{Binding Align}" Orientation="Horizontal">
-            <Grid>
+         <Grid HorizontalAlignment="{Binding Align}">
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="auto" />
+               <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
                <Grid.RowDefinitions>
+
                   <RowDefinition />
                   <RowDefinition Height="auto" />
                </Grid.RowDefinitions>
-               <TextBox
-                  Margin="0,0,0,1"
+               <TextBox Grid.Column="0"
+                  Height="60"
+                  HorizontalAlignment="Right"
+                  VerticalContentAlignment="Bottom"
+                  Text="500"
+                  Style="{StaticResource under-left}"
+                  Visibility="{Binding First, Converter={StaticResource visConv}}" />
+               <TextBox Grid.Column="0"
+                  Margin="8,0,0,8"
+                  HorizontalAlignment="Right"
+                  VerticalContentAlignment="Bottom"
                   Text="100"
                   Style="{StaticResource under-left}"
                   Visibility="{Binding First, Converter={StaticResource visConv}}" />
                <TextBox Grid.Row="1"
                   Width="0"
+                  VerticalContentAlignment="Bottom"
+                  Text="500"
+                  Style="{StaticResource under}"
                   Visibility="Hidden" />
             </Grid>
-            <ItemsControl ItemsSource="{Binding Bottom}" ItemTemplate="{StaticResource single-text}">
-               <ItemsControl.ItemsPanel>
-                  <ItemsPanelTemplate>
-                     <StackPanel Orientation="Horizontal" />
-                  </ItemsPanelTemplate>
-               </ItemsControl.ItemsPanel>
-            </ItemsControl>
-         </StackPanel>
+
+            <Grid Grid.Column="1">
+               <Grid.Background>
+                  <ImageBrush
+                     ImageSource="{Binding BackImage}"
+                     TileMode="Tile"
+                     AlignmentY="Top"
+                     Stretch="Uniform"
+                     ViewportUnits="Absolute"
+                     Viewport="0,0,75,200" />
+               </Grid.Background>
+               <StackPanel Grid.Column="1"
+                  HorizontalAlignment="Center"
+                  Orientation="Horizontal">
+                  <ItemsControl ItemsSource="{Binding Bottom}" ItemTemplate="{StaticResource single-text}">
+                     <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                           <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                     </ItemsControl.ItemsPanel>
+                  </ItemsControl>
+               </StackPanel>
+            </Grid>
+         </Grid>
       </StackPanel>
    </DataTemplate>
    <!--  Блок двойных элементов  -->

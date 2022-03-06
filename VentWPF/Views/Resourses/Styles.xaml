@@ -19,8 +19,11 @@
       <Setter Property="Template">
          <Setter.Value>
             <ControlTemplate TargetType="{x:Type TextBox}">
-               <Grid>
+               <Grid Margin="{Binding Path=Margin, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
                   <TextBox
+                     Width="{Binding Path=Width, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                     Height="{Binding Path=Height, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                     VerticalContentAlignment="{Binding Path=VerticalContentAlignment, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
                      BorderBrush="Black"
                      BorderThickness="1.5,0,1.5,1.5"
                      Text="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" />

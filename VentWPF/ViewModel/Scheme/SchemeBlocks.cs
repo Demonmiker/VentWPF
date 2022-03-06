@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 
 namespace VentWPF.ViewModel
 {
@@ -13,10 +14,12 @@ namespace VentWPF.ViewModel
 
     internal class SchemeSingleBlock : SchemeBlock
     {
+        public string BackImage { get; init; } = Path.GetFullPath("Assets/Images/Scheme/Back.png");
+
         public SchemeElement[] Top{ get; set; }
 
         public SchemeElement[] Bottom { get; set; }
 
-        public HorizontalAlignment Align { get; set; } = HorizontalAlignment.Center;
+        public HorizontalAlignment Align { get; set; } = HorizontalAlignment.Stretch;
     }
 }
