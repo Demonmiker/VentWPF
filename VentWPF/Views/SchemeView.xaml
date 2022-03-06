@@ -10,7 +10,9 @@
       <DockPanel>
          <md:Card DockPanel.Dock="Top"
             Width="auto"
-            Height="auto">
+            Height="auto"
+            Margin="0,0,-2,0"
+            md:ShadowAssist.ShadowEdges="Bottom">
             <DockPanel HorizontalAlignment="Stretch">
                <Button DockPanel.Dock="Left"
                   Style="{StaticResource vmBtn}"
@@ -26,43 +28,45 @@
                <Grid />
             </DockPanel>
          </md:Card>
-         <Grid>
-            <Grid.ColumnDefinitions>
-               <ColumnDefinition Width="100" />
-               <ColumnDefinition Width="auto" />
-               <ColumnDefinition Width="100" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-               <RowDefinition />
-               <RowDefinition Height="auto" />
-               <RowDefinition />
-            </Grid.RowDefinitions>
-            <Border Grid.Row="1" Grid.Column="1"
-               Width="auto"
-               Height="auto">
-               <ContentPresenter
+         <ScrollViewer>
+            <Grid>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="100" />
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="100" />
+               </Grid.ColumnDefinitions>
+               <Grid.RowDefinitions>
+                  <RowDefinition />
+                  <RowDefinition Height="auto" />
+                  <RowDefinition />
+               </Grid.RowDefinitions>
+               <Border Grid.Row="1" Grid.Column="1"
                   Width="auto"
-                  Height="auto"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Center"
-                  Content="{Binding SchemeImage}" />
-            </Border>
-         </Grid>
+                  Height="auto">
+                  <ContentPresenter
+                     Width="auto"
+                     Height="auto"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Content="{Binding SchemeImage}" />
+               </Border>
+            </Grid>
+         </ScrollViewer>
       </DockPanel>
    </DataTemplate>
    <!--  Схема для одиночного элемента  -->
-   <DataTemplate x:Key="single" DataType="{x:Type vm:ElementLen}">
+   <DataTemplate x:Key="single" DataType="{x:Type vm:SchemeElement}">
       <Image Height="150" Source="{Binding Element.SchemeImage}" />
    </DataTemplate>
    <!--  Схема для одиночного элемента с размером снизу  -->
-   <DataTemplate x:Key="single-text" DataType="{x:Type vm:ElementLen}">
+   <DataTemplate x:Key="single-text" DataType="{x:Type vm:SchemeElement}">
       <StackPanel Orientation="Vertical">
          <Image Height="150" Source="{Binding Element.SchemeImage}" />
          <TextBox Text="{Binding Length}" Style="{StaticResource under}" />
       </StackPanel>
    </DataTemplate>
    <!--  Схема для двойного элемента  -->
-   <DataTemplate x:Key="double" DataType="{x:Type vm:ElementTupleLen}">
+   <DataTemplate x:Key="double" DataType="{x:Type vm:DoubleSchemeElement}">
       <StackPanel Orientation="Vertical">
          <Image Height="150" Source="{Binding Top.Image}" />
          <Image Height="150" Source="{Binding Bottom.Image}" />
@@ -75,6 +79,8 @@
          <!--  Верхний слой  -->
          <StackPanel HorizontalAlignment="{Binding Align}" Orientation="Horizontal">
             <TextBox
+               Height="100"
+               HorizontalContentAlignment="Left"
                Text="100"
                Style="{StaticResource under-left}"
                Visibility="{Binding First, Converter={StaticResource visConv}}" />

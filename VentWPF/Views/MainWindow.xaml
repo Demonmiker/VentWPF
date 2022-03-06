@@ -262,9 +262,7 @@
                            <TextBlock Text="Схема" />
                         </StackPanel>
                      </TabItem.Header>
-                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                        <ContentControl Content="{Binding Project.Scheme, Mode=OneWay}" />
-                     </ScrollViewer>
+                     <ContentControl Content="{Binding Project.Scheme, Mode=OneWay}" />
                   </TabItem>
                   <!--  Отчет  -->
                   <TabItem>
