@@ -7,6 +7,7 @@
    xmlns:vm="clr-namespace:VentWPF.ViewModel">
    <!--  Вкладка схемы  -->
    <DataTemplate DataType="{x:Type vm:SchemeVM}">
+      <DataTemplate.Resources />
       <DockPanel>
          <md:Card DockPanel.Dock="Top"
             Width="auto"
@@ -77,25 +78,17 @@
    <DataTemplate DataType="{x:Type vm:SchemeSingleBlock}">
       <StackPanel Orientation="Vertical">
          <!--  Верхний слой  -->
-         <Grid HorizontalAlignment="{Binding Align}">
+         <Grid HorizontalAlignment="{Binding Align}" Visibility="{Binding TwoRows, Converter={StaticResource visConv}}">
             <Grid.ColumnDefinitions>
                <ColumnDefinition Width="auto" />
                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <TextBox Grid.Column="0"
                Height="60"
-               HorizontalAlignment="Right"
-               VerticalContentAlignment="Bottom"
-               Text="500"
-               Style="{StaticResource under-left}"
-               Visibility="{Binding First, Converter={StaticResource visConv}}" />
+               Style="{StaticResource tbsize}" />
             <TextBox Grid.Column="0"
                Margin="8,0,0,8"
-               HorizontalAlignment="Right"
-               VerticalContentAlignment="Bottom"
-               Text="100"
-               Style="{StaticResource under-left}"
-               Visibility="{Binding First, Converter={StaticResource visConv}}" />
+               Style="{StaticResource tbsize}" />
             <Grid Grid.Column="1">
                <Grid.Background>
                   <ImageBrush
@@ -133,22 +126,14 @@
                </Grid.RowDefinitions>
                <TextBox Grid.Column="0"
                   Height="60"
-                  HorizontalAlignment="Right"
-                  VerticalContentAlignment="Bottom"
-                  Text="500"
-                  Style="{StaticResource under-left}"
-                  Visibility="{Binding First, Converter={StaticResource visConv}}" />
+                  Style="{StaticResource tbsize}" />
                <TextBox Grid.Column="0"
                   Margin="8,0,0,8"
-                  HorizontalAlignment="Right"
-                  VerticalContentAlignment="Bottom"
-                  Text="100"
-                  Style="{StaticResource under-left}"
-                  Visibility="{Binding First, Converter={StaticResource visConv}}" />
+                  Style="{StaticResource tbsize}">
+                               </TextBox>
                <TextBox Grid.Row="1"
                   Width="0"
                   VerticalContentAlignment="Bottom"
-                  Text="500"
                   Style="{StaticResource under}"
                   Visibility="Hidden" />
             </Grid>
@@ -187,14 +172,18 @@
                <RowDefinition />
                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-            <TextBox Grid.Row="0"
-               Text="100"
-               Style="{StaticResource under-left}"
-               Visibility="{Binding First, Converter={StaticResource visConv}}" />
+            <TextBox Grid.Column="0"
+               Height="60"
+               Style="{StaticResource tbsize}" />
+            <TextBox Grid.Column="0"
+               Margin="8,0,0,8"
+               Style="{StaticResource tbsize}" />
             <TextBox Grid.Row="1"
-               Text="100"
-               Style="{StaticResource under-left}"
-               Visibility="{Binding First, Converter={StaticResource visConv}}" />
+               Height="60"
+               Style="{StaticResource tbsize}" />
+            <TextBox Grid.Row="1"
+               Margin="8,0,0,8"
+               Style="{StaticResource tbsize}" />
             <TextBox Grid.Row="2"
                Width="0"
                Visibility="Hidden"

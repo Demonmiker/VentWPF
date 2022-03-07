@@ -56,6 +56,24 @@
       </Setter>
    </Style>
    <Style
+      x:Key="tbsize"
+      TargetType="{x:Type TextBox}"
+      BasedOn="{StaticResource under-left}">
+      <Setter Property="HorizontalAlignment" Value="Right" />
+      <Setter Property="VerticalContentAlignment" Value="Bottom" />
+      <Setter Property="IsReadOnly" Value="True" />
+      <Setter Property="Focusable" Value="False" />
+      <Setter Property="Text">
+         <Setter.Value>
+            <MultiBinding StringFormat="{}{0} × {1}">
+               <Binding Path="Project.ProjectInfo.Settings.Width" />
+               <Binding Path="Project.ProjectInfo.Settings.Height" />
+            </MultiBinding>
+         </Setter.Value>
+      </Setter>
+      <Setter Property="Visibility" Value="{Binding Firse, Converter={StaticResource visConv}}" />
+   </Style>
+   <Style
       x:Key="under-right"
       BasedOn="{StaticResource under}"
       TargetType="{x:Type TextBox}">

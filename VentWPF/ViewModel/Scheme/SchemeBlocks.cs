@@ -5,6 +5,7 @@ namespace VentWPF.ViewModel
 {
     internal abstract class SchemeBlock 
     {
+        public ProjectVM Project { get; init; } = ProjectVM.Current;
         public bool First { get; set; }
     }
     internal class SchemeDoubleBlock : SchemeBlock
@@ -14,7 +15,9 @@ namespace VentWPF.ViewModel
 
     internal class SchemeSingleBlock : SchemeBlock
     {
-        public string BackImage { get; init; } = Path.GetFullPath("Assets/Images/Scheme/Back.png");
+        public string BackImage => Path.GetFullPath("Assets/Images/Scheme/Back.png");
+
+        public bool TwoRows { get; init; }
 
         public SchemeElement[] Top{ get; set; }
 

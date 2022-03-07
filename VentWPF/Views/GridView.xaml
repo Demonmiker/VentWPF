@@ -81,7 +81,7 @@
                               Background="#a000"
                               Foreground="{Binding CorrectSize, Converter={StaticResource brRG}}">
                               <TextBlock.Text>
-                                 <MultiBinding StringFormat="{}{0}x{1}">
+                                 <MultiBinding StringFormat="{}{0} × {1}">
                                     <Binding Path="Width" />
                                     <Binding Path="Height" />
                                  </MultiBinding>
@@ -99,7 +99,7 @@
                   Text="{Binding Project.ProjectInfo.Settings.Width}"
                   TextAlignment="Center"
                   Style="{StaticResource MaterialDesignOutlinedTextBox}" />
-               <TextBlock Text="x" TextAlignment="Center" />
+               <TextBlock Text="×" TextAlignment="Center" />
                <TextBox
                   MinWidth="80"
                   Padding="10,0"

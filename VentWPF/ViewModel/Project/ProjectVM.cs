@@ -35,7 +35,7 @@ namespace VentWPF.ViewModel
 
         private ProjectVM()
         {
-            CmdScheme = new Command<object>(GenearateScheme);
+            CmdScheme = new Command(GenearateScheme);
             CmdLinkGui = new Command<FrameworkElement>(SetLink);
             CmdExpand = new Command<BaseViewModel>(ExpandView);
             CmdAutoColumns = new(AutoColumns);
@@ -154,15 +154,15 @@ namespace VentWPF.ViewModel
             ErrorManager.Add(ProjectInfo.Order, "Заказ");
             ErrorManager.Add(ProjectInfo.Settings, "Настройки");
             ErrorManager.Add(ProjectInfo.View, "Вид");
+            Scheme = new SchemeVM();
             Grid = new();
             Grid.ErrorManager = ErrorManager;
             Frame = new(500, ProjectInfo.Settings.Width, ProjectInfo.Settings.Height);
             Frame.Parent = this;
             Grid.Init(ProjectInfo.View.Rows);
-            CmdScheme.Execute(null);
         }
 
-        public Command<object> CmdScheme { get; init; }
+        public Command CmdScheme { get; init; }
         public Command<BaseViewModel> CmdExpand { get; private init; }
         public Command<DataGridAutoGeneratingColumnEventArgs> CmdAutoColumns { get; init; }
         private void AutoColumns(DataGridAutoGeneratingColumnEventArgs e)
@@ -223,9 +223,10 @@ namespace VentWPF.ViewModel
                 }
             }
         }
-        public void GenearateScheme(object o)
+        public void GenearateScheme()
         {
-            if (Scheme is null) { Scheme = new SchemeVM();}
+            Scheme.GenFullScheme(Grid);
         }
+
     }
 }
