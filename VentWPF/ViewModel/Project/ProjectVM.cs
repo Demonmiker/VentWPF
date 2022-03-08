@@ -35,7 +35,7 @@ namespace VentWPF.ViewModel
 
         private ProjectVM()
         {
-            CmdScheme = new Command<object>(GenearateScheme);
+            CmdScheme = new Command(GenearateScheme);
             CmdLinkGui = new Command<FrameworkElement>(SetLink);
             CmdExpand = new Command<BaseViewModel>(ExpandView);
             CmdAutoColumns = new(AutoColumns);
@@ -154,15 +154,15 @@ namespace VentWPF.ViewModel
             ErrorManager.Add(ProjectInfo.Order, "Заказ");
             ErrorManager.Add(ProjectInfo.Settings, "Настройки");
             ErrorManager.Add(ProjectInfo.View, "Вид");
+            Scheme = new SchemeVM();
             Grid = new();
             Grid.ErrorManager = ErrorManager;
             Frame = new(500, ProjectInfo.Settings.Width, ProjectInfo.Settings.Height);
             Frame.Parent = this;
             Grid.Init(ProjectInfo.View.Rows);
-            CmdScheme.Execute(null);
         }
 
-        public Command<object> CmdScheme { get; init; }
+        public Command CmdScheme { get; init; }
         public Command<BaseViewModel> CmdExpand { get; private init; }
         public Command<DataGridAutoGeneratingColumnEventArgs> CmdAutoColumns { get; init; }
         private void AutoColumns(DataGridAutoGeneratingColumnEventArgs e)
@@ -223,33 +223,10 @@ namespace VentWPF.ViewModel
                 }
             }
         }
-        public void GenearateScheme(object o)
+        public void GenearateScheme()
         {
-            if (Scheme is null) { Scheme = new SchemeVM(); Scheme.Parent = this; }
-            var result = Scheme;
-            result.TwoRows = ProjectInfo.View.Rows == Model.Rows.Двухярусный;
-            result.WidthBottom = ProjectInfo.Settings.Height;
-            result.WidthTop = ProjectInfo.Settings.Height + 100; //TODO Исправить на нормальное значение
-            result.TopElements.Clear();
-            result.BottomElements.Clear();
-            if (result.TwoRows)
-            {
-                int i = 0;
-                while (Grid.Elements[i].Name != "" && i < 10)
-                    result.TopElements.Add(Grid.Elements[i++]);
-                i = 10;
-                while (Grid.Elements[i].Name != "" && i < 20)
-                    result.BottomElements.Add(Grid.Elements[i++]);
-                MessageBox.Show(result.TopElements.Sum(x => x.Length).ToString());
-            }
-            else
-            {
-                int i = 0;
-                while (Grid.Elements[i].Name != "" && i < 10)
-                    result.BottomElements.Add(Grid.Elements[i++]);
-            }
-            result.Init();
-            Scheme = result;
+            Scheme.GenFullScheme(Grid);
         }
+
     }
 }

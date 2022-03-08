@@ -26,6 +26,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Images\Scheme\Error.png" />
     <None Remove="Assets\Images\Vega.webp" />
   </ItemGroup>
 
@@ -313,6 +314,9 @@
     <None Update="Assets\Images\Scheme\Mufflers\Default.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\Images\Scheme\Back.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\Images\Scheme\Sections\S_DCU.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -570,6 +574,12 @@
   <ItemGroup>
     <Folder Include="Assets\Images\Scheme\Recuperators\" />
     <Folder Include="Fans\K3G\DLL\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Images\Scheme\Error.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
