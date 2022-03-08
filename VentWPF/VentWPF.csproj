@@ -26,6 +26,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Images\Scheme\Error.png" />
     <None Remove="Assets\Images\Vega.webp" />
   </ItemGroup>
 
@@ -573,6 +574,12 @@
   <ItemGroup>
     <Folder Include="Assets\Images\Scheme\Recuperators\" />
     <Folder Include="Fans\K3G\DLL\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Images\Scheme\Error.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

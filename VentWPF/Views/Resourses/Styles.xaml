@@ -71,7 +71,7 @@
             </MultiBinding>
          </Setter.Value>
       </Setter>
-      <Setter Property="Visibility" Value="{Binding Firse, Converter={StaticResource visConv}}" />
+      <Setter Property="Visibility" Value="{Binding First, Converter={StaticResource visConv}}" />
    </Style>
    <Style
       x:Key="under-right"

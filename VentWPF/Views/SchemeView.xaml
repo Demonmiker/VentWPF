@@ -1,13 +1,13 @@
 ﻿<ResourceDictionary
    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+   xmlns:sys="clr-namespace:System;assembly=mscorlib"
    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
    xmlns:fa5="http://schemas.fontawesome.com/icons/"
    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
    xmlns:vm="clr-namespace:VentWPF.ViewModel">
    <!--  Вкладка схемы  -->
    <DataTemplate DataType="{x:Type vm:SchemeVM}">
-      <DataTemplate.Resources />
       <DockPanel>
          <md:Card DockPanel.Dock="Top"
             Width="auto"
@@ -57,20 +57,29 @@
    </DataTemplate>
    <!--  Схема для одиночного элемента  -->
    <DataTemplate x:Key="single" DataType="{x:Type vm:SchemeElement}">
-      <Image Height="150" Source="{Binding Element.SchemeImage}" />
+      <DataTemplate.Resources>
+         <sys:String x:Key="DefaultImage">pack://application:,,,/Assets/Images/Scheme/Error.png</sys:String>
+      </DataTemplate.Resources>
+      <Image Height="150" Source="{Binding Element.SchemeImage, FallbackValue={StaticResource DefaultImage}, TargetNullValue={StaticResource DefaultImage}}" />
    </DataTemplate>
    <!--  Схема для одиночного элемента с размером снизу  -->
    <DataTemplate x:Key="single-text" DataType="{x:Type vm:SchemeElement}">
+      <DataTemplate.Resources>
+         <sys:String x:Key="DefaultImage">pack://application:,,,/Assets/Images/Scheme/Error.png</sys:String>
+      </DataTemplate.Resources>
       <StackPanel Orientation="Vertical">
-         <Image Height="150" Source="{Binding Element.SchemeImage}" />
+         <Image Height="150" Source="{Binding Element.SchemeImage, FallbackValue={StaticResource DefaultImage}, TargetNullValue={StaticResource DefaultImage}}" />
          <TextBox Text="{Binding Length}" Style="{StaticResource under}" />
       </StackPanel>
    </DataTemplate>
    <!--  Схема для двойного элемента  -->
    <DataTemplate x:Key="double" DataType="{x:Type vm:DoubleSchemeElement}">
+      <DataTemplate.Resources>
+         <sys:String x:Key="DefaultImage">pack://application:,,,/Assets/Images/Scheme/Error.png</sys:String>
+      </DataTemplate.Resources>
       <StackPanel Orientation="Vertical">
-         <Image Height="150" Source="{Binding Top.Image}" />
-         <Image Height="150" Source="{Binding Bottom.Image}" />
+         <Image Height="150" Source="{Binding Top.SchemeImage, FallbackValue={StaticResource DefaultImage}, TargetNullValue={StaticResource DefaultImage}}" />
+         <Image Height="150" Source="{Binding Bottom.SchemeImage, FallbackValue={StaticResource DefaultImage}, TargetNullValue={StaticResource DefaultImage}}" />
          <TextBox Text="{Binding Length}" Style="{StaticResource under}" />
       </StackPanel>
    </DataTemplate>
@@ -129,8 +138,7 @@
                   Style="{StaticResource tbsize}" />
                <TextBox Grid.Column="0"
                   Margin="8,0,0,8"
-                  Style="{StaticResource tbsize}">
-                               </TextBox>
+                  Style="{StaticResource tbsize}" />
                <TextBox Grid.Row="1"
                   Width="0"
                   VerticalContentAlignment="Bottom"
