@@ -14,7 +14,7 @@ namespace VentWPF.ViewModel
 
         public override string Image => ImagePath("Humidifiers/Spray");
 
-        public override int Length => 650;
+        public override int Length => 1500;
 
         public override string Name => "Увлажнитель форсуночный";
     }

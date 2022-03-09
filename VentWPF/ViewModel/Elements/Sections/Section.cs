@@ -11,6 +11,13 @@ namespace VentWPF.ViewModel
             ShowPD = false;
         }
 
+        [DisplayName("Длина блока")]
+        [FormatString(Strings.fmm)]
+        public int SectionLength { get; set; } = 600;
+
+        [DependsOn(nameof(SectionLength))]
+        public override int Length => SectionLength;
+
         [Browsable(false)]
         public SectionType Direction
         {

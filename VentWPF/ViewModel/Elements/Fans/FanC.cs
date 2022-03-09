@@ -48,7 +48,7 @@ namespace VentWPF.ViewModel
 
         public override int Height => (int)((DeviceData as FanCData)?.INSTALLATION_HEIGHT_MM ?? 0);
 
-        public override int Length => (int)((DeviceData as FanCData)?.INSTALLATION_LENGTH_MM ?? 0);
+        public override int Length => (int)((DeviceData as FanCData)?.INSTALLATION_LENGTH_MM ?? 980);
 
         [DependsOn(nameof(DeviceData),nameof(SubType))]
         public override string Name => $"Вентилятор с прямым приводом " +

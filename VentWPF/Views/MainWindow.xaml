@@ -9,7 +9,7 @@
    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
    xmlns:vm="clr-namespace:VentWPF.ViewModel"
-   Title="MainWindow"
+   Title="Vent Project"
    MinHeight="500"
    Background="{DynamicResource MaterialDesignPaper}"
    FontFamily="{md:MaterialDesignFont}"
