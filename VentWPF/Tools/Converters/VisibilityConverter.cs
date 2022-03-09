@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using VentWPF.Model;
 
 namespace VentWPF.Tools
 {
@@ -22,6 +23,8 @@ namespace VentWPF.Tools
                 bool => (bool)value,
                 uint => ((uint)value) > 0,
                 int => ((int)value) > 0,
+                Rows.Двухярусный => true,
+                Rows.Одноярусный => false,
                 string => (value as string).Length > 0,
                 object => (value as object) != null,
             } ^ Reverse ? Visibility.Visible : Visibility.Collapsed;

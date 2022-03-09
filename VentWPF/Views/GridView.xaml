@@ -106,6 +106,13 @@
                   Text="{Binding Project.ProjectInfo.Settings.Height}"
                   TextAlignment="Center"
                   Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+               <TextBox
+                  MinWidth="80"
+                  Padding="10,0"
+                  Visibility="{Binding Project.ProjectInfo.View.Rows, Converter={StaticResource visConv}}"
+                  Text="{Binding Project.ProjectInfo.Settings.Height}"
+                  TextAlignment="Center"
+                  Style="{StaticResource MaterialDesignOutlinedTextBox}" />
             </StackPanel>
          </StackPanel>
 
