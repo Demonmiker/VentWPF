@@ -13,6 +13,6 @@
 
         public override int Length => 680;
 
-        public override string Name => "Фильтр клапанный укороченый";
+        public override string Name => "Фильтр карманный укороченый";
     }
 }

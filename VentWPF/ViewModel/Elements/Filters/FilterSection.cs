@@ -13,6 +13,6 @@
 
         public override int Length => 680;
 
-        public override string Name => $"Фильтр секционный";
+        public override string Name => $"Фильтр ячейковый";
     }
 }

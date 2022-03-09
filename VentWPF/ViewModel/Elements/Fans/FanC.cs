@@ -50,8 +50,17 @@ namespace VentWPF.ViewModel
 
         public override int Length => (int)((DeviceData as FanCData)?.INSTALLATION_LENGTH_MM ?? 0);
 
-        [DependsOn(nameof(DeviceData))]
-        public override string Name => $"Вентилятор {(DeviceData as FanCData)?.ARTICLE_NO}";
+        [DependsOn(nameof(DeviceData),nameof(SubType))]
+        public override string Name => $"Вентилятор с прямым приводом " +
+                                        Direction switch
+                                        {
+                                            FanDirection.LeftRight => "выхлоп по оси ",
+                                            FanDirection.RightLeft => "выхлоп по оси ",
+                                            FanDirection.LeftUp => "выхлоп вверх ",
+                                            FanDirection.UpLeft => "забор сверху ",
+                                            _ => throw new Exception("Такого направления не предусмотренно"),
+                                        } +
+                                        (DeviceData as FanCData)?.ARTICLE_NO;
 
         public override string Image => ImagePath($"FanC/{Direction}");
 
