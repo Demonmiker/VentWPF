@@ -50,7 +50,7 @@
    <DockPanel>
       <!--  Верхнее контекстное меню  -->
       <Menu DockPanel.Dock="Top">
-         <MenuItem Header="Файл">
+         <MenuItem Height="30" Header="Файл">
             <MenuItem
                Header="Новый"
                InputGestureText="Ctrl+Shift+N"
@@ -70,11 +70,11 @@
                Header="Загрузить"
                InputGestureText="Ctrl+O" />
          </MenuItem>
-         <MenuItem Header="Настройки">
+         <!--<MenuItem Header="Настройки">
             <MenuItem Command="{Binding CmdConfig}" Header="Запрос" />
             <MenuItem Command="{Binding CmdLoad}" Header="Интерфейс" />
             <MenuItem Command="{Binding CmdLoad}" Header="Интерфейс" />
-         </MenuItem>
+         </MenuItem>-->
       </Menu>
       <!--  Статус бар внизу  -->
       <StatusBar DockPanel.Dock="Bottom"
