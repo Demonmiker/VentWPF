@@ -24,7 +24,7 @@ namespace VentWPF.ViewModel
                     new(new FilterSection()),
                     new(new FilterShort()),
                     new(new FilterValve())),
-                new("Нагревателm", "Heater", false,
+                new("Нагреватель", "Heater", false,
                     new(new HeaterWater()),
                     new(new HeaterGas()),
                     new(new HeaterElectric())),
