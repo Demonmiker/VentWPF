@@ -104,11 +104,14 @@ namespace VentWPF.ViewModel
 
         public Command<Popup> CmdOpenPopup { get; set; }
 
+        private static Popup OpenedPopup = null;
         private void OpenPopup(Popup p)
         {
+            if (OpenedPopup is not null)
+                OpenedPopup.IsOpen = false;
             p.VerticalOffset = 80;
             p.IsOpen = true;
-            CommandManager.InvalidateRequerySuggested();
+            OpenedPopup = p;
         }
 
     }
