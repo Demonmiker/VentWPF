@@ -24,7 +24,7 @@ namespace VentWPF.ViewModel
                     new(new FilterSection()),
                     new(new FilterShort()),
                     new(new FilterValve())),
-                new("Нагревателm", "Heater", false,
+                new("Нагреватель", "Heater", false,
                     new(new HeaterWater()),
                     new(new HeaterGas()),
                     new(new HeaterElectric())),
@@ -104,11 +104,14 @@ namespace VentWPF.ViewModel
 
         public Command<Popup> CmdOpenPopup { get; set; }
 
+        private static Popup OpenedPopup = null;
         private void OpenPopup(Popup p)
         {
+            if (OpenedPopup is not null)
+                OpenedPopup.IsOpen = false;
             p.VerticalOffset = 80;
             p.IsOpen = true;
-            CommandManager.InvalidateRequerySuggested();
+            OpenedPopup = p;
         }
 
     }

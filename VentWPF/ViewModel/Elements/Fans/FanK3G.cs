@@ -14,6 +14,7 @@ namespace VentWPF.ViewModel
             {
                 Source = new FanK3GRequest()
                 {
+                    Height = Project.ProjectInfo.Settings.GetHeight(this),
                     AirDens = AirDensity, //1.15f,
                     AirTemperature = 24,
                     Altitude = 0,

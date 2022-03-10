@@ -302,7 +302,7 @@ namespace VentWPF.ViewModel
         {
             >= 0 and < 10 => true,
             >= 10 and < 20 => false,
-            _ => throw new Exception("Элемент не найден")
+            _ => true,
         };
 
     }

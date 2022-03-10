@@ -5,7 +5,7 @@ namespace VentWPF.ViewModel
 {
     internal class SectionDouble : Section , IDoubleElement
     {
-        public override string Name => $"Двухярусная секция";
+        public override string Name => $"Секция рециркуляции";
         public override string Image => Path.GetFullPath($"Assets/Images/Icons/Sections/DoubleBottom.png");
 
         public override bool TwoRowsOnly => true;

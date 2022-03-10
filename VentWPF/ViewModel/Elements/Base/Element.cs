@@ -102,7 +102,7 @@ namespace VentWPF.ViewModel
         // TODO можно везде вынести
         [Browsable(false)]
         [JsonIgnore]
-        public Dictionary<string, IValueConverter> Format => Conditions.Get(this.GetType());
+        public Dictionary<string, IValueConverter> Format => Conditions.Get(this);
 
         /// <summary>
         /// Запрос моделей для этого элемента
@@ -244,13 +244,18 @@ namespace VentWPF.ViewModel
         public virtual int Height => 0;
 
         [Browsable(false)]
-        public bool CorrectSize => Width <= ProjectInfo.Settings.Width && Height <= ProjectInfo.Settings.Height;
+        public bool CorrectSize 
+        {
+            get
+            {
+                return Width <= ProjectInfo.Settings.Width && Height <= ProjectInfo.Settings.GetHeight(this);
+            }
+        }
 
         [Browsable(false)]
         public Command<object> CmdUpdateQuery { get; private init; }
 
 
-        // TODO: Можно в SEt указываеть дополнительные селекты для двойных элементов
         [Browsable(false)]
         public bool IsSelected { get; set; }
 

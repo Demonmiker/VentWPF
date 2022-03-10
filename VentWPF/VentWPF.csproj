@@ -374,12 +374,6 @@
     <None Update="Assets\Images\Vega.webp">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
-    <None Update="Database\Database.mdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Database\Database_log.ldf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Fans\FanC\DLL\catalog.xWS">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

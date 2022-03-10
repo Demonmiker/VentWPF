@@ -22,7 +22,7 @@ namespace VentWPF.ViewModel
         public override Type DeviceType => typeof(Тэны);
         public override string Image => ImagePath("Valves/HorizontalHeat");
 
-        public override string Name => $"Клапан воздушный утеплённый горизонтальный {(DeviceData as Тэны)?.Маркировка}";
+        public override string Name => $"Воздушный клапан горизонтальный с нагревателем {(DeviceData as Тэны)?.Маркировка}";
 
         /// <summary>
         /// Количество нагревателей

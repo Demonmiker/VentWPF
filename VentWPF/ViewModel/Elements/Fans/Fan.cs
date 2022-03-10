@@ -26,7 +26,7 @@ namespace VentWPF.ViewModel
 
         [Category(Info)]
         [FormatString(fkPa)]
-        [DisplayName("Падение давления системы")] // TODO: Теперь это наверно яруса?
+        [DisplayName("Падение давления яруса")]
         public float PressureDropSystem => Calculations.GPD(Project.Grid.InTopRow(this));
 
         [Category(Info)]
