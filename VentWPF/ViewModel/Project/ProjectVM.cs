@@ -158,7 +158,7 @@ namespace VentWPF.ViewModel
             Scheme = new SchemeVM();
             Grid = new();
             Grid.ErrorManager = ErrorManager;
-            Frame = new(500, ProjectInfo.Settings.Width, ProjectInfo.Settings.Height);
+            Frame = new(500, ProjectInfo.Settings.Width, ProjectInfo.Settings.TopHeight + ProjectInfo.Settings.BottomHeight);
             Frame.Parent = this;
             Grid.Init(ProjectInfo.View.Rows);
         }

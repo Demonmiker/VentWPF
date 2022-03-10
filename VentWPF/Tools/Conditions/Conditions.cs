@@ -7,6 +7,7 @@ namespace VentWPF.ViewModel.Elements
 {
     internal static class Conditions
     {
+        // TODO: Переделать Conditions для двух ярусов
         public static Dictionary<Type, Dictionary<string, IValueConverter>> dict = new()
         {
             {
@@ -15,7 +16,7 @@ namespace VentWPF.ViewModel.Elements
                 {
                     { "LВозд", new Condition<double>(x => x >= Project.Settings.VFlow) },
                     { "ШиринаГабарит", new Condition<double>(x => x <= Project.Settings.Width) },
-                    { "ВысотаГабарит", new Condition<double>(x => x <= Project.Settings.Height) },
+                    { "ВысотаГабарит", new Condition<double>(x => x <= Project.Settings.TopHeight) },
                     { "Скорость", new Condition<double>(x => x is > 2.5 and < 4.5) },
                 }
             },
@@ -25,7 +26,7 @@ namespace VentWPF.ViewModel.Elements
                 {
                     { "LВозд", new Condition<double>(x => x >= Project.Settings.VFlow) },
                     { "ШиринаГабарит", new Condition<double>(x => x <= Project.Settings.Width) },
-                    { "ВысотаГабарит", new Condition<double>(x => x <= Project.Settings.Height) },
+                    { "ВысотаГабарит", new Condition<double>(x => x <= Project.Settings.TopHeight) },
                     { "Скорость", new Condition<double>(x => x is > 2.5 and < 4.5) },
                 }
             },
@@ -35,7 +36,7 @@ namespace VentWPF.ViewModel.Elements
                 {
                     { "LВозд", new Condition<double>(x => x >= Project.Settings.VFlow) },
                     { "ШиринаГабарит", new Condition<double>(x => x <= Project.Settings.Width) },
-                    { "ВысотаГабарит", new Condition<double>(x => x <= Project.Settings.Height) },
+                    { "ВысотаГабарит", new Condition<double>(x => x <= Project.Settings.TopHeight) },
                     { "Скорость", new Condition<double>(x => x is > 2.5 and < 4.5) },
                 }
             },
@@ -45,7 +46,7 @@ namespace VentWPF.ViewModel.Elements
                 {
                     { "NDiff", new Condition<double>(x => x is < 200 and > 0) },
                     { "INSTALLATION_WIDTH_MM", new Condition<double>(x => x <= Project.Settings.Width) },
-                    { "INSTALLATION_HEIGHT_MM", new Condition<double>(x => x <= Project.Settings.Height) },
+                    { "INSTALLATION_HEIGHT_MM", new Condition<double>(x => x <= Project.Settings.TopHeight) },
                 }
             }
         };

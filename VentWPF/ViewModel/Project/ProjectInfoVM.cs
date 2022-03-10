@@ -78,7 +78,7 @@ namespace VentWPF.ViewModel
 
     internal class Settings : ValidViewModel
     {
-        [Browsable (false)]
+        [Browsable(false)]
         public Rows Rows { get; set; }
 
         [Browsable(false)]
@@ -164,16 +164,26 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Ширина установки
         /// </summary>
-        [DisplayName("Ширина")]
-        [FormatString(fmm)]
+        [Browsable(false)]
         public int Width { get; set; } = 1050;
 
         /// <summary>
         /// Высота установки
         /// </summary>
-        [DisplayName("Высота")]
-        [FormatString(fmm)]
-        public int Height { get; set; } = 700;
+        [Browsable(false)]
+        public int TopHeight { get; set; } = 700;
+
+        private int bottomHeight = 0;
+        [Browsable(false)]
+        public int BottomHeight 
+        {
+            get => Rows == Rows.Двухярусный ? bottomHeight : 0;
+            set => bottomHeight = value; 
+        }
+        public int GetHeight(Element el)
+        {
+            return ProjectVM.Current.Grid.InTopRow(el) ? TopHeight : BottomHeight;
+        }
 
         [Category("Настройки")]
         [DisplayName("Толщина панели")]
@@ -217,6 +227,7 @@ namespace VentWPF.ViewModel
                 if(Parent is not null)
                     Parent.Settings.Rows = value;
                 rows = value;
+                Parent.Settings.BottomHeight = Parent.Settings.TopHeight;
                 ProjectVM.Current.Grid.Init(value); 
             } 
         }
@@ -242,7 +253,13 @@ namespace VentWPF.ViewModel
             set
             {
                 sizeType = value;
-                (Parent.Settings.Width,Parent.Settings.Height) = value.GetSize();
+                var size = value.GetSize();
+                Parent.Settings.Width = size.Item1;
+                Parent.Settings.TopHeight = size.Item2;
+                if (Parent.View.Rows == Rows.Двухярусный)
+                    Parent.Settings.BottomHeight = size.Item2;
+                else
+                    Parent.Settings.BottomHeight = 0;
             }
         }
 

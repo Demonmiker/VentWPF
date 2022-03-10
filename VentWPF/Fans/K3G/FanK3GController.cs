@@ -86,7 +86,9 @@ namespace VentWPF.Fans.K3G
         public IEnumerable<string> GetIDs(FanK3GRequest request)
         {
             string bufferIDs = new String('0', 4000);
-            string fanString = $"{ProjectInfo.Settings.VFlow};{request.RequiredPressure};50;1.15;{ProjectInfo.Settings.Width};{ProjectInfo.Settings.Height};";
+            //TODO: переделать высоту под два яруса
+            string fanString = $"{ProjectInfo.Settings.VFlow};{request.RequiredPressure};50;1.15;" +
+                $"{ProjectInfo.Settings.Width};{ProjectInfo.Settings.TopHeight};";
             int n = SEARCH_PRODUCTS(fanString, ref bufferIDs);
             var str = bufferIDs.ToString();            
             var splitstring = str.Split(new[] { ";0;", ";-5;"  }, StringSplitOptions.RemoveEmptyEntries);            
