@@ -225,17 +225,22 @@
                            <TextBlock Text="График" />
                         </StackPanel>
                      </TabItem.Header>
-                     <Grid>
-                        <Grid.ColumnDefinitions>
-                           <ColumnDefinition />
-                           <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                     </Grid>
-
+                     <StackPanel
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Vertical">
+                        <TextBlock
+                           Margin="10"
+                           Text="Under Construction"
+                           FontSize="30" />
+                        <fa5:SvgAwesome
+                           Height="40"
+                           Icon="Solid_Wrench"
+                           Foreground="Red" />
+                     </StackPanel>
                   </TabItem>
                   <!--  Каркас  -->
                   <TabItem>
-                     <ContentControl x:Name="frame" Content="{Binding Project.Frame}" />
                      <b:Interaction.Triggers>
                         <b:EventTrigger EventName="Loaded">
                            <b:InvokeCommandAction Command="{Binding Project.CmdLinkGui}" CommandParameter="{Binding ElementName=frame}" />
@@ -247,6 +252,20 @@
                            <TextBlock Text="Каркас" />
                         </StackPanel>
                      </TabItem.Header>
+                     <StackPanel
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Vertical">
+                        <TextBlock
+                           Margin="10"
+                           Text="Under Construction"
+                           FontSize="30" />
+                        <fa5:SvgAwesome
+                           Height="40"
+                           Icon="Solid_Wrench"
+                           Foreground="Red" />
+                     </StackPanel>
+                     <!--<ContentControl x:Name="frame" Content="{Binding Project.Frame}" />-->
                   </TabItem>
                   <!--  Схема  -->
                   <TabItem>

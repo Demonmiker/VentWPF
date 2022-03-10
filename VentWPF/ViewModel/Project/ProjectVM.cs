@@ -28,7 +28,8 @@ namespace VentWPF.ViewModel
 
         private void SetLink(FrameworkElement el)
         {
-            Elements[el.Name] = el;
+            if(el is not null)
+                Elements[el.Name] = el;
         }
 
         public Dictionary<string, FrameworkElement> Elements = new();
