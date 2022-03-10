@@ -4,6 +4,8 @@ namespace VentWPF.Fans.K3G
 {
     internal class FanK3GRequest : IRequest<string>
     {
+
+        public int Height { get; set; }
         public static ProjectInfoVM Info { get; set; } = ProjectVM.Current?.ProjectInfo;
         public string ID { get; set; }
 

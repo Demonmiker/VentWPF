@@ -102,7 +102,7 @@ namespace VentWPF.ViewModel
         // TODO можно везде вынести
         [Browsable(false)]
         [JsonIgnore]
-        public Dictionary<string, IValueConverter> Format => Conditions.Get(this.GetType());
+        public Dictionary<string, IValueConverter> Format => Conditions.Get(this);
 
         /// <summary>
         /// Запрос моделей для этого элемента
