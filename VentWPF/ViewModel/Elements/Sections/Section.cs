@@ -26,7 +26,6 @@ namespace VentWPF.ViewModel
         }
 
         [DependsOn(nameof(SubType))]
-        // TODO: Добавить изменение названия из-за подтипа
         public override string Name => Direction switch
         {
             SectionType.LeftRight => $"Промежуточная секция",

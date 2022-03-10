@@ -82,7 +82,7 @@ namespace VentWPF.Fans.K3G
             }
         }
 
-        //TODO оптимизировать нововведения
+        //TODO: @sitgGGGer оптимизировать нововведения
         public IEnumerable<string> GetIDs(FanK3GRequest request)
         {
             string bufferIDs = new String('0', 4000);

@@ -22,7 +22,7 @@ namespace VentWPF.ViewModel
                     InsertMotorData = true,
                     InsertNominalValues = true,
                     Language = "RU",
-                    //TODO: Безопасность на высшем уровне
+                    //TODO: @stigGGGer Безопасность на высшем уровне
                     Password = "bnexg5",
                     Username = "ZAFS19946",
                     PressureDrop = Calculations.GPD(Project.Grid.InTopRow(this)) + ProjectInfo.Settings.PFlow,

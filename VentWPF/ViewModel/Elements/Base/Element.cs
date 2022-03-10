@@ -256,7 +256,6 @@ namespace VentWPF.ViewModel
         public Command<object> CmdUpdateQuery { get; private init; }
 
 
-        // TODO: Можно в SEt указываеть дополнительные селекты для двойных элементов
         [Browsable(false)]
         public bool IsSelected { get; set; }
 
