@@ -49,8 +49,8 @@ namespace VentWPF.ViewModel
                 LoadProjectFile("new.json");
                 Path = null;
             }
-            else
-                Init();
+            //else
+              //  Init();
             Status = "Новый проект";
         }
 

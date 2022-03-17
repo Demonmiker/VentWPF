@@ -29,6 +29,7 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Дата начала проекта
         /// </summary>
+        // TODO: Формат вводишь mm/dd/yyyy а получаешь dd/mm/yyyy Конфузит?!
         // TODO: @MikeKondr99 Формат вводишь mm/dd/yyyy а надо бы dd/mm/yyyy
         [Category("Заказ")]
         [DisplayName("Дата")]
@@ -78,10 +79,13 @@ namespace VentWPF.ViewModel
 
     internal class Settings : ValidViewModel
     {
+
         [Browsable(false)]
+
         public Rows Rows { get; set; }
 
         [Browsable(false)]
+
         public ProjectInfoVM Parent { get; private set; } //Нельзя открывать будет цикл
 
         public void InitParent(ProjectInfoVM parent)
