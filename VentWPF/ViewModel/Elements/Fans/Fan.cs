@@ -13,7 +13,8 @@ namespace VentWPF.ViewModel
     {
         public Fan()
         {
-            ShowPD = false;
+            ShowPD = true;
+            ShowPR = true;
         }
 
         [Browsable(false)]

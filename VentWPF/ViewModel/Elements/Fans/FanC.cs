@@ -22,7 +22,8 @@ namespace VentWPF.ViewModel
                     InsertMotorData = true,
                     InsertNominalValues = true,
                     Language = "RU",
-                    //TODO: @stigGGGer Безопасность на высшем уровне
+                    //TODO: @stigGGGer Безопасность на высшем уровне 
+                    //TODO: DemonMiker Потому что оно и не надо
                     Password = "bnexg5",
                     Username = "ZAFS19946",
                     PressureDrop = Calculations.GPD(Project.Grid.InTopRow(this)) + ProjectInfo.Settings.PFlow,
@@ -50,7 +51,7 @@ namespace VentWPF.ViewModel
 
         [Category(Data)]        
         [DisplayName("Поисковый запрос")]
-        public string FanType { get; set; } = "ER*DN*1R";
+        public string FanType { get; set; } = "ER*C*DN*1R";
 
         public override int Width => (int)((DeviceData as FanCData)?.INSTALLATION_WIDTH_MM ?? 0);
 
