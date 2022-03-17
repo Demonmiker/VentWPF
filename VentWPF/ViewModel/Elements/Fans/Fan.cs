@@ -14,6 +14,7 @@ namespace VentWPF.ViewModel
         public Fan()
         {
             ShowPD = false;
+            ShowPR = true;
         }
 
         [Browsable(false)]
@@ -22,21 +23,21 @@ namespace VentWPF.ViewModel
             get => (FanDirection)SubType;
             set => SubType = (int)value;
         }
-
+        /*
         [Category(Data)]
         [DisplayName("Данные уточняющие запрос")]
         public float Test { get; set; } = 4;
-
+        */
         [Category(Info)]
         [FormatString(fkPa)]
         [DisplayName("Падение давления системы")] // TODO: Теперь это наверно яруса?
         public float PressureDropSystem => Calculations.GPD(Project.Grid.InTopRow(this));
-
+        
         [Category(Info)]
         [FormatString(fm3Ph)]
         [DisplayName("Производительность")]
         public int Power => ProjectInfo.Settings.VFlow;
-
+        
         [DisplayName("Падение давления общее")]
         [FormatString(fkPa)]
         public float PressureRaise => ProjectInfo.Settings.PFlow + Calculations.GPD(Project.Grid.InTopRow(this));
