@@ -152,7 +152,12 @@
                   <RowDefinition Height="auto" />
                </Grid.RowDefinitions>
                <TextBox Height="60" Style="{StaticResource tbsize-top}" />
-               <TextBox Margin="8,0,0,16" Style="{StaticResource tbsize-top}" />
+               <TextBox Margin="8,0,0,17" Style="{StaticResource tbsize-top}" />
+               <TextBlock
+                  Margin="0,0,5,0"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Bottom"
+                  Text="40" />
                <Rectangle Style="{StaticResource rect-left}" />
                <TextBox Grid.Row="1"
                   Width="0"
