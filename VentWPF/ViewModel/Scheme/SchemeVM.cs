@@ -13,7 +13,6 @@ namespace VentWPF.ViewModel
     internal class SchemeVM : BaseViewModel //ViewModel для самой вкладки а не изображения схемы
     {
         public ProjectVM Parent { get; init; } = ProjectVM.Current;
-
         public SchemeImageVM SchemeImage { get; set; } = new SchemeImageVM();
         public (SchemeSingleBlock,int) GenSingleBlock(GridVM grid,int i)
         {
@@ -26,8 +25,8 @@ namespace VentWPF.ViewModel
                 if (grid.Elements[i+10].Name != "") Bottom.Add(grid.Elements[i+10]);
                 i++;
             }
-            res.Top = Top.Select(x => new SchemeElement(x)).ToArray();
-            res.Bottom = Bottom.Select(x => new SchemeElement(x)).ToArray();
+            res.Top = Top.Select(x => new SchemeElement(this.SchemeImage,x)).ToArray();
+            res.Bottom = Bottom.Select(x => new SchemeElement(this.SchemeImage,x)).ToArray();
             return (res, i);
 
         }
@@ -37,7 +36,7 @@ namespace VentWPF.ViewModel
             List<DoubleSchemeElement> Els = new List<DoubleSchemeElement>();
             while (i < 10 && grid.Elements[i + 10].TwoRowsOnly)
             {
-                Els.Add(new DoubleSchemeElement(grid.Elements[i], grid.Elements[i + 10]));
+                Els.Add(new DoubleSchemeElement(this.SchemeImage,grid.Elements[i], grid.Elements[i + 10]));
 
                 i++;
             }
@@ -49,10 +48,10 @@ namespace VentWPF.ViewModel
         {
             if (grid.RowNumber == Model.Rows.Одноярусный)
             {
-                var els = (from x in grid.Elements where x.Name != "" select new SchemeElement(x)).ToArray();
+                var els = (from x in grid.Elements where x.Name != "" select new SchemeElement(this.SchemeImage,x)).ToArray();
                 SchemeImage.Blocks = new SchemeBlock[]
                 {
-                    new SchemeSingleBlock() { Bottom = els, TwoRows = false, Align=HorizontalAlignment.Right,First=true}
+                    new SchemeSingleBlock() { Bottom = els, TwoRows = false, Align=HorizontalAlignment.Right,First=true,Last=true}
                 };
             }
             else
@@ -68,7 +67,10 @@ namespace VentWPF.ViewModel
                         (newBlock,i) = GenSingleBlock(grid, i);
                     blocks.Add(newBlock);
                 }
+                if (blocks[0] is SchemeDoubleBlock)
+                    blocks.Insert(0, new SchemeSingleBlock() { Top=new SchemeElement[0],Bottom=new SchemeElement[0], TwoRows=true });
                 blocks[0].First = true;
+                blocks[^1].Last = true;
                 if (blocks[0] is SchemeSingleBlock ssb)
                     ssb.Align = HorizontalAlignment.Right;
                 if (blocks[^1] is SchemeSingleBlock ssb2)
@@ -76,6 +78,7 @@ namespace VentWPF.ViewModel
                 SchemeImage.Blocks = blocks.ToArray();
 
             }
+            SchemeImage.UpdateSum();
 
         }
     }

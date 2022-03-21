@@ -4,30 +4,55 @@ namespace VentWPF.ViewModel
 {
     internal class SchemeElement
     {
-        public Element Element { get; set; }
-        public int Length { get; set; }
 
-        public SchemeElement(Element el)
+        public SchemeImageVM Scheme { get; init; }
+        public Element Element { get; set; }
+
+        private uint length;
+        public uint Length
         {
-            Element = el;
-            Length = el.Length;
+            get => length;
+            set 
+            { 
+                length = value;
+                Scheme.UpdateSum();
+            }
+        }
+
+
+        public SchemeElement(SchemeImageVM scheme, Element el)
+        {
+            Scheme = scheme ?? throw new ArgumentNullException(nameof(scheme));
+            Element = el ?? throw new ArgumentNullException(nameof(el));
+            Length = el.Length > 0 ? (uint)el.Length : 0u;
         }
 
     }
 
     internal class DoubleSchemeElement
     {
+        public SchemeImageVM Scheme { get; init; }
         public Element Top { get; set; }
         public Element Bottom { get; set; }
-        public int Length { get; set; }
-
-        public DoubleSchemeElement(Element top, Element bottom)
+        public DoubleSchemeElement(SchemeImageVM scheme,Element top, Element bottom)
         {
-            Top = top;
-            Bottom = bottom;
-            Length = Math.Max(Top.Length, Bottom.Length);
+            Scheme = scheme ?? throw new ArgumentNullException(nameof(scheme));
+            Top = top ?? throw new ArgumentNullException(nameof(top));
+            Bottom = bottom ?? throw new ArgumentNullException(nameof(bottom));
+            var max = Math.Max(Top.Length, Bottom.Length);
+            Length = max > 0 ? (uint)max : 0u;
         }
 
+        private uint length;
+        public uint Length
+        {
+            get => length;
+            set 
+            {
+                length = value;
+                Scheme.UpdateSum();
+            }
+        }
     }
 
 }
