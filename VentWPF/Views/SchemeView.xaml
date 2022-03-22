@@ -79,15 +79,6 @@
          <sys:String x:Key="DefaultImage">pack://application:,,,/Assets/Images/Scheme/Error.png</sys:String>
       </DataTemplate.Resources>
       <StackPanel Orientation="Vertical">
-         <StackPanel.Background>
-            <ImageBrush
-               ImageSource="{Binding BackImage}"
-               TileMode="Tile"
-               AlignmentY="Top"
-               Stretch="Uniform"
-               ViewportUnits="Absolute"
-               Viewport="0,0,75,200" />
-         </StackPanel.Background>
          <Image Height="150" Source="{Binding Top.SchemeImage, FallbackValue={StaticResource DefaultImage}, TargetNullValue={StaticResource DefaultImage}}" />
          <Image Height="150" Source="{Binding Bottom.SchemeImage, FallbackValue={StaticResource DefaultImage}, TargetNullValue={StaticResource DefaultImage}}" />
          <Border Style="{StaticResource scheme-border}" />
@@ -196,7 +187,16 @@
    <!--  Блок двойных элементов  -->
    <DataTemplate DataType="{x:Type vm:SchemeDoubleBlock}">
       <StackPanel Orientation="Horizontal">
-         <Grid>
+         <Grid Background="Pink">
+            <!--<Grid.Background>
+               <ImageBrush
+                  ImageSource="{Binding BackImage}"
+                  TileMode="Tile"
+                  AlignmentY="Top"
+                  Stretch="Uniform"
+                  ViewportUnits="Absolute"
+                  Viewport="0,0,75,200" />
+            </Grid.Background>-->
             <Grid.RowDefinitions>
                <RowDefinition />
                <RowDefinition />
@@ -221,13 +221,24 @@
                Visibility="Hidden"
                Style="{StaticResource under}" />
          </Grid>
-         <ItemsControl ItemsSource="{Binding Doubles}" ItemTemplate="{StaticResource double}">
-            <ItemsControl.ItemsPanel>
-               <ItemsPanelTemplate>
-                  <StackPanel Orientation="Horizontal" />
-               </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-         </ItemsControl>
+         <Grid>
+            <Grid.Background>
+               <ImageBrush
+                  ImageSource="{Binding BackImage}"
+                  TileMode="Tile"
+                  AlignmentY="Top"
+                  Stretch="Uniform"
+                  ViewportUnits="Absolute"
+                  Viewport="0,0,75,400" />
+            </Grid.Background>
+            <ItemsControl ItemsSource="{Binding Doubles}" ItemTemplate="{StaticResource double}">
+               <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                     <StackPanel Orientation="Horizontal" />
+                  </ItemsPanelTemplate>
+               </ItemsControl.ItemsPanel>
+            </ItemsControl>
+         </Grid>
          <Rectangle Style="{StaticResource rect-right}" Visibility="{Binding Last, Converter={StaticResource visConv}}" />
       </StackPanel>
    </DataTemplate>
