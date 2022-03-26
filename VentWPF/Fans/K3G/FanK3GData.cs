@@ -13,21 +13,28 @@ namespace VentWPF.Fans.K3G
         {
             var details = info.ToArray();
             Id = id;
-            nSoll = details[0];
-            P1Soll = details[1];
-            ISoll = details[2];
-            EtaSoll = details[3];
-            UstSoll = details[4];
-            MdSoll = details[5];
-            EtaMSoll = details[6];
-            LwASoll = details[7];
-            LwAssSoll = details[8];
-            LwAdsSoll = details[9];
-            PtotSoll = details[26];
-            RotateNom = details[39];
-            CurrentDraw = details[38];
-            IPower = details[37];
             Type = details[40];
+            LwASoll = details[28];
+            RotateNom = details[39];
+            nSoll = details[0];
+            IPower = details[1];
+            P1Soll = details[33];
+            motorPower = details[37];
+            EtaSoll = details[3];
+            EtaMSoll = details[32];
+            KPDAll = details[6];
+            KPDImp = details[35];
+            PressSum = details[26];
+            PressStat = details[27];
+            Noise = details[9];
+            NoiseAtDP = details[30];
+
+            IVolt = details[52];
+            IPol = details[53];
+            UstSoll = details[36];
+            Freq = details[42];
+            VoltDP = details[4];
+            AmpDP = details[2];
         }
         public static ProjectInfoVM ProjectInfo { get; set; } = ProjectVM.Current?.ProjectInfo;
         
@@ -35,6 +42,10 @@ namespace VentWPF.Fans.K3G
 
         [DisplayName("Вентилятор")]
         public string Type { get; set; }
+
+        [DisplayName("Производительность")]
+        [FormatString(fm3Ps)]
+        public string LwASoll { get; set; }
 
         [DisplayName("Номинальные обороты")]
         [FormatString(fRotate)]
@@ -44,7 +55,7 @@ namespace VentWPF.Fans.K3G
         [FormatString(fRotate)]
         public string nSoll { get; set; } //0 n/1/min
 
-        [DisplayName("Номинальная мощность")]
+        [DisplayName("Мощность в раб.точке")]
         [FormatString(fW)]
         public string IPower { get; set; }
 
@@ -52,81 +63,67 @@ namespace VentWPF.Fans.K3G
         [FormatString(fW)]
         public string P1Soll { get; set; } //1 Pe/W
 
-        //[DisplayName("CurrentDraw")]
-        public string CurrentDraw { get; set; }        
+        [DisplayName("Мощность номинальная")]
+        [FormatString(fW)]
+        public string motorPower { get; set; }
 
-        [DisplayName("Ток A")]
-        [FormatString(fNull)]
-        public string ISoll { get; set; } //2 I/A
+        [DisplayName("КПД общее")]
+        [FormatString(fper)]
+        public string EtaSoll { get; set; }
+
+        [DisplayName("КПД системы в раб.точке")]
+        [FormatString(fper)]
+        public string EtaMSoll { get; set; }
+
+        [DisplayName("КПД в раб.точке")]
+        [FormatString(fper)]
+        public string KPDAll { get; set; }
 
         [DisplayName("КПД лопасти")]
         [FormatString(fper)]
-        public string EtaSoll { get; set; }//3 nu o/%
-                
-        public string UstSoll { get; set; }//4 Voltage Ucontrol
+        public string KPDImp { get; set; }
 
-        [DisplayName("Md/Ncm")]
-        [FormatString(fNull)]
-        public string MdSoll { get; set; }//5 Md/Ncm
+        [DisplayName("Давление динамическое")]
+        [FormatString(fPa)]
+        public string PressSum { get; set; }
 
-        [DisplayName("КПД мотора")]
-        [FormatString(fper)]
-        public string EtaMSoll { get; set; }//6  nu o/% Motor
+        [DisplayName("Давление статичное")]
+        [FormatString(fPa)]
+        public string PressStat { get; set; }
 
-        [DisplayName("Производительность")]
-        [FormatString(fm3Ps)]
-        public string LwASoll { get; set; }//7  (in+out) m^3/s
+        [DisplayName("Шум")]
+        [FormatString(fdB)]
+        public string Noise { get; set; }
 
-        [DisplayName("kW / m^3/s")]
-        //[FormatString(fm3Ps)]
-        public double SPF => (Convert.ToDouble(P1Soll) / (Convert.ToDouble(ProjectInfo.Settings.VFlow) / 3600)) / Convert.ToDouble(LwASoll);
+        [DisplayName("Шум в раб.точке")]
+        [FormatString(fdB)]
+        public string NoiseAtDP { get; set; }
 
-        //[DisplayName("Шум на входе")]
-        //[FormatString(fdB)]
-        public string LwAssSoll { get; set; }//8   dB in
+        [DisplayName("Сеть")]
+        //[FormatString(fNull)]
+        public string Connect => IPol + " " + UstSoll + "V " + Freq + "Hz";
 
-        //[DisplayName("Шум на выходе")]
-        //[FormatString(fdB)]
-        public string LwAdsSoll { get; set; }//9 dB Out
+        [DisplayName("Контрольные токи в раб. точке")]
+        //[FormatString(fNull)]
+        public string ConnectAtDP => IPol + " " + IVolt + "V " + AmpDP + "A ";
+              
+        public string VoltDP { get; set; }
 
-        #region[Noize]
+        public string AmpDP { get; set; }
 
-        //Lwss - in N Hz Lwds - out N Hz
-        public string Lwss62_5_Soll;//10
+        public string IVolt { get; set; }
 
-        public string Lwss125_Soll;//11
+        //частота сети
+        public string Freq { get; set; }
 
-        public string Lwss250_Soll;//12
+        //[DisplayName("полярность")]
+        //[FormatString(fNull)]
+        public string IPol { get; set; } //2 I/A
 
-        public string Lwss500_Soll;//13
+        //[DisplayName("Напряжение диап")]
+        //[FormatString(fV)]
+        public string UstSoll { get; set; }
 
-        public string Lwss1000_Soll;//14
-
-        public string Lwss2000_Soll;//15
-
-        public string Lwss4000_Soll;//16
-
-        public string Lwss8000_Soll;//17
-
-        public string Lwds62_5_Soll;//18
-
-        public string Lwds125_Soll;//19
-
-        public string Lwds250_Soll;//20
-
-        public string Lwds500_Soll;//21
-
-        public string Lwds1000_Soll;//22
-
-        public string Lwds2000_Soll;//23
-
-        public string Lwds4000_Soll;//24
-
-        public string Lwds8000_Soll;//25
-        #endregion
-
-        //[DisplayName("pf/Pa")]
-        //[FormatString(fPa)]
-        public string PtotSoll { get; set; }//26 pf/Pa
+        
     }
 }
