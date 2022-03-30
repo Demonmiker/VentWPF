@@ -1,7 +1,7 @@
 ﻿namespace VentWPF.ViewModel
 {
     /// <summary>
-    /// Представление Фильтр Короткий
+    /// Представление Фильтр Короткий  f
     /// </summary>
     internal class FilterShort : Filter
     {
