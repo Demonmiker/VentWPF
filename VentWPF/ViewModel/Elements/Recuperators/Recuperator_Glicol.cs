@@ -19,6 +19,7 @@ namespace VentWPF.ViewModel.Elements.Recuperators
             };
         }
         /*
+         *TODO: Demonmiker подключить
         public override Type DeviceType => typeof(ВодаТепло);
 
         public override string Image => ImagePath("Heaters/Water");
