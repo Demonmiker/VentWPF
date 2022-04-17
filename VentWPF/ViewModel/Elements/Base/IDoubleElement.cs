@@ -5,8 +5,8 @@ namespace VentWPF.ViewModel
 {
     internal interface IDoubleElement
     {
-        [Browsable(false)]
-        Element TopElement { get; }
+
+        Element GetNewTopElement();
     }
 
     internal interface IDoubleLinkedElement

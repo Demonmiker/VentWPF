@@ -143,7 +143,7 @@ namespace VentWPF.ViewModel
             {
                 if (Elements.Count != 20) throw new Exception("Попытка добавить двойной элемент в одноярусную установку");
                 int top = Index = index > 9 ? index - 10 : index;
-                Elements[top] = del.TopElement;
+                Elements[top] = del.GetNewTopElement();
                 Index = top + 10;
             }
             int ind = Index;
