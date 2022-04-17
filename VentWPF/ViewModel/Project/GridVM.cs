@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Controls;
@@ -11,7 +12,7 @@ namespace VentWPF.ViewModel
     /// <summary>
     /// Представление Сетки конструктора вентиляции
     /// </summary>
-    internal class GridVM : BaseViewModel
+    internal class GridVM : ValidViewModel
     {
         public ProjectVM Project { get; set; } = ProjectVM.Current;
 
@@ -19,7 +20,7 @@ namespace VentWPF.ViewModel
 
         public GridVM()
         {
-            CmdRemove = new(RemoveElement,CanRemove);
+            CmdRemove = new(RemoveElement, CanRemove);
             CmdRemoveShift = new Command(RemoveElementAndShift, CanRemoveAndShift);
             CmdSelectShift = new Command<object>(SelectShift);
         }
@@ -48,10 +49,6 @@ namespace VentWPF.ViewModel
                 Index = res; ;
         }
 
-        /// <summary>
-        /// Менеджер ошибок
-        /// </summary>
-        public ErrorManagerVM ErrorManager { get; set; }
 
         /// <summary>
         /// Элементы в установке
@@ -77,8 +74,8 @@ namespace VentWPF.ViewModel
                     if (_Selected is DecoyElement)
                     {
                         Elements[Index + 10].IsSelected = true;
-                        //Index = Index + 10;
-                        //Selected = Elements[Index];
+                        Index = Index + 10;
+                        Selected = Elements[Index];
                     }
                 }
 
@@ -131,7 +128,7 @@ namespace VentWPF.ViewModel
                     new(),new(),new(),new(),new(),new(),new(),new(),new(),new(),
                 };
             }
-            ErrorManager.AddRange(Enumerable.Range(0, 20).Select(x => ($"[{x % 10 + 1},{x / 10 + 1}]", new Element() as ValidViewModel)));
+            ProjectVM.Current.ErrorManager.AddRange(Enumerable.Range(0, 20).Select(x => ($"[{x % 10 + 1},{x / 10 + 1}]", new Element() as ValidViewModel)));
             Index = 0;
         }
 
@@ -151,15 +148,16 @@ namespace VentWPF.ViewModel
             int ind = Index;
             if (Index >= 0 && Index < Elements.Count)
             {
-                Elements[Index] = Element.GetInstance(el);
+                var el2 = Element.GetInstance(el);
+                el2.SubType = el.SubType;
+                el2.UpdateQuery();
+                Elements[Index] = el2;
                 Index = ind;
-                Elements[Index].SubType = el.SubType;
-                Elements[Index].UpdateQuery();
-                ErrorManager.Add(Elements[Index], $"[{Index % 10 + 1},{Index / 10 + 1}]");
+                ProjectVM.Current.ErrorManager.Add(Elements[Index], $"[{Index % 10 + 1},{Index / 10 + 1}]");
             }
             Index = ind;
         }
-        public void AddElement(Element el,int index)
+        public void AddElement(Element el, int index)
         {
             int ind = Index;
             Index = index;
@@ -271,7 +269,7 @@ namespace VentWPF.ViewModel
         public bool CanRemoveAndShift()
         {
             if (Index < 0) return false;
-            if(RowNumber==Rows.Двухярусный)
+            if (RowNumber == Rows.Двухярусный)
             {
                 if (HasDouble(Index))
                 {
@@ -285,7 +283,7 @@ namespace VentWPF.ViewModel
         }
         public bool CanRemove()
         {
-            return Index>=0 && Index < Elements.Count;
+            return Index >= 0 && Index < Elements.Count;
         }
 
         /// <summary>
@@ -304,6 +302,65 @@ namespace VentWPF.ViewModel
             >= 10 and < 20 => false,
             _ => true,
         };
+
+        private string CheckStructure()
+        {
+            if (Elements is null) return string.Empty;
+            Element root = null;
+            foreach (var el in Elements)
+            {
+                if (el.Name != "")
+                {
+                    root = el;
+                    break;
+                }
+            }
+            if (root is null) return "Установка пуста";
+            else return CheckConnections();
+        }
+
+        private string CheckConnections()
+        {
+            List<string> errors = new();
+            for (int r = 0; r < Elements.Count / 10; r++)
+                for (int i = r * 10; i < 10 * r + 9; i++)
+                    if (Elements[i].Name != "" && Elements[i + 1].Name != "")
+                        switch
+                            (Elements[i].Connection.HasFlag(ElementConnection.Right),
+                            Elements[i + 1].Connection.HasFlag(ElementConnection.Left))
+                        {
+                            case (false, true):
+                            case (true, false):
+                                errors.Add($"Некорректное соединение {i} {i + 1}");
+                                break;
+                        }
+            if (Elements.Count == 20)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    if (Elements[i].Name != "" && Elements[i + 10].Name != "")
+                        switch
+                            (Elements[i].Connection.HasFlag(ElementConnection.Down),
+                            Elements[i + 10].Connection.HasFlag(ElementConnection.Up))
+                        {
+                            case (false, true):
+                            case (true, false):
+                                errors.Add($"Некорректное соединение {i} {i + 10}");
+                                break;
+                        }
+                    //if (Elements[i].Connection.HasFlag(ElementConnection.DownOutside) && Elements[i+10].Name!="")
+                    //    errors.Add($"Выход вниз перекрыт {i} {i + 10}");
+                    //if (Elements[i+10].Connection.HasFlag(ElementConnection.UpOutside) && Elements[i].Name!="")
+                    //    errors.Add($"Выход вверх перекрыт {i} {i + 10}");
+                }
+            }
+            return String.Join("\n", errors);
+
+        }
+        protected override string OnValidation()
+        {
+            return CheckStructure();
+        }
 
     }
 }

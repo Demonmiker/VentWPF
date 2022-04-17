@@ -228,10 +228,12 @@ namespace VentWPF.ViewModel
             get => rows; 
             set 
             {
-                if(Parent is not null)
+                if (Parent is not null)
+                {
                     Parent.Settings.Rows = value;
+                    Parent.Settings.BottomHeight = Parent.Settings.TopHeight;
+                }
                 rows = value;
-                Parent.Settings.BottomHeight = Parent.Settings.TopHeight;
                 ProjectVM.Current.Grid.Init(value); 
             } 
         }

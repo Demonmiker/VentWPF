@@ -11,7 +11,12 @@
 
         private Element parent;
 
-        public override string Image => (parent as IDoubleElement).TopImage;
+        public override string Image => null;
+
+    }
+
+    internal interface ITopDoubleElement
+    {
 
     }
 }

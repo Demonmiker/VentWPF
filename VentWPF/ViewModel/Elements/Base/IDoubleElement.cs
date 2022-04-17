@@ -2,6 +2,6 @@
 {
     internal interface IDoubleElement
     {
-        string TopImage { get; }
+        bool TwoRowsOnly => false;
     }
 }
