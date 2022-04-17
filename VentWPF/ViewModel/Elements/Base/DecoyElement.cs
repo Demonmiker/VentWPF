@@ -1,17 +1,23 @@
 ﻿namespace VentWPF.ViewModel
 {
-    internal class DecoyElement : Element
+    internal class DecoyElement : Element , IDoubleSubElement
     {
+        public string name;
+        public string image;
 
-        public DecoyElement(Element parent)
-        {
-            this.parent = parent;
-        }
-        override public string Name => parent.Name;
+        public override string Name => name;
 
-        private Element parent;
+        public override string Image => image;
+    }
 
-        public override string Image => (parent as IDoubleElement).TopImage;
+    internal class TestTopElement : Element, IDoubleSubElement
+    {
+        public string name;
+        public string image;
+
+        public override string Name => name;
+
+        public override string Image => image;
 
     }
 }

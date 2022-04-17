@@ -23,7 +23,7 @@ namespace VentWPF.ViewModel
                 Order = project.ProjectInfo.Order,
                 Settings = project.ProjectInfo.Settings,
                 View = project.ProjectInfo.View,
-                Elements = project.Grid.Elements.Select(x => x.Name == "" || x is DecoyElement ? null : x).ToArray(),
+                Elements = project.Grid.Elements.Select(x => x.Name == "" || x is IDoubleSubElement ? null : x).ToArray(),
             };
         }
 
