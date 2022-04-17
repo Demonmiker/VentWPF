@@ -123,7 +123,7 @@ namespace VentWPF.ViewModel
             CmdAdd = new Command(Add, CanAdd);
             CmdInsert = new Command(Insert);
             Element = el;
-            TwoRowsOnly = el.TwoRowsOnly;
+            TwoRowsOnly = el is IDoubleElement;
         }
         public CreateButton(Element el, string image)
         {
@@ -131,7 +131,7 @@ namespace VentWPF.ViewModel
             CmdAdd = new Command(Add, CanAdd);
             CmdInsert = new Command(Insert);
             Element = el;
-            TwoRowsOnly = el.TwoRowsOnly;
+            TwoRowsOnly = el is IDoubleElement;
         }
 
         public Element Element { get; set; }
@@ -161,9 +161,9 @@ namespace VentWPF.ViewModel
                         return false;
                 }
                 //Проверка на совместимость размеров
-                if (Element.TwoRowsOnly)
+                if (Element is IDoubleElement)
                 {
-                    if (!sel.TwoRowsOnly)
+                    if (!(sel is IDoubleElement))
                     {
                         (int top, int bot) = grid.IndexTopBottom(grid.Index);
                         if (els[top].Name != "" || els[bot].Name != "")
@@ -171,7 +171,7 @@ namespace VentWPF.ViewModel
                     }
                 }
                 else
-                    if (sel.TwoRowsOnly)
+                    if (sel is IDoubleElement)
                     return false;
             }
             //Проверка на положение клапана

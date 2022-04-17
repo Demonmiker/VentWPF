@@ -13,4 +13,5 @@ namespace VentWPF.Model
         UpOutside = 16,
         DownOutside = 32,
     }
+
 }

@@ -1,7 +1,16 @@
-﻿namespace VentWPF.ViewModel
+﻿using PropertyTools.DataAnnotations;
+using System;
+
+namespace VentWPF.ViewModel
 {
     internal interface IDoubleElement
     {
-        bool TwoRowsOnly => false;
+        [Browsable(false)]
+        Element TopElement { get; }
+    }
+
+    internal interface IDoubleLinkedElement
+    {
+
     }
 }

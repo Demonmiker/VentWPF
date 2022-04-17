@@ -216,13 +216,6 @@ namespace VentWPF.ViewModel
             return table;
         }
 
-        /// <summary>
-        /// Обозначает что элемент можем быть только в установке с двумя рядами
-        /// </summary>
-        [Browsable(false)]
-        public virtual bool TwoRowsOnly => false;
-
-
         public static T GetInstance<T>(T o)
         {
             return (T)Activator.CreateInstance(o.GetType());

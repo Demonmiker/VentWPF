@@ -1,5 +1,4 @@
-﻿using PropertyChanged;
-using PropertyTools.DataAnnotations;
+﻿using PropertyTools.DataAnnotations;
 using System;
 using VentWPF.Model;
 using static VentWPF.ViewModel.Strings;
@@ -104,6 +103,7 @@ namespace VentWPF.ViewModel
             set
             {
                 vFlow = value;
+                if (Parent is null) return;
                 Parent.View.SizeType = value switch
                 {
                     < 1200 => SizeType.ТипоРазмер1,
@@ -179,10 +179,10 @@ namespace VentWPF.ViewModel
 
         private int bottomHeight = 0;
         [Browsable(false)]
-        public int BottomHeight 
+        public int BottomHeight
         {
             get => Rows == Rows.Двухярусный ? bottomHeight : 0;
-            set => bottomHeight = value; 
+            set => bottomHeight = value;
         }
         public int GetHeight(Element el)
         {
@@ -224,18 +224,18 @@ namespace VentWPF.ViewModel
         [Category("Вид")]
         [DisplayName("Кол-во рядов")]
         public Rows Rows
-        { 
-            get => rows; 
-            set 
+        {
+            get => rows;
+            set
             {
+                rows = value;
                 if (Parent is not null)
                 {
                     Parent.Settings.Rows = value;
                     Parent.Settings.BottomHeight = Parent.Settings.TopHeight;
                 }
-                rows = value;
-                ProjectVM.Current.Grid.Init(value); 
-            } 
+                ProjectVM.Current.Grid.Init(value);
+            }
         }
 
         /// <summary>
@@ -245,10 +245,10 @@ namespace VentWPF.ViewModel
 
         /// <summary>
         /// Реализация
-        /// </summary>
+        /// </summary>TwoRowsOnly
         [Category("Вид")]
         [DisplayName("Ярус притока")]
-        [VisibleBy(nameof(Rows),Rows.Двухярусный)]
+        [VisibleBy(nameof(Rows), Rows.Двухярусный)]
         public MainRow FlowRow { get; set; } = MainRow.Верхний;
 
         [Category("Вид")]
@@ -259,13 +259,16 @@ namespace VentWPF.ViewModel
             set
             {
                 sizeType = value;
-                var size = value.GetSize();
-                Parent.Settings.Width = size.Item1;
-                Parent.Settings.TopHeight = size.Item2;
-                if (Parent.View.Rows == Rows.Двухярусный)
-                    Parent.Settings.BottomHeight = size.Item2;
-                else
-                    Parent.Settings.BottomHeight = 0;
+                if (Parent is not null)
+                {
+                    var size = value.GetSize();
+                    Parent.Settings.Width = size.w;
+                    Parent.Settings.TopHeight = size.h;
+                    if (Parent.View.Rows == Rows.Двухярусный)
+                        Parent.Settings.BottomHeight = size.Item2;
+                    else
+                        Parent.Settings.BottomHeight = 0;
+                }
             }
         }
 
