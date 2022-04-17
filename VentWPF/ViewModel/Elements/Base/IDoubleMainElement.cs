@@ -3,13 +3,13 @@ using System;
 
 namespace VentWPF.ViewModel
 {
-    internal interface IDoubleElement
+    internal interface IDoubleMainElement
     {
 
         Element GetNewTopElement();
     }
 
-    internal interface IDoubleLinkedElement
+    internal interface IDoubleSubElement
     {
 
     }

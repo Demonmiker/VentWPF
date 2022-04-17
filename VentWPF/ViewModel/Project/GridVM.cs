@@ -67,7 +67,7 @@ namespace VentWPF.ViewModel
                 ChangeInfo();
                 if (_Selected != null)
                 {
-                    if (_Selected is IDoubleElement && Elements[Index-10] is DecoyElement)
+                    if (_Selected is IDoubleMainElement && Elements[Index-10] is DecoyElement)
                     {
                         Elements[Index - 10].IsSelected = true;
                     }
@@ -139,7 +139,7 @@ namespace VentWPF.ViewModel
         /// <param name="el">добавляемый элементы</param>
         public void AddElement(Element el)
         {
-            if (el is IDoubleElement del)
+            if (el is IDoubleMainElement del)
             {
                 if (Elements.Count != 20) throw new Exception("Попытка добавить двойной элемент в одноярусную установку");
                 int top = Index = index > 9 ? index - 10 : index;
@@ -175,7 +175,7 @@ namespace VentWPF.ViewModel
         public void InsertElement(Element el)
         {
             int ind = Index;
-            if (HasDouble(Index) || el is IDoubleElement)
+            if (HasDouble(Index) || el is IDoubleMainElement)
             {
                 (int top, int bot) = IndexTopBottom(Index);
                 ShiftRowRight(top);
@@ -217,7 +217,7 @@ namespace VentWPF.ViewModel
         {
             int top = start > 9 ? start - 10 : start;
             for (int i = top; i < 10; i++)
-                if (Elements[i] is IDoubleLinkedElement)
+                if (Elements[i] is IDoubleSubElement)
                     return true;
             return false;
         }
@@ -234,9 +234,9 @@ namespace VentWPF.ViewModel
             var index = Index;
             if (Index >= 0 && Index < Elements.Count)
             {
-                if (Elements[Index] is IDoubleElement)
+                if (Elements[Index] is IDoubleMainElement)
                     Elements[Index - 10] = new Element();
-                if (Elements[Index] is IDoubleLinkedElement)
+                if (Elements[Index] is IDoubleSubElement)
                     Elements[Index + 10] = new Element();
                 Elements[Index] = new Element();
             }
@@ -275,7 +275,7 @@ namespace VentWPF.ViewModel
             {
                 if (HasDouble(Index))
                 {
-                    if (Elements[Index] is IDoubleElement || Elements[Index] is IDoubleLinkedElement)
+                    if (Elements[Index] is IDoubleMainElement || Elements[Index] is IDoubleSubElement)
                         return true;
                     var opposite = Index < 10 ? Elements[Index + 10] : Elements[Index - 10];
                     return opposite.Name == "";

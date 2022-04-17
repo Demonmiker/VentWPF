@@ -16,7 +16,7 @@ namespace VentWPF.ViewModel
             var res = new SchemeSingleBlock() { TwoRows = true };
             List<Element> Top = new List<Element>();
             List<Element> Bottom = new List<Element>();
-            while (i < 10 && !(grid.Elements[i + 10] is IDoubleElement) &&
+            while (i < 10 && !(grid.Elements[i + 10] is IDoubleMainElement) &&
                 !(grid.Elements[i].Connection.HasFlag(ElementConnection.Down) &&
                 grid.Elements[i + 10].Connection.HasFlag(ElementConnection.Up)))
             {
@@ -33,7 +33,7 @@ namespace VentWPF.ViewModel
         {
             var res = new SchemeDoubleBlock();
             List<DoubleSchemeElement> Els = new List<DoubleSchemeElement>();
-            while (i < 10 && (grid.Elements[i + 10] is IDoubleElement || 
+            while (i < 10 && (grid.Elements[i + 10] is IDoubleMainElement || 
                 (grid.Elements[i].Connection.HasFlag(ElementConnection.Down) &&
                 grid.Elements[i+10].Connection.HasFlag(ElementConnection.Up))))
             {
@@ -62,7 +62,7 @@ namespace VentWPF.ViewModel
                 SchemeBlock newBlock;
                 while (i < 10)
                 {
-                    if (grid.Elements[i + 10] is IDoubleElement ||
+                    if (grid.Elements[i + 10] is IDoubleMainElement ||
                         grid.Elements[i].Connection.HasFlag(ElementConnection.Down) &&
                         grid.Elements[i+10].Connection.HasFlag(ElementConnection.Up))
                         (newBlock, i) = GenDoubleBlock(grid, i);
