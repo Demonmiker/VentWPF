@@ -7,7 +7,7 @@ using VentWPF.Model;
 using VentWPF.Model.Calculations;
 using static VentWPF.ViewModel.Strings;
 
-namespace VentWPF.ViewModel.Elements.Recuperators
+namespace VentWPF.ViewModel
 {
     internal class Recuperator_Glicol : Recuperator
     {
@@ -18,8 +18,11 @@ namespace VentWPF.ViewModel.Elements.Recuperators
                 Source = from h in VentContext.Instance.ВодаТеплоs select h
             };
         }
-        /*
-         *TODO: Demonmiker подключить
+
+        [Browsable(false)]
+        public override string TopImage => Path.GetFullPath($"Assets/Images/Icons/Sections/DoubleTop.png");
+
+                
         public override Type DeviceType => typeof(ВодаТепло);
 
         public override string Image => ImagePath("Heaters/Water");
@@ -30,15 +33,18 @@ namespace VentWPF.ViewModel.Elements.Recuperators
 
         public override int Length => 400;
 
-        public override string Name => $"Нагреватель жидкостный {(DeviceData as ВодаТепло)?.Типоряд}";
-        */
+        public override string Name => $"Гликолевый Рекуператор {(DeviceData as ВодаТепло)?.Типоряд}";
+
 
         /// <summary>
-        /// Тип теплоносителя
+        /// КПД
         /// </summary>
-        [Category(Data)]
-        [DisplayName("Теплоноситель")]
-        public CoolantType Coolant { get; set; }
+        [Category(Info)]
+        [DisplayName("КПД")]
+        [FormatString(Strings.fper)]
+        public float KPD => -1f;
+
+        
 
 
         public override List<string> InfoProperties => new()

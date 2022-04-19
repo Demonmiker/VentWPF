@@ -1,4 +1,5 @@
 ﻿using PropertyTools.DataAnnotations;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using VentWPF.ViewModel;
 
@@ -10,6 +11,7 @@ namespace VentWPF
     {
         public int? _ { get; set; }
 
+        [DisplayName("Исполнение")]
         public string Исполнение { get; set; }
 
         [DisplayName("Маркировка")]
@@ -20,7 +22,7 @@ namespace VentWPF
 
         [DisplayName("Vmax")]
         [FormatString("{0:00} м³/ч")]
-        public string VМ3Ч { get; set; }
+        public string VМ3Ч { get; set; }        
 
         [DisplayName("N")]
         [FormatString("{0:00} КВт")]
@@ -29,8 +31,16 @@ namespace VentWPF
         [DisplayName("Ширина")]
         public string Ширина { get; set; }
 
+        [NotMapped]
+        [Browsable(false)]
+        public double With => Convert.ToDouble(Ширина);
+
         [DisplayName("Высота")]
         public string Высота { get; set; }
+
+        [NotMapped]
+        [Browsable(false)]
+        public double Heinht => Convert.ToDouble(Высота);
 
         public string Длина1 { get; set; }
 
