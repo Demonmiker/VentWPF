@@ -40,6 +40,12 @@ namespace VentWPF.ViewModel.Elements
                     { "INSTALLATION_WIDTH_MM", new Condition<double>(x => x <= Project.Settings.Width) },
                     { "INSTALLATION_HEIGHT_MM", new Condition<double>(x => x <= Project.Settings.GetHeight(el)) },
                 },
+                /*Recuperator_Rotor => new()
+                {
+                    { "Ширина", new Condition<double>(x => x <= Project.Settings.Width) },
+                    { "Высота", new Condition<double>(x => x <= Project.Settings.GetHeight(el))},
+                    { "VМ3Ч", new Condition<double>(x => x <= Project.Settings.VFlow) },
+                },*/
                 _ => new() { }
             };
         }

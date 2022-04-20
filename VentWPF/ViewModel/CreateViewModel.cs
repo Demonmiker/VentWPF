@@ -68,7 +68,10 @@ namespace VentWPF.ViewModel
                     new(new HumidCell()),
                     new(new HumidSpray()),
                     new(new HumidSteam())),
-                new("Рекуператор", "Recuperator", true),
+                new("Рекуператор", "Recuperator", true,
+                    new CreateButton(new Recuperator_Glicol()),
+                    new CreateButton(new Recuperator_Platest()),
+                    new CreateButton(new Recuperator_Rotor())),
             };
         }
 

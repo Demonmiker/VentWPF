@@ -20,11 +20,11 @@ namespace VentWPF.Fans.Nicotra
           */
 
         //Получение расчёта по одному вентилятору
-        [DllImport(@"\Fans\FanP\DLL\Nicotra.dll", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("Fans/FanP/DLL/Nicotra.dll", CallingConvention = CallingConvention.StdCall)]
         public static extern int GET_CALCULATION_FANALONE(short s1, short s2, double[] IN, string KEY, short z1, short z2, double[] OUT);
 
         //получения списка вентиляторов
-        [DllImport(@"\Fans\FanP\DLL\Nicotra.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        [DllImport("/Fans/FanP/DLL/Nicotra.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public static extern int GET_PRODUCTS([MarshalAsAttribute(UnmanagedType.VBByRefStr)] ref string LIST);
 
 #pragma warning restore CS0618
