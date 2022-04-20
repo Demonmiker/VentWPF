@@ -1,6 +1,8 @@
 ﻿using PropertyChanged;
 using PropertyTools.DataAnnotations;
 using System.IO;
+using VentWPF.Model;
+using static VentWPF.Model.ElementConnection;
 
 namespace VentWPF.ViewModel
 {
@@ -24,6 +26,21 @@ namespace VentWPF.ViewModel
             get => (SectionType)SubType;
             set => SubType = (int)value;
         }
+
+        public override ElementConnection Connection => Direction switch
+        {
+            SectionType.LeftRight => Left | Right,
+            SectionType.LeftUpDown => Left | Up | Down,
+            SectionType.LeftDown => Left | Down,
+            SectionType.LeftUp => Left | Up,
+            SectionType.RightDown => Right | Down,
+            SectionType.LeftUpRight => Left | Up | Right,
+            SectionType.LeftRightDown => Left | Right | Down,
+            SectionType.LeftRightShort => Left | Right,
+            SectionType.LeftRightValve => Left | Right,
+            SectionType.LeftUpRightValve => Left | Right | Up,
+
+        };
 
         [DependsOn(nameof(SubType))]
         public override string Name => Direction switch

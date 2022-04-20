@@ -26,7 +26,7 @@ namespace VentWPF.Model
 
     public static class SizeTypeExtention
     {
-        public static (int, int) GetSize(this SizeType st)
+        public static (int w, int h) GetSize(this SizeType st)
         {
             return st switch
             {

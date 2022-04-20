@@ -8,6 +8,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Documents;
+using VentWPF.Model;
 using VentWPF.Tools;
 using VentWPF.ViewModel.Elements;
 using static VentWPF.ViewModel.Strings;
@@ -215,12 +216,6 @@ namespace VentWPF.ViewModel
             return table;
         }
 
-        /// <summary>
-        /// Обозначает что элемент можем быть только в установке с двумя рядами
-        /// </summary>
-        [Browsable(false)]
-        public virtual bool TwoRowsOnly => false;
-
         public static T GetInstance<T>(T o)
         {
             return (T)Activator.CreateInstance(o.GetType());
@@ -242,6 +237,11 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         [DependsOn(nameof(DeviceData))]
         public virtual int Height => 0;
+
+
+
+        [Browsable(false)]
+        public virtual ElementConnection Connection => ElementConnection.Left | ElementConnection.Right;
 
         [Browsable(false)]
         public bool CorrectSize 
