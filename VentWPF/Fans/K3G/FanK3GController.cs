@@ -15,18 +15,18 @@ namespace VentWPF.Fans.K3G
 #pragma warning disable CS0618
 
         //Подключение
-        [DllImport(@"Fans/K3G/DLL/EbmPapstFan.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        [DllImport("Fans/K3G/DLL/EbmPapstFan.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public static extern int SET_XML_PATH_PC([MarshalAsAttribute(UnmanagedType.AnsiBStr)] string pfad);
 
         //получение списка ID
-        [DllImport(@"Fans/K3G/DLL/EbmPapstFan.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        [DllImport("Fans/K3G/DLL/EbmPapstFan.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public static extern int GET_PRODUCTS_PC([MarshalAsAttribute(UnmanagedType.AnsiBStr)] ref string pfad);
 
         //получение по ID информации по вентилятору
-        [DllImport(@"Fans/K3G/DLL/EbmPapstFan.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        [DllImport("Fans/K3G/DLL/EbmPapstFan.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public static extern int GET_CCSI_DATA([MarshalAsAttribute(UnmanagedType.AnsiBStr)] string fanDescription, ref string buffer);
 
-        [DllImport("EbmPapstFan.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        [DllImport("Fans/K3G/DLL/EbmPapstFan.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public static extern int SEARCH_PRODUCTS([MarshalAs(UnmanagedType.AnsiBStr)] string fanDescription, ref string buffer);
         /*
          * работает лучше, определяет заранее подходящие вентиляторы
@@ -69,9 +69,9 @@ namespace VentWPF.Fans.K3G
 
         public void Connection(FanK3GRequest request)
         {
-            string path = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            path += @"\Fans\K3G\DLL";
-            if (File.Exists(path + @"\Data.sqlite") && File.Exists(path + @"\EbmPapstFan.dll"))
+            string path = Environment.CurrentDirectory;//System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            path += "/Fans/K3G/DLL";
+            if (File.Exists(path + "/Data.sqlite") && File.Exists(path + "/EbmPapstFan.dll"))
             {
                 path += ";";
                 _ = SET_XML_PATH_PC(path);
