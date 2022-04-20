@@ -75,9 +75,9 @@ namespace VentWPF.ViewModel
                     new(new HumidSteam())
                     ),
                 new("Рекуператор", "Recuperator", true,
-                    new(new Recuperator_Glicol()),
-                    new(new Recuperator_Platest()),
-                    new(new Recuperator_Rotor())
+                    new(new RecuperatorGlicol(),Path.GetFullPath($"Assets/Images/Icons/Recuperators/Glicol.png")),
+                    new(new RecuperatorPlatest(),Path.GetFullPath($"Assets/Images/Icons/Recuperators/Plate.png")),
+                    new(new RecuperatorRotor(),Path.GetFullPath($"Assets/Images/Icons/Recuperators/Rotor.png"))
                 ),
             };
         }

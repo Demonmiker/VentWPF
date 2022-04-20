@@ -64,13 +64,6 @@ namespace VentWPF.ViewModel
         [FormatString(Strings.fper)]
         public float Densoutside => 85f;
 
-        public Element GetNewTopElement()
-        {
-            return new DecoyElement()
-            {
-                name = this.Name,
-                image = Path.GetFullPath($"Assets/Images/Icons/Sections/DoubleTop.png")
-            };
-        }
+        public abstract Element GetNewTopElement();
     }
 }

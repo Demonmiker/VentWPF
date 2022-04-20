@@ -96,6 +96,15 @@
     <None Update="Assets\Images\Icons\FanP\DoubleTop.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\Images\Icons\Recuperators\GlicolTop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Images\Icons\Recuperators\PlateTop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Images\Icons\Recuperators\RotorTop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\Images\Icons\Sections\Double.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -171,13 +180,13 @@
     <None Update="Assets\Images\Icons\_Menu\Humidifier.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Icons\Recuperators\Rec1.png">
+    <None Update="Assets\Images\Icons\Recuperators\Glicol.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Icons\Recuperators\Rec2.png">
+    <None Update="Assets\Images\Icons\Recuperators\Plate.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Icons\Recuperators\Rec3.png">
+    <None Update="Assets\Images\Icons\Recuperators\Rotor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Icons\_Menu\Recuperator.png">

@@ -9,30 +9,35 @@ using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
 {
-    class Recuperator_Platest : Recuperator
+    class RecuperatorRotor : Recuperator
     {
         public override void UpdateQuery()
         {
-            Query = new DatabaseQuery<ПластинчатыйРекуператор>
+            Query = new DatabaseQuery<РоторныйРегенератор>
             {
-                Source = from h in VentContext.Instance.ПластинчатыйРекуператорs select h
+                Source = from h in VentContext.Instance.РоторныйРегенераторs select h
             };
         }
 
-        
-        public override Type DeviceType => typeof(ПластинчатыйРекуператор);
+        public override Element GetNewTopElement()
+        {
+            return new DecoyElement()
+            {
+                name = this.Name,
+                image = ImagePath($"Recuperators/RotorTop")
+            };
+        }
+        public override Type DeviceType => typeof(РоторныйРегенератор);
 
-        public override string Image => ImagePath("Heaters/Water");
+        public override string Image => ImagePath("Recuperators/Rotor");
 
-        public override int Width => (int)((DeviceData as ПластинчатыйРекуператор)?.With ?? 0); //Длина = Ширина, это не ошибка
+        public override int Width => (int)((DeviceData as РоторныйРегенератор)?.With ?? 0);
 
-        public override int Height => (int)((DeviceData as ПластинчатыйРекуператор)?.Height ?? 0);
+        public override int Height => (int)((DeviceData as РоторныйРегенератор)?.Heinht ?? 0);
 
-        public override int Length => (int)((DeviceData as ПластинчатыйРекуператор)?.With ?? 0);
+        public override int Length => 400;
 
-        public override string Name => $"Пластинчатый Рекуператор {(DeviceData as ПластинчатыйРекуператор)?.Маркировка}";
-
-
+        public override string Name => $"Роторный Рекуператор {(DeviceData as ВодаТепло)?.Типоряд}";
 
         /// <summary>
         /// КПД
@@ -81,6 +86,9 @@ namespace VentWPF.ViewModel
         [DisplayName("Сопр. вытяжки")]
         [FormatString(Strings.fper)]
         public float PFlow => -1f;
+        
+        //TODO: Demonmiker, смотри, тут сопротивление верхнего и нижнего ярусов разные и как-то считаются(уже спросил как). Но как
+        //отправить эти числа в PDrops? Вариант: как-то пометить их и привязать одно к нижней половине элемента, другую к верхней. Подумай <3
 
         /// <summary>
         /// Р резерва
@@ -94,8 +102,7 @@ namespace VentWPF.ViewModel
         public override List<string> InfoProperties => new()
         {
 
-        };
-
-
+        };        
+        
     }
 }
