@@ -3,15 +3,12 @@ using System;
 using static VentWPF.ViewModel.Strings;
 using valid = VentWPF.Tools;
 using VentWPF.Model.Calculations;
-
+using System.IO;
 
 namespace VentWPF.ViewModel
 {
-    internal abstract class Recuperator : Element, IDoubleElement
+    internal abstract class Recuperator : Element, IDoubleMainElement
     {        
-        public override bool TwoRowsOnly => true;
-
-        public abstract string TopImage { get; }
 
         public Recuperator()
         {
@@ -67,6 +64,13 @@ namespace VentWPF.ViewModel
         [FormatString(Strings.fper)]
         public float Densoutside => 85f;
 
-
+        public Element GetNewTopElement()
+        {
+            return new DecoyElement()
+            {
+                name = this.Name,
+                image = Path.GetFullPath($"Assets/Images/Icons/Sections/DoubleTop.png")
+            };
+        }
     }
 }

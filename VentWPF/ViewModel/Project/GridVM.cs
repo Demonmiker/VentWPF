@@ -236,6 +236,7 @@ namespace VentWPF.ViewModel
             {
                 if (Elements[Index] is IDoubleMainElement)
                     Elements[Index - 10] = new Element();
+                Index = index;
                 if (Elements[Index] is IDoubleSubElement)
                     Elements[Index + 10] = new Element();
                 Elements[Index] = new Element();

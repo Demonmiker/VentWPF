@@ -19,10 +19,6 @@ namespace VentWPF.ViewModel
             };
         }
 
-        [Browsable(false)]
-        public override string TopImage => Path.GetFullPath($"Assets/Images/Icons/Sections/DoubleTop.png");
-
-        
         public override Type DeviceType => typeof(РоторныйРегенератор);
 
         public override string Image => ImagePath("Heaters/Water");

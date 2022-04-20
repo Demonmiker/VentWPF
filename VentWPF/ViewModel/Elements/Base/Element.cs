@@ -45,8 +45,6 @@ namespace VentWPF.ViewModel
         /// </summary>
         [Browsable(false)]
         [DependsOn("DeviceData")]
-        // TODO: @stigGGGer  Name снова работает в info панели
-        // нужно переопределить на элементах с девайсами
         public virtual string Name => "";
 
         /// <summary>

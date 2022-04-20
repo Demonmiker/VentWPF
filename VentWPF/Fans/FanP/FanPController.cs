@@ -20,11 +20,11 @@ namespace VentWPF.Fans.Nicotra
           */
 
         //Получение расчёта по одному вентилятору
-        [DllImport("Fans/FanP/DLL/Nicotra.dll", CallingConvention = CallingConvention.StdCall)]
+        [DllImport(@"\Fans\FanP\DLL\Nicotra.DLL", CallingConvention = CallingConvention.StdCall)]
         public static extern int GET_CALCULATION_FANALONE(short s1, short s2, double[] IN, string KEY, short z1, short z2, double[] OUT);
 
         //получения списка вентиляторов
-        [DllImport("/Fans/FanP/DLL/Nicotra.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        [DllImport(@"\Fans\FanP\DLL\Nicotra.DLL", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public static extern int GET_PRODUCTS([MarshalAsAttribute(UnmanagedType.VBByRefStr)] ref string LIST);
 
 #pragma warning restore CS0618
@@ -54,6 +54,7 @@ namespace VentWPF.Fans.Nicotra
             var bufferIDs = new string(new Char(), 30000);
             int n = GET_PRODUCTS(ref bufferIDs);
             var str = bufferIDs.ToString();
+            //TODO: @StiGGG тут нет проверки что выданы не модели вентиляторов а ошибка
             var lines = str.Split("\r\n");
             var keys = lines.Select(x => x.Split(',')[0]);
             keys = keys.Where(x => x.StartsWith("RDH") || x.StartsWith("ADH"));
