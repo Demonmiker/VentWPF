@@ -13,9 +13,7 @@ namespace VentWPF.ViewModel
         public override void UpdateQuery()
         {
             Query = new FanPQuery()
-            {
-                // TODO: @stigGGGer Никуда не годится такой запрос
-                // Данные  должны объявлятся тут а не по умолчанию
+            {               
                 Source = new FanPRequest()
                 {
                     Option = 1,

@@ -73,7 +73,8 @@ namespace VentWPF.ViewModel
 
         public override List<string> InfoProperties => new()
         {
-            "DeviceData.TYPE",
+            //"DeviceData.TYPE",
+            "DeviceData.FANNAME",
             "Power",
             "PressureDropSystem",
             "PressureRaise",            

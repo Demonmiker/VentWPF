@@ -22,6 +22,9 @@ namespace VentWPF.Fans.FanSelect
         [JsonPropertyName("insert_nominal_values")]
         public bool InsertNominalValues { get; set; } = true;
 
+        [JsonPropertyName("insert_aircalc")]
+        public bool insertaircalc { get; set; } = true;
+
         [JsonPropertyName("language")]
         public string Language { get; set; } = "RU";
 

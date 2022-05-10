@@ -86,6 +86,10 @@ namespace VentWPF.Fans
 
         public string ZA_MAINS_SUPPLY { get; set; }
 
+        [DisplayName("Колесо")]
+        [Browsable(false)]
+        public string FANNAME { get; set; }
+
         public bool Equals(FanCData other)
         {
             if (
@@ -106,7 +110,8 @@ namespace VentWPF.Fans
                  INSTALLATION_HEIGHT_MM == other.INSTALLATION_HEIGHT_MM &&
                  INSTALLATION_WIDTH_MM == other.INSTALLATION_WIDTH_MM &&
                  ZA_BG == other.ZA_BG &&
-                 ZA_MAINS_SUPPLY == other.ZA_MAINS_SUPPLY)
+                 ZA_MAINS_SUPPLY == other.ZA_MAINS_SUPPLY &&
+                 FANNAME == other.FANNAME)
                 return true;
             else
                 return false;
@@ -133,6 +138,7 @@ namespace VentWPF.Fans
              hash = hash * 59 + (INSTALLATION_WIDTH_MM.GetHashCode());
              hash = hash * 59 + (ZA_BG.GetHashCode());
              hash = hash * 59 + (ZA_MAINS_SUPPLY.GetHashCode());
+             //hash = hash * 59 + (FANNAME.GetHashCode());
             return hash;
         }
 

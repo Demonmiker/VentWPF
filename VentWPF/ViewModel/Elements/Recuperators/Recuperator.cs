@@ -15,7 +15,7 @@ namespace VentWPF.ViewModel
             ShowPR = true;
             ShowPD = true;            
         }
-
+        /*
         /// <summary>
         /// Объем притока
         /// </summary>
@@ -63,7 +63,7 @@ namespace VentWPF.ViewModel
         [DisplayName("Влажность наруж. возд.")]
         [FormatString(Strings.fper)]
         public float Densoutside => 85f;
-
+        */
         public Element GetNewTopElement()
         {
             return new DecoyElement()
