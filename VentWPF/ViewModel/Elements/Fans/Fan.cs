@@ -37,7 +37,7 @@ namespace VentWPF.ViewModel
         };
 
         [Category(Info)]
-        [FormatString(fkPa)]
+        [FormatString(fPa)]
         [DisplayName("Падение давления яруса")]
         public float PressureDropSystem => Calculations.GPD(Project.Grid.InTopRow(this));
 
@@ -47,7 +47,7 @@ namespace VentWPF.ViewModel
         public int Power => ProjectInfo.Settings.VFlow;
 
         [DisplayName("Падение давления общее")]
-        [FormatString(fkPa)]
+        [FormatString(fPa)]
         public float PressureRaise => ProjectInfo.Settings.PFlow + Calculations.GPD(Project.Grid.InTopRow(this));
     }
 }
