@@ -68,6 +68,12 @@
     <None Update="Assets\Images\DocXImages\qr-code.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\Images\Icons\Recuperators\Rec1Bottom.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Images\Icons\Recuperators\Rec1Top.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\Images\Icons\Sections\Double.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
