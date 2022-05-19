@@ -155,7 +155,7 @@
     </None>
     <None Update="Assets\Images\Icons\FanK3G\RightLeft.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>op
+    </None>
     <None Update="Assets\Images\Icons\FanP\LeftRight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -452,9 +452,6 @@
     </None>
     <None Update="Assets\Images\Scheme\Valves\VerticalHeat.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Assets\Images\Vega.webp">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
