@@ -30,7 +30,7 @@ namespace VentWPF.ViewModel
 
         public override Type DeviceType => typeof(ВодаТепло);
 
-        public override string Image => ImagePath("Recuperators/Glicol");
+        public override string Image => ImagePath("Recuperators/GlicolBottom");
 
         public override int Width => (int)((DeviceData as ВодаТепло)?.ШиринаГабарит ?? 0);
 

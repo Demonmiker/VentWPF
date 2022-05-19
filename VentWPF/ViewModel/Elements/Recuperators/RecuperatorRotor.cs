@@ -29,7 +29,7 @@ namespace VentWPF.ViewModel
         }
         public override Type DeviceType => typeof(РоторныйРегенератор);
 
-        public override string Image => ImagePath("Recuperators/Rotor");
+        public override string Image => ImagePath("Recuperators/RotorBottom");
 
         public override int Width => (int)((DeviceData as РоторныйРегенератор)?.With ?? 0);
 
