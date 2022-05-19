@@ -11,8 +11,8 @@
 
         public override string Image => ImagePath("Filters/Section");
 
-        public override int Length => 680;
+        public override int Length => 390;
 
-        public override string Name => $"Фильтр секционный";
+        public override string Name => $"Фильтр ячейковый";
     }
 }

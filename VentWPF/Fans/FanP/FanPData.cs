@@ -30,38 +30,34 @@ namespace VentWPF.Fans.Nicotra
         [DisplayName("Название")]
         public string Id { get; set; }
 
-        public double errors { get; set; }
-
-        [DisplayName("Тип установки")]
-        public double InstallationType { get; set; }
-
-        [DisplayName("Плотность воздуха")]
-        [FormatString(fkgm3)]
-        public double AirDensity { get; set; }
-
-        [DisplayName("Температура")]
-        [FormatString(fT)]
-        public double Temperature { get; set; }
-
-        [DisplayName("Высота")]
-        [FormatString(fm)]
-        public double Height { get; set; }
-
         [DisplayName("Поток")]
         [FormatString(fm3Ph)]
         public double FlowRate { get; set; }
 
-        [DisplayName("Статичное давление")]
-        [FormatString(fPa)]
-        public double StaticPressure { get; set; }
+        public double errors { get; set; }
 
-        [DisplayName("Общее давление")]
-        [FormatString(fPa)]
-        public double TotalPressure { get; set; }
+        //[DisplayName("Тип установки")]
+        public double InstallationType { get; set; }
 
-        [DisplayName("Скорость")]
+        //[DisplayName("Плотность воздуха")]
+        //[FormatString(fkgm3)]
+        public double AirDensity { get; set; }
+
+        //[DisplayName("Температура")]
+        //[FormatString(fT)]
+        public double Temperature { get; set; }
+
+        //[DisplayName("Высота")]
+        //[FormatString(fm)]
+        public double Height { get; set; }
+
+        [DisplayName("Скорость вращения")]
         [FormatString(fRotate)]
         public double Speed { get; set; }
+
+        [DisplayName("Мощность двигателя")]
+        [FormatString(fkW)]
+        public double SmallestReqMotor { get; set; }
 
         [DisplayName("Мощность на валу")]
         [FormatString(fkW)]
@@ -71,14 +67,18 @@ namespace VentWPF.Fans.Nicotra
         [FormatString(fper)]
         public double Efficiency { get; set; }
 
-        [DisplayName("Шум на выходе")]
+        [DisplayName("Статичное давление")]
+        [FormatString(fPa)]
+        public double StaticPressure { get; set; }
+
+        [DisplayName("Давление системы")]
+        [FormatString(fPa)]
+        public double TotalPressure { get; set; }
+
+        [DisplayName("Шум в раб.точке")]
         [FormatString(fdB)]
         public double SoundPowerLevelOut { get; set; }
-
-        [DisplayName("Мощность двигателя")]
-        [FormatString(fkPa)]
-        public double SmallestReqMotor { get; set; }
-
+               
         [DisplayName("Шум на выходе")]
         [FormatString(fdB)]
         public double SoundPowerLevelIn { get; set; }

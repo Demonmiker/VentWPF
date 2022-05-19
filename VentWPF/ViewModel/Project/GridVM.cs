@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Controls;
@@ -11,7 +12,7 @@ namespace VentWPF.ViewModel
     /// <summary>
     /// Представление Сетки конструктора вентиляции
     /// </summary>
-    internal class GridVM : BaseViewModel
+    internal class GridVM : ValidViewModel
     {
         public ProjectVM Project { get; set; } = ProjectVM.Current;
 
@@ -19,7 +20,7 @@ namespace VentWPF.ViewModel
 
         public GridVM()
         {
-            CmdRemove = new(RemoveElement,CanRemove);
+            CmdRemove = new(RemoveElement, CanRemove);
             CmdRemoveShift = new Command(RemoveElementAndShift, CanRemoveAndShift);
             CmdSelectShift = new Command<object>(SelectShift);
         }
@@ -48,10 +49,6 @@ namespace VentWPF.ViewModel
                 Index = res; ;
         }
 
-        /// <summary>
-        /// Менеджер ошибок
-        /// </summary>
-        public ErrorManagerVM ErrorManager { get; set; }
 
         /// <summary>
         /// Элементы в установке
@@ -70,16 +67,17 @@ namespace VentWPF.ViewModel
                 ChangeInfo();
                 if (_Selected != null)
                 {
-                    if (_Selected.TwoRowsOnly)
+                    if (_Selected is IDoubleMainElement && Elements[Index-10] is DecoyElement)
                     {
                         Elements[Index - 10].IsSelected = true;
                     }
                     if (_Selected is DecoyElement)
                     {
                         Elements[Index + 10].IsSelected = true;
-                        //Index = Index + 10;
-                        //Selected = Elements[Index];
+                        Index = Index + 10;
+                        Selected = Elements[Index];
                     }
+                    //TODO: Код для двойного выделения 
                 }
 
             }
@@ -131,7 +129,7 @@ namespace VentWPF.ViewModel
                     new(),new(),new(),new(),new(),new(),new(),new(),new(),new(),
                 };
             }
-            ErrorManager.AddRange(Enumerable.Range(0, 20).Select(x => ($"[{x % 10 + 1},{x / 10 + 1}]", new Element() as ValidViewModel)));
+            ProjectVM.Current.ErrorManager.AddRange(Enumerable.Range(0, 20).Select(x => ($"[{x % 10 + 1},{x / 10 + 1}]", new Element() as ValidViewModel)));
             Index = 0;
         }
 
@@ -141,25 +139,27 @@ namespace VentWPF.ViewModel
         /// <param name="el">добавляемый элементы</param>
         public void AddElement(Element el)
         {
-            if (el.TwoRowsOnly)
+            if (el is IDoubleMainElement del)
             {
                 if (Elements.Count != 20) throw new Exception("Попытка добавить двойной элемент в одноярусную установку");
                 int top = Index = index > 9 ? index - 10 : index;
-                Elements[top] = new DecoyElement(el);
+                Elements[top] = del.GetNewTopElement();
+                Elements[top].UpdateQuery();
                 Index = top + 10;
             }
             int ind = Index;
             if (Index >= 0 && Index < Elements.Count)
             {
-                Elements[Index] = Element.GetInstance(el);
+                var el2 = Element.GetInstance(el);
+                el2.SubType = el.SubType;
+                el2.UpdateQuery();
+                Elements[Index] = el2;
                 Index = ind;
-                Elements[Index].SubType = el.SubType;
-                Elements[Index].UpdateQuery();
-                ErrorManager.Add(Elements[Index], $"[{Index % 10 + 1},{Index / 10 + 1}]");
+                ProjectVM.Current.ErrorManager.Add(Elements[Index], $"[{Index % 10 + 1},{Index / 10 + 1}]");
             }
             Index = ind;
         }
-        public void AddElement(Element el,int index)
+        public void AddElement(Element el, int index)
         {
             int ind = Index;
             Index = index;
@@ -175,7 +175,7 @@ namespace VentWPF.ViewModel
         public void InsertElement(Element el)
         {
             int ind = Index;
-            if (HasDouble(Index) || el.TwoRowsOnly)
+            if (HasDouble(Index) || el is IDoubleMainElement)
             {
                 (int top, int bot) = IndexTopBottom(Index);
                 ShiftRowRight(top);
@@ -217,7 +217,7 @@ namespace VentWPF.ViewModel
         {
             int top = start > 9 ? start - 10 : start;
             for (int i = top; i < 10; i++)
-                if (Elements[i] is DecoyElement)
+                if (Elements[i] is IDoubleSubElement)
                     return true;
             return false;
         }
@@ -234,9 +234,10 @@ namespace VentWPF.ViewModel
             var index = Index;
             if (Index >= 0 && Index < Elements.Count)
             {
-                if (Elements[Index].TwoRowsOnly)
+                if (Elements[Index] is IDoubleMainElement)
                     Elements[Index - 10] = new Element();
-                if (Elements[Index] is DecoyElement)
+                Index = index;
+                if (Elements[Index] is IDoubleSubElement)
                     Elements[Index + 10] = new Element();
                 Elements[Index] = new Element();
             }
@@ -271,11 +272,11 @@ namespace VentWPF.ViewModel
         public bool CanRemoveAndShift()
         {
             if (Index < 0) return false;
-            if(RowNumber==Rows.Двухярусный)
+            if (RowNumber == Rows.Двухярусный)
             {
                 if (HasDouble(Index))
                 {
-                    if (Elements[Index].TwoRowsOnly || Elements[Index] is DecoyElement)
+                    if (Elements[Index] is IDoubleMainElement || Elements[Index] is IDoubleSubElement)
                         return true;
                     var opposite = Index < 10 ? Elements[Index + 10] : Elements[Index - 10];
                     return opposite.Name == "";
@@ -285,7 +286,7 @@ namespace VentWPF.ViewModel
         }
         public bool CanRemove()
         {
-            return Index>=0 && Index < Elements.Count;
+            return Index >= 0 && Index < Elements.Count;
         }
 
         /// <summary>
@@ -302,8 +303,67 @@ namespace VentWPF.ViewModel
         {
             >= 0 and < 10 => true,
             >= 10 and < 20 => false,
-            _ => throw new Exception("Элемент не найден")
+            _ => true,
         };
+
+        private string CheckStructure()
+        {
+            if (Elements is null) return string.Empty;
+            Element root = null;
+            foreach (var el in Elements)
+            {
+                if (el.Name != "")
+                {
+                    root = el;
+                    break;
+                }
+            }
+            if (root is null) return "Установка пуста";
+            else return CheckConnections();
+        }
+
+        private string CheckConnections()
+        {
+            List<string> errors = new();
+            for (int r = 0; r < Elements.Count / 10; r++)
+                for (int i = r * 10; i < 10 * r + 9; i++)
+                    if (Elements[i].Name != "" && Elements[i + 1].Name != "")
+                        switch
+                            (Elements[i].Connection.HasFlag(ElementConnection.Right),
+                            Elements[i + 1].Connection.HasFlag(ElementConnection.Left))
+                        {
+                            case (false, true):
+                            case (true, false):
+                                errors.Add($"Некорректное соединение {i} {i + 1}");
+                                break;
+                        }
+            if (Elements.Count == 20)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    if (Elements[i].Name != "" && Elements[i + 10].Name != "")
+                        switch
+                            (Elements[i].Connection.HasFlag(ElementConnection.Down),
+                            Elements[i + 10].Connection.HasFlag(ElementConnection.Up))
+                        {
+                            case (false, true):
+                            case (true, false):
+                                errors.Add($"Некорректное соединение {i} {i + 10}");
+                                break;
+                        }
+                    //if (Elements[i].Connection.HasFlag(ElementConnection.DownOutside) && Elements[i+10].Name!="")
+                    //    errors.Add($"Выход вниз перекрыт {i} {i + 10}");
+                    //if (Elements[i+10].Connection.HasFlag(ElementConnection.UpOutside) && Elements[i].Name!="")
+                    //    errors.Add($"Выход вверх перекрыт {i} {i + 10}");
+                }
+            }
+            return String.Join("\n", errors);
+
+        }
+        protected override string OnValidation()
+        {
+            return CheckStructure();
+        }
 
     }
 }

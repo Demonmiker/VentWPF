@@ -28,7 +28,8 @@ namespace VentWPF.ViewModel
 
         private void SetLink(FrameworkElement el)
         {
-            Elements[el.Name] = el;
+            if(el is not null)
+                Elements[el.Name] = el;
         }
 
         public Dictionary<string, FrameworkElement> Elements = new();
@@ -48,8 +49,8 @@ namespace VentWPF.ViewModel
                 LoadProjectFile("new.json");
                 Path = null;
             }
-            else
-                Init();
+            //else
+              //  Init();
             Status = "Новый проект";
         }
 
@@ -156,8 +157,8 @@ namespace VentWPF.ViewModel
             ErrorManager.Add(ProjectInfo.View, "Вид");
             Scheme = new SchemeVM();
             Grid = new();
-            Grid.ErrorManager = ErrorManager;
-            Frame = new(500, ProjectInfo.Settings.Width, ProjectInfo.Settings.Height);
+            ErrorManager.Add(Grid, "Установка");
+            Frame = new(500, ProjectInfo.Settings.Width, ProjectInfo.Settings.TopHeight + ProjectInfo.Settings.BottomHeight);
             Frame.Parent = this;
             Grid.Init(ProjectInfo.View.Rows);
         }

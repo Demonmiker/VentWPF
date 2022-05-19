@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 namespace VentWPF.Fans.Nicotra
@@ -10,19 +11,20 @@ namespace VentWPF.Fans.Nicotra
         #region Marshaling
 
 #pragma warning disable CS0618
+        
         /*
             string path = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            [DllImport(@"Nicotra.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+            [DllImport(@"\Fans\FanP\DLL\Nicotra.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
             public static extern int SETDLLPATH([MarshalAsAttribute(UnmanagedType.AnsiBStr)] string Path);
-            int d = SETDLLPATH(path);
-         * */
+            
+          */
 
         //Получение расчёта по одному вентилятору
-        [DllImport(@"Fans/FanP/DLL/Nicotra.dll", CallingConvention = CallingConvention.StdCall)]
+        [DllImport(@"\Fans\FanP\DLL\Nicotra.DLL", CallingConvention = CallingConvention.StdCall)]
         public static extern int GET_CALCULATION_FANALONE(short s1, short s2, double[] IN, string KEY, short z1, short z2, double[] OUT);
 
         //получения списка вентиляторов
-        [DllImport(@"Fans/FanP/DLL/Nicotra.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        [DllImport(@"\Fans\FanP\DLL\Nicotra.DLL", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         public static extern int GET_PRODUCTS([MarshalAsAttribute(UnmanagedType.VBByRefStr)] ref string LIST);
 
 #pragma warning restore CS0618
@@ -37,7 +39,7 @@ namespace VentWPF.Fans.Nicotra
             try
             {
                 Keys ??= GetKeys().ToArray();
-                return Keys.Select(x => new FanPData(x, GetFanInfo(x, request))).ToList();
+                return Keys.Select(x => new FanPData(x, GetFanInfo(x, request))).Where(x => x.errors.Equals(0)).ToList();
             }
             catch (Exception ex)
             {
@@ -48,9 +50,11 @@ namespace VentWPF.Fans.Nicotra
 
         public IEnumerable<string> GetKeys()
         {
+            //int d = SETDLLPATH(path);
             var bufferIDs = new string(new Char(), 30000);
             int n = GET_PRODUCTS(ref bufferIDs);
             var str = bufferIDs.ToString();
+            //TODO: @StiGGG тут нет проверки что выданы не модели вентиляторов а ошибка
             var lines = str.Split("\r\n");
             var keys = lines.Select(x => x.Split(',')[0]);
             keys = keys.Where(x => x.StartsWith("RDH") || x.StartsWith("ADH"));
@@ -58,13 +62,8 @@ namespace VentWPF.Fans.Nicotra
         }
 
         public IEnumerable<double> GetFanInfo(string id, FanPRequest req)
-        {
-            var bufferInfo = new string(new Char(), 4000);
+        {            
             var r = req.GetRequest();
-            //временные данные----------
-            var KEY = new string(new Char(), 15);
-            KEY = "AT 7-7 S";
-
             short s1 = 0;
             short s2 = 0;
             short z1 = 0;

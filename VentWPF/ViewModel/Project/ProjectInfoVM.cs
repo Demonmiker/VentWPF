@@ -1,5 +1,4 @@
-﻿using PropertyChanged;
-using PropertyTools.DataAnnotations;
+﻿using PropertyTools.DataAnnotations;
 using System;
 using VentWPF.Model;
 using static VentWPF.ViewModel.Strings;
@@ -30,9 +29,10 @@ namespace VentWPF.ViewModel
         /// Дата начала проекта
         /// </summary>
         // TODO: Формат вводишь mm/dd/yyyy а получаешь dd/mm/yyyy Конфузит?!
+        // TODO: @MikeKondr99 Формат вводишь mm/dd/yyyy а надо бы dd/mm/yyyy
         [Category("Заказ")]
         [DisplayName("Дата")]
-        [FormatString(fDate)]
+        [FormatString("MM/dd/yyyy")]
         public DateTime Date { get; set; } = DateTime.Now;
 
         /// <summary>
@@ -78,10 +78,13 @@ namespace VentWPF.ViewModel
 
     internal class Settings : ValidViewModel
     {
-        [Browsable (false)]
+
+        [Browsable(false)]
+
         public Rows Rows { get; set; }
 
         [Browsable(false)]
+
         public ProjectInfoVM Parent { get; private set; } //Нельзя открывать будет цикл
 
         public void InitParent(ProjectInfoVM parent)
@@ -100,6 +103,7 @@ namespace VentWPF.ViewModel
             set
             {
                 vFlow = value;
+                if (Parent is null) return;
                 Parent.View.SizeType = value switch
                 {
                     < 1200 => SizeType.ТипоРазмер1,
@@ -164,16 +168,26 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Ширина установки
         /// </summary>
-        [DisplayName("Ширина")]
-        [FormatString(fmm)]
+        [Browsable(false)]
         public int Width { get; set; } = 1050;
 
         /// <summary>
         /// Высота установки
         /// </summary>
-        [DisplayName("Высота")]
-        [FormatString(fmm)]
-        public int Height { get; set; } = 700;
+        [Browsable(false)]
+        public int TopHeight { get; set; } = 700;
+
+        private int bottomHeight = 0;
+        [Browsable(false)]
+        public int BottomHeight
+        {
+            get => Rows == Rows.Двухярусный ? bottomHeight : 0;
+            set => bottomHeight = value;
+        }
+        public int GetHeight(Element el)
+        {
+            return ProjectVM.Current.Grid.InTopRow(el) ? TopHeight : BottomHeight;
+        }
 
         [Category("Настройки")]
         [DisplayName("Толщина панели")]
@@ -210,15 +224,18 @@ namespace VentWPF.ViewModel
         [Category("Вид")]
         [DisplayName("Кол-во рядов")]
         public Rows Rows
-        { 
-            get => rows; 
-            set 
+        {
+            get => rows;
+            set
             {
-                if(Parent is not null)
-                    Parent.Settings.Rows = value;
                 rows = value;
-                ProjectVM.Current.Grid.Init(value); 
-            } 
+                if (Parent is not null)
+                {
+                    Parent.Settings.Rows = value;
+                    Parent.Settings.BottomHeight = Parent.Settings.TopHeight;
+                }
+                ProjectVM.Current.Grid.Init(value);
+            }
         }
 
         /// <summary>
@@ -228,10 +245,10 @@ namespace VentWPF.ViewModel
 
         /// <summary>
         /// Реализация
-        /// </summary>
+        /// </summary>TwoRowsOnly
         [Category("Вид")]
         [DisplayName("Ярус притока")]
-        [VisibleBy(nameof(Rows),Rows.Двухярусный)]
+        [VisibleBy(nameof(Rows), Rows.Двухярусный)]
         public MainRow FlowRow { get; set; } = MainRow.Верхний;
 
         [Category("Вид")]
@@ -242,7 +259,16 @@ namespace VentWPF.ViewModel
             set
             {
                 sizeType = value;
-                (Parent.Settings.Width,Parent.Settings.Height) = value.GetSize();
+                if (Parent is not null)
+                {
+                    var size = value.GetSize();
+                    Parent.Settings.Width = size.w;
+                    Parent.Settings.TopHeight = size.h;
+                    if (Parent.View.Rows == Rows.Двухярусный)
+                        Parent.Settings.BottomHeight = size.Item2;
+                    else
+                        Parent.Settings.BottomHeight = 0;
+                }
             }
         }
 

@@ -4,14 +4,16 @@ namespace VentWPF.Fans.K3G
 {
     internal class FanK3GRequest : IRequest<string>
     {
+
+        public int Height { get; set; }
         public static ProjectInfoVM Info { get; set; } = ProjectVM.Current?.ProjectInfo;
         public string ID { get; set; }
 
-        public float Volumenstrom { get; set; } = Info.Settings.VFlow / 3600;
+        public float Volumenstrom { get; set; }
 
-        public InstallationType Installation { get; set; } = InstallationType.DIDO;
+        public InstallationType Installation { get; set; }
 
-        public PressureType Pressure { get; set; } = PressureType.Static;
+        public PressureType Pressure { get; set; }
 
         public float AirDens { get; set; }
 
@@ -21,7 +23,7 @@ namespace VentWPF.Fans.K3G
 
         public float RequiredPressure { get; set; }
 
-        public int V { get; set; } = 0;
+        public int V { get; set; }
 
         public string GetRequest()
         {

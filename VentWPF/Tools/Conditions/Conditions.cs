@@ -7,52 +7,47 @@ namespace VentWPF.ViewModel.Elements
 {
     internal static class Conditions
     {
-        public static Dictionary<Type, Dictionary<string, IValueConverter>> dict = new()
+        private static ProjectInfoVM Project = ProjectVM.Current?.ProjectInfo;
+
+        public static Dictionary<string, IValueConverter> Get(Element el)
         {
+            return el switch
             {
-                typeof(HeaterWater),
-                new()
+                HeaterWater => new()
                 {
                     { "LВозд", new Condition<double>(x => x >= Project.Settings.VFlow) },
                     { "ШиринаГабарит", new Condition<double>(x => x <= Project.Settings.Width) },
-                    { "ВысотаГабарит", new Condition<double>(x => x <= Project.Settings.Height) },
+                    { "ВысотаГабарит", new Condition<double>(x => x <= Project.Settings.GetHeight(el)) },
                     { "Скорость", new Condition<double>(x => x is > 2.5 and < 4.5) },
-                }
-            },
-            {
-                typeof(CoolerWater),
-                new()
+                },
+                CoolerWater => new()
                 {
                     { "LВозд", new Condition<double>(x => x >= Project.Settings.VFlow) },
                     { "ШиринаГабарит", new Condition<double>(x => x <= Project.Settings.Width) },
-                    { "ВысотаГабарит", new Condition<double>(x => x <= Project.Settings.Height) },
+                    { "ВысотаГабарит", new Condition<double>(x => x <= Project.Settings.GetHeight(el)) },
                     { "Скорость", new Condition<double>(x => x is > 2.5 and < 4.5) },
-                }
-            },
-            {
-                typeof(CoolerFr),
-                new()
+                },
+                CoolerFr => new()
                 {
                     { "LВозд", new Condition<double>(x => x >= Project.Settings.VFlow) },
                     { "ШиринаГабарит", new Condition<double>(x => x <= Project.Settings.Width) },
-                    { "ВысотаГабарит", new Condition<double>(x => x <= Project.Settings.Height) },
+                    { "ВысотаГабарит", new Condition<double>(x => x <= Project.Settings.GetHeight(el)) },
                     { "Скорость", new Condition<double>(x => x is > 2.5 and < 4.5) },
-                }
-            },
-            {
-                typeof(FanC),
-                new()
+                },
+                FanC => new()
                 {
                     { "NDiff", new Condition<double>(x => x is < 200 and > 0) },
                     { "INSTALLATION_WIDTH_MM", new Condition<double>(x => x <= Project.Settings.Width) },
-                    { "INSTALLATION_HEIGHT_MM", new Condition<double>(x => x <= Project.Settings.Height) },
-                }
-            }
-        };
-
-        private static ProjectInfoVM Project = ProjectVM.Current?.ProjectInfo;
-
-        public static Dictionary<string, IValueConverter> Get(Type t)
-                            => dict.ContainsKey(t) ? dict[t] : null;
+                    { "INSTALLATION_HEIGHT_MM", new Condition<double>(x => x <= Project.Settings.GetHeight(el)) },
+                },
+                /*Recuperator_Rotor => new()
+                {
+                    { "Ширина", new Condition<double>(x => x <= Project.Settings.Width) },
+                    { "Высота", new Condition<double>(x => x <= Project.Settings.GetHeight(el))},
+                    { "VМ3Ч", new Condition<double>(x => x <= Project.Settings.VFlow) },
+                },*/
+                _ => new() { }
+            };
+        }
     }
 }

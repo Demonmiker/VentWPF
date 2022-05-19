@@ -16,7 +16,7 @@ namespace VentWPF.ViewModel
 
         public override string Image => ImagePath("Valves/Horizontal");
 
-        public override string Name => "Клапан воздушный горизонтальный";
+        public override string Name => "Воздушный клапан горизонтальный";
 
         public override List<string> InfoProperties => new()
         {

@@ -4,12 +4,13 @@
    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
    xmlns:pt="http://propertytools.org/wpf"
+   xmlns:sys="clr-namespace:System;assembly=System.Core"
    xmlns:fa5="http://schemas.fontawesome.com/icons/"
    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
    xmlns:vm="clr-namespace:VentWPF.ViewModel"
-   Title="MainWindow"
+   Title="Vent Project"
    MinHeight="500"
    Background="{DynamicResource MaterialDesignPaper}"
    FontFamily="{md:MaterialDesignFont}"
@@ -50,7 +51,7 @@
    <DockPanel>
       <!--  Верхнее контекстное меню  -->
       <Menu DockPanel.Dock="Top">
-         <MenuItem Header="Файл">
+         <MenuItem Height="30" Header="Файл">
             <MenuItem
                Header="Новый"
                InputGestureText="Ctrl+Shift+N"
@@ -70,11 +71,11 @@
                Header="Загрузить"
                InputGestureText="Ctrl+O" />
          </MenuItem>
-         <MenuItem Header="Настройки">
+         <!--<MenuItem Header="Настройки">
             <MenuItem Command="{Binding CmdConfig}" Header="Запрос" />
             <MenuItem Command="{Binding CmdLoad}" Header="Интерфейс" />
             <MenuItem Command="{Binding CmdLoad}" Header="Интерфейс" />
-         </MenuItem>
+         </MenuItem>-->
       </Menu>
       <!--  Статус бар внизу  -->
       <StatusBar DockPanel.Dock="Bottom"
@@ -225,17 +226,22 @@
                            <TextBlock Text="График" />
                         </StackPanel>
                      </TabItem.Header>
-                     <Grid>
-                        <Grid.ColumnDefinitions>
-                           <ColumnDefinition />
-                           <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                     </Grid>
-
+                     <StackPanel
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Vertical">
+                        <TextBlock
+                           Margin="10"
+                           Text="Under Construction"
+                           FontSize="30" />
+                        <fa5:SvgAwesome
+                           Height="40"
+                           Icon="Solid_Wrench"
+                           Foreground="Red" />
+                     </StackPanel>
                   </TabItem>
                   <!--  Каркас  -->
                   <TabItem>
-                     <ContentControl x:Name="frame" Content="{Binding Project.Frame}" />
                      <b:Interaction.Triggers>
                         <b:EventTrigger EventName="Loaded">
                            <b:InvokeCommandAction Command="{Binding Project.CmdLinkGui}" CommandParameter="{Binding ElementName=frame}" />
@@ -247,6 +253,20 @@
                            <TextBlock Text="Каркас" />
                         </StackPanel>
                      </TabItem.Header>
+                     <StackPanel
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Vertical">
+                        <TextBlock
+                           Margin="10"
+                           Text="Under Construction"
+                           FontSize="30" />
+                        <fa5:SvgAwesome
+                           Height="40"
+                           Icon="Solid_Wrench"
+                           Foreground="Red" />
+                     </StackPanel>
+                     <!--<ContentControl x:Name="frame" Content="{Binding Project.Frame}" />-->
                   </TabItem>
                   <!--  Схема  -->
                   <TabItem>
@@ -314,7 +334,13 @@
                            <TextBlock Text="Debug" />
                         </StackPanel>
                      </TabItem.Header>
-                     <ListBox ItemsSource="{Binding Project.ErrorManager.Errors}" />
+                     <ItemsControl ItemsSource="{Binding Project.ErrorManager.Errors}" Focusable="False">
+                        <ItemsControl.ItemContainerStyle>
+                           <Style TargetType="{x:Type ContentPresenter}">
+                              <Setter Property="Visibility" Value="{Binding Converter={StaticResource visConv}}" />
+                           </Style>
+                        </ItemsControl.ItemContainerStyle>
+                     </ItemsControl>
                   </TabItem>
                </TabControl>
             </DockPanel>

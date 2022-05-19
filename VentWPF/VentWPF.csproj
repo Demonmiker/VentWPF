@@ -26,6 +26,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Fans\K3G\DLL\**" />
+    <EmbeddedResource Remove="Fans\K3G\DLL\**" />
+    <None Remove="Fans\K3G\DLL\**" />
+    <Page Remove="Fans\K3G\DLL\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Assets\Images\Scheme\Error.png" />
     <None Remove="Assets\Images\Vega.webp" />
   </ItemGroup>
@@ -74,6 +81,36 @@
     <None Update="Assets\Images\Icons\Recuperators\Rec1Top.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\Images\Icons\DoubleFan.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Images\Icons\FanC\DoubleTop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Images\Icons\FanC\DoubleBottom.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Images\Icons\FanK3G\DoubleBottom.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Images\Icons\FanK3G\DoubleTop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Images\Icons\FanP\DoubleBottom.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Images\Icons\FanP\DoubleTop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Images\Icons\Recuperators\GlicolTop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Images\Icons\Recuperators\PlateTop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Images\Icons\Recuperators\RotorTop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\Images\Icons\Sections\Double.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -105,22 +142,22 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Icons\FanC\UpLeft.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Icons\FanK3G\LeftRight.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Icons\FanK3G\LeftUp.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Icons\FanK3G\RightLeft.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Icons\FanP\LeftRight.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Icons\FanP\LeftUp.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Icons\FanP\LeftUpLeft.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -129,13 +166,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Icons\FanP\RightLeft.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Icons\FanP\RightUpLeft.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Icons\FanP\UpLeft.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Icons\Humidifiers\Steam.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -149,13 +186,13 @@
     <None Update="Assets\Images\Icons\_Menu\Humidifier.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Icons\Recuperators\Rec1.png">
+    <None Update="Assets\Images\Icons\Recuperators\Glicol.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Icons\Recuperators\Rec2.png">
+    <None Update="Assets\Images\Icons\Recuperators\Plate.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Images\Icons\Recuperators\Rec3.png">
+    <None Update="Assets\Images\Icons\Recuperators\Rotor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Icons\_Menu\Recuperator.png">
@@ -252,13 +289,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Icons\FanC\LeftRight.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Icons\FanC\LeftUp.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Icons\FanC\RightLeft.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Images\Scheme\Back.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -415,201 +452,6 @@
     </None>
     <None Update="Assets\Images\Vega.webp">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-    <None Update="Database\Database.mdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Database\Database_log.ldf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog.xWS">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\DB\release01.db3">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\DB\release02.db3">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\plugin\ekplot_plugin.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\plugin\gsl_plugin.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\plugin\zaplot_plugin.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\Config.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\DBQuery.es">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\DRAW_CHART.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\EASYGUITRANSFORM.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\EASYGUITRANSFORM_BASE_OBJ.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\HANDLE_REQUEST.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\INIT_CATALOG.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\INIT_SESSION.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\LGS.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ONCLOSE_BROWSER.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\process.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\RUN_CATALOG.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\XmlChecker.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_Ausgabe.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_AusgabePdf.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_AusgabeRtf.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_Calc.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_CalcAMCA.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_CalcTools.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_Chart.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_ChartTools.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_Database.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_Details.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_Details_Kennlinie.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_Details_Kennlinie_Sized.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_Details_LCC.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_Details_Massblatt.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_Details_Stempeldaten.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_DllRequest.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_DocumentPdf.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_DocumentRtf.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_Doku.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_Einheitensystem.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_FileCache.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_KennfeldExport.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_Kennlinien.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_Konstanten.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_Login.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_Massblatt.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_Merkliste.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_ObserveDllRequest.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_Portfolio.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_ProcessDllRequest.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_ProcessZRVDllRequest.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_Produktspektrum.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_Tables.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_UnitCalc.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_Utils.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_Ventilatorauswahl.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_Vorauswahl.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_WebUpdate.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\catalog\System\SCRIPTS_SERVER\ZA_Zubehoer.b">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\FANselect.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\sqlite2ps.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\FanC\DLL\sqlite3ps.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\K3G\DLL\Data.sqlite">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Fans\K3G\DLL\EbmPapstFan.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

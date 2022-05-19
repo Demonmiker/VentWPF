@@ -22,7 +22,6 @@ namespace VentWPF.ViewModel
                     InsertMotorData = true,
                     InsertNominalValues = true,
                     Language = "RU",
-                    //TODO: Безопасность на высшем уровне
                     Password = "bnexg5",
                     Username = "ZAFS19946",
                     PressureDrop = Calculations.GPD(Project.Grid.InTopRow(this)) + ProjectInfo.Settings.PFlow,
@@ -30,9 +29,9 @@ namespace VentWPF.ViewModel
                     UnitSystem = "m",
                     Voltage = (int)Voltage,
                     VFlow = ProjectInfo.Settings.VFlow,
-                    Freq = "50",
+                    Freq = Freq,
                     Spec = "PF_57",
-                    FanType = "ER*DN*1R",
+                    FanType = FanType,
                 }
             };
         }
@@ -44,14 +43,31 @@ namespace VentWPF.ViewModel
         [DisplayName("Вольтаж")]
         public VoltageType Voltage { get; set; } = VoltageType.V400;
 
+        [Category(Data)]
+        [DisplayName("Частота")]
+        public string Freq { get; set; } = "50";
+
+        [Category(Data)]        
+        [DisplayName("Поисковый запрос")]
+        public string FanType { get; set; } = "ER*C*DN*1R";
+
         public override int Width => (int)((DeviceData as FanCData)?.INSTALLATION_WIDTH_MM ?? 0);
 
         public override int Height => (int)((DeviceData as FanCData)?.INSTALLATION_HEIGHT_MM ?? 0);
 
-        public override int Length => (int)((DeviceData as FanCData)?.INSTALLATION_LENGTH_MM ?? 0);
+        public override int Length => (int)((DeviceData as FanCData)?.INSTALLATION_LENGTH_MM ?? 980);
 
-        [DependsOn(nameof(DeviceData))]
-        public override string Name => $"Вентилятор {(DeviceData as FanCData)?.ARTICLE_NO}";
+        [DependsOn(nameof(DeviceData),nameof(SubType))]
+        public override string Name => $"Вентилятор с прямым приводом " +
+                                        Direction switch
+                                        {
+                                            FanDirection.LeftRight => "выхлоп по оси ",
+                                            FanDirection.RightLeft => "выхлоп по оси ",
+                                            FanDirection.LeftUp => "выхлоп вверх ",
+                                            FanDirection.UpLeft => "забор сверху ",
+                                            _ => throw new Exception("Такого направления не предусмотренно"),
+                                        } +
+                                        (DeviceData as FanCData)?.ARTICLE_NO;
 
         public override string Image => ImagePath($"FanC/{Direction}");
 

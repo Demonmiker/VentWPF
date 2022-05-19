@@ -24,7 +24,7 @@ namespace VentWPF.ViewModel
 
         public override int Length => 125;
 
-        public override string Name => $"Клапан воздушный утеплённый вертикальный {(DeviceData as Тэны)?.Маркировка}";
+        public override string Name => $"Воздушный клапан вертикальный с нагревателем {(DeviceData as Тэны)?.Маркировка}";
 
         public override List<string> InfoProperties => new()
         {

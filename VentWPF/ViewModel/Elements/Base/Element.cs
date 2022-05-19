@@ -8,6 +8,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Documents;
+using VentWPF.Model;
 using VentWPF.Tools;
 using VentWPF.ViewModel.Elements;
 using static VentWPF.ViewModel.Strings;
@@ -44,8 +45,6 @@ namespace VentWPF.ViewModel
         /// </summary>
         [Browsable(false)]
         [DependsOn("DeviceData")]
-        // TODO: @stigGGGer  Name снова работает в info панели
-        // нужно переопределить на элементах с девайсами
         public virtual string Name => "";
 
         /// <summary>
@@ -102,7 +101,7 @@ namespace VentWPF.ViewModel
         // TODO можно везде вынести
         [Browsable(false)]
         [JsonIgnore]
-        public Dictionary<string, IValueConverter> Format => Conditions.Get(this.GetType());
+        public Dictionary<string, IValueConverter> Format => Conditions.Get(this);
 
         /// <summary>
         /// Запрос моделей для этого элемента
@@ -215,12 +214,6 @@ namespace VentWPF.ViewModel
             return table;
         }
 
-        /// <summary>
-        /// Обозначает что элемент можем быть только в установке с двумя рядами
-        /// </summary>
-        [Browsable(false)]
-        public virtual bool TwoRowsOnly => false;
-
         public static T GetInstance<T>(T o)
         {
             return (T)Activator.CreateInstance(o.GetType());
@@ -243,14 +236,24 @@ namespace VentWPF.ViewModel
         [DependsOn(nameof(DeviceData))]
         public virtual int Height => 0;
 
+
+
         [Browsable(false)]
-        public bool CorrectSize => Width <= ProjectInfo.Settings.Width && Height <= ProjectInfo.Settings.Height;
+        public virtual ElementConnection Connection => ElementConnection.Left | ElementConnection.Right;
+
+        [Browsable(false)]
+        public bool CorrectSize 
+        {
+            get
+            {
+                return Width <= ProjectInfo.Settings.Width && Height <= ProjectInfo.Settings.GetHeight(this);
+            }
+        }
 
         [Browsable(false)]
         public Command<object> CmdUpdateQuery { get; private init; }
 
 
-        // TODO: Можно в SEt указываеть дополнительные селекты для двойных элементов
         [Browsable(false)]
         public bool IsSelected { get; set; }
 

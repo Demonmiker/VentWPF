@@ -16,7 +16,7 @@ namespace VentWPF.ViewModel
 
         public override string Image => ImagePath("Heaters/Gas");
 
-        public override int Length => 400;
+        public override int Length => 1050;
 
         public override string Name => "Нагреватель газовый";
 

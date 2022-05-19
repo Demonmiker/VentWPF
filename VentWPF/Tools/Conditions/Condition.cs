@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
+using VentWPF.ViewModel;
 
 namespace VentWPF.Tools
 {
@@ -9,7 +10,7 @@ namespace VentWPF.Tools
     /// @@warn Убрать и заменить везде напрямую на Predicate
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class Condition<T> : IValueConverter
+    internal class Condition<T> : IValueConverter
     {
         public Condition(Predicate<T> predicate)
         {
