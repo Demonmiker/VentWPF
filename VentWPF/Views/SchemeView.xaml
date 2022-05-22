@@ -61,20 +61,18 @@
          <sys:String x:Key="DefaultImage">pack://application:,,,/Assets/Images/Scheme/Error.png</sys:String>
       </DataTemplate.Resources>
       <StackPanel VerticalAlignment="Bottom">
-         <Border
-            Height="auto"
-            Background="AliceBlue"
-            Visibility="{Binding IsTop, Converter={StaticResource visConv}}">
+         <Border Height="auto">
             <DockPanel>
                <Image DockPanel.Dock="Bottom"
                   Width="150"
                   Height="30"
-                  Visibility="Collapsed"
+                  Visibility="{Binding TopValve, Converter={StaticResource visConv}}"
                   Source="/Assets/Images/Scheme/Valves/Horizontal.png" />
                <Grid DockPanel.Dock="Bottom"
                   Height="25"
-                  Margin="112,0,8,0"
-                  VerticalAlignment="Bottom">
+                  Margin="{Binding Margin}"
+                  VerticalAlignment="Bottom"
+                  Visibility="{Binding TopText, Converter={StaticResource visConv}}">
                   <TextBox Style="{StaticResource under-top}" ClipToBounds="False" />
                   <TextBox Text="300 x 200" TextAlignment="Center" />
                </Grid>
@@ -89,19 +87,18 @@
          <sys:String x:Key="DefaultImage">pack://application:,,,/Assets/Images/Scheme/Error.png</sys:String>
       </DataTemplate.Resources>
       <StackPanel VerticalAlignment="Bottom" Orientation="Vertical">
-         <Border
-            Height="auto"
-            Background="AliceBlue"
-            Visibility="{Binding IsTop, Converter={StaticResource visConv}}">
+         <Border Height="auto">
             <DockPanel>
                <Image DockPanel.Dock="Bottom"
                   Width="150"
                   Height="30"
+                  Visibility="{Binding TopValve, Converter={StaticResource visConv}}"
                   Source="/Assets/Images/Scheme/Valves/Horizontal.png" />
                <Grid DockPanel.Dock="Bottom"
                   Height="25"
-                  Margin="112,0,8,0"
-                  VerticalAlignment="Bottom">
+                  Margin="{Binding Margin}"
+                  VerticalAlignment="Bottom"
+                  Visibility="{Binding TopText, Converter={StaticResource visConv}}">
                   <TextBox Style="{StaticResource under-top}" ClipToBounds="False" />
                   <TextBox Text="300 x 200" TextAlignment="Center" />
                </Grid>
@@ -228,6 +225,8 @@
                   Visibility="Hidden" />
             </Grid>
             <Rectangle Grid.Column="2"
+               Height="180"
+               VerticalAlignment="Bottom"
                Style="{StaticResource rect-right}"
                Visibility="{Binding Last, Converter={StaticResource visConv}}" />
             <Grid Grid.Column="1">

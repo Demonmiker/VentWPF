@@ -56,23 +56,6 @@ namespace VentWPF.ViewModel
                 {
                     new SchemeSingleBlock() { Bottom = els, TwoRows = false, Align=HorizontalAlignment.Right,First=true,Last=true}
                 };
-                //foreach (var block in SchemeImage.Blocks.Where(b => b is SchemeSingleBlock).Select(x => (SchemeSingleBlock)x))
-                //{
-                //    if (block.Bottom.Any(el => el.Element is FanC fc && fc?.Direction == FanDirection.LeftUp))
-                //    {
-                //        slide = true;
-                //        break;
-                //    }
-                //}
-                //if (slide) // если найден элемент требующий растояния сверху то сдвигаем всё вниз
-                //{
-                //    foreach (var block in SchemeImage.Blocks)
-                //    {
-                //        if (block is SchemeSingleBlock ss)
-                //            foreach (var el in ss.Bottom)
-                //                el.IsTop = true;
-                //    }
-                //}
             }
             else
             {
@@ -96,28 +79,17 @@ namespace VentWPF.ViewModel
                     ssb.Align = HorizontalAlignment.Right;
                 if (blocks[^1] is SchemeSingleBlock ssb2)
                     ssb2.Align = HorizontalAlignment.Left;
-
+                var a = blocks.OfType<SchemeSingleBlock>();
+                foreach (var block in a)
+                {
+                    foreach (var el in block.Bottom)
+                    {
+                        el.TopText = false;
+                        el.TopValve = false;
+                    }
+                }
                 SchemeImage.Blocks = blocks.ToArray();
-                //    foreach (var block in SchemeImage.Blocks.Where(b => b is SchemeSingleBlock).Select(x => (SchemeSingleBlock)x))
-                //    {
-                //        if (block.Top.Any(el => el.Element is FanC fc && fc?.Direction == FanDirection.LeftUp))
-                //        {
-                //            slide = true;
-                //            break;
-                //        }
-                //    }
-                //    if (slide) // если найден элемент требующий растояния сверху то сдвигаем всё вниз
-                //    {
-                //        foreach (var block in SchemeImage.Blocks)
-                //        {
-                //            if (block is SchemeDoubleBlock sdb)
-                //                foreach (var el in sdb.Doubles)
-                //                    el.IsTop = true;
-                //            else if (block is SchemeSingleBlock ss)
-                //                foreach (var el in ss.Top)
-                //                    el.IsTop = true;
-                //        }
-                //    }
+                
             }
             SchemeImage.UpdateSum();
         }
