@@ -33,9 +33,9 @@ namespace VentWPF.ViewModel
         {
             var res = new SchemeDoubleBlock();
             List<DoubleSchemeElement> Els = new List<DoubleSchemeElement>();
-            while (i < 10 && (grid.Elements[i + 10] is IDoubleMainElement || 
+            while (i < 10 && (grid.Elements[i + 10] is IDoubleMainElement ||
                 (grid.Elements[i].Connection.HasFlag(ElementConnection.Down) &&
-                grid.Elements[i+10].Connection.HasFlag(ElementConnection.Up))))
+                grid.Elements[i + 10].Connection.HasFlag(ElementConnection.Up))))
             {
                 Els.Add(new DoubleSchemeElement(this.SchemeImage, grid.Elements[i], grid.Elements[i + 10]));
 
@@ -47,6 +47,8 @@ namespace VentWPF.ViewModel
 
         public void GenFullScheme(GridVM grid)
         {
+            List<SchemeBlock> blocks = new List<SchemeBlock>();
+            var slide = false;
             if (grid.RowNumber == Model.Rows.Одноярусный)
             {
                 var els = (from x in grid.Elements where x.Name != "" select new SchemeElement(this.SchemeImage, x)).ToArray();
@@ -58,13 +60,12 @@ namespace VentWPF.ViewModel
             else
             {
                 int i = 0;
-                List<SchemeBlock> blocks = new List<SchemeBlock>();
                 SchemeBlock newBlock;
                 while (i < 10)
                 {
                     if (grid.Elements[i + 10] is IDoubleMainElement ||
                         grid.Elements[i].Connection.HasFlag(ElementConnection.Down) &&
-                        grid.Elements[i+10].Connection.HasFlag(ElementConnection.Up))
+                        grid.Elements[i + 10].Connection.HasFlag(ElementConnection.Up))
                         (newBlock, i) = GenDoubleBlock(grid, i);
                     else
                         (newBlock, i) = GenSingleBlock(grid, i);
@@ -78,7 +79,17 @@ namespace VentWPF.ViewModel
                     ssb.Align = HorizontalAlignment.Right;
                 if (blocks[^1] is SchemeSingleBlock ssb2)
                     ssb2.Align = HorizontalAlignment.Left;
+                var a = blocks.OfType<SchemeSingleBlock>();
+                foreach (var block in a)
+                {
+                    foreach (var el in block.Bottom)
+                    {
+                        el.TopText = false;
+                        el.TopValve = false;
+                    }
+                }
                 SchemeImage.Blocks = blocks.ToArray();
+                
             }
             SchemeImage.UpdateSum();
         }
