@@ -55,6 +55,17 @@
          </Setter.Value>
       </Setter>
    </Style>
+   <Style
+      x:Key="under-top"
+      BasedOn="{StaticResource under}"
+      TargetType="{x:Type TextBox}">
+      <Setter Property="Focusable" Value="False" />
+      <Setter Property="LayoutTransform">
+         <Setter.Value>
+            <RotateTransform Angle="180" />
+         </Setter.Value>
+      </Setter>
+   </Style>
    <Style x:Key="scheme-border" TargetType="{x:Type Border}">
       <Setter Property="Height" Value="10" />
       <Setter Property="BorderBrush" Value="Black" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 
 namespace VentWPF.ViewModel
 {
@@ -7,6 +8,9 @@ namespace VentWPF.ViewModel
 
         public SchemeImageVM Scheme { get; init; }
         public Element Element { get; set; }
+        public bool IsTop { get; set; }
+        public Thickness Margin { get; set; }
+        public bool TopValve { get; set; }
 
         private uint length;
         public uint Length
@@ -25,12 +29,17 @@ namespace VentWPF.ViewModel
             Scheme = scheme ?? throw new ArgumentNullException(nameof(scheme));
             Element = el ?? throw new ArgumentNullException(nameof(el));
             Length = el.Length > 0 ? (uint)el.Length : 0u;
+            if (Element is FanC fan && fan.Direction == FanDirection.LeftUp)
+                IsTop = true;
+            if (Element is Section sec && sec.Direction == SectionType.LeftUpRightValve)
+                IsTop = true;
         }
 
     }
 
     internal class DoubleSchemeElement
     {
+        public bool IsTop { get; set; }
         public SchemeImageVM Scheme { get; init; }
         public Element Top { get; set; }
         public Element Bottom { get; set; }
