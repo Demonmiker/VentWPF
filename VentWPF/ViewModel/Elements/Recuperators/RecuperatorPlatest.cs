@@ -30,7 +30,7 @@ namespace VentWPF.ViewModel
         
         public override Type DeviceType => typeof(ПластинчатыйРекуператор);
 
-        public override string Image => ImagePath("Recuperators/Plate");
+        public override string Image => ImagePath("Recuperators/PlateBottom");
 
         public override int Width => (int)((DeviceData as ПластинчатыйРекуператор)?.With ?? 0); //Длина = Ширина, это не ошибка
 
