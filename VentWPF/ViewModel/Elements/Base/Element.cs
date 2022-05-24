@@ -35,7 +35,7 @@ namespace VentWPF.ViewModel
 
         private float pressureDrop = 0;
 
-        public static ProjectInfoVM ProjectInfo { get; private set; } = ProjectVM.Current?.ProjectInfo;
+        public static ProjectInfoVM ProjectInfo  => ProjectVM.Current?.ProjectInfo;
 
         [Browsable(false)]
         public ProjectVM Project { get; private set; } = ProjectVM.Current;

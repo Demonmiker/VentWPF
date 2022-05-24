@@ -81,7 +81,7 @@ namespace VentWPF.ViewModel
 
         [Browsable(false)]
 
-        public Rows Rows { get; set; }
+        public Rows Rows { get; set; } = Rows.Двухярусный;
 
         [Browsable(false)]
 
