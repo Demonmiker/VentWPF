@@ -135,7 +135,7 @@
                <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <Grid Visibility="{Binding First, Converter={StaticResource visConv}}">
-               <StackPanel Orientation="Vertical">
+               <StackPanel VerticalAlignment="Bottom" Orientation="Vertical">
                   <Grid>
                      <TextBox
                         Width="150"
