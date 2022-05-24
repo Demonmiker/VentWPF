@@ -286,7 +286,7 @@ namespace VentWPF.ViewModel
         }
         public bool CanRemove()
         {
-            return Index >= 0 && Index < Elements.Count;
+            return Elements is not null && Index >= 0 && Index < Elements.Count;
         }
 
         /// <summary>
