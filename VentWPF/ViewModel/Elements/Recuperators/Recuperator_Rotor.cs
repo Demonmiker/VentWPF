@@ -36,7 +36,7 @@ namespace VentWPF.ViewModel
 
         [Browsable(false)]
         public EriRheMResultData Result => Recuperator_rotor_request.GetRequest(S_Airflow, S_Temperature,
-            S_RelativeHumidity, E_Airflow, E_Temperature, E_RelativeHumidity, 1200);
+            S_RelativeHumidity, E_Airflow, E_Temperature, E_RelativeHumidity, E_Diam, ProjectInfo.Settings.TopHeight, ProjectInfo.Settings.Width);
         /// <summary>
         /// КПД
         /// </summary>
@@ -67,7 +67,7 @@ namespace VentWPF.ViewModel
         [Category(Data)]
         [DisplayName("Темп. выхода")]
         [FormatString(Strings.fT)]
-        public double E_Temperature => 25;
+        public double E_Temperature { get; set; } = 25;
 
         /// <summary>
         /// Влажность входа
@@ -75,7 +75,7 @@ namespace VentWPF.ViewModel
         [Category(Data)]
         [DisplayName("Влаж. входа")]
         [FormatString(Strings.fper)]
-        public double S_RelativeHumidity => 80;
+        public double S_RelativeHumidity { get; set; } = 80;
 
         /// <summary>
         /// Влажность выхода
@@ -83,15 +83,24 @@ namespace VentWPF.ViewModel
         [Category(Data)]
         [DisplayName("Влаж. выхода")]
         [FormatString(Strings.fper)]
-        public double E_RelativeHumidity => 60;
+        public double E_RelativeHumidity { get; set; } = 60;
+
+        [Category(Data)]
+        [DisplayName("Диаметр колеса")]
+        [FormatString(Strings.fper)]
+        public double E_Diam { get; set; } = 1200;
 
         protected override float GenPD() => (float)(Result.BarometricPressure.Value / 1000);
 
         [Category(Info)]
-        [DisplayName("тест")]
+        [DisplayName("Фактический поток вытяжки")]
         [FormatString(Strings.fkgm3)]
-        public double TEST => Result.E_ActualAirflow.Value;
-
+        public double E_ActualAirflow => Result.E_ActualAirflow.Value;
+                
+        [Category(Info)]
+        [DisplayName("Массовый расход вытяжки")]
+        [FormatString(Strings.fkgm3)]
+        public double TEST => Result.E_AE_Massflow.Value;
 
         public override List<string> InfoProperties => new()
         {

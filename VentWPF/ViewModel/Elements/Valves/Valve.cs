@@ -1,4 +1,5 @@
 ﻿using PropertyTools.DataAnnotations;
+using System;
 using VentWPF.Model;
 using static VentWPF.ViewModel.Strings;
 
@@ -37,6 +38,10 @@ namespace VentWPF.ViewModel
             get => !GenHeightValve ? (heightValve = GenHeight()) : heightValve;
             set => heightValve = value;
         }
+
+        [Browsable(false)]
+        [DisplayName("Сечение")]
+        public string cut => Convert.ToString(WidthValve) + "" + Convert.ToString(HeightValve);
 
         private int GenHeight() => ProjectInfo.View.SizeType switch
         {

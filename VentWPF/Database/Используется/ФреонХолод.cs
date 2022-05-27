@@ -18,7 +18,7 @@ namespace VentWPF
         [NotMapped]
         [DisplayName("Скорость")]
         [FormatString("{0:0.00} м/с")]
-        public double? Скорость => 278 * ProjectVM.Current.ProjectInfo.Settings.VFlow / (АШиринаЖс * ВысотаГабарит);
+        public double? Скорость => 278 * ProjectVM.Current.ProjectInfo.Settings.VFlow / (АШиринаЖс * ВВысотаЖс);
 
         [DisplayName("Мощность")]
         [FormatString("{0:0.00} kВт")]
@@ -32,9 +32,9 @@ namespace VentWPF
         [FormatString("{0} мм")]
         public double? ВысотаГабарит { get; set; }
 
-        [DisplayName("ДУ")]
+        [DisplayName("Присоединительные размеры патрубков")]
         public string ДПрисоединения { get; set; }
-
+        
         [DisplayName("Ширина Жс")]
         [FormatString("{0} мм")]
         public double? АШиринаЖс { get; set; }
@@ -48,7 +48,7 @@ namespace VentWPF
         public double? Цена { get; set; }
 
         public int Код { get; set; }
-
+                
         public double? КолВоКонтуров { get; set; }
 
         public string Код1с { get; set; }

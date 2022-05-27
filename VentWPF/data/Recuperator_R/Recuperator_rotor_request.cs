@@ -51,7 +51,7 @@ namespace VentWPF.data
         }
 
         public static EriRheMResultData GetRequest(double S_A, double S_T, double S_R,
-            double E_A, double E_T, double E_R, double W_D)
+            double E_A, double E_T, double E_R, double W_D, double C_H, double C_W)
         {
             var IN = new EriRheInputData()
             {
@@ -69,7 +69,7 @@ namespace VentWPF.data
 
                 PriceConfiguration = GetPriceConfiguration(),
                 ProjectInfo = GetProjectInfo(),
-                Season = EriRheSeason.WINTER,
+                Season = EriRheSeason.SUMMER,
                 InputConfiguration = new EriRotaryInputConfiguration()
                 {
                     Wheel = WheelConfiguration(W_D),
@@ -125,8 +125,7 @@ namespace VentWPF.data
                 MotorDriveType = EriRheMotorDriveType.DmConstant3,
                 EriRheMotorDriveMountingSide = EriRheMotorDriveMountingSide.DMMS1
             };
-        }
-
+        } 
        
     }
 }

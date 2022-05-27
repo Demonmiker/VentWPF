@@ -50,7 +50,7 @@
 
         public const string fdB = "{0:0.00} дБ";
 
-        public const string fRotate = "{0:0.00}/Мин";
+        public const string fRotate = "{0:0.00} Об/Мин";
 
         public const string fV = "{0:0.00}В";
 

@@ -38,16 +38,20 @@ namespace VentWPF.ViewModel
 
         [Category(Info)]
         [FormatString(fPa)]
-        [DisplayName("Падение давления яруса")]
-        public float PressureDropSystem => Calculations.GPD(Project.Grid.InTopRow(this));
+        [DisplayName("Полное давление")]
+        public float PressureDropSystem => ProjectInfo.Settings.PFlow + Calculations.GPD(Project.Grid.InTopRow(this));
 
         [Category(Info)]
         [FormatString(fm3Ph)]
         [DisplayName("Производительность")]
         public int Power => ProjectInfo.Settings.VFlow;
 
-        [DisplayName("Падение давления общее")]
+        [DisplayName("Давление яруса")]
         [FormatString(fPa)]
-        public float PressureRaise => ProjectInfo.Settings.PFlow + Calculations.GPD(Project.Grid.InTopRow(this));
+        public float PressureRaise => Calculations.GPD(Project.Grid.InTopRow(this));
+
+        [DisplayName("Давление сети")]
+        [FormatString(fPa)]
+        public float PressureFloor => Calculations.PressureInfo(Project.Grid.InTopRow(this));
     }
 }

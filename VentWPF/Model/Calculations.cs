@@ -271,5 +271,15 @@ namespace VentWPF.Model.Calculations
                     result += grid[i].PressureDrop;
             return result;
         }
+
+        public static float PressureInfo(bool top)
+        {
+            var result = 0f;
+            if (top)
+                result = ProjectInfo.Settings.PFlow;
+            else
+                result = ProjectInfo.Settings.PReserv;
+            return result;
+        }
     }
 }

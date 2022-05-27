@@ -46,13 +46,13 @@ namespace VentWPF.ViewModel
         /// Температура теплоносителя в начале
         /// </summary>
         [Category(Data)]
-        [DisplayName("т. теплоносителя нач.")]
+        [DisplayName("Температура теплоносителя нач.")]
         public float TempBegin => 7;
 
         /// <summary>
         /// Температура теплоносителя в конце
         /// </summary>
-        [DisplayName("т. теплоносителя кон.")]
+        [DisplayName("Температура теплоносителя кон.")]
         public float TempEnd => 12;
 
         [DisplayName("Абс. влажность на выходе")]
@@ -61,7 +61,7 @@ namespace VentWPF.ViewModel
         public float HumidOutAbs => Calculations.HumidOutAbs(HumidityIn, TempIn, TempOut, TempBegin);
 
         //TODO Исправить ошибку переполнения стека
-        [DisplayName("Отн. влажность на выходе")]
+        [DisplayName("Влажность воздуха на выходе")]
         [FormatString(fper)]
         [DependsOn(nameof(TempIn), nameof(TempOut))]
         public float HumidOutRel => ProjectInfo.Settings.PressOut / pD2 / ((float)0.6222 / (HumidOutAbs * 1000 + 1)) / 10;
@@ -80,19 +80,24 @@ namespace VentWPF.ViewModel
 
         public override List<string> InfoProperties => new()
         {
+            "Performance",
             "TempIn",
             "TempOut",
             "HumidityIn",
-            "Power",
-            "HumidOutAbs",
-            "HumidOutRel",
-            "DeviceData.LВозд",
-            "DeviceData.NКвт",
-            "DeviceData.Скорость",
-            "DeviceData.КолВоКонтуров",
-            "DeviceData.ВысотаГабарит",
-            "DeviceData.ШиринаГабарит",
+            "HumidOutRel",            
+            "TempBegin",
+            "TempEnd",
+            "PressureDrop",
+            //"DeviceData.LВозд",
             "Fr",
+            "Power",
+            //"DeviceData.NКвт",
+            "DeviceData.ДПрисоединения",
+            "DeviceData.Скорость",
+            //"DeviceData.КолВоКонтуров",
+            //"DeviceData.ВысотаГабарит",
+            //"DeviceData.ШиринаГабарит",
+            
         };
     }
 }

@@ -40,18 +40,18 @@ namespace VentWPF.ViewModel
         [Category(Data)]
         [DisplayName("Теплоноситель")]
         public CoolantType Coolant { get; set; }
-
+         
         /// <summary>
         /// Температура теплоносителя начальная
         /// </summary>
-        [DisplayName("т. теплоносителя нач.")]
+        [DisplayName("Температура теплоносителя начальная")]
         [FormatString(Strings.fT)]
         public float TempBegin { get; set; } = 95;
 
         /// <summary>
         /// Температура теплоносителя конечная
         /// </summary>
-        [DisplayName("т. теплоносителя кон.")]
+        [DisplayName("Температура теплоносителя конечная")]
         [FormatString(Strings.fT)]
         public float TempEnd { get; set; } = 70;
 
@@ -66,24 +66,28 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Падение давления теплоносителя
         /// </summary>
-        [DisplayName("Падение давл. теплоносителя")]
+        [DisplayName("Падение давления теплоносителя")]
         [FormatString(fkPa)]
         public float CoolantPressureDrop => 12.5f;
+        
 
         public override List<string> InfoProperties => new()
         {
             "Performance",
             "TempIn",
             "TempOut",
-            "tBegin",
-            "tEnd",
+            "TempBegin",
+            "TempEnd",
             "HumidIn",
-            "HumidOutRel",
+            "HumidOutRel",            
             "DeviceData.Скорость",
+
             "PressureDrop",
             "Consumption",
+            "Power",
             "Coolant",
             "CoolantPressureDrop",
+            "DeviceData.ДПрисоединения",
         };
     }
 }

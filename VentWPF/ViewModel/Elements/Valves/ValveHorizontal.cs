@@ -1,7 +1,7 @@
 ﻿using PropertyTools.DataAnnotations;
 using System.Collections.Generic;
+using System.Linq;
 using static VentWPF.ViewModel.Strings;
-using VentWPF.Model;
 
 namespace VentWPF.ViewModel
 {
@@ -13,15 +13,22 @@ namespace VentWPF.ViewModel
         public ValveHorizontal()
         {
         }
-
+        public override void UpdateQuery()
+        {
+            Query = new DatabaseQuery<Привода>
+            {
+                Source = from h in VentContext.Instance.Приводаs select h
+            };
+        }
         public override string Image => ImagePath("Valves/Horizontal");
 
         public override string Name => "Воздушный клапан горизонтальный";
 
         public override List<string> InfoProperties => new()
         {
-            nameof(WidthValve),
-            nameof(HeightValve),
+            "cut",
+            "PressureDrop",
+            "DisplayData.Stervo",
         };
     }
 }
