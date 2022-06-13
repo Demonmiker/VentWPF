@@ -2,6 +2,8 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Markup;
+using System.Globalization;
 
 namespace VentWPF
 {
@@ -10,6 +12,8 @@ namespace VentWPF
         public MainWindow()
         {
             InitializeComponent();
+            FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(
+               XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
         }
     }
 }
