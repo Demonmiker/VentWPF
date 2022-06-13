@@ -23,7 +23,7 @@ namespace VentWPF.ViewModel
                 Order = project.ProjectInfo.Order,
                 Settings = project.ProjectInfo.Settings,
                 View = project.ProjectInfo.View,
-                Elements = project.Grid.Elements.Select(x => x.Name == "" || x is IDoubleSubElement ? null : x).ToArray(),
+                Elements = project.Grid.Elements.Select(x => x.Name == "" ? null : x).ToArray(),
             };
         }
 
@@ -46,7 +46,7 @@ namespace VentWPF.ViewModel
             project.Grid.Init(project.ProjectInfo.View.Rows);
             for (int i = 0; i < packed.Elements.Length; i++)
                 if (packed.Elements[i] is not null)
-                    project.Grid.AddElement(packed.Elements[i], i);
+                    project.Grid.LoadElement(packed.Elements[i], i);
             return project;
         }
         

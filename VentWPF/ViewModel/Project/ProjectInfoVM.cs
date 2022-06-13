@@ -32,7 +32,7 @@ namespace VentWPF.ViewModel
         // TODO: @MikeKondr99 Формат вводишь mm/dd/yyyy а надо бы dd/mm/yyyy
         [Category("Заказ")]
         [DisplayName("Дата")]
-        [FormatString("MM/dd/yyyy")]
+        [FormatString("dd.MM.yyyy")]
         public DateTime Date { get; set; } = DateTime.Now;
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace VentWPF.ViewModel
 
         [Browsable(false)]
 
-        public Rows Rows { get; set; }
+        public Rows Rows { get; set; } = Rows.Одноярусный;
 
         [Browsable(false)]
 

@@ -326,21 +326,23 @@
                         </StackPanel>
                      </TabItem.Header>
                   </TabItem>
-                  <!--  Debug  -->
+                  <!--  Предупреждения  -->
                   <TabItem>
                      <TabItem.Header>
                         <StackPanel>
                            <fa5:SvgAwesome Icon="Solid_Bug" />
-                           <TextBlock Text="Debug" />
+                           <TextBlock Text="Предупреждения" />
                         </StackPanel>
                      </TabItem.Header>
-                     <ItemsControl ItemsSource="{Binding Project.ErrorManager.Errors}" Focusable="False">
-                        <ItemsControl.ItemContainerStyle>
-                           <Style TargetType="{x:Type ContentPresenter}">
-                              <Setter Property="Visibility" Value="{Binding Converter={StaticResource visConv}}" />
-                           </Style>
-                        </ItemsControl.ItemContainerStyle>
-                     </ItemsControl>
+                     <ScrollViewer>
+                        <ItemsControl ItemsSource="{Binding Project.ErrorManager.Errors}" Focusable="False">
+                           <ItemsControl.ItemContainerStyle>
+                              <Style TargetType="{x:Type ContentPresenter}">
+                                 <Setter Property="Visibility" Value="{Binding Converter={StaticResource visConv}}" />
+                              </Style>
+                           </ItemsControl.ItemContainerStyle>
+                        </ItemsControl>
+                     </ScrollViewer>
                   </TabItem>
                </TabControl>
             </DockPanel>

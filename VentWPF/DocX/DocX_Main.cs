@@ -285,6 +285,8 @@ namespace VentWPF.DocX
             CreateDocument(document, HdrText, testData, dataName);
             try
             {
+                // TODO: Здесь можно вызвать в ручную диалоговое окно и потом в ручную вставить в метод SaveAs2
+                //document.SaveAs2("Path");
                 document.Save();
             }
             catch (System.Runtime.InteropServices.COMException)
