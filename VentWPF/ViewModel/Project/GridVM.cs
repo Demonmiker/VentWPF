@@ -133,6 +133,20 @@ namespace VentWPF.ViewModel
             Index = 0;
         }
 
+        public void LoadElement(Element el, int index)
+        {
+            int ind = Index;
+            Index = index;
+            if (Index >= 0 && Index < Elements.Count)
+            {
+                el.UpdateQuery();
+                Elements[Index] = el;
+                Index = ind;
+                ProjectVM.Current.ErrorManager.Add(Elements[Index], $"Модуль {Position(Index)}");
+            }
+            Index = ind;
+        }
+
         /// <summary>
         /// Добавить элемент в установку
         /// </summary>

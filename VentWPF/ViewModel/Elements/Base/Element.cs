@@ -91,8 +91,7 @@ namespace VentWPF.ViewModel
         /// Информация о выбраной модели
         /// </summary>
         [Browsable(false)]
-        public object DeviceData { get; set; } = null;
-
+        public object DeviceData { get => deviceData; set { if (value != null) deviceData = value; } }
         /// <summary>
         /// Содержит данные о форматировании этого элемента @@warn Можно убрать
         /// </summary>
@@ -126,6 +125,7 @@ namespace VentWPF.ViewModel
         /// Скрытое поле для свойства InfoTable (для кэширования)
         /// </summary>
         private Table _InfoTable = null;
+        private object deviceData = null;
 
         /// <summary>
         /// Свойство содержащее информацию о элементе в виде таблицы
