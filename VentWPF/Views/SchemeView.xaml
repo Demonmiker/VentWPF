@@ -44,12 +44,19 @@
                <Border Grid.Row="1" Grid.Column="1"
                   Width="auto"
                   Height="auto">
-                  <ContentPresenter
+                  <ContentControl
+                     Name="scheme"
                      Width="auto"
                      Height="auto"
                      HorizontalAlignment="Center"
                      VerticalAlignment="Center"
-                     Content="{Binding SchemeImage}" />
+                     Content="{Binding SchemeImage}">
+                     <b:Interaction.Triggers>
+                        <b:EventTrigger EventName="Loaded">
+                           <b:InvokeCommandAction Command="{Binding Parent.CmdLinkGui}" CommandParameter="{Binding ElementName=scheme}" />
+                        </b:EventTrigger>
+                     </b:Interaction.Triggers>
+                  </ContentControl>
                </Border>
             </Grid>
          </ScrollViewer>
