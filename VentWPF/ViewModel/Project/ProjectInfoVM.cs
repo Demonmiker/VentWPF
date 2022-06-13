@@ -143,7 +143,7 @@ namespace VentWPF.ViewModel
         /// Объем вытяжки/резерва
         /// </summary>
         [Category("Настройки")]
-        [VisibleBy(nameof(Rows), Rows.Двухярусный)]
+        [VisibleBy(nameof(Rows), Rows.Двухъярусный)]
         [DisplayName("Объём вытяжки/резерва")]
         [FormatString(fm3)]
         public int VReserv { get; set; } = 6000;
@@ -152,7 +152,7 @@ namespace VentWPF.ViewModel
         /// Сопротивление сети вытяжки
         /// </summary>
         [Category("Настройки")]
-        [VisibleBy(nameof(Rows), Rows.Двухярусный)]
+        [VisibleBy(nameof(Rows), Rows.Двухъярусный)]
         [DisplayName("Сопр. сети вытяжки")]
         [FormatString(fPa)]
         public float PReserv { get; set; } = 0;
@@ -181,7 +181,7 @@ namespace VentWPF.ViewModel
         [Browsable(false)]
         public int BottomHeight
         {
-            get => Rows == Rows.Двухярусный ? bottomHeight : 0;
+            get => Rows == Rows.Двухъярусный ? bottomHeight : 0;
             set => bottomHeight = value;
         }
         public int GetHeight(Element el)
@@ -248,7 +248,7 @@ namespace VentWPF.ViewModel
         /// </summary>TwoRowsOnly
         [Category("Вид")]
         [DisplayName("Ярус притока")]
-        [VisibleBy(nameof(Rows), Rows.Двухярусный)]
+        [VisibleBy(nameof(Rows), Rows.Двухъярусный)]
         public MainRow FlowRow { get; set; } = MainRow.Верхний;
 
         [Category("Вид")]
@@ -264,7 +264,7 @@ namespace VentWPF.ViewModel
                     var size = value.GetSize();
                     Parent.Settings.Width = size.w;
                     Parent.Settings.TopHeight = size.h;
-                    if (Parent.View.Rows == Rows.Двухярусный)
+                    if (Parent.View.Rows == Rows.Двухъярусный)
                         Parent.Settings.BottomHeight = size.Item2;
                     else
                         Parent.Settings.BottomHeight = 0;

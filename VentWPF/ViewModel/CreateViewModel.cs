@@ -159,7 +159,7 @@ namespace VentWPF.ViewModel
             var els = ProjectVM.Current.Grid.Elements;
             var sel = ProjectVM.Current.Grid.Selected;
             if (grid.Index < 0 || sel is null) return false;
-            if (grid.RowNumber == Rows.Двухярусный)
+            if (grid.RowNumber == Rows.Двухъярусный)
             {
                 // Проверка на направление вентилятора
 

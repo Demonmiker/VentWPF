@@ -286,7 +286,7 @@ namespace VentWPF.ViewModel
         public bool CanRemoveAndShift()
         {
             if (Index < 0) return false;
-            if (RowNumber == Rows.Двухярусный)
+            if (RowNumber == Rows.Двухъярусный)
             {
                 if (HasDouble(Index))
                 {
@@ -377,7 +377,7 @@ namespace VentWPF.ViewModel
 
         public static string Position(int i)
         {
-            if (ProjectVM.Current.ProjectInfo.Settings.Rows == Rows.Двухярусный)
+            if (ProjectVM.Current.ProjectInfo.Settings.Rows == Rows.Двухъярусный)
             {
                 return $"[{(i / 10 == 0 ? "Верхний ярус" : "Нижний ярус")},{i % 10 + 1}]";
             }
