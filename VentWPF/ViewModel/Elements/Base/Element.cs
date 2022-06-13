@@ -35,7 +35,7 @@ namespace VentWPF.ViewModel
 
         private float pressureDrop = 0;
 
-        public static ProjectInfoVM ProjectInfo  => ProjectVM.Current?.ProjectInfo;
+        public static ProjectInfoVM ProjectInfo => ProjectVM.Current?.ProjectInfo;
 
         [Browsable(false)]
         public ProjectVM Project { get; private set; } = ProjectVM.Current;
@@ -179,7 +179,7 @@ namespace VentWPF.ViewModel
         {
             List<TableRow> rowList = new();
             TableRow header = new();
-            var p = new InfoLine(this, "Name").ToParagraph(true,true);
+            var p = new InfoLine(this, "Name").ToParagraph(true, true);
             p.FontSize = 20; p.TextAlignment = TextAlignment.Left;
             header.Cells.Add(new(p));
             rowList.Add(header);
@@ -221,8 +221,11 @@ namespace VentWPF.ViewModel
 
         protected override string OnValidation()
         {
-            return (DeviceType is not null && DeviceData is null ? "Не выбрана модель устройства" : "") +
-                          (!CorrectSize ? "Не подходит по размерам" : "");
+            var res = (DeviceType is not null && DeviceData is null ? $"Не выбрана модель устройства" : "") +
+                                      (!CorrectSize ? "Не подходит по размерам" : "");
+            if (res != "") res = $"{this.Name}\n" + res;
+            return res;
+
         }
 
         [Browsable(false)]
@@ -242,7 +245,7 @@ namespace VentWPF.ViewModel
         public virtual ElementConnection Connection => ElementConnection.Left | ElementConnection.Right;
 
         [Browsable(false)]
-        public bool CorrectSize 
+        public bool CorrectSize
         {
             get
             {
