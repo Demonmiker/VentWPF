@@ -405,18 +405,6 @@
     <None Update="Assets\Images\Vega.webp">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
-    <None Update="data\ERI.Component.Base.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="data\ERI.Component.PhysicalQuantities.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="data\ERI.Counterflow.Core.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="data\ERI.RHE.Core.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
