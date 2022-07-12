@@ -41,7 +41,7 @@ namespace VentWPF.ViewModel
 
         [Browsable(false)]
         [DisplayName("Сечение")]
-        public string cut => Convert.ToString(WidthValve) + "" + Convert.ToString(HeightValve);
+        public string cut => Convert.ToString(WidthValve) + "х" + Convert.ToString(HeightValve);
 
         private int GenHeight() => ProjectInfo.View.SizeType switch
         {
