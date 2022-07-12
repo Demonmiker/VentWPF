@@ -14,9 +14,9 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class GridVM : ValidViewModel
     {
-        public ProjectVM Project { get; set; } = ProjectVM.Current;
-
         private Element _Selected = new();
+
+        public ProjectVM Project { get; set; } = ProjectVM.Current;
 
         public GridVM()
         {
@@ -129,8 +129,22 @@ namespace VentWPF.ViewModel
                     new(),new(),new(),new(),new(),new(),new(),new(),new(),new(),
                 };
             }
-            ProjectVM.Current.ErrorManager.AddRange(Enumerable.Range(0, 20).Select(x => ($"[{x % 10 + 1},{x / 10 + 1}]", new Element() as ValidViewModel)));
+            ProjectVM.Current.ErrorManager.AddRange(Enumerable.Range(0, 20).Select(x => ($"Модуль {Position(x)}", new Element() as ValidViewModel)));
             Index = 0;
+        }
+
+        public void LoadElement(Element el, int index)
+        {
+            int ind = Index;
+            Index = index;
+            if (Index >= 0 && Index < Elements.Count)
+            {
+                el.UpdateQuery();
+                Elements[Index] = el;
+                Index = ind;
+                ProjectVM.Current.ErrorManager.Add(Elements[Index], $"Модуль {Position(Index)}");
+            }
+            Index = ind;
         }
 
         /// <summary>
@@ -155,7 +169,7 @@ namespace VentWPF.ViewModel
                 el2.UpdateQuery();
                 Elements[Index] = el2;
                 Index = ind;
-                ProjectVM.Current.ErrorManager.Add(Elements[Index], $"[{Index % 10 + 1},{Index / 10 + 1}]");
+                ProjectVM.Current.ErrorManager.Add(Elements[Index], $"Модуль {Position(Index)}");
             }
             Index = ind;
         }
@@ -272,7 +286,7 @@ namespace VentWPF.ViewModel
         public bool CanRemoveAndShift()
         {
             if (Index < 0) return false;
-            if (RowNumber == Rows.Двухярусный)
+            if (RowNumber == Rows.Двухъярусный)
             {
                 if (HasDouble(Index))
                 {
@@ -286,7 +300,7 @@ namespace VentWPF.ViewModel
         }
         public bool CanRemove()
         {
-            return Index >= 0 && Index < Elements.Count;
+            return Elements is not null && Index >= 0 && Index < Elements.Count;
         }
 
         /// <summary>
@@ -334,7 +348,9 @@ namespace VentWPF.ViewModel
                         {
                             case (false, true):
                             case (true, false):
-                                errors.Add($"Некорректное соединение {i} {i + 1}");
+                                errors.Add($"Некорректное соединение горизонтальное между\n" +
+                                    $"{Position(i)}\t{Elements[i].Name}\n" +
+                                    $"{Position(i+1)}\t{Elements[i+1].Name}\n");
                                 break;
                         }
             if (Elements.Count == 20)
@@ -348,16 +364,27 @@ namespace VentWPF.ViewModel
                         {
                             case (false, true):
                             case (true, false):
-                                errors.Add($"Некорректное соединение {i} {i + 10}");
+                                errors.Add($"Некорректное вертикальное соединение между\n" +
+                                    $"{Position(i)}\t{Elements[i].Name}\n" +
+                                    $"{Position(i+10)}\t{Elements[i+10].Name}\n");
                                 break;
                         }
-                    //if (Elements[i].Connection.HasFlag(ElementConnection.DownOutside) && Elements[i+10].Name!="")
-                    //    errors.Add($"Выход вниз перекрыт {i} {i + 10}");
-                    //if (Elements[i+10].Connection.HasFlag(ElementConnection.UpOutside) && Elements[i].Name!="")
-                    //    errors.Add($"Выход вверх перекрыт {i} {i + 10}");
                 }
             }
             return String.Join("\n", errors);
+
+        }
+
+        public static string Position(int i)
+        {
+            if (ProjectVM.Current.ProjectInfo.Settings.Rows == Rows.Двухъярусный)
+            {
+                return $"[{(i / 10 == 0 ? "Верхний ярус" : "Нижний ярус")},{i % 10 + 1}]";
+            }
+            else
+            {
+                return $"[{i % 10 + 1}]";
+            }
 
         }
         protected override string OnValidation()

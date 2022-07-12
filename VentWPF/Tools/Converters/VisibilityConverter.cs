@@ -23,7 +23,7 @@ namespace VentWPF.Tools
                 bool => (bool)value,
                 uint => ((uint)value) > 0,
                 int => ((int)value) > 0,
-                Rows.Двухярусный => true,
+                Rows.Двухъярусный => true,
                 Rows.Одноярусный => false,
                 string => (value as string).Length > 0,
                 object => (value as object) != null,

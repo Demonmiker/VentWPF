@@ -9,7 +9,7 @@ using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
 {
-    internal class Recuperator_Glicol : Recuperator
+    internal class RecuperatorGlicol : Recuperator
     {
         public override void UpdateQuery()
         {
@@ -19,10 +19,18 @@ namespace VentWPF.ViewModel
             };
         }
 
-                
+        public override Element GetNewTopElement()
+        {
+            return new DecoyElement()
+            {
+                name = this.Name,
+                image = ImagePath($"Recuperators/GlicolTop")
+            };
+        }
+
         public override Type DeviceType => typeof(ВодаТепло);
 
-        public override string Image => ImagePath("Heaters/Water");
+        public override string Image => ImagePath("Recuperators/GlicolBottom");
 
         public override int Width => (int)((DeviceData as ВодаТепло)?.ШиринаГабарит ?? 0);
 

@@ -9,7 +9,7 @@ using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
 {
-    class Recuperator_Platest : Recuperator
+    class RecuperatorPlatest : Recuperator
     {
         public override void UpdateQuery()
         {
@@ -19,10 +19,18 @@ namespace VentWPF.ViewModel
             };
         }
 
+        public override Element GetNewTopElement()
+        {
+            return new DecoyElement()
+            {
+                name = this.Name,
+                image = ImagePath($"Recuperators/PlateTop")
+            };
+        }
         
         public override Type DeviceType => typeof(ПластинчатыйРекуператор);
 
-        public override string Image => ImagePath("Heaters/Water");
+        public override string Image => ImagePath("Recuperators/PlateBottom");
 
         public override int Width => (int)((DeviceData as ПластинчатыйРекуператор)?.With ?? 0); //Длина = Ширина, это не ошибка
 

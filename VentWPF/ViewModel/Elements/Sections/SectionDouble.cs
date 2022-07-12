@@ -13,7 +13,7 @@ namespace VentWPF.ViewModel
             return new DecoyElement()
             {
                 name = this.Name,
-                image = Path.GetFullPath($"Assets/Images/Icons/Sections/DoubleTop.png")
+                image = ImagePath($"Sections/DoubleTop")
             };
         }
     }

@@ -12,7 +12,7 @@ using static VentWPF.ViewModel.Strings;
 
 namespace VentWPF.ViewModel
 {
-    class Recuperator_Rotor : Recuperator
+    class RecuperatorRotor : Recuperator
     {
         public override void UpdateQuery()
         {
@@ -22,9 +22,17 @@ namespace VentWPF.ViewModel
             };
         }
 
+        public override Element GetNewTopElement()
+        {
+            return new DecoyElement()
+            {
+                name = this.Name,
+                image = ImagePath($"Recuperators/RotorTop")
+            };
+        }
         public override Type DeviceType => typeof(РоторныйРегенератор);
 
-        public override string Image => ImagePath("Heaters/Water");
+        public override string Image => ImagePath("Recuperators/RotorBottom");
 
         public override int Width => (int)((DeviceData as РоторныйРегенератор)?.With ?? 0);
 

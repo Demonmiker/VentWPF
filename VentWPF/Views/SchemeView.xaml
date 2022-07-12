@@ -44,12 +44,19 @@
                <Border Grid.Row="1" Grid.Column="1"
                   Width="auto"
                   Height="auto">
-                  <ContentPresenter
+                  <ContentControl
+                     Name="scheme"
                      Width="auto"
                      Height="auto"
                      HorizontalAlignment="Center"
                      VerticalAlignment="Center"
-                     Content="{Binding SchemeImage}" />
+                     Content="{Binding SchemeImage}">
+                     <b:Interaction.Triggers>
+                        <b:EventTrigger EventName="Loaded">
+                           <b:InvokeCommandAction Command="{Binding Parent.CmdLinkGui}" CommandParameter="{Binding ElementName=scheme}" />
+                        </b:EventTrigger>
+                     </b:Interaction.Triggers>
+                  </ContentControl>
                </Border>
             </Grid>
          </ScrollViewer>
@@ -60,14 +67,50 @@
       <DataTemplate.Resources>
          <sys:String x:Key="DefaultImage">pack://application:,,,/Assets/Images/Scheme/Error.png</sys:String>
       </DataTemplate.Resources>
-      <Image Height="150" Source="{Binding Element.SchemeImage, FallbackValue={StaticResource DefaultImage}, TargetNullValue={StaticResource DefaultImage}}" />
+      <StackPanel VerticalAlignment="Bottom">
+         <Border Height="auto">
+            <DockPanel>
+               <Image DockPanel.Dock="Bottom"
+                  Width="150"
+                  Height="30"
+                  Visibility="{Binding TopValve, Converter={StaticResource visConv}}"
+                  Source="/Assets/Images/Scheme/Valves/Horizontal.png" />
+               <Grid DockPanel.Dock="Bottom"
+                  Height="25"
+                  Margin="{Binding Margin}"
+                  VerticalAlignment="Bottom"
+                  Visibility="{Binding TopText, Converter={StaticResource visConv}}">
+                  <TextBox Style="{StaticResource under-top}" ClipToBounds="False" />
+                  <TextBox Text="300 x 200" TextAlignment="Center" />
+               </Grid>
+            </DockPanel>
+         </Border>
+         <Image Height="150" Source="{Binding Element.SchemeImage, FallbackValue={StaticResource DefaultImage}, TargetNullValue={StaticResource DefaultImage}}" />
+      </StackPanel>
    </DataTemplate>
    <!--  Схема для одиночного элемента с размером снизу  -->
    <DataTemplate x:Key="single-text" DataType="{x:Type vm:SchemeElement}">
       <DataTemplate.Resources>
          <sys:String x:Key="DefaultImage">pack://application:,,,/Assets/Images/Scheme/Error.png</sys:String>
       </DataTemplate.Resources>
-      <StackPanel Orientation="Vertical">
+      <StackPanel VerticalAlignment="Bottom" Orientation="Vertical">
+         <Border Height="auto">
+            <DockPanel>
+               <Image DockPanel.Dock="Bottom"
+                  Width="150"
+                  Height="30"
+                  Visibility="{Binding TopValve, Converter={StaticResource visConv}}"
+                  Source="/Assets/Images/Scheme/Valves/Horizontal.png" />
+               <Grid DockPanel.Dock="Bottom"
+                  Height="25"
+                  Margin="{Binding Margin}"
+                  VerticalAlignment="Bottom"
+                  Visibility="{Binding TopText, Converter={StaticResource visConv}}">
+                  <TextBox Style="{StaticResource under-top}" ClipToBounds="False" />
+                  <TextBox Text="300 x 200" TextAlignment="Center" />
+               </Grid>
+            </DockPanel>
+         </Border>
          <Image Height="150" Source="{Binding Element.SchemeImage, FallbackValue={StaticResource DefaultImage}, TargetNullValue={StaticResource DefaultImage}}" />
          <Border Style="{StaticResource scheme-border}" />
          <TextBox Text="{Binding Length}" Style="{StaticResource under}" />
@@ -87,7 +130,7 @@
    </DataTemplate>
    <!--  Блок одиночных элементов  -->
    <DataTemplate DataType="{x:Type vm:SchemeSingleBlock}">
-      <StackPanel Orientation="Vertical">
+      <StackPanel VerticalAlignment="Bottom" Orientation="Vertical">
          <!--  Верхний слой  -->
          <Grid
             MinHeight="150"
@@ -99,22 +142,43 @@
                <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <Grid Visibility="{Binding First, Converter={StaticResource visConv}}">
-               <TextBox Height="60" Style="{StaticResource tbsize-top}" />
-               <TextBox Margin="8,0,0,8" Style="{StaticResource tbsize-top}" />
-               <Rectangle Style="{StaticResource rect-left}" />
+               <StackPanel VerticalAlignment="Bottom" Orientation="Vertical">
+                  <Grid>
+                     <TextBox
+                        Width="150"
+                        Height="60"
+                        Style="{StaticResource tbsize-top}" />
+                     <TextBox Width="136" Style="{StaticResource tbsize-top}" />
+                     <Rectangle Style="{StaticResource rect-left}" />
+                  </Grid>
+               </StackPanel>
             </Grid>
             <Rectangle Grid.Column="2"
+               Height="150"
+               VerticalAlignment="Bottom"
                Style="{StaticResource rect-right}"
                Visibility="{Binding Last, Converter={StaticResource visConv}}" />
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1" VerticalAlignment="Bottom">
                <Grid.Background>
-                  <ImageBrush
-                     ImageSource="{Binding BackImage}"
-                     TileMode="Tile"
-                     AlignmentY="Top"
-                     Stretch="Uniform"
-                     ViewportUnits="Absolute"
-                     Viewport="0,0,75,200" />
+                  <VisualBrush
+                     Stretch="None"
+                     AlignmentX="Left"
+                     AlignmentY="Bottom">
+                     <VisualBrush.Visual>
+                        <Border Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=FrameworkElement}}" Background="Transparent">
+                           <Rectangle Height="150" Margin="0,0,0,0">
+                              <Rectangle.Fill>
+                                 <ImageBrush
+                                    ImageSource="{Binding BackImage}"
+                                    TileMode="Tile"
+                                    Stretch="Uniform"
+                                    Viewport="0,0,75,150"
+                                    ViewportUnits="Absolute" />
+                              </Rectangle.Fill>
+                           </Rectangle>
+                        </Border>
+                     </VisualBrush.Visual>
+                  </VisualBrush>
                </Grid.Background>
                <StackPanel Grid.Column="1"
                   HorizontalAlignment="Center"
@@ -142,14 +206,25 @@
                   <RowDefinition />
                   <RowDefinition Height="auto" />
                </Grid.RowDefinitions>
-               <TextBox Height="60" Style="{StaticResource tbsize-top}" />
-               <TextBox Margin="8,0,0,17" Style="{StaticResource tbsize-top}" />
+               <TextBox
+                  Width="160"
+                  Height="60"
+                  VerticalAlignment="Bottom"
+                  Style="{StaticResource tbsize-top}" />
+               <TextBox
+                  Width="135"
+                  Margin="0,0,0,18"
+                  VerticalAlignment="Bottom"
+                  Style="{StaticResource tbsize-top}" />
                <TextBlock
                   Margin="0,0,5,0"
                   HorizontalAlignment="Right"
                   VerticalAlignment="Bottom"
                   Text="40" />
-               <Rectangle Style="{StaticResource rect-left}" />
+               <Rectangle
+                  Height="160"
+                  VerticalAlignment="Bottom"
+                  Style="{StaticResource rect-left}" />
                <TextBox Grid.Row="1"
                   Width="0"
                   VerticalContentAlignment="Bottom"
@@ -157,17 +232,32 @@
                   Visibility="Hidden" />
             </Grid>
             <Rectangle Grid.Column="2"
+               Height="180"
+               VerticalAlignment="Bottom"
                Style="{StaticResource rect-right}"
                Visibility="{Binding Last, Converter={StaticResource visConv}}" />
             <Grid Grid.Column="1">
                <Grid.Background>
-                  <ImageBrush
-                     ImageSource="{Binding BackImage}"
-                     TileMode="Tile"
-                     AlignmentY="Top"
-                     Stretch="Uniform"
-                     ViewportUnits="Absolute"
-                     Viewport="0,0,75,200" />
+                  <VisualBrush
+                     Stretch="None"
+                     AlignmentX="Left"
+                     AlignmentY="Bottom">
+                     <VisualBrush.Visual>
+                        <Border Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=FrameworkElement}}" Background="Transparent">
+                           <Rectangle Height="150" Margin="0,0,0,36.5">
+                              <Rectangle.Fill>
+                                 <ImageBrush
+                                    ImageSource="{Binding BackImage}"
+                                    TileMode="Tile"
+                                    Stretch="Uniform"
+                                    Viewport="0,0,75,150"
+                                    ViewportUnits="Absolute" />
+                              </Rectangle.Fill>
+                           </Rectangle>
+                        </Border>
+                     </VisualBrush.Visual>
+                  </VisualBrush>
+
                </Grid.Background>
                <StackPanel Grid.Column="1"
                   HorizontalAlignment="Center"
@@ -186,7 +276,7 @@
    </DataTemplate>
    <!--  Блок двойных элементов  -->
    <DataTemplate DataType="{x:Type vm:SchemeDoubleBlock}">
-      <StackPanel Orientation="Horizontal">
+      <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal">
          <Grid Background="Pink">
             <!--<Grid.Background>
                <ImageBrush
