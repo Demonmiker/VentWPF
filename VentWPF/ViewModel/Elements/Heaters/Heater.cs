@@ -22,7 +22,7 @@ namespace VentWPF.ViewModel
         /// </summary>
         [Category(Data)]
         [SortIndex(-1)]
-        [DisplayName("т. на выходе")]
+        [DisplayName("Температура воздуха на выходе")]
         [FormatString(fT)]
         public float TempOut { get; set; } = 18;
 
@@ -30,7 +30,7 @@ namespace VentWPF.ViewModel
         /// Температура на входе
         /// </summary>
         [SortIndex(-1)]
-        [DisplayName("т. на входе")]
+        [DisplayName("Температура наружного воздуха")]
         [FormatString(fT)]
         public float TempIn => ProjectInfo.Settings.Temp;
 
@@ -38,7 +38,7 @@ namespace VentWPF.ViewModel
         /// Влажность воздуха на входе
         /// </summary>
         [SortIndex(-1)]
-        [DisplayName("Влажность воздуха")]
+        [DisplayName("Влажность наружнего воздуха")]
         [FormatString(fper)]
         [valid.Range(0, 100)]
         public float HumidIn { get; set; } = 85;
@@ -54,7 +54,7 @@ namespace VentWPF.ViewModel
         /// <summary>
         /// Относительная алвжность воздуха на выходе
         /// </summary>
-        [DisplayName("Отн. влажность на выходе")]
+        [DisplayName("Влажность воздуха на выходе")]
         [FormatString(fper)]
         public float HumidOutRel => Calculations.heaterHumidOutRel(TempOut, HumidOutAbs);
 

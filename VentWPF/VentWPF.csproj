@@ -473,6 +473,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="ERI.Component.Base">
+      <HintPath>..\..\..\..\Desktop\work1\ERI.Component.Base.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="ERI.Component.PhysicalQuantities">
+      <HintPath>..\..\..\..\Desktop\work1\ERI.Component.PhysicalQuantities.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="ERI.Counterflow.Core">
+      <HintPath>..\..\..\..\Desktop\ERI.Counterflow.NET.Console.Example\bin\Debug\ERI.Counterflow.Core.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="ERI.RHE.Core">
+      <HintPath>..\..\..\..\Desktop\work1\ERI.RHE.Core.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Assets\Images\Scheme\Error.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

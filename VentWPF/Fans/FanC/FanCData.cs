@@ -14,7 +14,7 @@ namespace VentWPF.Fans
         //[DisplayName("ID")]
         public string ARTICLE_NO { get; set; }
 
-        [DisplayName("Тип")]
+        [DisplayName("Вентилятор")]
         public string TYPE { get; set; }
 
         [DisplayName("Номинальная мощность")]
@@ -48,6 +48,10 @@ namespace VentWPF.Fans
         [DisplayName("Сеть")]
         [FormatString(fFS)]
         public int ZA_UN { get; set; }
+
+        [Browsable(false)]
+        [DisplayName("Номинальное напряжение")]
+        public string Nominal_Voltage => Convert.ToString(ZA_UN) + "В/" + Convert.ToString(NOMINAL_FREQUENCY) + "Гц";
 
         [DisplayName("Динамическое сопротивление")]
         [FormatString(fPa)]
@@ -86,6 +90,34 @@ namespace VentWPF.Fans
 
         public string ZA_MAINS_SUPPLY { get; set; }
 
+        [Browsable(false)]
+        [DisplayName("Вентилятор")]        
+        public string FANNAME { get; set; }
+
+        [Browsable(false)]
+        [DisplayName("Двигатель")]        
+        public string ENGINE => Convert.ToString(POWER_OUTPUT_KW) + "x" + Convert.ToString(Nominals(TYPE));
+
+        public string Nominals(string name)
+        {
+            string Nominal;
+            var digit = name.Split("-");
+            var current = digit[1];
+            string num = Convert.ToString(current[0]);
+            int key = int.Parse(num);
+            if (key == 2)
+                Nominal = "3000";
+            else if (key == 4)
+                Nominal = "1500";
+            else if (key == 6)
+                Nominal = "1000";
+            else if (key == 8)
+                Nominal = "750";
+            else
+                Nominal = "НЕТ ДВИГАТЕЛЯ";
+                return Nominal;
+        }
+
         public bool Equals(FanCData other)
         {
             if (
@@ -106,7 +138,8 @@ namespace VentWPF.Fans
                  INSTALLATION_HEIGHT_MM == other.INSTALLATION_HEIGHT_MM &&
                  INSTALLATION_WIDTH_MM == other.INSTALLATION_WIDTH_MM &&
                  ZA_BG == other.ZA_BG &&
-                 ZA_MAINS_SUPPLY == other.ZA_MAINS_SUPPLY)
+                 ZA_MAINS_SUPPLY == other.ZA_MAINS_SUPPLY &&
+                 FANNAME == other.FANNAME)
                 return true;
             else
                 return false;
@@ -133,6 +166,7 @@ namespace VentWPF.Fans
              hash = hash * 59 + (INSTALLATION_WIDTH_MM.GetHashCode());
              hash = hash * 59 + (ZA_BG.GetHashCode());
              hash = hash * 59 + (ZA_MAINS_SUPPLY.GetHashCode());
+             //hash = hash * 59 + (FANNAME.GetHashCode());
             return hash;
         }
 

@@ -17,21 +17,21 @@ namespace VentWPF.ViewModel
             ShowPD = true;
         }
 
-        protected override float GenPD() => (70f / (4f / ((ProjectInfo.Settings.VFlow / 3600f) / AB)));
+        protected override float GenPD() => 122f;//(70f / (4f / ((ProjectInfo.Settings.VFlow / 3600f) / AB)));
 
         [Category(Data)]
         [SortIndex(-1)]
-        [DisplayName("т. на входе")]
+        [DisplayName("Температура наружного воздуха")]
         [FormatString(fT)]
         public float TempIn { get; set; } = 30;
 
         [SortIndex(-1)]
-        [DisplayName("т. на выходе")]
+        [DisplayName("Температура воздуха на выходе")]
         [FormatString(fT)]
         public float TempOut { get; set; } = 18;
 
         [SortIndex(-1)]
-        [DisplayName("Влажность воздуха")]
+        [DisplayName("Влажность наружнего воздуха")]
         [FormatString(f2)]
         [Range(0, 100)]
         public float HumidityIn { get; set; } = 42;

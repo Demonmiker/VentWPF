@@ -13,6 +13,14 @@ namespace VentWPF.ViewModel
         public ValveVertical()
         {
         }
+        public override void UpdateQuery()
+        {
+            Query = new DatabaseQuery<Привода>
+            {
+                Source = from h in VentContext.Instance.Приводаs select h
+            };
+        }
+
 
         public override string Image => ImagePath("Valves/Vertical");
 
@@ -21,9 +29,10 @@ namespace VentWPF.ViewModel
         public override string Name => "Воздушный клапан вертикальный";
 
         public override List<string> InfoProperties => new()
-        {
-            nameof(WidthValve),
-            nameof(HeightValve),
+        {            
+            "cut",
+            "PressureDrop",
+            "DisplayData.Stervo",
         };
     }
 }

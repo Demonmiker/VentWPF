@@ -32,7 +32,7 @@ namespace VentWPF
         [FormatString("{0} мм")]
         public double? ВысотаГабарит { get; set; }
 
-        [DisplayName("ДУ")]
+        [DisplayName("Присоединительные размеры патрубков")]
         public string ДПрисоединения { get; set; }
 
         [DisplayName("Ширина Жс")]

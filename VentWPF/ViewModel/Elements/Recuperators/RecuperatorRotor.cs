@@ -1,11 +1,14 @@
-﻿using PropertyTools.DataAnnotations;
+﻿using ERIREC.Entities.Public.Result;
+using PropertyTools.DataAnnotations;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using VentWPF.data;
 using VentWPF.Model;
 using VentWPF.Model.Calculations;
 using static VentWPF.ViewModel.Strings;
+
 
 namespace VentWPF.ViewModel
 {
@@ -39,21 +42,32 @@ namespace VentWPF.ViewModel
 
         public override string Name => $"Роторный Рекуператор {(DeviceData as ВодаТепло)?.Типоряд}";
 
+        [Browsable(false)]
+        public EriRheMResultData Result => Recuperator_rotor_request.GetRequest(S_Airflow, S_Temperature,
+            S_RelativeHumidity, E_Airflow, E_Temperature, E_RelativeHumidity, E_Diam, ProjectInfo.Settings.TopHeight, ProjectInfo.Settings.Width);
         /// <summary>
         /// КПД
         /// </summary>
-        [Category(Info)]
-        [DisplayName("КПД")]
-        [FormatString(Strings.fper)]
-        public float KPD => -1f;
-
+        [Category(Data)]
+        [DisplayName("Объём притока")]
+        [FormatString(Strings.fkgm3)]
+        public double S_Airflow { get; set; } = ProjectInfo.Settings.VFlow;
+        
+        /// <summary>
+        /// КПД
+        /// </summary>
+        [Category(Data)]
+        [DisplayName("Объём вытяжки")]
+        [FormatString(Strings.fkgm3)]
+        public double E_Airflow { get; set; } = ProjectInfo.Settings.VReserv;
+        
         /// <summary>
         /// Температура входа
         /// </summary>
         [Category(Data)]
         [DisplayName("Темп. входа")]
         [FormatString(Strings.fT)]
-        public float Tinlet => -1f;
+        public double S_Temperature { get; set; } = -5;
 
         /// <summary>
         /// Температура выхода
@@ -61,7 +75,7 @@ namespace VentWPF.ViewModel
         [Category(Data)]
         [DisplayName("Темп. выхода")]
         [FormatString(Strings.fT)]
-        public float Toutlet => -1f;
+        public double E_Temperature { get; set; } = 25;
 
         /// <summary>
         /// Влажность входа
@@ -69,7 +83,7 @@ namespace VentWPF.ViewModel
         [Category(Data)]
         [DisplayName("Влаж. входа")]
         [FormatString(Strings.fper)]
-        public float Densinlet => -1f;
+        public double S_RelativeHumidity { get; set; } = 80;
 
         /// <summary>
         /// Влажность выхода
@@ -77,27 +91,24 @@ namespace VentWPF.ViewModel
         [Category(Data)]
         [DisplayName("Влаж. выхода")]
         [FormatString(Strings.fper)]
-        public float Densoutlet => -1f;
+        public double E_RelativeHumidity { get; set; } = 60;
 
-        /// <summary>
-        /// Р вытяжки
-        /// </summary>
-        [Category(Info)]
-        [DisplayName("Сопр. вытяжки")]
+        [Category(Data)]
+        [DisplayName("Диаметр колеса")]
         [FormatString(Strings.fper)]
-        public float PFlow => -1f;
-        
-        //TODO: Demonmiker, смотри, тут сопротивление верхнего и нижнего ярусов разные и как-то считаются(уже спросил как). Но как
-        //отправить эти числа в PDrops? Вариант: как-то пометить их и привязать одно к нижней половине элемента, другую к верхней. Подумай <3
+        public double E_Diam { get; set; } = 1200;
 
-        /// <summary>
-        /// Р резерва
-        /// </summary>
+        protected override float GenPD() => (float)(Result.BarometricPressure.Value / 1000);
+
         [Category(Info)]
-        [DisplayName("Сопр. притока")]
-        [FormatString(Strings.fper)]
-        public float Pflowreserv => -1f;
-
+        [DisplayName("Фактический поток вытяжки")]
+        [FormatString(Strings.fkgm3)]
+        public double E_ActualAirflow => Result.E_ActualAirflow.Value;
+                
+        [Category(Info)]
+        [DisplayName("Массовый расход вытяжки")]
+        [FormatString(Strings.fkgm3)]
+        public double TEST => Result.E_AE_Massflow.Value;
 
         public override List<string> InfoProperties => new()
         {

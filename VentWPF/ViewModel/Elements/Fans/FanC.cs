@@ -73,21 +73,25 @@ namespace VentWPF.ViewModel
 
         public override List<string> InfoProperties => new()
         {
-            "DeviceData.TYPE",
+            //"DeviceData.TYPE",
+            "DeviceData.FANNAME",
             "Power",
+            "PressureFloor",
             "PressureDropSystem",
             "PressureRaise",            
             "DeviceData.ZA_N",
-            "DeviceData.POWER_OUTPUT_HP",
             "DeviceData.POWER_CALC_KW",
-            "DeviceData.NOMINAL_SPEED",
-            "DeviceData.ZA_PD",
+            "DeviceData.POWER_OUTPUT_KW",            
+            //"DeviceData.NOMINAL_SPEED",
+            //"DeviceData.ZA_PD",
             "DeviceData.ZA_PF",
-            "DeviceData.ZA_ETAF_L",            
-            "DeviceData.ZA_LW6",
-            "DeviceData.MAX_FREQUENCY",
-            "DeviceData.NOMINAL_FREQUENCY",
-            "DeviceData.ZA_UN",
+            "DeviceData.ZA_ETAF_L",
+            "DeviceData.ENGINE",
+            //"DeviceData.ZA_LW6",
+            //"DeviceData.MAX_FREQUENCY",
+            //"DeviceData.NOMINAL_FREQUENCY",
+            //"DeviceData.ZA_UN",
+            "DeviceData.Nominal_Voltage",
         };
     }
 }
