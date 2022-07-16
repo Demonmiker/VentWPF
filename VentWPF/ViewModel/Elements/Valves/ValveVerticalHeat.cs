@@ -28,7 +28,7 @@ namespace VentWPF.ViewModel
 
         public override List<string> InfoProperties => new()
         {
-            "cut",
+            "Cut",
             "DeviceData.Маркировка",
             "DeviceData.КолВоПоШирине",
             "TEN_count",
