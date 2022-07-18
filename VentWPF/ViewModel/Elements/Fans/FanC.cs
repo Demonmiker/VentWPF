@@ -24,11 +24,11 @@ namespace VentWPF.ViewModel
                     Language = "RU",
                     Password = "bnexg5",
                     Username = "ZAFS19946",
-                    PressureDrop = Calculations.GPD(Project.Grid.InTopRow(this)) + ProjectInfo.Settings.PFlow,
-                    SearchTolerance = 10,
+                    PressureDrop = Calculations.GPD(Project.Grid.InTopRow(this)) + Calculations.PressureInfo(Project.Grid.InTopRow(this)),
+                    SearchTolerance = 0,
                     UnitSystem = "m",
                     Voltage = (int)Voltage,
-                    VFlow = ProjectInfo.Settings.VFlow,
+                    VFlow = Calculations.AirFlow(Project.Grid.InTopRow(this)),
                     Freq = Freq,
                     Spec = "PF_57",
                     FanType = FanType,
@@ -49,7 +49,7 @@ namespace VentWPF.ViewModel
 
         [Category(Data)]        
         [DisplayName("Поисковый запрос")]
-        public string FanType { get; set; } = "ER*C*DN*1R";
+        public string FanType { get; set; } = "ER*C*DN*";
 
         public override int Width => (int)((DeviceData as FanCData)?.INSTALLATION_WIDTH_MM ?? 0);
 
