@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using static VentWPF.ViewModel.Strings;
+using System;
 
 namespace VentWPF.ViewModel
 {
@@ -10,18 +11,7 @@ namespace VentWPF.ViewModel
     /// </summary>
     internal class ValveVertical : Valve
     {
-        public ValveVertical()
-        {
-        }
-        public override void UpdateQuery()
-        {
-            Query = new DatabaseQuery<Привода>
-            {
-                Source = from h in VentContext.Instance.Приводаs select h
-            };
-        }
-
-
+        
         public override string Image => ImagePath("Valves/Vertical");
 
         public override int Length => 125;
@@ -29,8 +19,8 @@ namespace VentWPF.ViewModel
         public override string Name => "Воздушный клапан вертикальный";
 
         public override List<string> InfoProperties => new()
-        {            
-            "cut",
+        {
+            "Cut",
             "PressureDrop",
             "DisplayData.Stervo",
         };

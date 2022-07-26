@@ -18,7 +18,7 @@ namespace VentWPF
         [NotMapped]
         [DisplayName("Скорость")]
         [FormatString("{0:0.00} м/с")]
-        public double? Скорость => 278 * ProjectVM.Current.ProjectInfo.Settings.VFlow / (ШиринаЖс * ВысотаЖс);
+        public double? Скорость => (ProjectVM.Current.ProjectInfo.Settings.VFlow / 3600) / ((ШиринаЖс / 1000) * (ВысотаЖс / 1000));
 
         [DisplayName("Мощность")]
         [FormatString("{0:0.00} kВт")]

@@ -20,7 +20,7 @@ namespace VentWPF.ViewModel.Elements
                     { "ВысотаГабарит", new Condition<double>(x => x <= Project.Settings.GetHeight(e)) },
                     { "Скорость", new Condition<double>(x => x is > 2.5 and < 4.5) },
                     { "NКвт" , new Condition<double>(x => x > e.Power) },
-                },
+                    },
                 CoolerWater e => new()
                 {
                     { "LВозд", new Condition<double>(x => x >= Project.Settings.VFlow) },
@@ -37,7 +37,7 @@ namespace VentWPF.ViewModel.Elements
                 },
                 FanC e => new()
                 {
-                    { "NDiff", new Condition<double>(x => x is < 200 and > 0) },
+                    { "NDiff", new Condition<double>(x => Math.Abs(x) is < 200 and > 0) },
                     { "INSTALLATION_WIDTH_MM", new Condition<double>(x => x <= Project.Settings.Width) },
                     { "INSTALLATION_HEIGHT_MM", new Condition<double>(x => x <= Project.Settings.GetHeight(e)) },
                 },

@@ -14,8 +14,9 @@ namespace VentWPF.Fans
         //[DisplayName("ID")]
         public string ARTICLE_NO { get; set; }
 
+        [Browsable(false)]
         [DisplayName("Вентилятор")]
-        public string TYPE { get; set; }
+        public string SHORTFANNAME => Shortings(TYPE);
 
         [DisplayName("Номинальная мощность")]
         [FormatString(fkW)]
@@ -27,7 +28,7 @@ namespace VentWPF.Fans
 
         [DisplayName("Разница оборотов")]
         [FormatString(f2)]
-        public double NDiff => Convert.ToDouble(NOMINAL_SPEED) - ZA_N;
+        public double NDiff =>Convert.ToDouble(NOMINAL_SPEED) - ZA_N;
 
         [DisplayName("Обороты колеса")]
         [FormatString(fRotate)]
@@ -90,13 +91,20 @@ namespace VentWPF.Fans
 
         public string ZA_MAINS_SUPPLY { get; set; }
 
-        [Browsable(false)]
-        [DisplayName("Вентилятор")]        
-        public string FANNAME { get; set; }
-
+        [DisplayName("Наименование")]
+        public string TYPE { get; set; }
+                
         [Browsable(false)]
         [DisplayName("Двигатель")]        
         public string ENGINE => Convert.ToString(POWER_OUTPUT_KW) + "x" + Convert.ToString(Nominals(TYPE));
+
+        public string Shortings(string fullname)
+        {
+            string Short;
+            var Digit = fullname.Split("-");
+            Short = Digit[0];            
+            return Short;
+        }
 
         public string Nominals(string name)
         {
@@ -138,8 +146,8 @@ namespace VentWPF.Fans
                  INSTALLATION_HEIGHT_MM == other.INSTALLATION_HEIGHT_MM &&
                  INSTALLATION_WIDTH_MM == other.INSTALLATION_WIDTH_MM &&
                  ZA_BG == other.ZA_BG &&
-                 ZA_MAINS_SUPPLY == other.ZA_MAINS_SUPPLY &&
-                 FANNAME == other.FANNAME)
+                 ZA_MAINS_SUPPLY == other.ZA_MAINS_SUPPLY) //&&
+                 //FANNAME == other.FANNAME)
                 return true;
             else
                 return false;

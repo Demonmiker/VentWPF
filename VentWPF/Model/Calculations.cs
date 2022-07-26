@@ -272,6 +272,10 @@ namespace VentWPF.Model.Calculations
             return result;
         }
 
+        /// <summary>
+        /// Функция указывает сопротевление выбранного яруса (приток или вытяжка)
+        /// </summary>
+        /// <returns> Возвращает значения в верхней или нижней части </returns>
         public static float PressureInfo(bool top)
         {
             var result = 0f;
@@ -279,6 +283,16 @@ namespace VentWPF.Model.Calculations
                 result = ProjectInfo.Settings.PFlow;
             else
                 result = ProjectInfo.Settings.PReserv;
+            return result;
+        }
+
+        public static float AirFlow(bool top)
+        {
+            var result = 0f;
+            if (top)
+                result = ProjectInfo.Settings.VFlow;
+            else
+                result = ProjectInfo.Settings.PFlow;
             return result;
         }
     }

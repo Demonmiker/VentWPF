@@ -17,7 +17,15 @@ namespace VentWPF.Fans.FanSelect
 
                 var result = response[0] != '[' ? null : JsonSerializer.Deserialize<List<FanCData>>(response);
                 result = result.Distinct().ToList();
-                return result;
+                List<FanCData> test = new();
+                foreach (var i in result)
+                {
+                    if (i.POWER_OUTPUT_KW / i.POWER_CALC_KW < 2)
+                    {
+                        test.Add(i);
+                    }
+                }
+                return test;
             }
             catch (Exception ex)
             {
