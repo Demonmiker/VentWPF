@@ -65,6 +65,14 @@ namespace VentWPF.ViewModel
         [FormatString(fkW)]
         public float Power => Calculations.heaterPower(TempOut, TempIn);
 
+        /// <summary>
+        /// Скорость потока (для отметок)
+        /// </summary>
+        [Browsable(false)]
+        [DisplayName("Скорость")]
+        [FormatString(fkW)]
+        public float Speed => ((float)ProjectVM.Current.ProjectInfo.Settings.VFlow / 3600) / (((float)ProjectVM.Current.ProjectInfo.Settings.Width / 1000f) * ((float)ProjectVM.Current.ProjectInfo.Settings.TopHeight / 1000f));
+
         protected override float GenPD() => 70f / (4f / (ProjectInfo.Settings.VFlow / 3600f / AB));
 
         [Browsable(false)]

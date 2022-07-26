@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Data;
 using VentWPF.Tools;
 
+
 namespace VentWPF.ViewModel.Elements
 {
     internal static class Conditions
@@ -18,9 +19,9 @@ namespace VentWPF.ViewModel.Elements
                     { "LВозд", new Condition<double>(x => x >= Project.Settings.VFlow) },
                     { "ШиринаГабарит", new Condition<double>(x => x <= Project.Settings.Width) },
                     { "ВысотаГабарит", new Condition<double>(x => x <= Project.Settings.GetHeight(e)) },
-                    { "Скорость", new Condition<double>(x => x is > 2.5 and < 4.5) },
-                    { "NКвт" , new Condition<double>(x => x > e.Power) },
-                    },
+                    { "Скорость", new Condition<double>(x => x > e.Speed * 0.8 && x < e.Speed * 1.2) },
+                    { "NКвт", new Condition<double>(x => x > e.Power) },
+                },
                 CoolerWater e => new()
                 {
                     { "LВозд", new Condition<double>(x => x >= Project.Settings.VFlow) },
@@ -41,12 +42,6 @@ namespace VentWPF.ViewModel.Elements
                     { "INSTALLATION_WIDTH_MM", new Condition<double>(x => x <= Project.Settings.Width) },
                     { "INSTALLATION_HEIGHT_MM", new Condition<double>(x => x <= Project.Settings.GetHeight(e)) },
                 },
-                /*Recuperator_Rotor => new()
-                {
-                    { "Ширина", new Condition<double>(x => x <= Project.Settings.Width) },
-                    { "Высота", new Condition<double>(x => x <= Project.Settings.GetHeight(e))},
-                    { "VМ3Ч", new Condition<double>(x => x <= Project.Settings.VFlow) },
-                },*/
                 _ => new() { }
             };
         }
