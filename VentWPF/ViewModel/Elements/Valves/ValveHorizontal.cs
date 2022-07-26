@@ -20,7 +20,7 @@ namespace VentWPF.ViewModel
         {
             "Cut",
             "PressureDrop",
-            "DisplayData.Stervo",
+            //"DisplayData.Stervo",
         };
     }
 }

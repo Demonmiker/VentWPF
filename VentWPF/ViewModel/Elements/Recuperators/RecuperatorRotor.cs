@@ -98,7 +98,7 @@ namespace VentWPF.ViewModel
         [FormatString(Strings.fper)]
         public double E_Diam { get; set; } = 1200;
 
-        protected override float GenPD() => (float)(Result.BarometricPressure.Value / 1000);
+        protected override float GenPD() => 15;//(float)(Result.BarometricPressure.Value / 1000);
 
         [Category(Info)]
         [DisplayName("Фактический поток вытяжки")]
